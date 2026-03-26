@@ -6,18 +6,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  background:#0f172a;
-  margin:0;
-  color:white;
-  -webkit-font-smoothing:antialiased;
+body {
+  font-family: Arial;
+  background: #0f172a;
+  margin: 0;
+  color: white;
+}
+
+/* CONTAINER (FIX DESKTOP + MOBILE) */
+.container{
+  max-width: 900px;
+  margin: auto;
+  padding: 0 16px;
 }
 
 /* HEADER */
-.header{
-  text-align:center;
-  padding:20px 15px;
+.header {
+  padding: 25px 0;
 }
 
 .header-inner{
@@ -27,61 +32,85 @@ body{
   gap:12px;
 }
 
-.title{
-  font-size:28px;
-  font-weight:700;
-}
-
-.subtitle{
-  font-size:13px;
-  color:#94a3b8;
-}
-
 /* LOGO */
-.logo-box{
+.logo-box {
   width:36px;
   height:36px;
   border-radius:10px;
-  background:linear-gradient(135deg,#22c55e,#3b82f6);
+  background: linear-gradient(135deg,#22c55e,#3b82f6);
   display:flex;
   align-items:center;
   justify-content:center;
   font-weight:bold;
   font-size:18px;
-  animation:pulse 2s infinite;
+  color:white;
+  animation: pulse 2s infinite;
 }
 
-@keyframes pulse{
-  0%{box-shadow:0 0 0 rgba(59,130,246,0.6);}
-  50%{box-shadow:0 0 12px rgba(59,130,246,0.8);}
-  100%{box-shadow:0 0 0 rgba(59,130,246,0.6);}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 rgba(59,130,246,0.6); }
+  50% { box-shadow: 0 0 12px rgba(59,130,246,0.8); }
+  100% { box-shadow: 0 0 0 rgba(59,130,246,0.6); }
 }
 
 /* SEARCH */
-.search{
-  padding:0 15px;
-  margin-bottom:20px;
+.search {
+  margin: 20px 0;
 }
 
-.search input{
-  width:100%;
-  padding:14px;
-  border-radius:30px;
-  border:1px solid rgba(255,255,255,0.1);
-  background:rgba(255,255,255,0.08);
+.search input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  background: rgba(255,255,255,0.08);
   color:white;
-  outline:none;
-  font-size:16px;
 }
 
-/* SECTION */
-.section{
-  padding:15px;
+/* SECTIONS */
+.section {
+  padding: 20px 0;
 }
 
-.section h2{
-  margin-bottom:12px;
-  font-size:18px;
+.section h2 {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 14px;
+}
+
+/* CARD */
+.card {
+  background: #1e293b;
+  padding: 16px;
+  border-radius: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.card img {
+  width: 45px;
+  height: 45px;
+  margin-bottom: 10px;
+  background: rgba(255,255,255,0.85);
+  padding: 6px;
+  border-radius: 10px;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  background: #334155;
 }
 
 /* ADD BOX */
@@ -89,140 +118,92 @@ body{
   display:flex;
   flex-direction:column;
   gap:10px;
-  margin-bottom:15px;
 }
 
 .add-box input{
   width:100%;
-  padding:14px;
-  border-radius:14px;
-  background:rgba(255,255,255,0.08);
-  color:white;
-  border:1px solid rgba(255,255,255,0.1);
 }
 
 .add-box button{
   width:100%;
-  padding:14px;
+  padding:12px;
   border-radius:14px;
-  background:#3b82f6;
-  border:none;
-  color:white;
-  font-weight:600;
-  cursor:pointer;
 }
 
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
-  gap:12px;
+/* LINK FIX */
+.card a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  width: 100%;
 }
 
-/* CARD */
-.card{
-  background:#1e293b;
-  padding:16px;
-  border-radius:18px;
-  text-align:center;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  transition:0.2s;
-  cursor:pointer;
+.card a:hover {
+  color: white;
 }
 
-.card:hover{
-  transform:translateY(-3px);
-  background:#334155;
+/* INPUT */
+input {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
 }
 
-.card img{
-  width:45px;
-  height:45px;
-  margin-bottom:8px;
-  background:white;
-  padding:6px;
-  border-radius:8px;
+/* BUTTON */
+button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
 }
 
-.card a{
-  text-decoration:none;
-  color:white;
+.delete-btn {
+  margin-top: 6px;
+  font-size: 12px;
+  background: #ef4444;
 }
 
-.delete-btn{
-  margin-top:6px;
-  font-size:12px;
-  background:#ef4444;
-  border:none;
-  border-radius:6px;
-  padding:4px 8px;
-  color:white;
+/* MOBILE EXTRA */
+@media (max-width: 600px){
+  .container{
+    padding: 0 12px;
+  }
 }
-
-/* SPOTLIGHT */
-#spotlight{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(0,0,0,0.6);
-  backdrop-filter:blur(10px);
-  opacity:0;
-  visibility:hidden;
-  transition:0.2s;
-}
-
-#spotlight.active{
-  opacity:1;
-  visibility:visible;
-}
-
-#spotlight input{
-  width:80%;
-  max-width:500px;
-  padding:18px;
-  border-radius:20px;
-  border:none;
-  font-size:18px;
-  outline:none;
-}
-
 </style>
 </head>
 
 <body>
 
+<div class="container">
+
 <div class="header">
   <div class="header-inner">
     <div class="logo-box">P</div>
     <div>
-      <div class="title">Portify</div>
-      <div class="subtitle">your internet in one place</div>
+      <div style="font-size:28px;font-weight:700;">Portify</div>
+      <div style="font-size:13px;color:#94a3b8;">your internet in one place</div>
     </div>
   </div>
 </div>
 
 <div class="search">
-  <input type="text" placeholder="Αναζήτηση..." autofocus onkeydown="handleSearch(event,this.value)">
+<input type="text" placeholder="Αναζήτηση..." autofocus onkeydown="handleSearch(event,this.value)">
 </div>
 
 <div class="section">
-  <h2>🛠 Φτιάξε το δικό σου Portify</h2>
+<h2>🛠 Φτιάξε το δικό σου Portify</h2>
 
-  <div class="add-box">
-    <input id="customName" placeholder="Όνομα site">
-    <input id="customUrl" type="url" placeholder="Link">
-    <button onclick="addCustom()">Προσθήκη</button>
-  </div>
+<div class="add-box">
+<input id="customName" placeholder="Όνομα site">
+<input id="customUrl" type="url" placeholder="Link">
+<button onclick="addCustom()">Προσθήκη</button>
+</div>
 
-  <div id="favorites" class="grid"></div>
+<div id="favorites" class="grid"></div>
 </div>
 
 <div class="section">
@@ -235,72 +216,28 @@ body{
 </div>
 </div>
 
-<div class="section">
-<h2>📰 Ειδήσεις</h2>
-<div class="grid">
-<a class="card" href="https://www.kathimerini.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=kathimerini.gr">Καθημερινή</a>
-<a class="card" href="https://www.protothema.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=protothema.gr">Πρώτο Θέμα</a>
-<a class="card" href="https://www.news247.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=news247.gr">News247</a>
-</div>
-</div>
-
-<div class="section">
-<h2>⚽ Αθλητικά</h2>
-<div class="grid">
-<a class="card" href="https://www.sport24.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=sport24.gr">Sport24</a>
-<a class="card" href="https://www.gazzetta.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=gazzetta.gr">Gazzetta</a>
-<a class="card" href="https://www.sdna.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=sdna.gr">SDNA</a>
-</div>
-</div>
-
-<div class="section">
-<h2>🌐 Χρήσιμα</h2>
-<div class="grid">
-<a class="card" href="https://www.google.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=google.com">Google</a>
-<a class="card" href="https://www.youtube.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=youtube.com">YouTube</a>
-<a class="card" href="https://www.facebook.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=facebook.com">Facebook</a>
-<a class="card" href="https://mail.google.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=gmail.com">Gmail</a>
-<a class="card" href="https://maps.google.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=maps.google.com">Maps</a>
-<a class="card" href="https://www.accuweather.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=accuweather.com">Καιρός</a>
-</div>
-</div>
-
-<div id="spotlight">
-  <input id="spotInput" placeholder="Search anything...">
 </div>
 
 <script>
-let favorites=JSON.parse(localStorage.getItem("favorites"))||[];
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
 function getDomain(url){
   try{return new URL(url).hostname;}catch{return url;}
 }
 
 function renderFavorites(){
-  const c=document.getElementById("favorites");
-  c.innerHTML="";
+  const container=document.getElementById("favorites");
+  container.innerHTML="";
   favorites.forEach((f,i)=>{
     const d=getDomain(f.url);
-    c.innerHTML+=`
-    <div class="card">
-      <a href="${f.url}" target="_blank">
-        <img src="https://www.google.com/s2/favicons?sz=64&domain=${d}">
-        ${f.name}
-      </a>
-      <button class="delete-btn" onclick="removeFavorite(${i})">X</button>
-    </div>`;
+    container.innerHTML+=`
+      <div class="card">
+        <a href="${f.url}" target="_blank">
+          <img src="https://www.google.com/s2/favicons?sz=64&domain=${d}">
+          ${f.name}
+        </a>
+        <button class="delete-btn" onclick="removeFavorite(${i})">X</button>
+      </div>`;
   });
 }
 
@@ -331,27 +268,6 @@ function handleSearch(e,val){
 }
 
 renderFavorites();
-
-const spot=document.getElementById('spotlight');
-const input=document.getElementById('spotInput');
-
-document.addEventListener('keydown',e=>{
-  if(e.key==='/' || (e.ctrlKey && e.key==='k')){
-    e.preventDefault();
-    spot.classList.add('active');
-    input.focus();
-  }
-  if(e.key==='Escape'){
-    spot.classList.remove('active');
-    input.value='';
-  }
-});
-
-input.addEventListener('keydown',e=>{
-  if(e.key==='Enter'){
-    window.open('https://www.google.com/search?q='+input.value,'_blank');
-  }
-});
 </script>
 
 </body>
