@@ -6,199 +6,192 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-  font-family: Arial;
-  background: #0f172a;
-  margin: 0;
-  color: white;
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:#0f172a;
+  margin:0;
+  color:white;
+  -webkit-font-smoothing:antialiased;
 }
 
 /* HEADER */
-.header {
-  text-align: center;
-  padding: 25px;
+.header{
+  text-align:center;
+  padding:20px 15px;
+}
+
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+}
+
+.title{
+  font-size:28px;
+  font-weight:700;
+}
+
+.subtitle{
+  font-size:13px;
+  color:#94a3b8;
 }
 
 /* LOGO */
-.logo-box {
+.logo-box{
   width:36px;
   height:36px;
   border-radius:10px;
-  background: linear-gradient(135deg,#22c55e,#3b82f6);
+  background:linear-gradient(135deg,#22c55e,#3b82f6);
   display:flex;
   align-items:center;
   justify-content:center;
   font-weight:bold;
   font-size:18px;
-  color:white;
-  animation: pulse 2s infinite;
+  animation:pulse 2s infinite;
 }
 
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 rgba(59,130,246,0.6); }
-  50% { box-shadow: 0 0 12px rgba(59,130,246,0.8); }
-  100% { box-shadow: 0 0 0 rgba(59,130,246,0.6); }
+@keyframes pulse{
+  0%{box-shadow:0 0 0 rgba(59,130,246,0.6);}
+  50%{box-shadow:0 0 12px rgba(59,130,246,0.8);}
+  100%{box-shadow:0 0 0 rgba(59,130,246,0.6);}
 }
 
 /* SEARCH */
-.search {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
+.search{
+  padding:0 15px;
+  margin-bottom:20px;
 }
 
-.search input {
-  width: 90%;
-  max-width: 500px;
-  padding: 14px;
-  border-radius: 30px;
-  border: none;
-  outline: none;
+.search input{
+  width:100%;
+  padding:14px;
+  border-radius:30px;
+  border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.08);
+  color:white;
+  outline:none;
+  font-size:16px;
 }
 
-/* SECTIONS */
-.section {
-  max-width: 1100px;
-  margin: auto;
-  padding: 20px;
+/* SECTION */
+.section{
+  padding:15px;
 }
 
-.section h2 {
-  margin-bottom: 15px;
-  font-size: 20px;
+.section h2{
+  margin-bottom:12px;
+  font-size:18px;
+}
+
+/* ADD BOX */
+.add-box{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.add-box input{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.08);
+  color:white;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+.add-box button{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  background:#3b82f6;
+  border:none;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
 }
 
 /* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 15px;
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:12px;
 }
 
 /* CARD */
-.card {
-  background: #1e293b;
-  padding: 18px;
-  border-radius: 14px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: 0.2s;
+.card{
+  background:#1e293b;
+  padding:16px;
+  border-radius:18px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  transition:0.2s;
+  cursor:pointer;
 }
 
-.card img {
-  width: 50px;
-  height: 50px;
-  margin-bottom: 10px;
-  background: white;
-  padding: 6px;
-  border-radius: 8px;
+.card:hover{
+  transform:translateY(-3px);
+  background:#334155;
 }
 
-.card:hover {
-  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
-  transform: translateY(-3px);
-  background: #334155;
+.card img{
+  width:45px;
+  height:45px;
+  margin-bottom:8px;
+  background:white;
+  padding:6px;
+  border-radius:8px;
 }
 
-/* LINK FIX (ΣΗΜΑΝΤΙΚΟ) */
-.card a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: white;
-  width: 100%;
-  height: 100%;
+.card a{
+  text-decoration:none;
+  color:white;
 }
 
-.card a:hover {
-  color: white;
-}
-
-/* INPUT */
-input {
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  margin-right: 8px;
-}
-
-/* BUTTON */
-button {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-.delete-btn {
-  margin-top: 6px;
-  font-size: 12px;
-  background: #ef4444;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 10px;
-  }
-
-  .card {
-    padding: 12px;
-    font-size: 14px;
-  }
-
-  .card img {
-    width: 40px;
-    height: 40px;
-  }
+.delete-btn{
+  margin-top:6px;
+  font-size:12px;
+  background:#ef4444;
+  border:none;
+  border-radius:6px;
+  padding:4px 8px;
+  color:white;
 }
 
 /* SPOTLIGHT */
-#spotlight {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: none;
-  backdrop-filter: blur(10px);
-  background: rgba(0,0,0,0.6);
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
+#spotlight{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
+  opacity:0;
+  visibility:hidden;
+  transition:0.2s;
 }
 
-#spotlight input {
-  width: 60%;
-  max-width: 600px;
-  padding: 20px;
-  font-size: 18px;
-  border-radius: 20px;
-  border: none;
-  outline: none;
+#spotlight.active{
+  opacity:1;
+  visibility:visible;
 }
 
-/* FORCE NO BLUE LINKS */
-.card a,
-.card a:visited,
-.card a:hover,
-.card a:active {
-  color: white !important;
-  text-decoration: none !important;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
+#spotlight input{
+  width:80%;
+  max-width:500px;
+  padding:18px;
+  border-radius:20px;
+  border:none;
+  font-size:18px;
+  outline:none;
 }
 
 </style>
@@ -207,29 +200,29 @@ a {
 <body>
 
 <div class="header">
-  <div style="display:flex;align-items:center;justify-content:center;gap:12px;">
+  <div class="header-inner">
     <div class="logo-box">P</div>
     <div>
-      <div style="font-size:32px;font-weight:700;">Portify</div>
-      <div style="font-size:14px;color:#94a3b8;">your internet in one place</div>
+      <div class="title">Portify</div>
+      <div class="subtitle">your internet in one place</div>
     </div>
   </div>
 </div>
 
 <div class="search">
-<input type="text" placeholder="Αναζήτηση..." autofocus onkeydown="handleSearch(event,this.value)">
+  <input type="text" placeholder="Αναζήτηση..." autofocus onkeydown="handleSearch(event,this.value)">
 </div>
 
 <div class="section">
-<h2>🛠 Φτιάξε το δικό σου Portify</h2>
+  <h2>🛠 Φτιάξε το δικό σου Portify</h2>
 
-<div style="margin-bottom:15px;">
-<input id="customName" placeholder="Όνομα site">
-<input id="customUrl" type="url" placeholder="Link">
-<button onclick="addCustom()">Προσθήκη</button>
-</div>
+  <div class="add-box">
+    <input id="customName" placeholder="Όνομα site">
+    <input id="customUrl" type="url" placeholder="Link">
+    <button onclick="addCustom()">Προσθήκη</button>
+  </div>
 
-<div id="favorites" class="grid"></div>
+  <div id="favorites" class="grid"></div>
 </div>
 
 <div class="section">
@@ -242,88 +235,45 @@ a {
 </div>
 </div>
 
-
-<!-- ΕΙΔΗΣΕΙΣ -->
 <div class="section">
 <h2>📰 Ειδήσεις</h2>
 <div class="grid">
-
 <a class="card" href="https://www.kathimerini.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=kathimerini.gr">
-Καθημερινή
-</a>
-
+<img src="https://www.google.com/s2/favicons?sz=64&domain=kathimerini.gr">Καθημερινή</a>
 <a class="card" href="https://www.protothema.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=protothema.gr">
-Πρώτο Θέμα
-</a>
-
+<img src="https://www.google.com/s2/favicons?sz=64&domain=protothema.gr">Πρώτο Θέμα</a>
 <a class="card" href="https://www.news247.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=news247.gr">
-News247
-</a>
-
+<img src="https://www.google.com/s2/favicons?sz=64&domain=news247.gr">News247</a>
 </div>
 </div>
 
-<!-- ΑΘΛΗΤΙΚΑ -->
 <div class="section">
 <h2>⚽ Αθλητικά</h2>
 <div class="grid">
-
 <a class="card" href="https://www.sport24.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=sport24.gr">
-Sport24
-</a>
-
+<img src="https://www.google.com/s2/favicons?sz=64&domain=sport24.gr">Sport24</a>
 <a class="card" href="https://www.gazzetta.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=gazzetta.gr">
-Gazzetta
-</a>
-
+<img src="https://www.google.com/s2/favicons?sz=64&domain=gazzetta.gr">Gazzetta</a>
 <a class="card" href="https://www.sdna.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=sdna.gr">
-SDNA
-</a>
-
+<img src="https://www.google.com/s2/favicons?sz=64&domain=sdna.gr">SDNA</a>
 </div>
 </div>
 
-<!-- ΧΡΗΣΙΜΑ -->
 <div class="section">
 <h2>🌐 Χρήσιμα</h2>
 <div class="grid">
-
 <a class="card" href="https://www.google.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=google.com">
-Google
-</a>
-
+<img src="https://www.google.com/s2/favicons?sz=64&domain=google.com">Google</a>
 <a class="card" href="https://www.youtube.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=youtube.com">
-YouTube
-</a>
-
+<img src="https://www.google.com/s2/favicons?sz=64&domain=youtube.com">YouTube</a>
 <a class="card" href="https://www.facebook.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=facebook.com">
-Facebook
-</a>
-
+<img src="https://www.google.com/s2/favicons?sz=64&domain=facebook.com">Facebook</a>
 <a class="card" href="https://mail.google.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=gmail.com">
-Gmail
-</a>
-
+<img src="https://www.google.com/s2/favicons?sz=64&domain=gmail.com">Gmail</a>
 <a class="card" href="https://maps.google.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=maps.google.com">
-Google Maps
-</a>
-
+<img src="https://www.google.com/s2/favicons?sz=64&domain=maps.google.com">Maps</a>
 <a class="card" href="https://www.accuweather.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=accuweather.com">
-Καιρός
-</a>
-
+<img src="https://www.google.com/s2/favicons?sz=64&domain=accuweather.com">Καιρός</a>
 </div>
 </div>
 
@@ -332,25 +282,25 @@ Google Maps
 </div>
 
 <script>
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+let favorites=JSON.parse(localStorage.getItem("favorites"))||[];
 
 function getDomain(url){
   try{return new URL(url).hostname;}catch{return url;}
 }
 
 function renderFavorites(){
-  const container=document.getElementById("favorites");
-  container.innerHTML="";
+  const c=document.getElementById("favorites");
+  c.innerHTML="";
   favorites.forEach((f,i)=>{
     const d=getDomain(f.url);
-    container.innerHTML+=`
-      <div class="card">
-        <a href="${f.url}" target="_blank">
-          <img src="https://www.google.com/s2/favicons?sz=64&domain=${d}">
-          ${f.name}
-        </a>
-        <button class="delete-btn" onclick="removeFavorite(${i})">X</button>
-      </div>`;
+    c.innerHTML+=`
+    <div class="card">
+      <a href="${f.url}" target="_blank">
+        <img src="https://www.google.com/s2/favicons?sz=64&domain=${d}">
+        ${f.name}
+      </a>
+      <button class="delete-btn" onclick="removeFavorite(${i})">X</button>
+    </div>`;
   });
 }
 
@@ -382,18 +332,17 @@ function handleSearch(e,val){
 
 renderFavorites();
 
-// spotlight
 const spot=document.getElementById('spotlight');
 const input=document.getElementById('spotInput');
 
 document.addEventListener('keydown',e=>{
-  if(e.key==='/'){
+  if(e.key==='/' || (e.ctrlKey && e.key==='k')){
     e.preventDefault();
-    spot.style.display='flex';
+    spot.classList.add('active');
     input.focus();
   }
   if(e.key==='Escape'){
-    spot.style.display='none';
+    spot.classList.remove('active');
     input.value='';
   }
 });
