@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portify - Your Internet, Perfected</title>
 <meta name="description" content="The smartest way to organize your internet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2322c55e'/%3E%3Cstop offset='50%25' stop-color='%233b82f6'/%3E%3Cstop offset='100%25' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='16' y='16' width='480' height='480' rx='96' fill='url(%23g)'/%3E%3Cpath d='M16 112Q256 16 496 112L496 160Q256 64 16 160Z' fill='rgba(255,255,255,0.15)'/%3E%3Ctext x='256' y='360' font-family='system-ui' font-size='280' font-weight='800' fill='white' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAABHNCSVQICAgIfAhkiAAAAElJREFUeJzt0EENwCAQwEDiT2OENmhXyI7g2zYzv8/5O8/3zFyP5+Z6PDfX47m5Hs/N9Xhurufz5+Z6PDfX47m5Hs/N9Xhurufz5wO8YwO8U31xUAAAAABJRU5ErkJggg==">
+<meta name="theme-color" content="#0a0f1c">
 
 <style>
 /* ============================================
@@ -19,7 +22,7 @@
   --bg-card: #1f2937;
   --bg-card-hover: #374151;
   --bg-input: rgba(255,255,255,0.05);
-
+  
   /* Accent Colors */
   --accent-blue: #3b82f6;
   --accent-green: #22c55e;
@@ -27,39 +30,39 @@
   --accent-red: #ef4444;
   --accent-orange: #f59e0b;
   --accent-cyan: #06b6d4;
-
+  
   /* Gradients */
   --gradient-logo: linear-gradient(135deg, #22c55e 0%, #3b82f6 50%, #8b5cf6 100%);
   --gradient-glow: radial-gradient(circle at 50% 0%, rgba(59,130,246,0.15), transparent 50%);
-
+  
   /* Text */
   --text-primary: #ffffff;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
-
+  
   /* Spacing (8px base) */
   --space-1: 0.5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
   --space-4: 2rem;
   --space-5: 3rem;
-
+  
   /* Typography */
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-
+  
   /* Effects */
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
   --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4);
   --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.5);
   --shadow-glow: 0 0 30px rgba(59,130,246,0.2);
-
+  
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
-
+  
   /* Category Colors */
   --cat-news: #ef4444;
   --cat-sports: #22c55e;
@@ -822,7 +825,6 @@ kbd {
   background: var(--cat-color);
 }
 </style>
-<base target="_blank">
 </head>
 
 <body>
@@ -870,7 +872,7 @@ kbd {
         Πρόσθεσε νέο bookmark
       </h2>
     </div>
-
+    
     <div class="add-form">
       <div class="form-grid">
         <div class="form-group">
@@ -1036,13 +1038,13 @@ const State = {
   bookmarks: [],
   draggedItem: null,
   draggedIndex: null,
-
+  
   init() {
     this.bookmarks = Storage.get(CONFIG.storageKey) || [];
     this.render();
     this.renderDefaults();
   },
-
+  
   add(bookmark) {
     if (this.bookmarks.length >= CONFIG.maxBookmarks) {
       Toast.error('Φτάσατε το όριο των 100 bookmarks');
@@ -1054,27 +1056,27 @@ const State = {
     Toast.success(`Προστέθηκε: ${bookmark.name}`);
     return true;
   },
-
+  
   remove(index) {
     const removed = this.bookmarks.splice(index, 1)[0];
     Storage.set(CONFIG.storageKey, this.bookmarks);
     this.render();
     Toast.info(`Αφαιρέθηκε: ${removed.name}`);
   },
-
+  
   reorder(fromIndex, toIndex) {
     const [moved] = this.bookmarks.splice(fromIndex, 1);
     this.bookmarks.splice(toIndex, 0, moved);
     Storage.set(CONFIG.storageKey, this.bookmarks);
     this.render();
   },
-
+  
   render() {
     const grid = document.getElementById('favoritesGrid');
     const countEl = document.getElementById('myBookmarksCount');
-
+    
     countEl.textContent = `${this.bookmarks.length} item${this.bookmarks.length !== 1 ? 's' : ''}`;
-
+    
     if (this.bookmarks.length === 0) {
       grid.innerHTML = `
         <div class="empty-state">
@@ -1085,34 +1087,34 @@ const State = {
       `;
       return;
     }
-
+    
     grid.innerHTML = this.bookmarks.map((bookmark, index) => this.createCard(bookmark, index, true)).join('');
     this.attachDragHandlers();
   },
-
+  
   renderDefaults() {
     document.getElementById('trendingGrid').innerHTML = 
       DEFAULT_BOOKMARKS.trending.map(b => this.createCard(b, null, false)).join('');
     document.getElementById('greekGrid').innerHTML = 
       DEFAULT_BOOKMARKS.greek.map(b => this.createCard(b, null, false)).join('');
   },
-
+  
   createCard(bookmark, index, isDraggable) {
     const domain = Utils.getDomain(bookmark.url);
     const category = CATEGORIES[bookmark.category] || CATEGORIES.other;
-
+    
     return `
       <div class="card cat-${bookmark.category}" 
            ${isDraggable ? `draggable="true" data-index="${index}"` : ''}
            onclick="${isDraggable ? '' : `window.open('${bookmark.url}', '_blank')`}">
-
+        
         ${isDraggable ? `
           <div class="card-actions">
             <button class="card-btn drag-handle" title="Drag to reorder">⋮⋮</button>
             <button class="card-btn" onclick="event.stopPropagation(); State.remove(${index})" title="Delete">×</button>
           </div>
         ` : ''}
-
+        
         <div class="card-icon-wrapper">
           <img src="https://www.google.com/s2/favicons?sz=64&domain=${domain}" 
                class="card-icon" 
@@ -1120,16 +1122,16 @@ const State = {
                onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${category.icon}</text></svg>'">
           <div class="card-category-indicator" title="${category.label}"></div>
         </div>
-
+        
         <div class="card-title">${Utils.escapeHtml(bookmark.name)}</div>
         <div class="card-url">${domain}</div>
       </div>
     `;
   },
-
+  
   attachDragHandlers() {
     const cards = document.querySelectorAll('#favoritesGrid .card');
-
+    
     cards.forEach(card => {
       card.addEventListener('dragstart', (e) => {
         this.draggedItem = card;
@@ -1137,28 +1139,28 @@ const State = {
         card.classList.add('dragging');
         e.dataTransfer.effectAllowed = 'move';
       });
-
+      
       card.addEventListener('dragend', () => {
         card.classList.remove('dragging');
         document.querySelectorAll('.card').forEach(c => c.classList.remove('drag-over'));
         this.draggedItem = null;
       });
-
+      
       card.addEventListener('dragover', (e) => {
         e.preventDefault();
         if (card === this.draggedItem) return;
         card.classList.add('drag-over');
       });
-
+      
       card.addEventListener('dragleave', () => {
         card.classList.remove('drag-over');
       });
-
+      
       card.addEventListener('drop', (e) => {
         e.preventDefault();
         card.classList.remove('drag-over');
         if (card === this.draggedItem) return;
-
+        
         const toIndex = parseInt(card.dataset.index);
         this.reorder(this.draggedIndex, toIndex);
       });
@@ -1176,7 +1178,7 @@ const Storage = {
       return null;
     }
   },
-
+  
   set(key, value) {
     try {
       localStorage.setItem(key, JSON.stringify(value));
@@ -1197,22 +1199,22 @@ const Utils = {
       return url;
     }
   },
-
+  
   normalizeUrl(input) {
     if (!input) return null;
     input = input.trim();
-
+    
     if (input.startsWith('http')) return input;
     if (input.includes('.') && !input.includes(' ')) return `https://${input}`;
     return null;
   },
-
+  
   escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
   },
-
+  
   debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -1229,30 +1231,30 @@ const Utils = {
 // --- TOAST NOTIFICATIONS ---
 const Toast = {
   container: document.getElementById('toastContainer'),
-
+  
   show(message, type = 'info', duration = 3000) {
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
-
+    
     const icons = {
       success: '✓',
       error: '✕',
       info: 'ℹ'
     };
-
+    
     toast.innerHTML = `
       <span style="font-size: 1.25rem;">${icons[type]}</span>
       <span>${message}</span>
     `;
-
+    
     this.container.appendChild(toast);
-
+    
     setTimeout(() => {
       toast.classList.add('toast-exit');
       setTimeout(() => toast.remove(), 300);
     }, duration);
   },
-
+  
   success(msg) { this.show(msg, 'success'); },
   error(msg) { this.show(msg, 'error', 5000); },
   info(msg) { this.show(msg, 'info'); }
@@ -1263,22 +1265,22 @@ function addBookmark() {
   const nameInput = document.getElementById('customName');
   const urlInput = document.getElementById('customUrl');
   const categoryInput = document.getElementById('customCategory');
-
+  
   const name = nameInput.value.trim();
   const urlInputValue = urlInput.value.trim();
   const category = categoryInput.value;
-
+  
   if (!name || !urlInputValue) {
     Toast.error('Συμπλήρωσε όνομα και URL');
     return;
   }
-
+  
   const url = Utils.normalizeUrl(urlInputValue);
   if (!url) {
     Toast.error('Άκυρο URL');
     return;
   }
-
+  
   if (State.add({ name, url, category, createdAt: Date.now() })) {
     nameInput.value = '';
     urlInput.value = '';
@@ -1290,7 +1292,7 @@ function handleSearch(e) {
   if (e.key === 'Enter') {
     const value = e.target.value.trim();
     if (!value) return;
-
+    
     const url = Utils.normalizeUrl(value);
     if (url) {
       window.open(url, '_blank');
@@ -1309,13 +1311,13 @@ function setupKeyboardShortcuts() {
       e.preventDefault();
       document.getElementById('searchInput').focus();
     }
-
+    
     // Ctrl/Cmd + N = Focus name input
     if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
       e.preventDefault();
       document.getElementById('customName').focus();
     }
-
+    
     // Ctrl/Cmd + 1-9 = Open bookmark
     if ((e.ctrlKey || e.metaKey) && e.key >= '1' && e.key <= '9') {
       e.preventDefault();
@@ -1324,7 +1326,7 @@ function setupKeyboardShortcuts() {
         window.open(State.bookmarks[index].url, '_blank');
       }
     }
-
+    
     // Esc = Close modal
     if (e.key === 'Escape') {
       hideShortcutsModal();
@@ -1348,7 +1350,7 @@ function exportData() {
     exportedAt: new Date().toISOString(),
     version: '2.0'
   };
-
+  
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -1356,7 +1358,7 @@ function exportData() {
   a.download = `portify-backup-${new Date().toISOString().split('T')[0]}.json`;
   a.click();
   URL.revokeObjectURL(url);
-
+  
   Toast.success('Εξαγωγή επιτυχής!');
 }
 
@@ -1364,11 +1366,11 @@ function importData() {
   const input = document.createElement('input');
   input.type = 'file';
   input.accept = '.json';
-
+  
   input.onchange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
+    
     const reader = new FileReader();
     reader.onload = (event) => {
       try {
@@ -1387,7 +1389,7 @@ function importData() {
     };
     reader.readAsText(file);
   };
-
+  
   input.click();
 }
 
@@ -1395,15 +1397,15 @@ function importData() {
 document.addEventListener('DOMContentLoaded', () => {
   State.init();
   setupKeyboardShortcuts();
-
+  
   // Setup search
   document.getElementById('searchInput').addEventListener('keydown', handleSearch);
-
+  
   // Setup form inputs
   document.getElementById('customUrl').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') addBookmark();
   });
-
+  
   // Close modal on overlay click
   document.getElementById('shortcutsModal').addEventListener('click', (e) => {
     if (e.target.id === 'shortcutsModal') hideShortcutsModal();
