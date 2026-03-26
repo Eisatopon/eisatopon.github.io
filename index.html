@@ -333,99 +333,135 @@ body::before {
 }
 
 /* ============================================
-   ADD BOOKMARK FORM
+   SMART INPUT FORM (ΝΕΟ)
    ============================================ */
 
-.add-form {
+.smart-form {
   background: var(--bg-secondary);
   border-radius: 20px;
-  padding: var(--space-3);
+  padding: var(--space-4);
   margin-bottom: var(--space-3);
   border: 1px solid rgba(255,255,255,0.05);
 }
 
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: var(--space-2);
-  align-items: end;
+.input-with-icon {
+  position: relative;
+  margin-bottom: var(--space-3);
 }
 
-@media (max-width: 768px) {
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
+.input-icon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.35rem;
+  color: var(--text-muted);
+  pointer-events: none;
+  z-index: 2;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.form-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.form-input {
-  padding: 12px 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.1);
+.smart-input {
+  width: 100%;
+  padding: 18px 20px 18px 55px;
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: 9999px;
   background: var(--bg-input);
   color: var(--text-primary);
-  font-size: 0.9375rem;
+  font-size: 1.05rem;
   outline: none;
-  transition: all var(--transition-fast);
+  transition: all var(--transition-base);
 }
 
-.form-input:focus {
+.smart-input:focus {
   border-color: var(--accent-blue);
   background: rgba(59,130,246,0.05);
+  box-shadow: 0 0 0 4px rgba(59,130,246,0.12);
 }
 
-.form-select {
-  padding: 12px 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: var(--bg-input);
-  color: var(--text-primary);
-  font-size: 0.9375rem;
-  outline: none;
-  cursor: pointer;
+.smart-input.valid {
+  border-color: var(--accent-green);
+  background: rgba(34,197,94,0.05);
 }
 
-.btn {
-  display: inline-flex;
+.smart-input.search {
+  border-color: var(--accent-orange);
+  background: rgba(245,158,11,0.05);
+}
+
+.input-status {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 15px;
+}
+
+.form-row {
+  display: flex;
+  gap: var(--space-2);
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 24px;
-  border-radius: 12px;
-  border: none;
-  font-weight: 600;
-  font-size: 0.9375rem;
-  cursor: pointer;
+}
+
+.form-row .form-select {
+  flex: 1;
+}
+
+.preview-card {
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  display: none;
+  align-items: center;
+  gap: var(--space-3);
+  opacity: 0;
+  transform: translateY(10px);
   transition: all var(--transition-base);
-  white-space: nowrap;
 }
 
-.btn-primary {
-  background: var(--accent-blue);
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #2563eb;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59,130,246,0.4);
-}
-
-.btn-primary:active {
+.preview-card.show {
+  display: flex;
+  opacity: 1;
   transform: translateY(0);
+}
+
+.preview-card img {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: #fff;
+  padding: 6px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.preview-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.preview-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.preview-url {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ============================================
@@ -614,7 +650,7 @@ body::before {
 }
 
 /* ============================================
-   TOAST NOTIFICATIONS
+   TOAST, MODAL, SHORTCUTS, FOOTER (ίδια όπως πριν)
    ============================================ */
 
 .toast-container {
@@ -655,14 +691,8 @@ body::before {
 }
 
 @keyframes slideIn {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
 }
 
 .toast-exit {
@@ -670,15 +700,8 @@ body::before {
 }
 
 @keyframes slideOut {
-  to {
-    transform: translateX(100%);
-    opacity: 0;
-  }
+  to { transform: translateX(100%); opacity: 0; }
 }
-
-/* ============================================
-   MODAL
-   ============================================ */
 
 .modal-overlay {
   position: fixed;
@@ -742,10 +765,6 @@ body::before {
   color: white;
 }
 
-/* ============================================
-   KEYBOARD SHORTCUTS HELP
-   ============================================ */
-
 .shortcuts-grid {
   display: grid;
   gap: var(--space-2);
@@ -774,10 +793,6 @@ kbd {
   border: 1px solid rgba(255,255,255,0.1);
 }
 
-/* ============================================
-   FOOTER
-   ============================================ */
-
 .footer {
   text-align: center;
   padding: var(--space-4) 0;
@@ -804,14 +819,11 @@ kbd {
   color: var(--accent-blue);
 }
 
-/* ============================================
-   UTILITY CLASSES
-   ============================================ */
-
+/* Utility */
 .hidden { display: none !important; }
 .sr-only { position: absolute; left: -9999px; }
 
-/* Category colors utility */
+/* Category colors */
 .cat-news { --cat-color: var(--cat-news); }
 .cat-sports { --cat-color: var(--cat-sports); }
 .cat-work { --cat-color: var(--cat-work); }
@@ -864,42 +876,51 @@ kbd {
     </div>
   </div>
 
-  <!-- ADD BOOKMARK SECTION -->
+  <!-- SMART ADD BOOKMARK SECTION (ΝΕΟ) -->
   <section class="section">
     <div class="section-header">
       <h2 class="section-title">
         <span class="section-title-icon">✨</span>
-        Πρόσθεσε νέο bookmark
+        Έξυπνη Προσθήκη
       </h2>
     </div>
     
-    <div class="add-form">
-      <div class="form-grid">
-        <div class="form-group">
-          <label class="form-label">Όνομα</label>
-          <input type="text" class="form-input" id="customName" placeholder="π.χ. Netflix">
-        </div>
-        <div class="form-group">
-          <label class="form-label">URL ή Αναζήτηση</label>
-          <input type="text" class="form-input" id="customUrl" placeholder="netflix.com ή 'ταινίες'">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Κατηγορία</label>
-          <select class="form-select" id="customCategory">
-            <option value="other">📁 Άλλο</option>
-            <option value="news">📰 Ειδήσεις</option>
-            <option value="sports">⚽ Αθλητικά</option>
-            <option value="work">💼 Εργασία</option>
-            <option value="social">💬 Social</option>
-            <option value="shopping">🛒 Shopping</option>
-            <option value="entertainment">🎬 Ψυχαγωγία</option>
-            <option value="finance">💰 Οικονομικά</option>
-          </select>
-        </div>
-        <button class="btn btn-primary" onclick="addBookmark()">
-          <span>+</span>
-          Προσθήκη
+    <div class="smart-form">
+      <div class="input-with-icon">
+        <span class="input-icon">🔍</span>
+        <input 
+          type="text" 
+          id="smartInput" 
+          class="smart-input"
+          placeholder="Βάλε URL (netflix.com) ή λέξη για αναζήτηση..."
+          autocomplete="off"
+        >
+        <div class="input-status" id="inputStatus"></div>
+      </div>
+
+      <div class="form-row">
+        <select id="customCategory" class="form-select">
+          <option value="other">📁 Άλλο</option>
+          <option value="news">📰 Ειδήσεις</option>
+          <option value="sports">⚽ Αθλητικά</option>
+          <option value="work">💼 Εργασία</option>
+          <option value="social">💬 Social</option>
+          <option value="shopping">🛒 Shopping</option>
+          <option value="entertainment">🎬 Ψυχαγωγία</option>
+          <option value="finance">💰 Οικονομικά</option>
+        </select>
+        <button id="addBtn" class="btn btn-primary" disabled>
+          + Προσθήκη
         </button>
+      </div>
+
+      <!-- Preview -->
+      <div id="previewCard" class="preview-card">
+        <img id="previewIcon" src="" alt="">
+        <div class="preview-info">
+          <div id="previewName" class="preview-name"></div>
+          <div id="previewUrl" class="preview-url"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -1200,15 +1221,6 @@ const Utils = {
     }
   },
   
-  normalizeUrl(input) {
-    if (!input) return null;
-    input = input.trim();
-    
-    if (input.startsWith('http')) return input;
-    if (input.includes('.') && !input.includes(' ')) return `https://${input}`;
-    return null;
-  },
-  
   escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
@@ -1260,65 +1272,127 @@ const Toast = {
   info(msg) { this.show(msg, 'info'); }
 };
 
-// --- CORE FUNCTIONS ---
-function addBookmark() {
-  const nameInput = document.getElementById('customName');
-  const urlInput = document.getElementById('customUrl');
-  const categoryInput = document.getElementById('customCategory');
-  
-  const name = nameInput.value.trim();
-  const urlInputValue = urlInput.value.trim();
-  const category = categoryInput.value;
-  
-  if (!name || !urlInputValue) {
-    Toast.error('Συμπλήρωσε όνομα και URL');
-    return;
-  }
-  
-  const url = Utils.normalizeUrl(urlInputValue);
-  if (!url) {
-    Toast.error('Άκυρο URL');
-    return;
-  }
-  
-  if (State.add({ name, url, category, createdAt: Date.now() })) {
-    nameInput.value = '';
-    urlInput.value = '';
-    categoryInput.value = 'other';
-  }
-}
+// ====================== SMART INPUT ======================
+const SmartInput = {
+  input: null,
+  status: null,
+  previewCard: null,
+  previewIcon: null,
+  previewName: null,
+  previewUrl: null,
+  addBtn: null,
+  categorySelect: null,
 
-function handleSearch(e) {
-  if (e.key === 'Enter') {
-    const value = e.target.value.trim();
-    if (!value) return;
-    
-    const url = Utils.normalizeUrl(value);
-    if (url) {
-      window.open(url, '_blank');
-    } else {
-      window.open(`https://www.google.com/search?q=${encodeURIComponent(value)}`, '_blank');
+  currentState: { isUrl: false, url: '', name: '', isSearch: false },
+
+  init() {
+    this.input = document.getElementById('smartInput');
+    this.status = document.getElementById('inputStatus');
+    this.previewCard = document.getElementById('previewCard');
+    this.previewIcon = document.getElementById('previewIcon');
+    this.previewName = document.getElementById('previewName');
+    this.previewUrl = document.getElementById('previewUrl');
+    this.addBtn = document.getElementById('addBtn');
+    this.categorySelect = document.getElementById('customCategory');
+
+    const debouncedHandle = Utils.debounce(this.handleInput.bind(this), 280);
+    this.input.addEventListener('input', debouncedHandle);
+    this.input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') this.handleAdd();
+    });
+
+    this.addBtn.addEventListener('click', () => this.handleAdd());
+  },
+
+  handleInput() {
+    const value = this.input.value.trim();
+    if (!value) {
+      this.reset();
+      return;
     }
-    e.target.value = '';
+
+    const isUrl = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\.[a-z]{2,})/i.test(value);
+
+    if (isUrl) {
+      let url = value.startsWith('http') ? value : 'https://' + value;
+      let name = Utils.getDomain(url)
+        .replace(/^www\./, '')
+        .replace(/\.[^.]+$/, '')
+        .replace(/[-_]/g, ' ')
+        .replace(/\b\w/g, l => l.toUpperCase());
+
+      this.currentState = { isUrl: true, url, name, isSearch: false };
+
+      this.input.classList.add('valid');
+      this.input.classList.remove('search');
+      this.status.innerHTML = '<span style="background:#22c55e;color:white">✓</span>';
+
+      this.previewIcon.src = `https://www.google.com/s2/favicons?sz=64&domain=${Utils.getDomain(url)}`;
+      this.previewName.textContent = name;
+      this.previewUrl.textContent = Utils.getDomain(url);
+      this.previewCard.classList.add('show');
+
+      this.addBtn.disabled = false;
+      this.addBtn.textContent = '+ Προσθήκη';
+    } else {
+      this.currentState = { isUrl: false, url: '', name: '', isSearch: true };
+
+      this.input.classList.add('search');
+      this.input.classList.remove('valid');
+      this.status.innerHTML = '<span style="background:#f59e0b;color:white">🔍</span>';
+
+      this.previewCard.classList.remove('show');
+      this.addBtn.disabled = false;
+      this.addBtn.textContent = '🔍 Αναζήτηση';
+    }
+  },
+
+  handleAdd() {
+    if (this.currentState.isSearch) {
+      const query = encodeURIComponent(this.input.value.trim());
+      window.open(`https://www.google.com/search?q=${query}`, '_blank');
+      this.reset();
+      return;
+    }
+
+    if (this.currentState.isUrl) {
+      const bookmark = {
+        name: this.currentState.name,
+        url: this.currentState.url,
+        category: this.categorySelect.value || 'other',
+        createdAt: Date.now()
+      };
+
+      if (State.add(bookmark)) {
+        this.reset();
+      }
+    }
+  },
+
+  reset() {
+    this.input.value = '';
+    this.input.classList.remove('valid', 'search');
+    this.status.innerHTML = '';
+    this.previewCard.classList.remove('show');
+    this.addBtn.disabled = true;
+    this.addBtn.textContent = '+ Προσθήκη';
+    this.currentState = { isUrl: false, url: '', name: '', isSearch: false };
   }
-}
+};
 
 // --- KEYBOARD SHORTCUTS ---
 function setupKeyboardShortcuts() {
   document.addEventListener('keydown', (e) => {
-    // Ctrl/Cmd + K = Focus search
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
       e.preventDefault();
       document.getElementById('searchInput').focus();
     }
     
-    // Ctrl/Cmd + N = Focus name input
     if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
       e.preventDefault();
-      document.getElementById('customName').focus();
+      document.getElementById('smartInput').focus();
     }
     
-    // Ctrl/Cmd + 1-9 = Open bookmark
     if ((e.ctrlKey || e.metaKey) && e.key >= '1' && e.key <= '9') {
       e.preventDefault();
       const index = parseInt(e.key) - 1;
@@ -1327,14 +1401,13 @@ function setupKeyboardShortcuts() {
       }
     }
     
-    // Esc = Close modal
     if (e.key === 'Escape') {
       hideShortcutsModal();
     }
   });
 }
 
-// --- MODAL FUNCTIONS ---
+// --- MODAL & IMPORT/EXPORT FUNCTIONS (ίδιες) ---
 function showShortcutsModal() {
   document.getElementById('shortcutsModal').classList.add('active');
 }
@@ -1343,7 +1416,6 @@ function hideShortcutsModal() {
   document.getElementById('shortcutsModal').classList.remove('active');
 }
 
-// --- IMPORT/EXPORT ---
 function exportData() {
   const data = {
     bookmarks: State.bookmarks,
@@ -1396,14 +1468,20 @@ function importData() {
 // --- INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', () => {
   State.init();
+  SmartInput.init();           // ← Νέα αρχικοποίηση
   setupKeyboardShortcuts();
   
-  // Setup search
-  document.getElementById('searchInput').addEventListener('keydown', handleSearch);
-  
-  // Setup form inputs
-  document.getElementById('customUrl').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') addBookmark();
+  // Setup global search
+  document.getElementById('searchInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const value = e.target.value.trim();
+      if (!value) return;
+      const url = Utils.getDomain(value).includes('.') ? 
+        (value.startsWith('http') ? value : 'https://' + value) : 
+        `https://www.google.com/search?q=${encodeURIComponent(value)}`;
+      window.open(url, '_blank');
+      e.target.value = '';
+    }
   });
   
   // Close modal on overlay click
