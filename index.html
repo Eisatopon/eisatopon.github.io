@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<title>Portify</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  font-family: Arial;
+  background: #0f172a;
+  margin: 0;
+  color: white;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  padding: 25px;
+}
+
+/* LOGO */
+.logo-box {
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  background: linear-gradient(135deg,#22c55e,#3b82f6);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  font-size:18px;
+  color:white;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 rgba(59,130,246,0.6); }
+  50% { box-shadow: 0 0 12px rgba(59,130,246,0.8); }
+  100% { box-shadow: 0 0 0 rgba(59,130,246,0.6); }
+}
+
+/* SEARCH */
+.search {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.search input {
+  width: 90%;
+  max-width: 500px;
+  padding: 14px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+}
+
+/* SECTIONS */
+.section {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+
+.section h2 {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+/* CARD */
+.card {
+  background: #1e293b;
+  padding: 18px;
+  border-radius: 14px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.card img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+  background: white;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.card:hover {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+  transform: translateY(-3px);
+  background: #334155;
+}
+
+/* LINK FIX (ΣΗΜΑΝΤΙΚΟ) */
+.card a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  width: 100%;
+  height: 100%;
+}
+
+.card a:hover {
+  color: white;
+}
+
+/* INPUT */
+input {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  margin-right: 8px;
+}
+
+/* BUTTON */
+button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  margin-top: 6px;
+  font-size: 12px;
+  background: #ef4444;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+
+  .card {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .card img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* SPOTLIGHT */
+#spotlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.6);
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+#spotlight input {
+  width: 60%;
+  max-width: 600px;
+  padding: 20px;
+  font-size: 18px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+}
+
+/* FORCE NO BLUE LINKS */
+.card a,
+.card a:visited,
+.card a:hover,
+.card a:active {
+  color: white !important;
+  text-decoration: none !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div style="display:flex;align-items:center;justify-content:center;gap:12px;">
+    <div class="logo-box">P</div>
+    <div>
+      <div style="font-size:32px;font-weight:700;">Portify</div>
+      <div style="font-size:14px;color:#94a3b8;">your internet in one place</div>
+    </div>
+  </div>
+</div>
+
+<div class="search">
+<input type="text" placeholder="Αναζήτηση..." autofocus onkeydown="handleSearch(event,this.value)">
+</div>
+
+<div class="section">
+<h2>🛠 Φτιάξε το δικό σου Portify</h2>
+
+<div style="margin-bottom:15px;">
+<input id="customName" placeholder="Όνομα site">
+<input id="customUrl" type="url" placeholder="Link">
+<button onclick="addCustom()">Προσθήκη</button>
+</div>
+
+<div id="favorites" class="grid"></div>
+</div>
+
+<div class="section">
+<h2>🔥 Trending</h2>
+<div class="grid">
+<a class="card" href="https://google.com" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=google.com">Google</a>
+<a class="card" href="https://youtube.com" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=youtube.com">YouTube</a>
+</div>
+</div>
+
+
+<!-- ΕΙΔΗΣΕΙΣ -->
+<div class="section">
+<h2>📰 Ειδήσεις</h2>
+<div class="grid">
+
+<a class="card" href="https://www.kathimerini.gr" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=kathimerini.gr">
+Καθημερινή
+</a>
+
+<a class="card" href="https://www.protothema.gr" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=protothema.gr">
+Πρώτο Θέμα
+</a>
+
+<a class="card" href="https://www.news247.gr" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=news247.gr">
+News247
+</a>
+
+</div>
+</div>
+
+<!-- ΑΘΛΗΤΙΚΑ -->
+<div class="section">
+<h2>⚽ Αθλητικά</h2>
+<div class="grid">
+
+<a class="card" href="https://www.sport24.gr" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=sport24.gr">
+Sport24
+</a>
+
+<a class="card" href="https://www.gazzetta.gr" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=gazzetta.gr">
+Gazzetta
+</a>
+
+<a class="card" href="https://www.sdna.gr" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=sdna.gr">
+SDNA
+</a>
+
+</div>
+</div>
+
+<!-- ΧΡΗΣΙΜΑ -->
+<div class="section">
+<h2>🌐 Χρήσιμα</h2>
+<div class="grid">
+
+<a class="card" href="https://www.google.com" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=google.com">
+Google
+</a>
+
+<a class="card" href="https://www.youtube.com" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=youtube.com">
+YouTube
+</a>
+
+<a class="card" href="https://www.facebook.com" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=facebook.com">
+Facebook
+</a>
+
+<a class="card" href="https://mail.google.com" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=gmail.com">
+Gmail
+</a>
+
+<a class="card" href="https://maps.google.com" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=maps.google.com">
+Google Maps
+</a>
+
+<a class="card" href="https://www.accuweather.com" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=accuweather.com">
+Καιρός
+</a>
+
+</div>
+</div>
+
+<div id="spotlight">
+  <input id="spotInput" placeholder="Search anything...">
+</div>
+
+<script>
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+function getDomain(url){
+  try{return new URL(url).hostname;}catch{return url;}
+}
+
+function renderFavorites(){
+  const container=document.getElementById("favorites");
+  container.innerHTML="";
+  favorites.forEach((f,i)=>{
+    const d=getDomain(f.url);
+    container.innerHTML+=`
+      <div class="card">
+        <a href="${f.url}" target="_blank">
+          <img src="https://www.google.com/s2/favicons?sz=64&domain=${d}">
+          ${f.name}
+        </a>
+        <button class="delete-btn" onclick="removeFavorite(${i})">X</button>
+      </div>`;
+  });
+}
+
+function addCustom(){
+  let name=document.getElementById("customName").value;
+  let url=document.getElementById("customUrl").value;
+  if(!name||!url)return;
+  if(!url.startsWith("http"))url="https://"+url;
+  favorites.push({name,url});
+  localStorage.setItem("favorites",JSON.stringify(favorites));
+  renderFavorites();
+}
+
+function removeFavorite(i){
+  favorites.splice(i,1);
+  localStorage.setItem("favorites",JSON.stringify(favorites));
+  renderFavorites();
+}
+
+function handleSearch(e,val){
+  if(e.key==="Enter"){
+    if(val.startsWith("http")){
+      window.open(val,'_blank');
+    }else{
+      window.open('https://www.google.com/search?q='+val,'_blank');
+    }
+  }
+}
+
+renderFavorites();
+
+// spotlight
+const spot=document.getElementById('spotlight');
+const input=document.getElementById('spotInput');
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='/'){
+    e.preventDefault();
+    spot.style.display='flex';
+    input.focus();
+  }
+  if(e.key==='Escape'){
+    spot.style.display='none';
+    input.value='';
+  }
+});
+
+input.addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    window.open('https://www.google.com/search?q='+input.value,'_blank');
+  }
+});
+</script>
+
+</body>
+</html>
