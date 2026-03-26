@@ -2,347 +2,1413 @@
 <html lang="el">
 <head>
 <meta charset="UTF-8">
-<title>Portify</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portify - Your Internet, Perfected</title>
+<meta name="description" content="The smartest way to organize your internet">
 
 <style>
-body {
-  font-family: Arial;
-  background: #0f172a;
+/* ============================================
+   PORTIFY DESIGN SYSTEM
+   Single-file architecture with CSS variables
+   ============================================ */
+
+:root {
+  /* Core Colors */
+  --bg-primary: #0a0f1c;
+  --bg-secondary: #111827;
+  --bg-card: #1f2937;
+  --bg-card-hover: #374151;
+  --bg-input: rgba(255,255,255,0.05);
+
+  /* Accent Colors */
+  --accent-blue: #3b82f6;
+  --accent-green: #22c55e;
+  --accent-purple: #8b5cf6;
+  --accent-red: #ef4444;
+  --accent-orange: #f59e0b;
+  --accent-cyan: #06b6d4;
+
+  /* Gradients */
+  --gradient-logo: linear-gradient(135deg, #22c55e 0%, #3b82f6 50%, #8b5cf6 100%);
+  --gradient-glow: radial-gradient(circle at 50% 0%, rgba(59,130,246,0.15), transparent 50%);
+
+  /* Text */
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  /* Spacing (8px base) */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Effects */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 30px rgba(59,130,246,0.2);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Category Colors */
+  --cat-news: #ef4444;
+  --cat-sports: #22c55e;
+  --cat-work: #3b82f6;
+  --cat-social: #8b5cf6;
+  --cat-shopping: #f59e0b;
+  --cat-entertainment: #ec4899;
+  --cat-finance: #06b6d4;
+  --cat-other: #64748b;
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
-  color: white;
+  padding: 0;
 }
 
-/* =========================
-   CONTAINER (FIX MAIN ISSUE)
-========================= */
-.container{
-  max-width: 900px;
-  margin: auto;
-  padding: 0 14px;
+html {
+  scroll-behavior: smooth;
 }
 
-/* HEADER */
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Animated background gradient */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  background: 
+    radial-gradient(ellipse at top, rgba(59,130,246,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(139,92,246,0.05) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ============================================
+   LAYOUT COMPONENTS
+   ============================================ */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-2);
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: var(--space-2) var(--space-1);
+  }
+}
+
+/* ============================================
+   HEADER & LOGO
+   ============================================ */
+
 .header {
-  padding: 25px 0;
+  padding: var(--space-3) 0;
+  margin-bottom: var(--space-2);
 }
 
-.header-inner{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
-}
-
-/* LOGO */
-.logo-box {
-  width:36px;
-  height:36px;
-  border-radius:10px;
-  background: linear-gradient(135deg,#22c55e,#3b82f6);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-  font-size:18px;
-  color:white;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 rgba(59,130,246,0.6); }
-  50% { box-shadow: 0 0 12px rgba(59,130,246,0.8); }
-  100% { box-shadow: 0 0 0 rgba(59,130,246,0.6); }
-}
-
-/* SEARCH */
-.search {
-  margin: 20px 0;
-}
-
-.search input {
-  width: 100%;
-  padding: 14px;
-  border-radius: 20px;
-  border: none;
-  outline: none;
-  background: rgba(255,255,255,0.08);
-  color:white;
-}
-
-/* SECTIONS */
-.section {
-  padding: 20px 0;
-}
-
-.section h2 {
-  margin-bottom: 15px;
-  font-size: 20px;
-}
-
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 14px;
-}
-
-/* CARD */
-.card {
-  background: #1e293b;
-  padding: 16px;
-  border-radius: 16px;
-  text-align: center;
+.header-inner {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: 0.2s;
+  gap: var(--space-2);
 }
 
-.card img {
-  width: 45px;
-  height: 45px;
-  margin-bottom: 10px;
-  background: rgba(255,255,255,0.85);
-  padding: 6px;
-  border-radius: 10px;
+.logo-container {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
 }
 
-.card:hover {
-  transform: translateY(-3px);
-  background: #334155;
+.logo-container::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 16px;
+  background: var(--gradient-logo);
+  animation: rotate 8s linear infinite;
+  z-index: -1;
 }
 
-/* ADD BOX */
-.add-box{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+.logo-inner {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-primary);
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 22px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.1);
 }
 
-.add-box input{
-  width:100%;
+.logo-inner::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 40%,
+    rgba(255,255,255,0.15) 50%,
+    transparent 60%
+  );
+  animation: shimmer 4s infinite;
 }
 
-.add-box button{
-  width:100%;
-  padding:12px;
-  border-radius:14px;
+@keyframes rotate {
+  to { transform: rotate(360deg); }
 }
 
-/* LINK FIX */
-.card a {
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%); }
+  100% { transform: translateX(100%) translateY(100%); }
+}
+
+.brand-text h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.brand-text p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-top: -2px;
+}
+
+/* ============================================
+   SEARCH COMPONENT
+   ============================================ */
+
+.search-container {
+  position: relative;
+  margin: var(--space-3) 0;
+}
+
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: var(--space-3);
+  color: var(--text-muted);
+  pointer-events: none;
+  transition: color var(--transition-fast);
+}
+
+.search-input {
+  width: 100%;
+  padding: var(--space-3) var(--space-3) var(--space-3) 3.5rem;
+  border-radius: 9999px;
+  border: 2px solid rgba(255,255,255,0.08);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-size: 1rem;
+  outline: none;
+  transition: all var(--transition-base);
+}
+
+.search-input:focus {
+  border-color: var(--accent-blue);
+  background: rgba(59,130,246,0.05);
+  box-shadow: 0 0 0 4px rgba(59,130,246,0.1);
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-hints {
+  position: absolute;
+  right: var(--space-3);
+  display: flex;
+  gap: var(--space-1);
+  pointer-events: none;
+}
+
+.hint-key {
+  padding: 4px 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+@media (max-width: 640px) {
+  .search-hints {
+    display: none;
+  }
+}
+
+/* ============================================
+   SECTIONS
+   ============================================ */
+
+.section {
+  margin-bottom: var(--space-4);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.section-title-icon {
+  font-size: 1.5rem;
+}
+
+.section-count {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  background: rgba(255,255,255,0.05);
+  padding: 4px 12px;
+  border-radius: 9999px;
+}
+
+/* ============================================
+   ADD BOOKMARK FORM
+   ============================================ */
+
+.add-form {
+  background: var(--bg-secondary);
+  border-radius: 20px;
+  padding: var(--space-3);
+  margin-bottom: var(--space-3);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: var(--space-2);
+  align-items: end;
+}
+
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-  color: white;
-  width: 100%;
+  gap: 6px;
 }
 
-/* BUTTON */
-button {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 10px;
+.form-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-input {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-size: 0.9375rem;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.form-input:focus {
+  border-color: var(--accent-blue);
+  background: rgba(59,130,246,0.05);
+}
+
+.form-select {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-size: 0.9375rem;
+  outline: none;
   cursor: pointer;
 }
 
-.delete-btn {
-  margin-top: 6px;
-  font-size: 12px;
-  background: #ef4444;
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
 }
 
-/* MOBILE */
-@media (max-width: 600px){
-  .container{
-    padding: 0 12px;
+.btn-primary {
+  background: var(--accent-blue);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59,130,246,0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* ============================================
+   GRID & CARDS
+   ============================================ */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--space-2);
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-1);
   }
 }
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px;
+  padding: var(--space-3);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+  user-select: none;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.card:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: rgba(59,130,246,0.3);
+  box-shadow: var(--shadow-glow);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card.dragging {
+  opacity: 0.5;
+  transform: scale(1.05);
+  box-shadow: var(--shadow-lg);
+}
+
+.card.drag-over {
+  border-color: var(--accent-blue);
+  background: rgba(59,130,246,0.1);
+}
+
+.card-icon-wrapper {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.95);
+  padding: 8px;
+  transition: transform var(--transition-base);
+  object-fit: contain;
+}
+
+.card:hover .card-icon {
+  transform: scale(1.1) rotate(3deg);
+}
+
+.card-category-indicator {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid var(--bg-card);
+}
+
+.card-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.card-url {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  z-index: 10;
+}
+
+.card:hover .card-actions {
+  opacity: 1;
+}
+
+.card-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(4px);
+}
+
+.card-btn:hover {
+  background: var(--accent-red);
+  transform: scale(1.1);
+}
+
+.card-btn.drag-handle {
+  cursor: grab;
+}
+
+.card-btn.drag-handle:hover {
+  background: var(--accent-blue);
+}
+
+.card-btn.drag-handle:active {
+  cursor: grabbing;
+}
+
+/* Empty State */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--space-5);
+  color: var(--text-muted);
+}
+
+.empty-state-icon {
+  font-size: 4rem;
+  margin-bottom: var(--space-2);
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-1);
+}
+
+/* ============================================
+   TOAST NOTIFICATIONS
+   ============================================ */
+
+.toast-container {
+  position: fixed;
+  bottom: var(--space-3);
+  right: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.toast {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: var(--space-2) var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  box-shadow: var(--shadow-lg);
+  animation: slideIn 0.3s ease-out;
+  pointer-events: auto;
+  min-width: 300px;
+}
+
+.toast.success {
+  border-left: 4px solid var(--accent-green);
+}
+
+.toast.error {
+  border-left: 4px solid var(--accent-red);
+}
+
+.toast.info {
+  border-left: 4px solid var(--accent-blue);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.toast-exit {
+  animation: slideOut 0.3s ease-in forwards;
+}
+
+@keyframes slideOut {
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   MODAL
+   ============================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-base);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background: var(--bg-secondary);
+  border-radius: 24px;
+  padding: var(--space-4);
+  max-width: 500px;
+  width: 90%;
+  border: 1px solid rgba(255,255,255,0.1);
+  transform: scale(0.9);
+  transition: transform var(--transition-base);
+}
+
+.modal-overlay.active .modal {
+  transform: scale(1);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.modal-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 1.25rem;
+  transition: all var(--transition-fast);
+}
+
+.modal-close:hover {
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+
+/* ============================================
+   KEYBOARD SHORTCUTS HELP
+   ============================================ */
+
+.shortcuts-grid {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.shortcut-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2);
+  background: var(--bg-card);
+  border-radius: 10px;
+}
+
+.shortcut-keys {
+  display: flex;
+  gap: 4px;
+}
+
+kbd {
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.footer {
+  text-align: center;
+  padding: var(--space-4) 0;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  margin-top: var(--space-4);
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.footer a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.footer a:hover {
+  color: var(--accent-blue);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.hidden { display: none !important; }
+.sr-only { position: absolute; left: -9999px; }
+
+/* Category colors utility */
+.cat-news { --cat-color: var(--cat-news); }
+.cat-sports { --cat-color: var(--cat-sports); }
+.cat-work { --cat-color: var(--cat-work); }
+.cat-social { --cat-color: var(--cat-social); }
+.cat-shopping { --cat-color: var(--cat-shopping); }
+.cat-entertainment { --cat-color: var(--cat-entertainment); }
+.cat-finance { --cat-color: var(--cat-finance); }
+.cat-other { --cat-color: var(--cat-other); }
+
+.card-category-indicator {
+  background: var(--cat-color);
+}
 </style>
+<base target="_blank">
 </head>
 
 <body>
 
 <div class="container">
 
-<div class="header">
-  <div class="header-inner">
-    <div class="logo-box">P</div>
-    <div>
-      <div style="font-size:28px;font-weight:700;">Portify</div>
-      <div style="font-size:13px;color:#94a3b8;">your internet in one place</div>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo-container">
+        <div class="logo-inner">P</div>
+      </div>
+      <div class="brand-text">
+        <h1>Portify</h1>
+        <p>Your internet, perfected</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- SEARCH -->
+  <div class="search-container">
+    <div class="search-wrapper">
+      <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+      <input 
+        type="text" 
+        class="search-input" 
+        id="searchInput"
+        placeholder="Αναζήτηση ή πληκτρολόγησε URL..." 
+        autocomplete="off"
+      >
+      <div class="search-hints">
+        <span class="hint-key">⌘K</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD BOOKMARK SECTION -->
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="section-title-icon">✨</span>
+        Πρόσθεσε νέο bookmark
+      </h2>
+    </div>
+
+    <div class="add-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Όνομα</label>
+          <input type="text" class="form-input" id="customName" placeholder="π.χ. Netflix">
+        </div>
+        <div class="form-group">
+          <label class="form-label">URL ή Αναζήτηση</label>
+          <input type="text" class="form-input" id="customUrl" placeholder="netflix.com ή 'ταινίες'">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Κατηγορία</label>
+          <select class="form-select" id="customCategory">
+            <option value="other">📁 Άλλο</option>
+            <option value="news">📰 Ειδήσεις</option>
+            <option value="sports">⚽ Αθλητικά</option>
+            <option value="work">💼 Εργασία</option>
+            <option value="social">💬 Social</option>
+            <option value="shopping">🛒 Shopping</option>
+            <option value="entertainment">🎬 Ψυχαγωγία</option>
+            <option value="finance">💰 Οικονομικά</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="addBookmark()">
+          <span>+</span>
+          Προσθήκη
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MY BOOKMARKS -->
+  <section class="section" id="myBookmarksSection">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="section-title-icon">⭐</span>
+        Τα bookmarks μου
+      </h2>
+      <span class="section-count" id="myBookmarksCount">0 items</span>
+    </div>
+    <div class="grid" id="favoritesGrid">
+      <!-- Dynamic content -->
+    </div>
+  </section>
+
+  <!-- TRENDING -->
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="section-title-icon">🔥</span>
+        Trending
+      </h2>
+    </div>
+    <div class="grid" id="trendingGrid">
+      <!-- Dynamic content -->
+    </div>
+  </section>
+
+  <!-- GREEK SITES -->
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="section-title-icon">🇬🇷</span>
+        Ελληνικά Sites
+      </h2>
+    </div>
+    <div class="grid" id="greekGrid">
+      <!-- Dynamic content -->
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="#" onclick="showShortcutsModal(); return false;">⌨️ Shortcuts</a>
+      <a href="#" onclick="exportData(); return false;">📥 Export</a>
+      <a href="#" onclick="importData(); return false;">📤 Import</a>
+    </div>
+    <p>Portify &copy; 2026 - Your internet, perfected</p>
+  </footer>
+
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- SHORTCUTS MODAL -->
+<div class="modal-overlay" id="shortcutsModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title">⌨️ Keyboard Shortcuts</h3>
+      <button class="modal-close" onclick="hideShortcutsModal()">&times;</button>
+    </div>
+    <div class="shortcuts-grid">
+      <div class="shortcut-row">
+        <span>Focus search</span>
+        <div class="shortcut-keys"><kbd>Ctrl</kbd><kbd>K</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span>New bookmark</span>
+        <div class="shortcut-keys"><kbd>Ctrl</kbd><kbd>N</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span>Open bookmark #1-9</span>
+        <div class="shortcut-keys"><kbd>Ctrl</kbd><kbd>1-9</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span>Close modal</span>
+        <div class="shortcut-keys"><kbd>Esc</kbd></div>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="search">
-<input type="text" placeholder="Αναζήτηση..." autofocus onkeydown="handleSearch(event,this.value)">
-</div>
-
-<div class="section">
-<h2>🛠 Φτιάξε το δικό σου Portify</h2>
-
-<div class="add-box">
-<input id="customName" placeholder="Όνομα site">
-<input id="customUrl" type="url" placeholder="Link">
-<button onclick="addCustom()">Προσθήκη</button>
-</div>
-
-<div id="favorites" class="grid"></div>
-</div>
-
-<!-- TRENDING -->
-<div class="section">
-<h2>🔥 Trending</h2>
-<div class="grid">
-<a class="card" href="https://google.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=google.com">Google</a>
-<a class="card" href="https://youtube.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=youtube.com">YouTube</a>
-</div>
-</div>
-
-<!-- ΕΙΔΗΣΕΙΣ -->
-<div class="section">
-<h2>📰 Ειδήσεις</h2>
-<div class="grid">
-
-<a class="card" href="https://www.kathimerini.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=kathimerini.gr">
-Καθημερινή
-</a>
-
-<a class="card" href="https://www.protothema.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=protothema.gr">
-Πρώτο Θέμα
-</a>
-
-<a class="card" href="https://www.news247.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=news247.gr">
-News247
-</a>
-
-</div>
-</div>
-
-<!-- ΑΘΛΗΤΙΚΑ -->
-<div class="section">
-<h2>⚽ Αθλητικά</h2>
-<div class="grid">
-
-<a class="card" href="https://www.sport24.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=sport24.gr">
-Sport24
-</a>
-
-<a class="card" href="https://www.gazzetta.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=gazzetta.gr">
-Gazzetta
-</a>
-
-<a class="card" href="https://www.sdna.gr" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=sdna.gr">
-SDNA
-</a>
-
-</div>
-</div>
-
-<!-- ΧΡΗΣΙΜΑ -->
-<div class="section">
-<h2>🌐 Χρήσιμα</h2>
-<div class="grid">
-
-<a class="card" href="https://www.google.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=google.com">
-Google
-</a>
-
-<a class="card" href="https://www.youtube.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=youtube.com">
-YouTube
-</a>
-
-<a class="card" href="https://www.facebook.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=facebook.com">
-Facebook
-</a>
-
-<a class="card" href="https://mail.google.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=gmail.com">
-Gmail
-</a>
-
-<a class="card" href="https://maps.google.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=maps.google.com">
-Google Maps
-</a>
-
-<a class="card" href="https://www.accuweather.com" target="_blank">
-<img src="https://www.google.com/s2/favicons?sz=64&domain=accuweather.com">
-Καιρός
-</a>
-
-</div>
-</div>
-
-</div>
-
 <script>
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+// ============================================
+// PORTIFY CORE - Modular Architecture
+// ============================================
 
-function getDomain(url){
-  try{return new URL(url).hostname;}catch{return url;}
-}
+// --- CONFIGURATION ---
+const CONFIG = {
+  storageKey: 'portify_v2_bookmarks',
+  maxBookmarks: 100,
+  debounceDelay: 150
+};
 
-function renderFavorites(){
-  const container=document.getElementById("favorites");
-  container.innerHTML="";
-  favorites.forEach((f,i)=>{
-    const d=getDomain(f.url);
-    container.innerHTML+=`
-      <div class="card">
-        <a href="${f.url}" target="_blank">
-          <img src="https://www.google.com/s2/favicons?sz=64&domain=${d}">
-          ${f.name}
-        </a>
-        <button class="delete-btn" onclick="removeFavorite(${i})">X</button>
-      </div>`;
-  });
-}
+// --- CATEGORIES CONFIG ---
+const CATEGORIES = {
+  news: { icon: '📰', color: '#ef4444', label: 'Ειδήσεις' },
+  sports: { icon: '⚽', color: '#22c55e', label: 'Αθλητικά' },
+  work: { icon: '💼', color: '#3b82f6', label: 'Εργασία' },
+  social: { icon: '💬', color: '#8b5cf6', label: 'Social' },
+  shopping: { icon: '🛒', color: '#f59e0b', label: 'Shopping' },
+  entertainment: { icon: '🎬', color: '#ec4899', label: 'Ψυχαγωγία' },
+  finance: { icon: '💰', color: '#06b6d4', label: 'Οικονομικά' },
+  other: { icon: '📁', color: '#64748b', label: 'Άλλο' }
+};
 
-function addCustom(){
-  let name=document.getElementById("customName").value;
-  let url=document.getElementById("customUrl").value;
-  if(!name||!url)return;
-  if(!url.startsWith("http"))url="https://"+url;
-  favorites.push({name,url});
-  localStorage.setItem("favorites",JSON.stringify(favorites));
-  renderFavorites();
-}
+// --- DEFAULT DATA ---
+const DEFAULT_BOOKMARKS = {
+  trending: [
+    { name: 'Google', url: 'https://google.com', category: 'other' },
+    { name: 'YouTube', url: 'https://youtube.com', category: 'entertainment' },
+    { name: 'GitHub', url: 'https://github.com', category: 'work' },
+    { name: 'Reddit', url: 'https://reddit.com', category: 'social' },
+    { name: 'Netflix', url: 'https://netflix.com', category: 'entertainment' },
+    { name: 'Gmail', url: 'https://gmail.com', category: 'work' }
+  ],
+  greek: [
+    { name: 'Καθημερινή', url: 'https://kathimerini.gr', category: 'news' },
+    { name: 'Πρώτο Θέμα', url: 'https://protothema.gr', category: 'news' },
+    { name: 'News247', url: 'https://news247.gr', category: 'news' },
+    { name: 'Sport24', url: 'https://sport24.gr', category: 'sports' },
+    { name: 'Gazzetta', url: 'https://gazzetta.gr', category: 'sports' },
+    { name: 'SDNA', url: 'https://sdna.gr', category: 'sports' },
+    { name: 'Skroutz', url: 'https://skroutz.gr', category: 'shopping' },
+    { name: 'Public', url: 'https://public.gr', category: 'shopping' }
+  ]
+};
 
-function removeFavorite(i){
-  favorites.splice(i,1);
-  localStorage.setItem("favorites",JSON.stringify(favorites));
-  renderFavorites();
-}
+// --- STATE MANAGEMENT ---
+const State = {
+  bookmarks: [],
+  draggedItem: null,
+  draggedIndex: null,
 
-function handleSearch(e,val){
-  if(e.key==="Enter"){
-    if(val.startsWith("http")){
-      window.open(val,'_blank');
-    }else{
-      window.open('https://www.google.com/search?q='+val,'_blank');
+  init() {
+    this.bookmarks = Storage.get(CONFIG.storageKey) || [];
+    this.render();
+    this.renderDefaults();
+  },
+
+  add(bookmark) {
+    if (this.bookmarks.length >= CONFIG.maxBookmarks) {
+      Toast.error('Φτάσατε το όριο των 100 bookmarks');
+      return false;
     }
+    this.bookmarks.unshift(bookmark);
+    Storage.set(CONFIG.storageKey, this.bookmarks);
+    this.render();
+    Toast.success(`Προστέθηκε: ${bookmark.name}`);
+    return true;
+  },
+
+  remove(index) {
+    const removed = this.bookmarks.splice(index, 1)[0];
+    Storage.set(CONFIG.storageKey, this.bookmarks);
+    this.render();
+    Toast.info(`Αφαιρέθηκε: ${removed.name}`);
+  },
+
+  reorder(fromIndex, toIndex) {
+    const [moved] = this.bookmarks.splice(fromIndex, 1);
+    this.bookmarks.splice(toIndex, 0, moved);
+    Storage.set(CONFIG.storageKey, this.bookmarks);
+    this.render();
+  },
+
+  render() {
+    const grid = document.getElementById('favoritesGrid');
+    const countEl = document.getElementById('myBookmarksCount');
+
+    countEl.textContent = `${this.bookmarks.length} item${this.bookmarks.length !== 1 ? 's' : ''}`;
+
+    if (this.bookmarks.length === 0) {
+      grid.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">📭</div>
+          <h3>Κανένα bookmark ακόμα</h3>
+          <p>Πρόσθεσε το πρώτο σου παραπάνω!</p>
+        </div>
+      `;
+      return;
+    }
+
+    grid.innerHTML = this.bookmarks.map((bookmark, index) => this.createCard(bookmark, index, true)).join('');
+    this.attachDragHandlers();
+  },
+
+  renderDefaults() {
+    document.getElementById('trendingGrid').innerHTML = 
+      DEFAULT_BOOKMARKS.trending.map(b => this.createCard(b, null, false)).join('');
+    document.getElementById('greekGrid').innerHTML = 
+      DEFAULT_BOOKMARKS.greek.map(b => this.createCard(b, null, false)).join('');
+  },
+
+  createCard(bookmark, index, isDraggable) {
+    const domain = Utils.getDomain(bookmark.url);
+    const category = CATEGORIES[bookmark.category] || CATEGORIES.other;
+
+    return `
+      <div class="card cat-${bookmark.category}" 
+           ${isDraggable ? `draggable="true" data-index="${index}"` : ''}
+           onclick="${isDraggable ? '' : `window.open('${bookmark.url}', '_blank')`}">
+
+        ${isDraggable ? `
+          <div class="card-actions">
+            <button class="card-btn drag-handle" title="Drag to reorder">⋮⋮</button>
+            <button class="card-btn" onclick="event.stopPropagation(); State.remove(${index})" title="Delete">×</button>
+          </div>
+        ` : ''}
+
+        <div class="card-icon-wrapper">
+          <img src="https://www.google.com/s2/favicons?sz=64&domain=${domain}" 
+               class="card-icon" 
+               alt="${bookmark.name}"
+               onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${category.icon}</text></svg>'">
+          <div class="card-category-indicator" title="${category.label}"></div>
+        </div>
+
+        <div class="card-title">${Utils.escapeHtml(bookmark.name)}</div>
+        <div class="card-url">${domain}</div>
+      </div>
+    `;
+  },
+
+  attachDragHandlers() {
+    const cards = document.querySelectorAll('#favoritesGrid .card');
+
+    cards.forEach(card => {
+      card.addEventListener('dragstart', (e) => {
+        this.draggedItem = card;
+        this.draggedIndex = parseInt(card.dataset.index);
+        card.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+      });
+
+      card.addEventListener('dragend', () => {
+        card.classList.remove('dragging');
+        document.querySelectorAll('.card').forEach(c => c.classList.remove('drag-over'));
+        this.draggedItem = null;
+      });
+
+      card.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        if (card === this.draggedItem) return;
+        card.classList.add('drag-over');
+      });
+
+      card.addEventListener('dragleave', () => {
+        card.classList.remove('drag-over');
+      });
+
+      card.addEventListener('drop', (e) => {
+        e.preventDefault();
+        card.classList.remove('drag-over');
+        if (card === this.draggedItem) return;
+
+        const toIndex = parseInt(card.dataset.index);
+        this.reorder(this.draggedIndex, toIndex);
+      });
+    });
+  }
+};
+
+// --- STORAGE UTILS ---
+const Storage = {
+  get(key) {
+    try {
+      const item = localStorage.getItem(key);
+      return item ? JSON.parse(item) : null;
+    } catch {
+      return null;
+    }
+  },
+
+  set(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    } catch {
+      Toast.error('Αποτυχία αποθήκευσης');
+      return false;
+    }
+  }
+};
+
+// --- UTILITY FUNCTIONS ---
+const Utils = {
+  getDomain(url) {
+    try {
+      return new URL(url).hostname.replace('www.', '');
+    } catch {
+      return url;
+    }
+  },
+
+  normalizeUrl(input) {
+    if (!input) return null;
+    input = input.trim();
+
+    if (input.startsWith('http')) return input;
+    if (input.includes('.') && !input.includes(' ')) return `https://${input}`;
+    return null;
+  },
+
+  escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  },
+
+  debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+};
+
+// --- TOAST NOTIFICATIONS ---
+const Toast = {
+  container: document.getElementById('toastContainer'),
+
+  show(message, type = 'info', duration = 3000) {
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+
+    const icons = {
+      success: '✓',
+      error: '✕',
+      info: 'ℹ'
+    };
+
+    toast.innerHTML = `
+      <span style="font-size: 1.25rem;">${icons[type]}</span>
+      <span>${message}</span>
+    `;
+
+    this.container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.classList.add('toast-exit');
+      setTimeout(() => toast.remove(), 300);
+    }, duration);
+  },
+
+  success(msg) { this.show(msg, 'success'); },
+  error(msg) { this.show(msg, 'error', 5000); },
+  info(msg) { this.show(msg, 'info'); }
+};
+
+// --- CORE FUNCTIONS ---
+function addBookmark() {
+  const nameInput = document.getElementById('customName');
+  const urlInput = document.getElementById('customUrl');
+  const categoryInput = document.getElementById('customCategory');
+
+  const name = nameInput.value.trim();
+  const urlInputValue = urlInput.value.trim();
+  const category = categoryInput.value;
+
+  if (!name || !urlInputValue) {
+    Toast.error('Συμπλήρωσε όνομα και URL');
+    return;
+  }
+
+  const url = Utils.normalizeUrl(urlInputValue);
+  if (!url) {
+    Toast.error('Άκυρο URL');
+    return;
+  }
+
+  if (State.add({ name, url, category, createdAt: Date.now() })) {
+    nameInput.value = '';
+    urlInput.value = '';
+    categoryInput.value = 'other';
   }
 }
 
-renderFavorites();
+function handleSearch(e) {
+  if (e.key === 'Enter') {
+    const value = e.target.value.trim();
+    if (!value) return;
+
+    const url = Utils.normalizeUrl(value);
+    if (url) {
+      window.open(url, '_blank');
+    } else {
+      window.open(`https://www.google.com/search?q=${encodeURIComponent(value)}`, '_blank');
+    }
+    e.target.value = '';
+  }
+}
+
+// --- KEYBOARD SHORTCUTS ---
+function setupKeyboardShortcuts() {
+  document.addEventListener('keydown', (e) => {
+    // Ctrl/Cmd + K = Focus search
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      document.getElementById('searchInput').focus();
+    }
+
+    // Ctrl/Cmd + N = Focus name input
+    if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+      e.preventDefault();
+      document.getElementById('customName').focus();
+    }
+
+    // Ctrl/Cmd + 1-9 = Open bookmark
+    if ((e.ctrlKey || e.metaKey) && e.key >= '1' && e.key <= '9') {
+      e.preventDefault();
+      const index = parseInt(e.key) - 1;
+      if (State.bookmarks[index]) {
+        window.open(State.bookmarks[index].url, '_blank');
+      }
+    }
+
+    // Esc = Close modal
+    if (e.key === 'Escape') {
+      hideShortcutsModal();
+    }
+  });
+}
+
+// --- MODAL FUNCTIONS ---
+function showShortcutsModal() {
+  document.getElementById('shortcutsModal').classList.add('active');
+}
+
+function hideShortcutsModal() {
+  document.getElementById('shortcutsModal').classList.remove('active');
+}
+
+// --- IMPORT/EXPORT ---
+function exportData() {
+  const data = {
+    bookmarks: State.bookmarks,
+    exportedAt: new Date().toISOString(),
+    version: '2.0'
+  };
+
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `portify-backup-${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+
+  Toast.success('Εξαγωγή επιτυχής!');
+}
+
+function importData() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+
+  input.onchange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const data = JSON.parse(event.target.result);
+        if (data.bookmarks && Array.isArray(data.bookmarks)) {
+          State.bookmarks = data.bookmarks;
+          Storage.set(CONFIG.storageKey, State.bookmarks);
+          State.render();
+          Toast.success('Εισαγωγή επιτυχής!');
+        } else {
+          throw new Error('Invalid format');
+        }
+      } catch {
+        Toast.error('Άκυρο αρχείο');
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  input.click();
+}
+
+// --- INITIALIZATION ---
+document.addEventListener('DOMContentLoaded', () => {
+  State.init();
+  setupKeyboardShortcuts();
+
+  // Setup search
+  document.getElementById('searchInput').addEventListener('keydown', handleSearch);
+
+  // Setup form inputs
+  document.getElementById('customUrl').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') addBookmark();
+  });
+
+  // Close modal on overlay click
+  document.getElementById('shortcutsModal').addEventListener('click', (e) => {
+    if (e.target.id === 'shortcutsModal') hideShortcutsModal();
+  });
+});
 </script>
 
 </body>
