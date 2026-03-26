@@ -13,11 +13,13 @@ body {
   color: white;
 }
 
-/* CONTAINER (FIX DESKTOP + MOBILE) */
+/* =========================
+   CONTAINER (FIX MAIN ISSUE)
+========================= */
 .container{
   max-width: 900px;
   margin: auto;
-  padding: 0 16px;
+  padding: 0 14px;
 }
 
 /* HEADER */
@@ -96,7 +98,6 @@ body {
   align-items: center;
   justify-content: center;
   transition: 0.2s;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
 
 .card img {
@@ -140,17 +141,6 @@ body {
   width: 100%;
 }
 
-.card a:hover {
-  color: white;
-}
-
-/* INPUT */
-input {
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-}
-
 /* BUTTON */
 button {
   background: #3b82f6;
@@ -167,7 +157,7 @@ button {
   background: #ef4444;
 }
 
-/* MOBILE EXTRA */
+/* MOBILE */
 @media (max-width: 600px){
   .container{
     padding: 0 12px;
@@ -206,6 +196,7 @@ button {
 <div id="favorites" class="grid"></div>
 </div>
 
+<!-- TRENDING -->
 <div class="section">
 <h2>🔥 Trending</h2>
 <div class="grid">
@@ -213,6 +204,90 @@ button {
 <img src="https://www.google.com/s2/favicons?sz=64&domain=google.com">Google</a>
 <a class="card" href="https://youtube.com" target="_blank">
 <img src="https://www.google.com/s2/favicons?sz=64&domain=youtube.com">YouTube</a>
+</div>
+</div>
+
+<!-- ΕΙΔΗΣΕΙΣ -->
+<div class="section">
+<h2>📰 Ειδήσεις</h2>
+<div class="grid">
+
+<a class="card" href="https://www.kathimerini.gr" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=kathimerini.gr">
+Καθημερινή
+</a>
+
+<a class="card" href="https://www.protothema.gr" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=protothema.gr">
+Πρώτο Θέμα
+</a>
+
+<a class="card" href="https://www.news247.gr" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=news247.gr">
+News247
+</a>
+
+</div>
+</div>
+
+<!-- ΑΘΛΗΤΙΚΑ -->
+<div class="section">
+<h2>⚽ Αθλητικά</h2>
+<div class="grid">
+
+<a class="card" href="https://www.sport24.gr" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=sport24.gr">
+Sport24
+</a>
+
+<a class="card" href="https://www.gazzetta.gr" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=gazzetta.gr">
+Gazzetta
+</a>
+
+<a class="card" href="https://www.sdna.gr" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=sdna.gr">
+SDNA
+</a>
+
+</div>
+</div>
+
+<!-- ΧΡΗΣΙΜΑ -->
+<div class="section">
+<h2>🌐 Χρήσιμα</h2>
+<div class="grid">
+
+<a class="card" href="https://www.google.com" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=google.com">
+Google
+</a>
+
+<a class="card" href="https://www.youtube.com" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=youtube.com">
+YouTube
+</a>
+
+<a class="card" href="https://www.facebook.com" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=facebook.com">
+Facebook
+</a>
+
+<a class="card" href="https://mail.google.com" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=gmail.com">
+Gmail
+</a>
+
+<a class="card" href="https://maps.google.com" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=maps.google.com">
+Google Maps
+</a>
+
+<a class="card" href="https://www.accuweather.com" target="_blank">
+<img src="https://www.google.com/s2/favicons?sz=64&domain=accuweather.com">
+Καιρός
+</a>
+
 </div>
 </div>
 
