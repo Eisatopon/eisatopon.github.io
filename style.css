@@ -28,7 +28,7 @@
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-  --shadow-glow: 0 0 30px rgba(59,130,246,0.25);
+  --shadow-glow: 0 0 30px rgba(59,130,246,0.3);
   --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-fast: 180ms cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -50,7 +50,7 @@ html, body {
   overflow-x: hidden;
 }
 
-/* Background */
+/* Animated Background */
 body::before {
   content: '';
   position: fixed;
@@ -68,9 +68,9 @@ body::before {
   padding: 2rem 1.5rem;
 }
 
-/* HEADER */
+/* ==================== HEADER ==================== */
 .header {
-  padding: 1.5rem 0 2rem;
+  padding: 1.8rem 0 2.2rem;
   text-align: center;
 }
 
@@ -78,22 +78,22 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: 16px;
 }
 
 .logo-container {
   position: relative;
-  width: 56px;
-  height: 56px;
+  width: 58px;
+  height: 58px;
 }
 
 .logo-container::before {
   content: '';
   position: absolute;
-  inset: -5px;
+  inset: -6px;
   border-radius: 18px;
   background: linear-gradient(135deg, #22c55e, #3b82f6, #8b5cf6);
-  animation: rotate 12s linear infinite;
+  animation: rotate 10s linear infinite;
   z-index: -1;
 }
 
@@ -104,10 +104,11 @@ body::before {
   border-radius: 16px;
   display: grid;
   place-items: center;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 900;
-  border: 3px solid rgba(255,255,255,0.1);
-  overflow: hidden;
+  color: white;
+  border: 3px solid rgba(255,255,255,0.15);
+  box-shadow: 0 0 25px rgba(59,130,246,0.4);
 }
 
 @keyframes rotate {
@@ -116,21 +117,21 @@ body::before {
 }
 
 .brand-text h1 {
-  font-size: 2.2rem;
+  font-size: 2.35rem;
   font-weight: 800;
-  letter-spacing: -0.03em;
-  background: linear-gradient(135deg, #fff 0%, #c0d0e8 100%);
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #ffffff, #c0d0ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .brand-text p {
-  font-size: 0.95rem;
+  font-size: 0.97rem;
   color: var(--text-secondary);
-  margin-top: -4px;
+  margin-top: -6px;
 }
 
-/* SEARCH */
+/* ==================== SEARCH ==================== */
 .search-container {
   margin: 1.5rem 0 2.5rem;
 }
@@ -141,7 +142,7 @@ body::before {
 
 .search-icon {
   position: absolute;
-  left: 1.4rem;
+  left: 1.5rem;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-muted);
@@ -150,30 +151,23 @@ body::before {
 
 .search-input {
   width: 100%;
-  padding: 1.1rem 1.2rem 1.1rem 4rem;
+  padding: 1.15rem 1.2rem 1.15rem 4.2rem;
   border-radius: 9999px;
   border: 2px solid rgba(255,255,255,0.08);
   background: var(--bg-input);
   color: var(--text-primary);
-  font-size: 1.05rem;
+  font-size: 1.06rem;
   outline: none;
   transition: all var(--transition-base);
 }
 
 .search-input:focus {
   border-color: var(--accent-blue);
-  background: rgba(59,130,246,0.06);
-  box-shadow: 0 0 0 5px rgba(59,130,246,0.12);
+  background: rgba(59,130,246,0.07);
+  box-shadow: 0 0 0 5px rgba(59,130,246,0.15);
 }
 
-.search-hints {
-  position: absolute;
-  right: 1.4rem;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* BUTTONS */
+/* ==================== BUTTONS ==================== */
 .btn {
   padding: 12px 26px;
   font-size: 0.97rem;
@@ -191,20 +185,20 @@ body::before {
 
 .btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(59,130,246,0.35);
+  box-shadow: 0 8px 22px rgba(59,130,246,0.4);
 }
 
 .btn-secondary {
   background: rgba(255,255,255,0.08);
   color: var(--text-primary);
-  border: 1px solid rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.15);
 }
 
 .btn-secondary:hover {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.18);
 }
 
-/* SECTIONS */
+/* ==================== SECTIONS ==================== */
 .section {
   margin-bottom: 2.8rem;
 }
@@ -213,7 +207,7 @@ body::before {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.3rem;
   flex-wrap: wrap;
   gap: 0.8rem;
 }
@@ -226,7 +220,7 @@ body::before {
   gap: 10px;
 }
 
-/* SMART FORM */
+/* ==================== SMART FORM ==================== */
 .smart-form {
   background: var(--bg-secondary);
   border-radius: 22px;
@@ -244,13 +238,13 @@ body::before {
   left: 22px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   color: var(--text-muted);
 }
 
 .smart-input {
   width: 100%;
-  padding: 1.1rem 1.2rem 1.1rem 3.8rem;
+  padding: 1.15rem 1.2rem 1.15rem 3.9rem;
   border: 2px solid rgba(255,255,255,0.1);
   border-radius: 9999px;
   background: var(--bg-input);
@@ -282,7 +276,7 @@ body::before {
   display: flex;
 }
 
-/* GRID */
+/* ==================== GRID & CARDS ==================== */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
@@ -302,7 +296,7 @@ body::before {
 
 .card:hover {
   transform: translateY(-6px) scale(1.03);
-  border-color: rgba(59,130,246,0.35);
+  border-color: rgba(59,130,246,0.4);
   box-shadow: var(--shadow-glow);
 }
 
@@ -329,20 +323,20 @@ body::before {
   margin-top: 4px;
 }
 
-/* FOOTER - ΔΙΟΡΘΩΜΕΝΟ */
+/* ==================== FOOTER ==================== */
 .footer {
   text-align: center;
   padding: 3rem 0 2rem;
   margin-top: 4rem;
   color: var(--text-muted);
-  font-size: 0.92rem;
-  border-top: 1px solid rgba(255,255,255,0.07);
+  font-size: 0.93rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
 }
 
 .footer-links {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 2.2rem;
   margin-bottom: 1.2rem;
   flex-wrap: wrap;
 }
@@ -350,17 +344,14 @@ body::before {
 .footer a {
   color: var(--text-secondary);
   text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
   transition: color 0.2s;
 }
 
 .footer a:hover {
-  color: #60a5fa;
+  color: var(--accent-blue);
 }
 
-/* Toast & Modals */
+/* ==================== TOAST & MODALS ==================== */
 .toast-container {
   position: fixed;
   bottom: 24px;
@@ -389,7 +380,7 @@ body::before {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.82);
+  background: rgba(0,0,0,0.85);
   backdrop-filter: blur(8px);
   display: none;
   align-items: center;
