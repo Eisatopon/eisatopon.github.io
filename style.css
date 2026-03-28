@@ -665,6 +665,63 @@ body::before {
   to   { transform: translateX(110%); opacity: 0; }
 }
 
+/* ================= COUNTRY TABS ================= */
+.country-tab-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 1.2rem;
+}
+
+.country-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--radius-pill);
+  border: 2px solid rgba(255,255,255,0.12);
+  background: var(--bg-input);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color var(--transition), color var(--transition),
+              background var(--transition), transform 0.15s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.country-tab:hover {
+  border-color: rgba(255,255,255,0.25);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.country-tab.active {
+  border-color: var(--accent-blue);
+  background: rgba(59,130,246,0.15);
+  color: var(--text-primary);
+}
+
+.tab-flag {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.tab-label {
+  /* hide label on very small screens, show only flag */
+}
+
+/* country grid fade transition */
+#countryGrid {
+  transition: opacity 0.15s ease;
+}
+
+@media (max-width: 380px) {
+  .tab-label { display: none; }
+  .country-tab { padding: 0.55rem 0.75rem; }
+}
+
 /* ================= RESPONSIVE ================= */
 @media (max-width: 640px) {
   .brand-text h1 { font-size: 2rem; }
