@@ -1,4 +1,3 @@
-/* ============================================
    PORTIFY DESIGN SYSTEM v3.2 - FIXED
    ============================================ */
 
@@ -89,7 +88,6 @@ body::before {
 .search-wrapper {
   max-width: 720px;
   margin: 0 auto;
-  position: relative; /* ← FIX: για το absolute icon */
 }
 
 .search-input {
@@ -115,7 +113,6 @@ body::before {
   top: 50%;
   transform: translateY(-50%);
   color: #94a3b8;
-  pointer-events: none; /* ← FIX: το icon δεν μπλοκάρει το click */
 }
 
 /* ================= SMART ADD ================= */
@@ -124,17 +121,6 @@ body::before {
   border-radius: 24px;
   padding: 1.8rem;
   border: 1px solid rgba(255,255,255,0.08);
-  display: flex; /* ← FIX: για να είναι inline τα elements */
-  gap: 0.8rem;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.smart-input-wrapper {
-  position: relative; /* ← FIX: για το icon */
-  flex: 1;
-  min-width: 200px;
 }
 
 .smart-input {
@@ -146,58 +132,15 @@ body::before {
   color: white;
   font-size: 1.05rem;
   outline: none;
-  transition: all 0.25s;
 }
 
 .smart-input:focus {
   border-color: var(--accent-blue);
-  box-shadow: 0 0 0 4px rgba(59,130,246,0.15);
 }
 
-.smart-icon {
-  position: absolute;
-  left: 1.4rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #94a3b8;
-  pointer-events: none;
-}
-
-/* FIX: Πλήρη ορισμός των missing elements */
+/* Αφαίρεση λευκού πλαισίου */
 .form-select, .btn-primary {
   border-radius: 9999px;
-  padding: 1.2rem 1.8rem;
-  border: 2px solid rgba(255,255,255,0.15);
-  background: var(--bg-input);
-  color: white;
-  font-size: 1.05rem;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.form-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1.2rem center;
-  padding-right: 3rem;
-}
-
-.form-select:focus {
-  border-color: var(--accent-blue);
-  outline: none;
-}
-
-.btn-primary {
-  background: var(--accent-blue);
-  border-color: var(--accent-blue);
-  font-weight: 600;
-}
-
-.btn-primary:hover {
-  background: #2563eb;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(59,130,246,0.3);
 }
 
 /* ================= GRID ================= */
@@ -214,7 +157,6 @@ body::before {
   text-align: center;
   transition: all 0.3s;
   border: 1px solid rgba(255,255,255,0.06);
-  cursor: pointer;
 }
 
 .card:hover {
@@ -230,18 +172,6 @@ body::before {
   background: white;
   padding: 8px;
   margin-bottom: 12px;
-  object-fit: contain; /* ← FIX: για σωστή εμφάνιση εικόνων */
-}
-
-.card h3 {
-  font-size: 1rem;
-  margin-bottom: 0.3rem;
-}
-
-.card p {
-  color: var(--accent-green);
-  font-weight: 600;
-  font-size: 0.95rem;
 }
 
 /* ================= FOOTER ================= */
@@ -253,49 +183,12 @@ body::before {
   border-top: 1px solid rgba(255,255,255,0.08);
 }
 
-.footer-links {
-  margin-bottom: 1rem;
-}
-
 .footer-links a {
   color: var(--text-secondary);
   margin: 0 15px;
   text-decoration: none;
-  transition: color 0.2s;
 }
 
 .footer-links a:hover {
   color: var(--accent-blue);
-}
-
-/* ================= ACCESSIBILITY ================= */
-.search-input:focus-visible,
-.smart-input:focus-visible,
-.form-select:focus-visible,
-.btn-primary:focus-visible {
-  outline: 2px solid var(--accent-blue);
-  outline-offset: 2px;
-}
-
-/* ================= RESPONSIVE ================= */
-@media (max-width: 640px) {
-  .brand-text h1 {
-    font-size: 1.8rem;
-  }
-  
-  .smart-form {
-    flex-direction: column;
-  }
-  
-  .smart-input-wrapper {
-    width: 100%;
-  }
-  
-  .form-select, .btn-primary {
-    width: 100%;
-  }
-  
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  }
 }
