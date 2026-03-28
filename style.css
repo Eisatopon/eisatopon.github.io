@@ -41,7 +41,12 @@ body::before {
   padding: 2rem 1.5rem;
 }
 
-/* Logo Animation */
+/* ================= HEADER + ANIMATION ================= */
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
 .logo-container {
   position: relative;
   width: 68px;
@@ -86,7 +91,7 @@ body::before {
   margin-top: -8px;
 }
 
-/* Search */
+/* ================= SEARCH ================= */
 .search-wrapper {
   max-width: 720px;
   margin: 0 auto 3rem;
@@ -101,18 +106,39 @@ body::before {
   background: var(--bg-input);
   color: white;
   font-size: 1.1rem;
+  outline: none;
 }
 
 .search-input:focus {
   border-color: var(--accent-blue);
 }
 
-/* Smart Add */
+.search-icon {
+  position: absolute;
+  left: 1.7rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+/* ================= SMART ADD ================= */
 .smart-form {
   background: var(--bg-secondary);
   border-radius: 26px;
   padding: 2rem;
   border: 1px solid rgba(255,255,255,0.1);
+}
+
+.smart-input {
+  width: 100%;
+  padding: 1.3rem 1.5rem 1.3rem 4rem;
+  border-radius: 9999px;
+  border: 2px solid rgba(255,255,255,0.18);
+  background: var(--bg-input);
+  color: white;
+  font-size: 1.07rem;
+  outline: none;
 }
 
 .form-row {
@@ -122,15 +148,25 @@ body::before {
   flex-wrap: wrap;
 }
 
+.form-select {
+  padding: 1rem 1.3rem;
+  border-radius: 9999px;
+  border: 2px solid rgba(255,255,255,0.15);
+  background: var(--bg-input);
+  color: white;
+  cursor: pointer;
+}
+
 .btn-primary {
   padding: 1rem 2.2rem;
   border-radius: 9999px;
   background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
   color: white;
   font-weight: 600;
+  border: none;
 }
 
-/* Grid */
+/* ================= GRID ================= */
 .grid {
   display: grid;
   gap: 1.3rem;
@@ -143,6 +179,7 @@ body::before {
   padding: 1.4rem 1rem;
   text-align: center;
   transition: all 0.3s;
+  border: 1px solid rgba(255,255,255,0.06);
 }
 
 .card:hover {
@@ -159,16 +196,21 @@ body::before {
   margin-bottom: 12px;
 }
 
-/* Footer */
+/* ================= FOOTER ================= */
 .footer {
   text-align: center;
   margin-top: 6rem;
   padding: 2rem 0;
   color: var(--text-muted);
+  border-top: 1px solid rgba(255,255,255,0.08);
 }
 
 .footer-links a {
   color: var(--text-secondary);
   margin: 0 15px;
   text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--accent-blue);
 }
