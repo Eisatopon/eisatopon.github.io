@@ -8,9 +8,11 @@
  * CONFIGURATION
  * ============================================ */
 const CONFIG = {
-    storageKey: 'portify_bookmarks',
-    maxBookmarks: 100,
-    version: '3.3',
+    storageKey:        'portify_bookmarks',
+    recentKey:         'portify_recent',
+    maxBookmarks:      100,
+    maxRecent:         6,
+    version:           '3.4',
     isExtension: typeof chrome !== 'undefined' && chrome.storage !== undefined
 };
 
@@ -378,9 +380,14 @@ const State = {
             const empty = document.createElement('div');
             empty.className = 'empty-state';
             empty.innerHTML = `
-                <div class="empty-state-icon">📭</div>
-                <h3>Κανένα bookmark ακόμα</h3>
-                <p>Πρόσθεσε το πρώτο σου παραπάνω!</p>
+                <div class="empty-state-icon">🚀</div>
+                <h3>Καλώς ήρθες στο Portify!</h3>
+                <p>Πρόσθεσε το πρώτο σου αγαπημένο site παραπάνω.</p>
+                <div class="onboarding-tips">
+                    <div class="onboarding-tip">💡 Γράψε <b>netflix.com</b> στο Smart Add</div>
+                    <div class="onboarding-tip">🔍 Στο Search γράψε <b>youtube cats</b> + Enter</div>
+                    <div class="onboarding-tip">🌍 Δες sites από <b>7 χώρες</b> παρακάτω</div>
+                </div>
             `;
             grid.appendChild(empty);
         } else {
@@ -394,7 +401,6 @@ const State = {
             countEl.textContent = `${n} ${n === 1 ? 'item' : 'items'}`;
         }
 
-        // Enable drag handles on freshly rendered cards
         DragDrop.enableCards();
         CategoryFilter.applyToGrid();
     },
@@ -423,7 +429,10 @@ const State = {
         card.title = bookmark.name;
 
         // Navigate on click / Enter / Space
-        const navigate = () => window.open(bookmark.url, '_blank', 'noopener,noreferrer');
+        const navigate = () => {
+            RecentVisits.track(bookmark);
+            window.open(bookmark.url, '_blank', 'noopener,noreferrer');
+        };
         card.addEventListener('click', navigate);
         card.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate(); }
@@ -595,45 +604,107 @@ const SmartInput = {
 };
 
 /** ============================================
- * SEARCH — fuzzy, accent-insensitive, Enter → Google
+ * AI SEARCH PATTERNS
+ * Maps typed queries to direct URLs
+ * ============================================ */
+const AI_PATTERNS = [
+    // YouTube
+    { pattern: /^(yt|youtube)\s+(.+)$/i,      url: q => `https://www.youtube.com/results?search_query=${encodeURIComponent(q[2])}`, label: '▶️ YouTube' },
+    // Google Maps
+    { pattern: /^(maps?|χάρτης?)\s+(.+)$/i,   url: q => `https://www.google.com/maps/search/${encodeURIComponent(q[2])}`,          label: '🗺️ Maps' },
+    // Weather
+    { pattern: /^(weather|καιρός?)\s*(.*)$/i,  url: q => `https://www.google.com/search?q=weather+${encodeURIComponent(q[2]||'')}`, label: '🌤️ Weather' },
+    // Wikipedia
+    { pattern: /^(wiki|wikipedia)\s+(.+)$/i,   url: q => `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(q[2])}`, label: '📖 Wikipedia' },
+    // Reddit
+    { pattern: /^(reddit|r\/)\s*(.+)$/i,       url: q => `https://www.reddit.com/search/?q=${encodeURIComponent(q[2])}`,            label: '👽 Reddit' },
+    // GitHub
+    { pattern: /^(gh|github)\s+(.+)$/i,        url: q => `https://github.com/search?q=${encodeURIComponent(q[2])}`,                 label: '🐙 GitHub' },
+    // Translate
+    { pattern: /^(translate|μετάφρ[α-ω]+)\s+(.+)$/i, url: q => `https://translate.google.com/?text=${encodeURIComponent(q[2])}`,   label: '🌐 Translate' },
+    // News Greece
+    { pattern: /^(news|ειδήσεις?)\s*(greece|ελλ[α-ω]+)?$/i, url: () => `https://news.google.com/search?q=Ελλάδα&hl=el`,           label: '📰 News GR' },
+    // Amazon
+    { pattern: /^(amazon|amz)\s+(.+)$/i,       url: q => `https://www.amazon.com/s?k=${encodeURIComponent(q[2])}`,                  label: '🛒 Amazon' },
+    // Skroutz
+    { pattern: /^(skroutz)\s+(.+)$/i,          url: q => `https://www.skroutz.gr/search?keyphrase=${encodeURIComponent(q[2])}`,     label: '🛒 Skroutz' },
+    // Gmail
+    { pattern: /^(gmail|mail|email)$/i,         url: () => `https://mail.google.com`,                                                label: '📧 Gmail' },
+    // Math (simple)
+    { pattern: /^[\d\s\+\-\*\/\(\)\.]+[=?]?\s*$/,url: q => `https://www.google.com/search?q=${encodeURIComponent(q[0])}`,          label: '🔢 Calculator' },
+];
+
+/** ============================================
+ * SEARCH — fuzzy, accent-insensitive,
+ *          AI patterns, Enter → smart open
  * ============================================ */
 const Search = {
+    _hint: null,
+
     init() {
         const input = document.getElementById('searchInput');
         if (!input) return;
 
         input.addEventListener('input', Utils.debounce((e) => {
+            this._updateHint(e.target.value);
             this.filter(e.target.value);
         }, 200));
 
-        // Enter → open Google search
         input.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 const term = input.value.trim();
-                if (term) {
-                    window.open(`https://www.google.com/search?q=${encodeURIComponent(term)}`, '_blank', 'noopener,noreferrer');
-                    input.value = '';
-                    this.filter(''); // reset filter
-                }
+                if (!term) return;
+                const url = this._resolveUrl(term);
+                window.open(url, '_blank', 'noopener,noreferrer');
+                input.value = '';
+                this._clearHint();
+                this.filter('');
+            }
+            if (e.key === 'Escape') {
+                input.value = '';
+                this._clearHint();
+                this.filter('');
             }
         });
     },
 
-    /**
-     * Normalize: remove accents + lowercase.
-     * "νιουζ" won't match "News" but "καθημερινη" WILL match "Καθημερινή"
-     */
-    _normalize(str) {
-        return str
-            .toLowerCase()
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, ''); // strip diacritics
+    /** Resolve a query to the best URL */
+    _resolveUrl(term) {
+        for (const p of AI_PATTERNS) {
+            const m = term.match(p.pattern);
+            if (m) return p.url(m);
+        }
+        return `https://www.google.com/search?q=${encodeURIComponent(term)}`;
     },
 
-    /**
-     * Fuzzy match: every char of needle must appear in order in haystack.
-     * "nws" matches "News247", "καθ" matches "Καθημερινή"
-     */
+    /** Show AI hint below search bar */
+    _updateHint(term) {
+        const hintsEl = document.querySelector('.ai-hints');
+        if (!hintsEl) return;
+
+        if (!term.trim()) {
+            this._clearHint();
+            return;
+        }
+
+        for (const p of AI_PATTERNS) {
+            if (term.match(p.pattern)) {
+                hintsEl.innerHTML = `<span style="color:var(--accent-green)">⚡ Enter → ${p.label}</span>`;
+                return;
+            }
+        }
+        hintsEl.innerHTML = `<span style="color:var(--accent-blue)">🔍 Enter → Google: <b>${term}</b></span>`;
+    },
+
+    _clearHint() {
+        const hintsEl = document.querySelector('.ai-hints');
+        if (hintsEl) hintsEl.innerHTML = `Δοκίμασε: <b>youtube cats</b> · <b>maps athens</b> · <b>weather</b>`;
+    },
+
+    _normalize(str) {
+        return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    },
+
     _fuzzy(needle, haystack) {
         if (!needle) return true;
         const n = this._normalize(needle);
@@ -647,22 +718,16 @@ const Search = {
 
     filter(term) {
         const grids = ['favoritesGrid', 'trendingGrid', 'countryGrid'];
-
         grids.forEach(gridId => {
             const grid = document.getElementById(gridId);
             if (!grid) return;
-
             grid.querySelectorAll('.card').forEach(card => {
                 const title = card.querySelector('.card-title')?.textContent || '';
                 const url   = card.querySelector('.card-url')?.textContent || '';
-                const matches = !term.trim() ||
-                    this._fuzzy(term, title) ||
-                    this._fuzzy(term, url);
+                const matches = !term.trim() || this._fuzzy(term, title) || this._fuzzy(term, url);
                 card.style.display = matches ? '' : 'none';
             });
         });
-
-        // Also re-apply active category filter on favorites
         CategoryFilter.applyToGrid();
     }
 };
@@ -1022,6 +1087,47 @@ const DragDrop = {
 };
 
 /** ============================================
+ * RECENT VISITS
+ * ============================================ */
+const RecentVisits = {
+    visits: [],
+
+    async init() {
+        try {
+            const stored = await Storage.get(CONFIG.recentKey);
+            this.visits = Array.isArray(stored) ? stored : [];
+        } catch { this.visits = []; }
+        this.render();
+    },
+
+    async track(bookmark) {
+        this.visits = this.visits.filter(v => v.url !== bookmark.url);
+        this.visits.unshift({ name: bookmark.name, url: bookmark.url, category: bookmark.category, ts: Date.now() });
+        this.visits = this.visits.slice(0, CONFIG.maxRecent);
+        try { await Storage.set(CONFIG.recentKey, this.visits); } catch {}
+        this.render();
+    },
+
+    render() {
+        const grid    = document.getElementById('recentGrid');
+        const section = document.getElementById('recentSection');
+        if (!grid || !section) return;
+
+        if (this.visits.length === 0) {
+            section.style.display = 'none';
+            return;
+        }
+
+        section.style.display = '';
+        grid.innerHTML = '';
+        this.visits.forEach(v => {
+            const card = State._createCard(v, null, false);
+            grid.appendChild(card);
+        });
+    }
+};
+
+/** ============================================
  * COUNTRY TABS
  * ============================================ */
 const CountryTabs = {
@@ -1086,6 +1192,7 @@ const CountryTabs = {
  * ============================================ */
 document.addEventListener('DOMContentLoaded', async () => {
     await State.init();
+    await RecentVisits.init();
     SmartInput.init();
     Search.init();
     Modals.init();
