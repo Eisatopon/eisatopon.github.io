@@ -210,10 +210,10 @@ const State = {
 
         if (this.bookmarks.length === 0) {
             grid.innerHTML = `
-                <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">📭</div>
-                    <h3 style="color: var(--text-secondary); margin-bottom: 0.5rem;">Κανένα bookmark ακόμα</h3>
-                    <p style="color: var(--text-muted);">Πρόσθεσε το πρώτο σου παραπάνω!</p>
+                <div class="empty-state">
+                    <div class="empty-state-icon">📭</div>
+                    <h3>Κανένα bookmark ακόμα</h3>
+                    <p>Πρόσθεσε το πρώτο σου παραπάνω!</p>
                 </div>
             `;
         } else {
@@ -654,4 +654,4 @@ document.addEventListener('DOMContentLoaded', () => {
     Shortcuts.init();
     
     console.log(`🚀 Portify v${CONFIG.version} loaded!`);
-});
+}, { once: true });
