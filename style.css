@@ -1,24 +1,30 @@
 /* ============================================
-   PORTIFY DESIGN SYSTEM v3.2 - FIXED
+   PORTIFY DESIGN SYSTEM v3.3 - FINAL
    ============================================ */
 
 :root {
   --bg-primary: #0a0f1c;
   --bg-secondary: #111827;
-  --bg-card: rgba(255,255,255,0.045);
-  --bg-card-hover: rgba(255,255,255,0.09);
-  --bg-input: rgba(255,255,255,0.06);
+  --bg-card: rgba(255,255,255,0.05);
+  --bg-card-hover: rgba(255,255,255,0.1);
+  --bg-input: rgba(255,255,255,0.07);
 
   --accent-blue: #3b82f6;
   --accent-green: #22c55e;
   --accent-purple: #8b5cf6;
+  --accent-red: #ef4444;
 
   --text-primary: #ffffff;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   background: var(--bg-primary);
@@ -28,13 +34,16 @@ body {
   overflow-x: hidden;
 }
 
+/* Background glow */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at top, rgba(59,130,246,0.1), transparent 50%),
-              radial-gradient(circle at bottom right, rgba(139,92,246,0.08), transparent 50%);
+  background: 
+    radial-gradient(circle at top, rgba(59,130,246,0.1), transparent 60%),
+    radial-gradient(circle at bottom right, rgba(139,92,246,0.08), transparent 60%);
   z-index: -1;
+  pointer-events: none;
 }
 
 .container {
@@ -43,34 +52,52 @@ body::before {
   padding: 2rem 1.5rem;
 }
 
-/* ================= HEADER ================= */
+/* ================= HEADER + LOGO ANIMATION ================= */
 .header {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 3rem;
 }
 
 .logo-container {
-  width: 62px;
-  height: 62px;
-  margin: 0 auto 12px;
+  position: relative;
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 14px;
+}
+
+.logo-container::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #22c55e, #3b82f6, #8b5cf6);
+  animation: rotate 10s linear infinite;
+  z-index: -1;
 }
 
 .logo-inner {
   width: 100%;
   height: 100%;
   background: #0a0f1c;
-  border-radius: 18px;
+  border-radius: 20px;
   display: grid;
   place-items: center;
-  font-size: 34px;
+  font-size: 36px;
   font-weight: 900;
-  border: 3px solid rgba(255,255,255,0.2);
-  box-shadow: 0 0 30px rgba(59,130,246,0.4);
+  border: 4px solid rgba(255,255,255,0.22);
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .brand-text h1 {
-  font-size: 2.4rem;
+  font-size: 2.5rem;
   font-weight: 800;
+  letter-spacing: -0.03em;
   background: linear-gradient(135deg, #fff, #a5b4fc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -78,143 +105,108 @@ body::before {
 
 .brand-text p {
   color: #94a3b8;
-  margin-top: -4px;
+  margin-top: -6px;
 }
 
 /* ================= SEARCH ================= */
 .search-container {
-  margin-bottom: 3rem;
+  margin-bottom: 3.5rem;
 }
 
 .search-wrapper {
-  max-width: 720px;
+  max-width: 740px;
   margin: 0 auto;
-  position: relative; /* ← FIX: για το absolute icon */
+  position: relative;
 }
 
 .search-input {
   width: 100%;
-  padding: 1.35rem 1.5rem 1.35rem 4.2rem;
+  padding: 1.4rem 1.6rem 1.4rem 4.5rem;
   border-radius: 9999px;
-  border: 2px solid rgba(255,255,255,0.12);
+  border: 2px solid rgba(255,255,255,0.15);
   background: var(--bg-input);
   color: white;
-  font-size: 1.08rem;
+  font-size: 1.1rem;
   outline: none;
   transition: all 0.25s;
 }
 
 .search-input:focus {
   border-color: var(--accent-blue);
-  box-shadow: 0 0 0 5px rgba(59,130,246,0.2);
+  box-shadow: 0 0 0 6px rgba(59,130,246,0.18);
 }
 
 .search-icon {
   position: absolute;
-  left: 1.6rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #94a3b8;
-  pointer-events: none; /* ← FIX: το icon δεν μπλοκάρει το click */
-}
-
-/* ================= SMART ADD ================= */
-.smart-form {
-  background: var(--bg-secondary);
-  border-radius: 24px;
-  padding: 1.8rem;
-  border: 1px solid rgba(255,255,255,0.08);
-  display: flex; /* ← FIX: για να είναι inline τα elements */
-  gap: 0.8rem;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.smart-input-wrapper {
-  position: relative; /* ← FIX: για το icon */
-  flex: 1;
-  min-width: 200px;
-}
-
-.smart-input {
-  width: 100%;
-  padding: 1.2rem 1.4rem 1.2rem 3.8rem;
-  border-radius: 9999px;
-  border: 2px solid rgba(255,255,255,0.15);
-  background: var(--bg-input);
-  color: white;
-  font-size: 1.05rem;
-  outline: none;
-  transition: all 0.25s;
-}
-
-.smart-input:focus {
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 4px rgba(59,130,246,0.15);
-}
-
-.smart-icon {
-  position: absolute;
-  left: 1.4rem;
+  left: 1.7rem;
   top: 50%;
   transform: translateY(-50%);
   color: #94a3b8;
   pointer-events: none;
 }
 
-/* FIX: Πλήρη ορισμός των missing elements */
-.form-select, .btn-primary {
+/* ================= SMART ADD ================= */
+.smart-form {
+  background: var(--bg-secondary);
+  border-radius: 26px;
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.smart-input {
+  width: 100%;
+  padding: 1.3rem 1.5rem 1.3rem 4rem;
   border-radius: 9999px;
-  padding: 1.2rem 1.8rem;
-  border: 2px solid rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.18);
   background: var(--bg-input);
   color: white;
-  font-size: 1.05rem;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.form-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1.2rem center;
-  padding-right: 3rem;
-}
-
-.form-select:focus {
-  border-color: var(--accent-blue);
+  font-size: 1.07rem;
   outline: none;
 }
 
-.btn-primary {
-  background: var(--accent-blue);
+.smart-input:focus {
   border-color: var(--accent-blue);
-  font-weight: 600;
 }
 
-.btn-primary:hover {
-  background: #2563eb;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(59,130,246,0.3);
+.form-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.form-select {
+  padding: 1rem 1.3rem;
+  border-radius: 9999px;
+  border: 2px solid rgba(255,255,255,0.15);
+  background: var(--bg-input);
+  color: white;
+  cursor: pointer;
+}
+
+.btn-primary {
+  padding: 1rem 2.2rem;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+  color: white;
+  font-weight: 600;
+  border: none;
 }
 
 /* ================= GRID ================= */
 .grid {
   display: grid;
-  gap: 1.2rem;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1.3rem;
+  grid-template-columns: repeat(auto-fill, minmax(162px, 1fr));
 }
 
 .card {
   background: var(--bg-card);
-  border-radius: 18px;
-  padding: 1.3rem 1rem;
+  border-radius: 20px;
+  padding: 1.4rem 1rem;
   text-align: center;
   transition: all 0.3s;
   border: 1px solid rgba(255,255,255,0.06);
-  cursor: pointer;
 }
 
 .card:hover {
@@ -224,78 +216,37 @@ body::before {
 }
 
 .card-icon {
-  width: 54px;
-  height: 54px;
+  width: 56px;
+  height: 56px;
   border-radius: 14px;
   background: white;
   padding: 8px;
   margin-bottom: 12px;
-  object-fit: contain; /* ← FIX: για σωστή εμφάνιση εικόνων */
-}
-
-.card h3 {
-  font-size: 1rem;
-  margin-bottom: 0.3rem;
-}
-
-.card p {
-  color: var(--accent-green);
-  font-weight: 600;
-  font-size: 0.95rem;
+  object-fit: contain;
 }
 
 /* ================= FOOTER ================= */
 .footer {
   text-align: center;
-  margin-top: 5rem;
+  margin-top: 6rem;
   padding: 2rem 0;
   color: var(--text-muted);
   border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-.footer-links {
-  margin-bottom: 1rem;
 }
 
 .footer-links a {
   color: var(--text-secondary);
   margin: 0 15px;
   text-decoration: none;
-  transition: color 0.2s;
 }
 
 .footer-links a:hover {
   color: var(--accent-blue);
 }
 
-/* ================= ACCESSIBILITY ================= */
+/* Accessibility */
 .search-input:focus-visible,
-.smart-input:focus-visible,
-.form-select:focus-visible,
-.btn-primary:focus-visible {
-  outline: 2px solid var(--accent-blue);
-  outline-offset: 2px;
-}
-
-/* ================= RESPONSIVE ================= */
-@media (max-width: 640px) {
-  .brand-text h1 {
-    font-size: 1.8rem;
-  }
-  
-  .smart-form {
-    flex-direction: column;
-  }
-  
-  .smart-input-wrapper {
-    width: 100%;
-  }
-  
-  .form-select, .btn-primary {
-    width: 100%;
-  }
-  
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  }
+.smart-input:focus-visible {
+  outline: 3px solid var(--accent-blue);
+  outline-offset: 4px;
 }
