@@ -1,5 +1,5 @@
 // ============================================
-// PORTIFY SCRIPT v3.0 - CHROME EXTENSION EDITION
+// PORTIFY SCRIPT v3.1 - CHROME EXTENSION EDITION
 // ============================================
 
 'use strict';
@@ -10,7 +10,7 @@
 const CONFIG = {
     storageKey: 'portify_bookmarks',
     maxBookmarks: 100,
-    version: '3.0',
+    version: '3.1',
     isExtension: typeof chrome !== 'undefined' && chrome.storage !== undefined
 };
 
@@ -18,14 +18,14 @@ const CONFIG = {
  * CATEGORIES CONFIGURATION
  * ============================================ */
 const CATEGORIES = {
-    news: { icon: '📰', color: '#ef4444', label: 'Ειδήσεις' },
-    sports: { icon: '⚽', color: '#22c55e', label: 'Αθλητικά' },
-    work: { icon: '💼', color: '#3b82f6', label: 'Εργασία' },
-    social: { icon: '💬', color: '#8b5cf6', label: 'Social' },
-    shopping: { icon: '🛒', color: '#f59e0b', label: 'Shopping' },
+    news:          { icon: '📰', color: '#ef4444', label: 'Ειδήσεις' },
+    sports:        { icon: '⚽', color: '#22c55e', label: 'Αθλητικά' },
+    work:          { icon: '💼', color: '#3b82f6', label: 'Εργασία' },
+    social:        { icon: '💬', color: '#8b5cf6', label: 'Social' },
+    shopping:      { icon: '🛒', color: '#f59e0b', label: 'Shopping' },
     entertainment: { icon: '🎬', color: '#ec4899', label: 'Ψυχαγωγία' },
-    finance: { icon: '💰', color: '#06b6d4', label: 'Οικονομικά' },
-    other: { icon: '📁', color: '#64748b', label: 'Άλλο' }
+    finance:       { icon: '💰', color: '#06b6d4', label: 'Οικονομικά' },
+    other:         { icon: '📁', color: '#64748b', label: 'Άλλο' }
 };
 
 /** ============================================
@@ -33,21 +33,21 @@ const CATEGORIES = {
  * ============================================ */
 const DEFAULT_BOOKMARKS = {
     trending: [
-        { name: 'Google', url: 'https://google.com', category: 'other' },
+        { name: 'Google',  url: 'https://google.com',  category: 'other' },
         { name: 'YouTube', url: 'https://youtube.com', category: 'entertainment' },
-        { name: 'GitHub', url: 'https://github.com', category: 'work' },
-        { name: 'Reddit', url: 'https://reddit.com', category: 'social' },
+        { name: 'GitHub',  url: 'https://github.com',  category: 'work' },
+        { name: 'Reddit',  url: 'https://reddit.com',  category: 'social' },
         { name: 'Netflix', url: 'https://netflix.com', category: 'entertainment' },
-        { name: 'Gmail', url: 'https://gmail.com', category: 'work' }
+        { name: 'Gmail',   url: 'https://gmail.com',   category: 'work' }
     ],
     greek: [
         { name: 'Καθημερινή', url: 'https://kathimerini.gr', category: 'news' },
-        { name: 'Πρώτο Θέμα', url: 'https://protothema.gr', category: 'news' },
-        { name: 'News247', url: 'https://news247.gr', category: 'news' },
-        { name: 'Sport24', url: 'https://sport24.gr', category: 'sports' },
-        { name: 'Gazzetta', url: 'https://gazzetta.gr', category: 'sports' },
-        { name: 'Skroutz', url: 'https://skroutz.gr', category: 'shopping' },
-        { name: 'Public', url: 'https://public.gr', category: 'shopping' }
+        { name: 'Πρώτο Θέμα', url: 'https://protothema.gr',  category: 'news' },
+        { name: 'News247',    url: 'https://news247.gr',      category: 'news' },
+        { name: 'Sport24',    url: 'https://sport24.gr',      category: 'sports' },
+        { name: 'Gazzetta',   url: 'https://gazzetta.gr',     category: 'sports' },
+        { name: 'Skroutz',    url: 'https://skroutz.gr',      category: 'shopping' },
+        { name: 'Public',     url: 'https://public.gr',       category: 'shopping' }
     ]
 };
 
@@ -60,7 +60,11 @@ const Storage = {
             const result = await chrome.storage.local.get(key);
             return result[key];
         }
-        return JSON.parse(localStorage.getItem(key));
+        try {
+            return JSON.parse(localStorage.getItem(key));
+        } catch {
+            return null;
+        }
     },
 
     async set(key, value) {
@@ -84,25 +88,42 @@ const Utils = {
         }
     },
 
-    escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
+    /**
+     * Robust URL validation using the URL constructor.
+     * Accepts bare domains like "netflix.com" by prepending https://.
+     */
+    parseUrl(value) {
+        if (!value || typeof value !== 'string') return null;
+        const trimmed = value.trim();
+        if (!trimmed) return null;
+
+        // Try as-is first (handles http:// and https:// inputs)
+        try {
+            const u = new URL(trimmed);
+            if (u.protocol === 'http:' || u.protocol === 'https:') return u.href;
+        } catch { /* not a full URL */ }
+
+        // Try prepending https:// for bare domains like "netflix.com"
+        try {
+            const u = new URL('https://' + trimmed);
+            // Must have at least one dot in hostname (avoids single words)
+            if (u.hostname.includes('.')) return u.href;
+        } catch { /* not a URL */ }
+
+        return null; // It's a search query, not a URL
     },
 
     getFallbackIcon(icon) {
-        return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">${icon}</text></svg>`)}`;
+        return `data:image/svg+xml,${encodeURIComponent(
+            `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">${icon}</text></svg>`
+        )}`;
     },
 
     debounce(func, wait) {
         let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
+        return function (...args) {
             clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
+            timeout = setTimeout(() => func.apply(this, args), wait);
         };
     },
 
@@ -113,13 +134,81 @@ const Utils = {
         const toast = document.createElement('div');
         toast.className = `toast ${type}`;
         toast.textContent = message;
-        
+
         container.appendChild(toast);
 
         setTimeout(() => {
             toast.style.animation = 'slideOut 0.3s ease forwards';
             setTimeout(() => toast.remove(), 300);
         }, 3000);
+    },
+
+    /**
+     * Safe confirm dialog — falls back to true in extension context
+     * where window.confirm() is unavailable.
+     * Returns a Promise for consistent async usage.
+     */
+    async confirm(message) {
+        if (CONFIG.isExtension) {
+            // In extension pages confirm() always returns false; use a custom modal instead.
+            return ConfirmModal.show(message);
+        }
+        return window.confirm(message);
+    }
+};
+
+/** ============================================
+ * LIGHTWEIGHT CONFIRM MODAL
+ * (replaces window.confirm() in extension context)
+ * ============================================ */
+const ConfirmModal = {
+    _resolve: null,
+
+    show(message) {
+        return new Promise((resolve) => {
+            this._resolve = resolve;
+
+            let overlay = document.getElementById('confirmOverlay');
+            if (!overlay) {
+                overlay = this._build();
+                document.body.appendChild(overlay);
+            }
+
+            overlay.querySelector('.confirm-message').textContent = message;
+            overlay.classList.add('active');
+        });
+    },
+
+    _build() {
+        const overlay = document.createElement('div');
+        overlay.id = 'confirmOverlay';
+        overlay.className = 'modal-overlay';
+        overlay.setAttribute('role', 'alertdialog');
+        overlay.setAttribute('aria-modal', 'true');
+        overlay.innerHTML = `
+            <div class="modal">
+                <p class="confirm-message"></p>
+                <div class="modal-buttons">
+                    <button id="confirmCancel">Ακύρωση</button>
+                    <button id="confirmOk">OK</button>
+                </div>
+            </div>
+        `;
+
+        overlay.querySelector('#confirmOk').addEventListener('click', () => this._close(true));
+        overlay.querySelector('#confirmCancel').addEventListener('click', () => this._close(false));
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) this._close(false); });
+
+        return overlay;
+    },
+
+    _close(result) {
+        const overlay = document.getElementById('confirmOverlay');
+        overlay?.classList.remove('active');
+        if (this._resolve) {
+            this._resolve(result);
+            this._resolve = null;
+        }
     }
 };
 
@@ -132,12 +221,12 @@ const State = {
     async init() {
         try {
             const stored = await Storage.get(CONFIG.storageKey);
-            this.bookmarks = stored || [];
+            this.bookmarks = Array.isArray(stored) ? stored : [];
         } catch (e) {
             console.error('Failed to load bookmarks:', e);
             this.bookmarks = [];
         }
-        
+
         this.render();
         this.renderDefaults();
     },
@@ -163,7 +252,7 @@ const State = {
 
     async remove(index) {
         if (index < 0 || index >= this.bookmarks.length) return;
-        
+
         this.bookmarks.splice(index, 1);
         await this.save();
         this.render();
@@ -172,7 +261,7 @@ const State = {
 
     async update(index, updatedBookmark) {
         if (index < 0 || index >= this.bookmarks.length) return false;
-        
+
         this.bookmarks[index] = { ...this.bookmarks[index], ...updatedBookmark };
         await this.save();
         this.render();
@@ -192,25 +281,28 @@ const State = {
     render() {
         const grid = document.getElementById('favoritesGrid');
         const countEl = document.getElementById('myBookmarksCount');
-
         if (!grid) return;
 
+        grid.innerHTML = '';
+
         if (this.bookmarks.length === 0) {
-            grid.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-state-icon">📭</div>
-                    <h3>Κανένα bookmark ακόμα</h3>
-                    <p>Πρόσθεσε το πρώτο σου παραπάνω!</p>
-                </div>
+            const empty = document.createElement('div');
+            empty.className = 'empty-state';
+            empty.innerHTML = `
+                <div class="empty-state-icon">📭</div>
+                <h3>Κανένα bookmark ακόμα</h3>
+                <p>Πρόσθεσε το πρώτο σου παραπάνω!</p>
             `;
+            grid.appendChild(empty);
         } else {
-            grid.innerHTML = this.bookmarks.map((bookmark, index) => 
-                this.createCard(bookmark, index, true)
-            ).join('');
+            this.bookmarks.forEach((bookmark, index) => {
+                grid.appendChild(this._createCard(bookmark, index, true));
+            });
         }
 
         if (countEl) {
-            countEl.textContent = `${this.bookmarks.length} ${this.bookmarks.length === 1 ? 'item' : 'items'}`;
+            const n = this.bookmarks.length;
+            countEl.textContent = `${n} ${n === 1 ? 'item' : 'items'}`;
         }
     },
 
@@ -219,57 +311,97 @@ const State = {
         const greekGrid = document.getElementById('greekGrid');
 
         if (trendingGrid) {
-            trendingGrid.innerHTML = DEFAULT_BOOKMARKS.trending
-                .map(b => this.createCard(b, null, false))
-                .join('');
+            trendingGrid.innerHTML = '';
+            DEFAULT_BOOKMARKS.trending.forEach(b => trendingGrid.appendChild(this._createCard(b, null, false)));
         }
-
         if (greekGrid) {
-            greekGrid.innerHTML = DEFAULT_BOOKMARKS.greek
-                .map(b => this.createCard(b, null, false))
-                .join('');
+            greekGrid.innerHTML = '';
+            DEFAULT_BOOKMARKS.greek.forEach(b => greekGrid.appendChild(this._createCard(b, null, false)));
         }
     },
 
-    createCard(bookmark, index, isEditable) {
+    /**
+     * Creates card DOM nodes safely — NO innerHTML with user data,
+     * eliminating the XSS vector from the previous version.
+     */
+    _createCard(bookmark, index, isEditable) {
         const domain = Utils.getDomain(bookmark.url);
         const category = CATEGORIES[bookmark.category] || CATEGORIES.other;
-        const faviconUrl = `https://www.google.com/s2/favicons?sz=64&domain=${domain}`;
+        const faviconUrl = `https://www.google.com/s2/favicons?sz=64&domain=${encodeURIComponent(domain)}`;
 
-        return `
-            <div class="card cat-${bookmark.category}" 
-                 ${!isEditable ? `onclick="window.open('${bookmark.url}', '_blank')"` : ''}>
-                
-                ${isEditable ? `
-                    <div class="card-actions">
-                        <button class="card-action-btn" onclick="event.stopPropagation(); State.edit(${index})" title="Επεξεργασία">✏️</button>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); State.remove(${index})" title="Διαγραφή">🗑️</button>
-                    </div>
-                ` : ''}
+        const card = document.createElement('div');
+        card.className = `card cat-${bookmark.category}`;
+        card.setAttribute('role', 'listitem');
+        card.setAttribute('tabindex', '0');
+        card.title = bookmark.name;
 
-                <img src="${faviconUrl}"
-                     class="card-icon"
-                     alt="${Utils.escapeHtml(bookmark.name)}"
-                     onerror="this.src='${Utils.getFallbackIcon(category.icon)}'">
-                
-                <h3 class="card-title">${Utils.escapeHtml(bookmark.name)}</h3>
-                <p class="card-url">${domain}</p>
-            </div>
-        `;
+        // Navigate on click / Enter / Space
+        const navigate = () => window.open(bookmark.url, '_blank', 'noopener,noreferrer');
+        card.addEventListener('click', navigate);
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate(); }
+        });
+
+        // Edit / Delete buttons (only for user bookmarks)
+        if (isEditable) {
+            const actions = document.createElement('div');
+            actions.className = 'card-actions';
+
+            const editBtn = document.createElement('button');
+            editBtn.className = 'card-action-btn';
+            editBtn.textContent = '✏️';
+            editBtn.title = 'Επεξεργασία';
+            editBtn.setAttribute('aria-label', `Επεξεργασία ${bookmark.name}`);
+            editBtn.addEventListener('click', (e) => { e.stopPropagation(); this.edit(index); });
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'card-action-btn';
+            deleteBtn.textContent = '🗑️';
+            deleteBtn.title = 'Διαγραφή';
+            deleteBtn.setAttribute('aria-label', `Διαγραφή ${bookmark.name}`);
+            deleteBtn.addEventListener('click', (e) => { e.stopPropagation(); this.remove(index); });
+
+            actions.appendChild(editBtn);
+            actions.appendChild(deleteBtn);
+            card.appendChild(actions);
+        }
+
+        // Favicon
+        const img = document.createElement('img');
+        img.className = 'card-icon';
+        img.src = faviconUrl;
+        img.alt = bookmark.name;
+        img.width = 56;
+        img.height = 56;
+        img.addEventListener('error', () => { img.src = Utils.getFallbackIcon(category.icon); });
+        card.appendChild(img);
+
+        // Title
+        const title = document.createElement('h3');
+        title.className = 'card-title';
+        title.textContent = bookmark.name; // textContent = safe, no XSS
+        card.appendChild(title);
+
+        // URL label
+        const urlEl = document.createElement('p');
+        urlEl.className = 'card-url';
+        urlEl.textContent = domain;
+        card.appendChild(urlEl);
+
+        return card;
     },
 
     edit(index) {
         const bookmark = this.bookmarks[index];
         if (!bookmark) return;
 
-        const modal = document.getElementById('editModal');
-        
         document.getElementById('editIndex').value = index;
         document.getElementById('editName').value = bookmark.name;
         document.getElementById('editUrl').value = bookmark.url;
         document.getElementById('editCategory').value = bookmark.category;
 
-        modal?.classList.add('active');
+        document.getElementById('editModal')?.classList.add('active');
+        document.getElementById('editName')?.focus();
     }
 };
 
@@ -283,19 +415,16 @@ const SmartInput = {
     status: null,
 
     init() {
-        this.input = document.getElementById('smartInput');
+        this.input  = document.getElementById('smartInput');
         this.button = document.getElementById('addBtn');
         this.preview = document.getElementById('previewCard');
-        this.status = document.getElementById('inputStatus');
+        this.status  = document.getElementById('inputStatus');
 
         if (!this.input || !this.button) return;
 
         this.input.addEventListener('input', Utils.debounce(() => this.handleInput(), 300));
-        this.input.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') this.handleSubmit();
-        });
+        this.input.addEventListener('keydown', (e) => { if (e.key === 'Enter') this.handleSubmit(); });
         this.button.addEventListener('click', () => this.handleSubmit());
-
         document.getElementById('customCategory')?.addEventListener('change', () => {
             if (this.input.value.trim()) this.updatePreview();
         });
@@ -303,19 +432,21 @@ const SmartInput = {
 
     handleInput() {
         const value = this.input.value.trim();
-        
+
         if (!value) {
             this.hidePreview();
             this.button.disabled = true;
+            this.status.textContent = '';
             return;
         }
 
         this.button.disabled = false;
+        const parsedUrl = Utils.parseUrl(value);
 
-        if (this.isValidUrl(value)) {
+        if (parsedUrl) {
             this.status.textContent = '🔗 URL αναγνωρίστηκε';
             this.status.style.color = 'var(--accent-green)';
-            this.updatePreview(value);
+            this.updatePreview(parsedUrl);
         } else {
             this.status.textContent = '🔍 Θα γίνει αναζήτηση';
             this.status.style.color = 'var(--accent-blue)';
@@ -323,20 +454,15 @@ const SmartInput = {
         }
     },
 
-    isValidUrl(value) {
-        return value.includes('.') && !value.includes(' ') && value.length > 3;
-    },
-
     updatePreview(url = null) {
-        const value = url || this.input.value.trim();
-        if (!this.isValidUrl(value)) return;
+        const raw = url || Utils.parseUrl(this.input.value.trim());
+        if (!raw) return;
 
-        const fullUrl = value.startsWith('http') ? value : `https://${value}`;
-        const domain = Utils.getDomain(fullUrl);
+        const domain = Utils.getDomain(raw);
 
-        document.getElementById('previewIcon').src = 
-            `https://www.google.com/s2/favicons?sz=64&domain=${domain}`;
-        document.getElementById('previewName').textContent = this.extractName(domain);
+        document.getElementById('previewIcon').src =
+            `https://www.google.com/s2/favicons?sz=64&domain=${encodeURIComponent(domain)}`;
+        document.getElementById('previewName').textContent = this._extractName(domain);
         document.getElementById('previewUrl').textContent = domain;
 
         this.preview?.classList.add('visible');
@@ -350,14 +476,16 @@ const SmartInput = {
         const value = this.input.value.trim();
         if (!value) return;
 
-        if (this.isValidUrl(value)) {
-            let url = value.startsWith('http') ? value : `https://${value}`;
+        const parsedUrl = Utils.parseUrl(value);
+
+        if (parsedUrl) {
             const category = document.getElementById('customCategory')?.value || 'other';
-            
+            const domain = Utils.getDomain(parsedUrl);
+
             const success = await State.add({
-                name: this.extractName(Utils.getDomain(url)),
-                url: url,
-                category: category
+                name: this._extractName(domain),
+                url: parsedUrl,
+                category
             });
 
             if (success) {
@@ -367,20 +495,20 @@ const SmartInput = {
                 this.status.textContent = '';
             }
         } else {
-            window.open(`https://www.google.com/search?q=${encodeURIComponent(value)}`, '_blank');
+            window.open(`https://www.google.com/search?q=${encodeURIComponent(value)}`, '_blank', 'noopener,noreferrer');
             this.input.value = '';
+            this.status.textContent = '';
         }
     },
 
-    extractName(domain) {
-        const parts = domain.split('.');
-        const name = parts[0];
+    _extractName(domain) {
+        const name = domain.split('.')[0];
         return name.charAt(0).toUpperCase() + name.slice(1);
     }
 };
 
 /** ============================================
- * SEARCH FUNCTIONALITY
+ * SEARCH — filters ALL grids simultaneously
  * ============================================ */
 const Search = {
     init() {
@@ -393,15 +521,21 @@ const Search = {
     },
 
     filter(term) {
-        const cards = document.querySelectorAll('#favoritesGrid .card');
-        const lowerTerm = term.toLowerCase();
+        const lowerTerm = term.toLowerCase().trim();
 
-        cards.forEach(card => {
-            const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
-            const url = card.querySelector('.card-url')?.textContent.toLowerCase() || '';
-            
-            const matches = title.includes(lowerTerm) || url.includes(lowerTerm);
-            card.style.display = matches ? '' : 'none';
+        // Search across favorites, trending, AND greek grids
+        const grids = ['favoritesGrid', 'trendingGrid', 'greekGrid'];
+
+        grids.forEach(gridId => {
+            const grid = document.getElementById(gridId);
+            if (!grid) return;
+
+            grid.querySelectorAll('.card').forEach(card => {
+                const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
+                const url   = card.querySelector('.card-url')?.textContent.toLowerCase() || '';
+                const matches = !lowerTerm || title.includes(lowerTerm) || url.includes(lowerTerm);
+                card.style.display = matches ? '' : 'none';
+            });
         });
     }
 };
@@ -411,17 +545,25 @@ const Search = {
  * ============================================ */
 const Modals = {
     init() {
+        // Close on backdrop click
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) overlay.classList.remove('active');
             });
         });
 
+        // Close on Escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
             }
         });
+
+        // Edit form submit (no inline onsubmit in HTML)
+        document.getElementById('editForm')?.addEventListener('submit', (e) => this.saveEdit(e));
+
+        // Cancel button (no inline onclick in HTML)
+        document.getElementById('cancelEditBtn')?.addEventListener('click', () => this.hideEdit());
     },
 
     hideEdit() {
@@ -430,10 +572,10 @@ const Modals = {
 
     async saveEdit(e) {
         e.preventDefault();
-        
-        const index = parseInt(document.getElementById('editIndex').value);
-        const name = document.getElementById('editName').value.trim();
-        const url = document.getElementById('editUrl').value.trim();
+
+        const index    = parseInt(document.getElementById('editIndex').value, 10);
+        const name     = document.getElementById('editName').value.trim();
+        const url      = document.getElementById('editUrl').value.trim();
         const category = document.getElementById('editCategory').value;
 
         if (!name || !url) {
@@ -441,8 +583,15 @@ const Modals = {
             return;
         }
 
-        await State.update(index, { name, url, category });
-        this.hideEdit();
+        // Validate the edited URL too
+        const parsedUrl = Utils.parseUrl(url);
+        if (!parsedUrl) {
+            Utils.showToast('Μη έγκυρο URL!', 'error');
+            return;
+        }
+
+        const success = await State.update(index, { name, url: parsedUrl, category });
+        if (success) this.hideEdit();
     }
 };
 
@@ -452,23 +601,23 @@ const Modals = {
 const Shortcuts = {
     init() {
         document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + K → focus search
             if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
                 e.preventDefault();
                 document.getElementById('searchInput')?.focus();
             }
-            
+
+            // Ctrl/Cmd + N → focus smart input
             if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
                 e.preventDefault();
                 document.getElementById('smartInput')?.focus();
             }
 
+            // Ctrl/Cmd + 1-9 → open bookmark by position
             if ((e.ctrlKey || e.metaKey) && e.key >= '1' && e.key <= '9') {
                 e.preventDefault();
-                const index = parseInt(e.key) - 1;
-                const bookmark = State.bookmarks[index];
-                if (bookmark) {
-                    window.open(bookmark.url, '_blank');
-                }
+                const bookmark = State.bookmarks[parseInt(e.key, 10) - 1];
+                if (bookmark) window.open(bookmark.url, '_blank', 'noopener,noreferrer');
             }
         });
     }
@@ -478,33 +627,33 @@ const Shortcuts = {
  * EXPORT / IMPORT
  * ============================================ */
 const DataManager = {
-    async export() {
+    export() {
         const data = {
             bookmarks: State.bookmarks,
             exportedAt: new Date().toISOString(),
             version: CONFIG.version
         };
-        
+
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        
+        const url  = URL.createObjectURL(blob);
+
         const a = document.createElement('a');
         a.href = url;
         a.download = `portify-backup-${new Date().toISOString().split('T')[0]}.json`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        
         URL.revokeObjectURL(url);
+
         Utils.showToast('✅ Εξαγωγή επιτυχής!');
     },
 
     import() {
         const input = document.createElement('input');
-        input.type = 'file';
+        input.type   = 'file';
         input.accept = '.json,application/json';
-        
-        input.onchange = async (e) => {
+
+        input.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
 
@@ -514,63 +663,56 @@ const DataManager = {
             }
 
             const reader = new FileReader();
-            
-            reader.onload = async (event) => {
+
+            reader.addEventListener('load', async (event) => {
                 try {
                     const data = JSON.parse(event.target.result);
-                    
+
                     if (!data.bookmarks || !Array.isArray(data.bookmarks)) {
                         throw new Error('Invalid format');
                     }
 
-                    const validBookmarks = data.bookmarks.filter(b => 
-                        b.name && b.url && b.category
+                    const validBookmarks = data.bookmarks.filter(b =>
+                        b && typeof b.name === 'string' &&
+                        typeof b.url  === 'string' &&
+                        typeof b.category === 'string' &&
+                        Utils.parseUrl(b.url) !== null
                     );
 
                     if (validBookmarks.length === 0) {
                         throw new Error('No valid bookmarks');
                     }
 
+                    // ← replaces window.confirm() — works in extensions too
                     if (State.bookmarks.length > 0) {
-                        if (!confirm(`Βρέθηκαν ${validBookmarks.length} bookmarks. Να αντικαταστήσω τα υπάρχοντα;`)) {
-                            return;
-                        }
+                        const ok = await Utils.confirm(
+                            `Βρέθηκαν ${validBookmarks.length} bookmarks. Να αντικαταστήσω τα υπάρχοντα;`
+                        );
+                        if (!ok) return;
                     }
 
                     State.bookmarks = validBookmarks.slice(0, CONFIG.maxBookmarks);
                     await State.save();
                     State.render();
-                    
+
                     Utils.showToast(`✅ Εισαγωγή ${validBookmarks.length} bookmarks!`);
-                    
+
                 } catch (err) {
                     console.error('Import error:', err);
                     Utils.showToast('❌ Άκυρο αρχείο!', 'error');
                 }
-            };
+            });
 
-            reader.onerror = () => {
+            reader.addEventListener('error', () => {
                 Utils.showToast('❌ Σφάλμα ανάγνωσης!', 'error');
-            };
+            });
 
             reader.readAsText(file);
-        };
+        });
 
         input.click();
     }
 };
-
-/** ============================================
- * GLOBAL FUNCTIONS
- * ============================================ */
-window.State = State;
-window.Modals = Modals;
-window.DataManager = DataManager;
-
-window.exportData = () => DataManager.export();
-window.importData = () => DataManager.import();
-window.hideEditModal = () => Modals.hideEdit();
-window.saveEdit = (e) => Modals.saveEdit(e);
 
 /** ============================================
  * INITIALIZATION
@@ -581,6 +723,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     Search.init();
     Modals.init();
     Shortcuts.init();
-    
+
+    // Footer buttons (no inline onclick in HTML)
+    document.getElementById('exportBtn')?.addEventListener('click', () => DataManager.export());
+    document.getElementById('importBtn')?.addEventListener('click', () => DataManager.import());
+
     console.log(`🚀 Portify v${CONFIG.version} loaded! [${CONFIG.isExtension ? 'Extension' : 'Web'}]`);
 }, { once: true });
