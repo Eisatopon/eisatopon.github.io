@@ -10,7 +10,7 @@
 const CONFIG = {
     storageKey: 'portify_bookmarks',
     maxBookmarks: 100,
-    version: '3.1',
+    version: '3.2',
     isExtension: typeof chrome !== 'undefined' && chrome.storage !== undefined
 };
 
@@ -39,17 +39,106 @@ const DEFAULT_BOOKMARKS = {
         { name: 'Reddit',  url: 'https://reddit.com',  category: 'social' },
         { name: 'Netflix', url: 'https://netflix.com', category: 'entertainment' },
         { name: 'Gmail',   url: 'https://gmail.com',   category: 'work' }
-    ],
-    greek: [
-        { name: 'Καθημερινή', url: 'https://kathimerini.gr', category: 'news' },
-        { name: 'Πρώτο Θέμα', url: 'https://protothema.gr',  category: 'news' },
-        { name: 'News247',    url: 'https://news247.gr',      category: 'news' },
-        { name: 'Sport24',    url: 'https://sport24.gr',      category: 'sports' },
-        { name: 'Gazzetta',   url: 'https://gazzetta.gr',     category: 'sports' },
-        { name: 'Skroutz',    url: 'https://skroutz.gr',      category: 'shopping' },
-        { name: 'Public',     url: 'https://public.gr',       category: 'shopping' }
     ]
 };
+
+/** ============================================
+ * COUNTRY TABS
+ * Each entry: { id, flag, label, sites[] }
+ * ============================================ */
+const COUNTRY_TABS = [
+    {
+        id: 'gr', flag: '🇬🇷', label: 'Ελλάδα',
+        sites: [
+            { name: 'Καθημερινή', url: 'https://kathimerini.gr', category: 'news' },
+            { name: 'Πρώτο Θέμα', url: 'https://protothema.gr',  category: 'news' },
+            { name: 'News247',    url: 'https://news247.gr',      category: 'news' },
+            { name: 'In.gr',      url: 'https://in.gr',           category: 'news' },
+            { name: 'Sport24',    url: 'https://sport24.gr',      category: 'sports' },
+            { name: 'Gazzetta',   url: 'https://gazzetta.gr',     category: 'sports' },
+            { name: 'Skroutz',    url: 'https://skroutz.gr',      category: 'shopping' },
+            { name: 'Public',     url: 'https://public.gr',       category: 'shopping' }
+        ]
+    },
+    {
+        id: 'us', flag: '🇺🇸', label: 'USA',
+        sites: [
+            { name: 'NY Times',    url: 'https://nytimes.com',       category: 'news' },
+            { name: 'CNN',         url: 'https://cnn.com',           category: 'news' },
+            { name: 'ESPN',        url: 'https://espn.com',          category: 'sports' },
+            { name: 'The Verge',   url: 'https://theverge.com',      category: 'work' },
+            { name: 'Amazon',      url: 'https://amazon.com',        category: 'shopping' },
+            { name: 'eBay',        url: 'https://ebay.com',          category: 'shopping' },
+            { name: 'Hulu',        url: 'https://hulu.com',          category: 'entertainment' },
+            { name: 'Bloomberg',   url: 'https://bloomberg.com',     category: 'finance' }
+        ]
+    },
+    {
+        id: 'gb', flag: '🇬🇧', label: 'UK',
+        sites: [
+            { name: 'BBC News',    url: 'https://bbc.co.uk/news',    category: 'news' },
+            { name: 'The Guardian',url: 'https://theguardian.com',   category: 'news' },
+            { name: 'Sky Sports',  url: 'https://skysports.com',     category: 'sports' },
+            { name: 'The Sun',     url: 'https://thesun.co.uk',      category: 'news' },
+            { name: 'Amazon UK',   url: 'https://amazon.co.uk',      category: 'shopping' },
+            { name: 'ASOS',        url: 'https://asos.com',          category: 'shopping' },
+            { name: 'ITV',         url: 'https://itv.com',           category: 'entertainment' },
+            { name: 'Financial T.',url: 'https://ft.com',            category: 'finance' }
+        ]
+    },
+    {
+        id: 'de', flag: '🇩🇪', label: 'Deutschland',
+        sites: [
+            { name: 'Spiegel',     url: 'https://spiegel.de',        category: 'news' },
+            { name: 'Zeit Online', url: 'https://zeit.de',           category: 'news' },
+            { name: 'Kicker',      url: 'https://kicker.de',         category: 'sports' },
+            { name: 'Sport1',      url: 'https://sport1.de',         category: 'sports' },
+            { name: 'Amazon DE',   url: 'https://amazon.de',         category: 'shopping' },
+            { name: 'Otto',        url: 'https://otto.de',           category: 'shopping' },
+            { name: 'ARD',         url: 'https://ard.de',            category: 'entertainment' },
+            { name: 'Handelsblatt',url: 'https://handelsblatt.com',  category: 'finance' }
+        ]
+    },
+    {
+        id: 'fr', flag: '🇫🇷', label: 'France',
+        sites: [
+            { name: 'Le Monde',    url: 'https://lemonde.fr',        category: 'news' },
+            { name: 'Le Figaro',   url: 'https://lefigaro.fr',       category: 'news' },
+            { name: 'L\'Équipe',   url: 'https://lequipe.fr',        category: 'sports' },
+            { name: 'Eurosport',   url: 'https://eurosport.fr',      category: 'sports' },
+            { name: 'Amazon FR',   url: 'https://amazon.fr',         category: 'shopping' },
+            { name: 'Fnac',        url: 'https://fnac.com',          category: 'shopping' },
+            { name: 'TF1',         url: 'https://tf1.fr',            category: 'entertainment' },
+            { name: 'Les Echos',   url: 'https://lesechos.fr',       category: 'finance' }
+        ]
+    },
+    {
+        id: 'es', flag: '🇪🇸', label: 'España',
+        sites: [
+            { name: 'El País',     url: 'https://elpais.com',        category: 'news' },
+            { name: 'El Mundo',    url: 'https://elmundo.es',        category: 'news' },
+            { name: 'Marca',       url: 'https://marca.com',         category: 'sports' },
+            { name: 'AS',          url: 'https://as.com',            category: 'sports' },
+            { name: 'Amazon ES',   url: 'https://amazon.es',         category: 'shopping' },
+            { name: 'El Corte',    url: 'https://elcorteingles.es',  category: 'shopping' },
+            { name: 'RTVE',        url: 'https://rtve.es',           category: 'entertainment' },
+            { name: 'Expansión',   url: 'https://expansion.com',     category: 'finance' }
+        ]
+    },
+    {
+        id: 'it', flag: '🇮🇹', label: 'Italia',
+        sites: [
+            { name: 'Repubblica',  url: 'https://repubblica.it',     category: 'news' },
+            { name: 'Corriere',    url: 'https://corriere.it',       category: 'news' },
+            { name: 'Gazzetta',    url: 'https://gazzetta.it',       category: 'sports' },
+            { name: 'Sky Sport',   url: 'https://sport.sky.it',      category: 'sports' },
+            { name: 'Amazon IT',   url: 'https://amazon.it',         category: 'shopping' },
+            { name: 'Zalando IT',  url: 'https://zalando.it',        category: 'shopping' },
+            { name: 'RAI',         url: 'https://rai.it',            category: 'entertainment' },
+            { name: 'Il Sole 24',  url: 'https://ilsole24ore.com',   category: 'finance' }
+        ]
+    }
+];
 
 /** ============================================
  * STORAGE ADAPTER (Browser + Extension)
@@ -308,15 +397,9 @@ const State = {
 
     renderDefaults() {
         const trendingGrid = document.getElementById('trendingGrid');
-        const greekGrid = document.getElementById('greekGrid');
-
         if (trendingGrid) {
             trendingGrid.innerHTML = '';
             DEFAULT_BOOKMARKS.trending.forEach(b => trendingGrid.appendChild(this._createCard(b, null, false)));
-        }
-        if (greekGrid) {
-            greekGrid.innerHTML = '';
-            DEFAULT_BOOKMARKS.greek.forEach(b => greekGrid.appendChild(this._createCard(b, null, false)));
         }
     },
 
@@ -523,8 +606,8 @@ const Search = {
     filter(term) {
         const lowerTerm = term.toLowerCase().trim();
 
-        // Search across favorites, trending, AND greek grids
-        const grids = ['favoritesGrid', 'trendingGrid', 'greekGrid'];
+        // Search across favorites, trending, AND the active country grid
+        const grids = ['favoritesGrid', 'trendingGrid', 'countryGrid'];
 
         grids.forEach(gridId => {
             const grid = document.getElementById(gridId);
@@ -715,6 +798,66 @@ const DataManager = {
 };
 
 /** ============================================
+ * COUNTRY TABS
+ * ============================================ */
+const CountryTabs = {
+    activeId: 'gr',
+
+    init() {
+        const tabBar = document.getElementById('countryTabBar');
+        const grid   = document.getElementById('countryGrid');
+        if (!tabBar || !grid) return;
+
+        // Build tab buttons
+        COUNTRY_TABS.forEach(country => {
+            const btn = document.createElement('button');
+            btn.className = 'country-tab' + (country.id === this.activeId ? ' active' : '');
+            btn.setAttribute('aria-selected', country.id === this.activeId ? 'true' : 'false');
+            btn.setAttribute('role', 'tab');
+            btn.setAttribute('data-country', country.id);
+            btn.setAttribute('aria-label', country.label);
+            btn.innerHTML = `<span class="tab-flag">${country.flag}</span><span class="tab-label">${country.label}</span>`;
+            btn.addEventListener('click', () => this.activate(country.id));
+            tabBar.appendChild(btn);
+        });
+
+        this.renderGrid(this.activeId);
+    },
+
+    activate(id) {
+        this.activeId = id;
+
+        // Update tab button states
+        document.querySelectorAll('.country-tab').forEach(btn => {
+            const isActive = btn.dataset.country === id;
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        // Render the grid with a quick fade
+        const grid = document.getElementById('countryGrid');
+        if (grid) {
+            grid.style.opacity = '0';
+            setTimeout(() => {
+                this.renderGrid(id);
+                grid.style.opacity = '1';
+            }, 150);
+        }
+    },
+
+    renderGrid(id) {
+        const country = COUNTRY_TABS.find(c => c.id === id);
+        const grid = document.getElementById('countryGrid');
+        if (!country || !grid) return;
+
+        grid.innerHTML = '';
+        country.sites.forEach(site => {
+            grid.appendChild(State._createCard(site, null, false));
+        });
+    }
+};
+
+/** ============================================
  * INITIALIZATION
  * ============================================ */
 document.addEventListener('DOMContentLoaded', async () => {
@@ -723,6 +866,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     Search.init();
     Modals.init();
     Shortcuts.init();
+    CountryTabs.init();
 
     // Footer buttons (no inline onclick in HTML)
     document.getElementById('exportBtn')?.addEventListener('click', () => DataManager.export());
