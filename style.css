@@ -1,5 +1,5 @@
 /* ============================================
-   PORTIFY DESIGN SYSTEM v3.3 - FIXED
+   PORTIFY DESIGN SYSTEM v3.4 - FINAL
    ============================================ */
 
 :root {
@@ -75,6 +75,8 @@ body::before {
   background: linear-gradient(135deg, var(--accent-green), var(--accent-blue), var(--accent-purple));
   animation: rotate 10s linear infinite;
   z-index: -1;
+  user-select: none;
+  pointer-events: none;
 }
 
 .logo-inner {
@@ -368,6 +370,7 @@ body::before {
   color: inherit;
   display: block;
   position: relative;
+  cursor: pointer;
 }
 
 .card:hover {
@@ -387,7 +390,7 @@ body::before {
   display: block;
 }
 
-.card h3 {
+.card-title {
   font-size: 0.95rem;
   font-weight: 600;
   margin-bottom: 4px;
@@ -396,7 +399,7 @@ body::before {
   text-overflow: ellipsis;
 }
 
-.card p {
+.card-url {
   color: var(--text-muted);
   font-size: 0.8rem;
 }
@@ -429,6 +432,28 @@ body::before {
 
 .card-action-btn:hover {
   background: rgba(255,255,255,0.2);
+}
+
+/* ================= EMPTY STATE ================= */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+}
+
+.empty-state-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.empty-state p {
+  color: var(--text-muted);
 }
 
 /* ================= FOOTER ================= */
@@ -594,6 +619,17 @@ body::before {
   to { 
     transform: translateX(0); 
     opacity: 1; 
+  }
+}
+
+@keyframes slideOut {
+  from { 
+    transform: translateX(0); 
+    opacity: 1; 
+  }
+  to { 
+    transform: translateX(100%); 
+    opacity: 0; 
   }
 }
 
