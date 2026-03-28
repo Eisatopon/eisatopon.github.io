@@ -1,5 +1,5 @@
 /* ============================================
-   PORTIFY DESIGN SYSTEM v3.0 - PREMIUM RESPONSIVE
+   PORTIFY DESIGN SYSTEM v3.1 - STABLE FIXED
    ============================================ */
 
 :root {
@@ -32,10 +32,18 @@
   padding: 0;
 }
 
+img {
+  max-width: 100%;
+  display: block;
+}
+
 body {
+  min-height: 100vh;
   background: linear-gradient(135deg, #0a0f1c, #111827);
   color: var(--text-primary);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -48,6 +56,7 @@ body::before {
     radial-gradient(circle at top, rgba(59,130,246,0.1), transparent),
     radial-gradient(circle at bottom right, rgba(139,92,246,0.08), transparent);
   z-index: -1;
+  pointer-events: none;
 }
 
 /* Container */
@@ -85,6 +94,7 @@ body::before {
   color: white;
   font-size: 1rem;
   transition: var(--transition);
+  outline: none;
 }
 
 .search-input:focus {
@@ -107,14 +117,17 @@ body::before {
   text-align: center;
   cursor: pointer;
   transition: var(--transition);
-  backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.05);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .card:hover {
   transform: translateY(-6px) scale(1.03);
   background: var(--bg-card-hover);
   box-shadow: var(--shadow-glow);
+  will-change: transform;
 }
 
 .card-icon {
@@ -123,7 +136,8 @@ body::before {
   border-radius: 12px;
   background: white;
   padding: 6px;
-  margin-bottom: 10px;
+  margin: 0 auto 10px;
+  object-fit: contain;
 }
 
 .card-title {
@@ -143,6 +157,11 @@ body::before {
   cursor: pointer;
   border: none;
   font-weight: 600;
+  transition: var(--transition);
+}
+
+.btn:active {
+  transform: scale(0.96);
 }
 
 .btn-primary {
@@ -176,7 +195,7 @@ body::before {
   }
 
   .search-input {
-    font-size: 16px;
+    font-size: 16px; /* prevent iOS zoom */
   }
 }
 
@@ -197,6 +216,7 @@ body::before {
   position: fixed;
   bottom: 20px;
   right: 20px;
+  z-index: 9999;
 }
 
 .toast {
@@ -204,6 +224,7 @@ body::before {
   padding: 12px 18px;
   border-radius: 10px;
   margin-top: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
 /* ================= MODAL ================= */
@@ -214,6 +235,7 @@ body::before {
   background: rgba(0,0,0,0.8);
   justify-content: center;
   align-items: center;
+  z-index: 10000;
 }
 
 .modal-overlay.active {
@@ -224,4 +246,5 @@ body::before {
   background: #111827;
   padding: 2rem;
   border-radius: 18px;
+  max-width: 90%;
 }
