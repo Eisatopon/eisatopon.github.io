@@ -1,5 +1,5 @@
 // ============================================
-// PORTIFY SCRIPT v3.0 - REFACTORED & POLISHED
+// PORTIFY SCRIPT v3.0 - CHROME EXTENSION EDITION
 // ============================================
 
 'use strict';
@@ -8,9 +8,10 @@
  * CONFIGURATION
  * ============================================ */
 const CONFIG = {
-    storageKey: 'portify_v3_bookmarks',
+    storageKey: 'portify_bookmarks',
     maxBookmarks: 100,
-    version: '3.0'
+    version: '3.0',
+    isExtension: typeof chrome !== 'undefined' && chrome.storage !== undefined
 };
 
 /** ============================================
@@ -51,12 +52,30 @@ const DEFAULT_BOOKMARKS = {
 };
 
 /** ============================================
+ * STORAGE ADAPTER (Browser + Extension)
+ * ============================================ */
+const Storage = {
+    async get(key) {
+        if (CONFIG.isExtension) {
+            const result = await chrome.storage.local.get(key);
+            return result[key];
+        }
+        return JSON.parse(localStorage.getItem(key));
+    },
+
+    async set(key, value) {
+        if (CONFIG.isExtension) {
+            await chrome.storage.local.set({ [key]: value });
+        } else {
+            localStorage.setItem(key, JSON.stringify(value));
+        }
+    }
+};
+
+/** ============================================
  * UTILITY FUNCTIONS
  * ============================================ */
 const Utils = {
-    /**
-     * Extract domain from URL
-     */
     getDomain(url) {
         try {
             return new URL(url).hostname.replace(/^www\./, '');
@@ -65,25 +84,16 @@ const Utils = {
         }
     },
 
-    /**
-     * Escape HTML to prevent XSS
-     */
     escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
     },
 
-    /**
-     * Generate fallback icon SVG
-     */
     getFallbackIcon(icon) {
         return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">${icon}</text></svg>`)}`;
     },
 
-    /**
-     * Debounce function for performance
-     */
     debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -96,9 +106,6 @@ const Utils = {
         };
     },
 
-    /**
-     * Show toast notification
-     */
     showToast(message, type = 'success') {
         const container = document.getElementById('toastContainer');
         if (!container) return;
@@ -109,7 +116,6 @@ const Utils = {
         
         container.appendChild(toast);
 
-        // Auto-remove after 3 seconds
         setTimeout(() => {
             toast.style.animation = 'slideOut 0.3s ease forwards';
             setTimeout(() => toast.remove(), 300);
@@ -123,13 +129,10 @@ const Utils = {
 const State = {
     bookmarks: [],
 
-    /**
-     * Initialize state from localStorage
-     */
-    init() {
+    async init() {
         try {
-            const stored = localStorage.getItem(CONFIG.storageKey);
-            this.bookmarks = stored ? JSON.parse(stored) : [];
+            const stored = await Storage.get(CONFIG.storageKey);
+            this.bookmarks = stored || [];
         } catch (e) {
             console.error('Failed to load bookmarks:', e);
             this.bookmarks = [];
@@ -139,69 +142,53 @@ const State = {
         this.renderDefaults();
     },
 
-    /**
-     * Add new bookmark
-     */
-    add(bookmark) {
+    async add(bookmark) {
         if (this.bookmarks.length >= CONFIG.maxBookmarks) {
-            Utils.showToast(`Όριο ${CONFIG.maxBookmarks} bookmarks! Διέγραψε κάποιο πρώτα.`, 'error');
+            Utils.showToast(`Όριο ${CONFIG.maxBookmarks} bookmarks!`, 'error');
             return false;
         }
 
-        // Check for duplicates
         const exists = this.bookmarks.some(b => b.url === bookmark.url);
         if (exists) {
-            Utils.showToast('Αυτό το bookmark υπάρχει ήδη!', 'error');
+            Utils.showToast('Υπάρχει ήδη!', 'error');
             return false;
         }
 
         this.bookmarks.unshift(bookmark);
-        this.save();
+        await this.save();
         this.render();
-        Utils.showToast('Προστέθηκε επιτυχώς! ✅');
+        Utils.showToast('Προστέθηκε! ✅');
         return true;
     },
 
-    /**
-     * Remove bookmark by index
-     */
-    remove(index) {
+    async remove(index) {
         if (index < 0 || index >= this.bookmarks.length) return;
         
         this.bookmarks.splice(index, 1);
-        this.save();
+        await this.save();
         this.render();
-        Utils.showToast('Διαγράφηκε επιτυχώς! 🗑️');
+        Utils.showToast('Διαγράφηκε! 🗑️');
     },
 
-    /**
-     * Update existing bookmark
-     */
-    update(index, updatedBookmark) {
+    async update(index, updatedBookmark) {
         if (index < 0 || index >= this.bookmarks.length) return false;
         
         this.bookmarks[index] = { ...this.bookmarks[index], ...updatedBookmark };
-        this.save();
+        await this.save();
         this.render();
-        Utils.showToast('Ενημερώθηκε επιτυχώς! ✏️');
+        Utils.showToast('Ενημερώθηκε! ✏️');
         return true;
     },
 
-    /**
-     * Save to localStorage
-     */
-    save() {
+    async save() {
         try {
-            localStorage.setItem(CONFIG.storageKey, JSON.stringify(this.bookmarks));
+            await Storage.set(CONFIG.storageKey, this.bookmarks);
         } catch (e) {
-            console.error('Failed to save bookmarks:', e);
+            console.error('Failed to save:', e);
             Utils.showToast('Σφάλμα αποθήκευσης!', 'error');
         }
     },
 
-    /**
-     * Render user bookmarks
-     */
     render() {
         const grid = document.getElementById('favoritesGrid');
         const countEl = document.getElementById('myBookmarksCount');
@@ -227,9 +214,6 @@ const State = {
         }
     },
 
-    /**
-     * Render default bookmarks (trending & greek)
-     */
     renderDefaults() {
         const trendingGrid = document.getElementById('trendingGrid');
         const greekGrid = document.getElementById('greekGrid');
@@ -247,9 +231,6 @@ const State = {
         }
     },
 
-    /**
-     * Create bookmark card HTML
-     */
     createCard(bookmark, index, isEditable) {
         const domain = Utils.getDomain(bookmark.url);
         const category = CATEGORIES[bookmark.category] || CATEGORIES.other;
@@ -277,15 +258,11 @@ const State = {
         `;
     },
 
-    /**
-     * Edit bookmark (opens modal)
-     */
     edit(index) {
         const bookmark = this.bookmarks[index];
         if (!bookmark) return;
 
         const modal = document.getElementById('editModal');
-        const form = document.getElementById('editForm');
         
         document.getElementById('editIndex').value = index;
         document.getElementById('editName').value = bookmark.name;
@@ -313,22 +290,17 @@ const SmartInput = {
 
         if (!this.input || !this.button) return;
 
-        // Event listeners
         this.input.addEventListener('input', Utils.debounce(() => this.handleInput(), 300));
         this.input.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') this.handleSubmit();
         });
         this.button.addEventListener('click', () => this.handleSubmit());
 
-        // Category change updates preview
         document.getElementById('customCategory')?.addEventListener('change', () => {
             if (this.input.value.trim()) this.updatePreview();
         });
     },
 
-    /**
-     * Handle input changes (real-time preview)
-     */
     handleInput() {
         const value = this.input.value.trim();
         
@@ -351,24 +323,16 @@ const SmartInput = {
         }
     },
 
-    /**
-     * Check if input is valid URL
-     */
     isValidUrl(value) {
         return value.includes('.') && !value.includes(' ') && value.length > 3;
     },
 
-    /**
-     * Update preview card
-     */
     updatePreview(url = null) {
         const value = url || this.input.value.trim();
         if (!this.isValidUrl(value)) return;
 
         const fullUrl = value.startsWith('http') ? value : `https://${value}`;
         const domain = Utils.getDomain(fullUrl);
-        const category = document.getElementById('customCategory')?.value || 'other';
-        const catConfig = CATEGORIES[category];
 
         document.getElementById('previewIcon').src = 
             `https://www.google.com/s2/favicons?sz=64&domain=${domain}`;
@@ -378,26 +342,19 @@ const SmartInput = {
         this.preview?.classList.add('visible');
     },
 
-    /**
-     * Hide preview card
-     */
     hidePreview() {
         this.preview?.classList.remove('visible');
     },
 
-    /**
-     * Handle form submission
-     */
-    handleSubmit() {
+    async handleSubmit() {
         const value = this.input.value.trim();
         if (!value) return;
 
         if (this.isValidUrl(value)) {
-            // Add as bookmark
             let url = value.startsWith('http') ? value : `https://${value}`;
             const category = document.getElementById('customCategory')?.value || 'other';
             
-            const success = State.add({
+            const success = await State.add({
                 name: this.extractName(Utils.getDomain(url)),
                 url: url,
                 category: category
@@ -410,15 +367,11 @@ const SmartInput = {
                 this.status.textContent = '';
             }
         } else {
-            // Search on Google
             window.open(`https://www.google.com/search?q=${encodeURIComponent(value)}`, '_blank');
             this.input.value = '';
         }
     },
 
-    /**
-     * Extract name from domain
-     */
     extractName(domain) {
         const parts = domain.split('.');
         const name = parts[0];
@@ -439,9 +392,6 @@ const Search = {
         }, 200));
     },
 
-    /**
-     * Filter bookmarks by search term
-     */
     filter(term) {
         const cards = document.querySelectorAll('#favoritesGrid .card');
         const lowerTerm = term.toLowerCase();
@@ -461,14 +411,12 @@ const Search = {
  * ============================================ */
 const Modals = {
     init() {
-        // Close on overlay click
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) overlay.classList.remove('active');
             });
         });
 
-        // Close on Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
@@ -476,17 +424,11 @@ const Modals = {
         });
     },
 
-    /**
-     * Hide edit modal
-     */
     hideEdit() {
         document.getElementById('editModal')?.classList.remove('active');
     },
 
-    /**
-     * Save edit from modal
-     */
-    saveEdit(e) {
+    async saveEdit(e) {
         e.preventDefault();
         
         const index = parseInt(document.getElementById('editIndex').value);
@@ -499,7 +441,7 @@ const Modals = {
             return;
         }
 
-        State.update(index, { name, url, category });
+        await State.update(index, { name, url, category });
         this.hideEdit();
     }
 };
@@ -510,19 +452,16 @@ const Modals = {
 const Shortcuts = {
     init() {
         document.addEventListener('keydown', (e) => {
-            // Ctrl/Cmd + K → Focus search
             if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
                 e.preventDefault();
                 document.getElementById('searchInput')?.focus();
             }
             
-            // Ctrl/Cmd + N → Focus smart input
             if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
                 e.preventDefault();
                 document.getElementById('smartInput')?.focus();
             }
 
-            // Ctrl/Cmd + number → Open bookmark
             if ((e.ctrlKey || e.metaKey) && e.key >= '1' && e.key <= '9') {
                 e.preventDefault();
                 const index = parseInt(e.key) - 1;
@@ -539,10 +478,7 @@ const Shortcuts = {
  * EXPORT / IMPORT
  * ============================================ */
 const DataManager = {
-    /**
-     * Export bookmarks to JSON file
-     */
-    export() {
+    async export() {
         const data = {
             bookmarks: State.bookmarks,
             exportedAt: new Date().toISOString(),
@@ -563,19 +499,15 @@ const DataManager = {
         Utils.showToast('✅ Εξαγωγή επιτυχής!');
     },
 
-    /**
-     * Import bookmarks from JSON file
-     */
     import() {
         const input = document.createElement('input');
         input.type = 'file';
         input.accept = '.json,application/json';
         
-        input.onchange = (e) => {
+        input.onchange = async (e) => {
             const file = e.target.files[0];
             if (!file) return;
 
-            // Validate file size (max 1MB)
             if (file.size > 1024 * 1024) {
                 Utils.showToast('Το αρχείο είναι πολύ μεγάλο (max 1MB)', 'error');
                 return;
@@ -583,7 +515,7 @@ const DataManager = {
 
             const reader = new FileReader();
             
-            reader.onload = (event) => {
+            reader.onload = async (event) => {
                 try {
                     const data = JSON.parse(event.target.result);
                     
@@ -591,7 +523,6 @@ const DataManager = {
                         throw new Error('Invalid format');
                     }
 
-                    // Validate bookmarks
                     const validBookmarks = data.bookmarks.filter(b => 
                         b.name && b.url && b.category
                     );
@@ -600,7 +531,6 @@ const DataManager = {
                         throw new Error('No valid bookmarks');
                     }
 
-                    // Merge or replace? Ask user...
                     if (State.bookmarks.length > 0) {
                         if (!confirm(`Βρέθηκαν ${validBookmarks.length} bookmarks. Να αντικαταστήσω τα υπάρχοντα;`)) {
                             return;
@@ -608,19 +538,19 @@ const DataManager = {
                     }
 
                     State.bookmarks = validBookmarks.slice(0, CONFIG.maxBookmarks);
-                    State.save();
+                    await State.save();
                     State.render();
                     
                     Utils.showToast(`✅ Εισαγωγή ${validBookmarks.length} bookmarks!`);
                     
                 } catch (err) {
                     console.error('Import error:', err);
-                    Utils.showToast('❌ Άκυρο αρχείο ή μορφή!', 'error');
+                    Utils.showToast('❌ Άκυρο αρχείο!', 'error');
                 }
             };
 
             reader.onerror = () => {
-                Utils.showToast('❌ Σφάλμα ανάγνωσης αρχείου!', 'error');
+                Utils.showToast('❌ Σφάλμα ανάγνωσης!', 'error');
             };
 
             reader.readAsText(file);
@@ -631,13 +561,12 @@ const DataManager = {
 };
 
 /** ============================================
- * GLOBAL FUNCTIONS (for HTML onclick)
+ * GLOBAL FUNCTIONS
  * ============================================ */
 window.State = State;
 window.Modals = Modals;
 window.DataManager = DataManager;
 
-// Legacy function names for backward compatibility
 window.exportData = () => DataManager.export();
 window.importData = () => DataManager.import();
 window.hideEditModal = () => Modals.hideEdit();
@@ -646,12 +575,12 @@ window.saveEdit = (e) => Modals.saveEdit(e);
 /** ============================================
  * INITIALIZATION
  * ============================================ */
-document.addEventListener('DOMContentLoaded', () => {
-    State.init();
+document.addEventListener('DOMContentLoaded', async () => {
+    await State.init();
     SmartInput.init();
     Search.init();
     Modals.init();
     Shortcuts.init();
     
-    console.log(`🚀 Portify v${CONFIG.version} loaded!`);
+    console.log(`🚀 Portify v${CONFIG.version} loaded! [${CONFIG.isExtension ? 'Extension' : 'Web'}]`);
 }, { once: true });
