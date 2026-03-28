@@ -10,7 +10,7 @@
 const CONFIG = {
     storageKey: 'portify_bookmarks',
     maxBookmarks: 100,
-    version: '3.2',
+    version: '3.3',
     isExtension: typeof chrome !== 'undefined' && chrome.storage !== undefined
 };
 
@@ -393,6 +393,10 @@ const State = {
             const n = this.bookmarks.length;
             countEl.textContent = `${n} ${n === 1 ? 'item' : 'items'}`;
         }
+
+        // Enable drag handles on freshly rendered cards
+        DragDrop.enableCards();
+        CategoryFilter.applyToGrid();
     },
 
     renderDefaults() {
@@ -591,7 +595,7 @@ const SmartInput = {
 };
 
 /** ============================================
- * SEARCH — filters ALL grids simultaneously
+ * SEARCH — fuzzy, accent-insensitive, Enter → Google
  * ============================================ */
 const Search = {
     init() {
@@ -601,12 +605,47 @@ const Search = {
         input.addEventListener('input', Utils.debounce((e) => {
             this.filter(e.target.value);
         }, 200));
+
+        // Enter → open Google search
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const term = input.value.trim();
+                if (term) {
+                    window.open(`https://www.google.com/search?q=${encodeURIComponent(term)}`, '_blank', 'noopener,noreferrer');
+                    input.value = '';
+                    this.filter(''); // reset filter
+                }
+            }
+        });
+    },
+
+    /**
+     * Normalize: remove accents + lowercase.
+     * "νιουζ" won't match "News" but "καθημερινη" WILL match "Καθημερινή"
+     */
+    _normalize(str) {
+        return str
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, ''); // strip diacritics
+    },
+
+    /**
+     * Fuzzy match: every char of needle must appear in order in haystack.
+     * "nws" matches "News247", "καθ" matches "Καθημερινή"
+     */
+    _fuzzy(needle, haystack) {
+        if (!needle) return true;
+        const n = this._normalize(needle);
+        const h = this._normalize(haystack);
+        let ni = 0;
+        for (let hi = 0; hi < h.length && ni < n.length; hi++) {
+            if (h[hi] === n[ni]) ni++;
+        }
+        return ni === n.length;
     },
 
     filter(term) {
-        const lowerTerm = term.toLowerCase().trim();
-
-        // Search across favorites, trending, AND the active country grid
         const grids = ['favoritesGrid', 'trendingGrid', 'countryGrid'];
 
         grids.forEach(gridId => {
@@ -614,12 +653,17 @@ const Search = {
             if (!grid) return;
 
             grid.querySelectorAll('.card').forEach(card => {
-                const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
-                const url   = card.querySelector('.card-url')?.textContent.toLowerCase() || '';
-                const matches = !lowerTerm || title.includes(lowerTerm) || url.includes(lowerTerm);
+                const title = card.querySelector('.card-title')?.textContent || '';
+                const url   = card.querySelector('.card-url')?.textContent || '';
+                const matches = !term.trim() ||
+                    this._fuzzy(term, title) ||
+                    this._fuzzy(term, url);
                 card.style.display = matches ? '' : 'none';
             });
         });
+
+        // Also re-apply active category filter on favorites
+        CategoryFilter.applyToGrid();
     }
 };
 
@@ -690,8 +734,8 @@ const Shortcuts = {
                 document.getElementById('searchInput')?.focus();
             }
 
-            // Ctrl/Cmd + N → focus smart input
-            if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+            // Alt + A → focus smart add input (Ctrl+N conflicts with new window)
+            if (e.altKey && e.key === 'a') {
                 e.preventDefault();
                 document.getElementById('smartInput')?.focus();
             }
@@ -798,6 +842,186 @@ const DataManager = {
 };
 
 /** ============================================
+ * CATEGORY FILTER (for favorites grid)
+ * ============================================ */
+const CategoryFilter = {
+    active: 'all',
+
+    init() {
+        const bar = document.getElementById('categoryFilterBar');
+        if (!bar) return;
+
+        const filters = [
+            { id: 'all', icon: '⭐', label: 'Όλα' },
+            ...Object.entries(CATEGORIES).map(([id, cat]) => ({
+                id, icon: cat.icon, label: cat.label
+            }))
+        ];
+
+        filters.forEach(f => {
+            const btn = document.createElement('button');
+            btn.className = 'cat-filter-btn' + (f.id === 'all' ? ' active' : '');
+            btn.dataset.cat = f.id;
+            btn.setAttribute('aria-label', f.label);
+            btn.innerHTML = `<span>${f.icon}</span><span class="cat-filter-label">${f.label}</span>`;
+            btn.addEventListener('click', () => this.activate(f.id));
+            bar.appendChild(btn);
+        });
+    },
+
+    activate(id) {
+        this.active = id;
+        document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.cat === id);
+        });
+        this.applyToGrid();
+    },
+
+    applyToGrid() {
+        const grid = document.getElementById('favoritesGrid');
+        if (!grid) return;
+        grid.querySelectorAll('.card').forEach(card => {
+            if (this.active === 'all') {
+                card.style.display = '';
+                return;
+            }
+            card.style.display = card.classList.contains(`cat-${this.active}`) ? '' : 'none';
+        });
+    }
+};
+
+/** ============================================
+ * DRAG & DROP (favorites reorder)
+ * ============================================ */
+const DragDrop = {
+    dragIndex: null,
+    dragEl: null,
+
+    init() {
+        const grid = document.getElementById('favoritesGrid');
+        if (!grid) return;
+
+        grid.addEventListener('dragstart', (e) => this._onDragStart(e));
+        grid.addEventListener('dragover',  (e) => this._onDragOver(e));
+        grid.addEventListener('drop',      (e) => this._onDrop(e));
+        grid.addEventListener('dragend',   (e) => this._onDragEnd(e));
+
+        // Touch support
+        grid.addEventListener('touchstart', (e) => this._onTouchStart(e), { passive: true });
+        grid.addEventListener('touchmove',  (e) => this._onTouchMove(e),  { passive: false });
+        grid.addEventListener('touchend',   (e) => this._onTouchEnd(e));
+    },
+
+    enableCards() {
+        document.getElementById('favoritesGrid')
+            ?.querySelectorAll('.card')
+            .forEach((card, i) => {
+                card.setAttribute('draggable', 'true');
+                card.dataset.index = i;
+            });
+    },
+
+    _getCard(el) { return el.closest('.card[draggable]'); },
+
+    _onDragStart(e) {
+        const card = this._getCard(e.target);
+        if (!card) return;
+        this.dragIndex = parseInt(card.dataset.index, 10);
+        this.dragEl = card;
+        card.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+    },
+
+    _onDragOver(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        const card = this._getCard(e.target);
+        if (!card || card === this.dragEl) return;
+        document.querySelectorAll('.card.drag-over').forEach(c => c.classList.remove('drag-over'));
+        card.classList.add('drag-over');
+    },
+
+    async _onDrop(e) {
+        e.preventDefault();
+        const card = this._getCard(e.target);
+        if (!card || card === this.dragEl) return;
+        const toIndex = parseInt(card.dataset.index, 10);
+        if (this.dragIndex === toIndex) return;
+        const items = [...State.bookmarks];
+        const [moved] = items.splice(this.dragIndex, 1);
+        items.splice(toIndex, 0, moved);
+        State.bookmarks = items;
+        await State.save();
+        State.render();
+        Utils.showToast('Αναδιάταξη! 🔀');
+    },
+
+    _onDragEnd() {
+        document.querySelectorAll('.card.dragging, .card.drag-over')
+            .forEach(c => c.classList.remove('dragging', 'drag-over'));
+        this.dragEl = null;
+        this.dragIndex = null;
+    },
+
+    // Touch drag
+    _touch: { startX: 0, startY: 0, el: null, clone: null, fromIndex: null },
+
+    _onTouchStart(e) {
+        const card = this._getCard(e.target);
+        if (!card) return;
+        const t = e.touches[0];
+        this._touch = { startX: t.clientX, startY: t.clientY, el: card,
+                        clone: null, fromIndex: parseInt(card.dataset.index, 10) };
+    },
+
+    _onTouchMove(e) {
+        if (!this._touch.el) return;
+        const dx = Math.abs(e.touches[0].clientX - this._touch.startX);
+        const dy = Math.abs(e.touches[0].clientY - this._touch.startY);
+        if (dx < 8 && dy < 8) return;
+        e.preventDefault();
+
+        if (!this._touch.clone) {
+            const clone = this._touch.el.cloneNode(true);
+            clone.style.cssText = `position:fixed;opacity:0.75;pointer-events:none;z-index:9999;width:${this._touch.el.offsetWidth}px`;
+            document.body.appendChild(clone);
+            this._touch.clone = clone;
+            this._touch.el.classList.add('dragging');
+        }
+
+        const t = e.touches[0];
+        this._touch.clone.style.left = `${t.clientX - this._touch.el.offsetWidth / 2}px`;
+        this._touch.clone.style.top  = `${t.clientY - this._touch.el.offsetHeight / 2}px`;
+
+        document.querySelectorAll('.card.drag-over').forEach(c => c.classList.remove('drag-over'));
+        const under = document.elementFromPoint(t.clientX, t.clientY)?.closest('.card[draggable]');
+        if (under && under !== this._touch.el) under.classList.add('drag-over');
+    },
+
+    async _onTouchEnd(e) {
+        if (!this._touch.el) return;
+        const t = e.changedTouches[0];
+        const under = document.elementFromPoint(t.clientX, t.clientY)?.closest('.card[draggable]');
+
+        if (under && under !== this._touch.el) {
+            const toIndex = parseInt(under.dataset.index, 10);
+            const items = [...State.bookmarks];
+            const [moved] = items.splice(this._touch.fromIndex, 1);
+            items.splice(toIndex, 0, moved);
+            State.bookmarks = items;
+            await State.save();
+            State.render();
+            Utils.showToast('Αναδιάταξη! 🔀');
+        }
+
+        this._touch.clone?.remove();
+        document.querySelectorAll('.card.dragging, .card.drag-over')
+            .forEach(c => c.classList.remove('dragging', 'drag-over'));
+        this._touch = { startX: 0, startY: 0, el: null, clone: null, fromIndex: null };
+    }
+};
+
+/** ============================================
  * COUNTRY TABS
  * ============================================ */
 const CountryTabs = {
@@ -866,9 +1090,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     Search.init();
     Modals.init();
     Shortcuts.init();
+    CategoryFilter.init();
+    DragDrop.init();
     CountryTabs.init();
 
-    // Footer buttons (no inline onclick in HTML)
     document.getElementById('exportBtn')?.addEventListener('click', () => DataManager.export());
     document.getElementById('importBtn')?.addEventListener('click', () => DataManager.import());
 
