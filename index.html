@@ -17,7 +17,7 @@
 
 <!-- HEADER -->
 <header class="header">
-  <div class="header-inner">
+  <div class="header-inner" style="flex-direction:column;">
     <div class="logo-container">
       <div class="logo-inner">P</div>
     </div>
@@ -28,9 +28,9 @@
   </div>
 </header>
 
-<!-- HERO SEARCH (CORE FEATURE) -->
+<!-- SEARCH -->
 <div class="search-container">
-  <div class="search-wrapper">
+  <div class="search-wrapper" style="max-width:700px; margin:0 auto;">
     <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24">
       <circle cx="11" cy="11" r="8"></circle>
       <path d="m21 21-4.35-4.35"></path>
@@ -43,13 +43,9 @@
       placeholder="🔍 Πού θέλεις να πας σήμερα;"
       autocomplete="off"
     >
-
-    <div class="search-hints">
-      <span class="hint-key">⌘K</span>
-    </div>
   </div>
 
-  <!-- 💡 AI HINTS -->
+  <!-- AI HINTS -->
   <div style="text-align:center; margin-top:10px; font-size:0.9rem; color:#94a3b8;">
     Δοκίμασε:
     <b>youtube cats</b> · 
@@ -81,8 +77,10 @@
       <div id="inputStatus"></div>
     </div>
 
-    <div class="form-row">
-      <select id="customCategory" class="form-select">
+    <!-- FIXED ROW -->
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      
+      <select id="customCategory" style="padding:10px 14px; border-radius:999px;">
         <option value="other">📁 Άλλο</option>
         <option value="news">📰 Ειδήσεις</option>
         <option value="sports">⚽ Αθλητικά</option>
@@ -96,6 +94,7 @@
       <button id="addBtn" class="btn btn-primary" disabled>
         + Προσθήκη
       </button>
+
     </div>
 
     <div id="previewCard" class="preview-card">
@@ -113,7 +112,7 @@
 <section class="section">
   <div class="section-header">
     <h2 class="section-title">⭐ Τα αγαπημένα μου</h2>
-    <span id="myBookmarksCount">0</span>
+    <span id="myBookmarksCount" style="color:#94a3b8;">0 items</span>
   </div>
   <div class="grid" id="favoritesGrid"></div>
 </section>
@@ -149,7 +148,7 @@
 <!-- TOAST -->
 <div id="toastContainer" class="toast-container"></div>
 
-<!-- SHORTCUTS MODAL -->
+<!-- MODALS -->
 <div id="shortcutsModal" class="modal-overlay">
   <div class="modal">
     <h3>⌨️ Shortcuts</h3>
@@ -159,7 +158,6 @@
   </div>
 </div>
 
-<!-- EDIT MODAL -->
 <div id="editModal" class="modal-overlay">
   <div class="modal">
     <form onsubmit="saveEdit(event)">
