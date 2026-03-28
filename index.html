@@ -1,175 +1,186 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portify - Your Internet, Perfected</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2322c55e'/%3E%3Cstop offset='50%25' stop-color='%233b82f6'/%3E%3Cstop offset='100%25' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='16' y='16' width='480' height='480' rx='96' fill='url(%23g)'/%3E%3Cpath d='M16 112Q256 16 496 112L496 160Q256 64 16 160Z' fill='rgba(255,255,255,0.15)'/%3E%3Ctext x='256' y='360' font-family='system-ui' font-size='280' font-weight='800' fill='white' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Portify – Your Internet, Perfected</title>
+
+<meta name="description" content="Portify: Your internet in one place. Smart search, bookmarks και άμεση πρόσβαση παντού.">
+
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2322c55e'/%3E%3Cstop offset='50%25' stop-color='%233b82f6'/%3E%3Cstop offset='100%25' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='100' fill='url(%23g)'/%3E%3Ctext x='50%25' y='68%25' font-size='260' text-anchor='middle' fill='white' font-weight='800'%3EP%3C/text%3E%3C/svg%3E">
 </head>
+
 <body>
 
 <div class="container">
 
-    <!-- HEADER -->
-    <header class="header">
-        <div class="header-inner">
-            <div class="logo-container">
-                <div class="logo-inner">P</div>
-            </div>
-            <div class="brand-text">
-                <h1>Portify</h1>
-                <p>Your internet, perfected</p>
-            </div>
-        </div>
-    </header>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo-container">
+      <div class="logo-inner">P</div>
+    </div>
+    <div class="brand-text">
+      <h1>Portify</h1>
+      <p>Your internet, perfected</p>
+    </div>
+  </div>
+</header>
 
-    <!-- SEARCH -->
-    <div class="search-container">
-        <div class="search-wrapper">
-            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.35-4.35"></path>
-            </svg>
-            <input type="text" class="search-input" id="searchInput" placeholder="Αναζήτηση bookmarks..." autocomplete="off">
-            <div class="search-hints">
-                <span class="hint-key">⌘K</span>
-            </div>
-        </div>
+<!-- HERO SEARCH (CORE FEATURE) -->
+<div class="search-container">
+  <div class="search-wrapper">
+    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.35-4.35"></path>
+    </svg>
+
+    <input 
+      type="text" 
+      class="search-input" 
+      id="searchInput" 
+      placeholder="🔍 Πού θέλεις να πας σήμερα;"
+      autocomplete="off"
+    >
+
+    <div class="search-hints">
+      <span class="hint-key">⌘K</span>
+    </div>
+  </div>
+
+  <!-- 💡 AI HINTS -->
+  <div style="text-align:center; margin-top:10px; font-size:0.9rem; color:#94a3b8;">
+    Δοκίμασε:
+    <b>youtube cats</b> · 
+    <b>news greece</b> · 
+    <b>maps athens</b> · 
+    <b>math integrals</b>
+  </div>
+</div>
+
+<!-- SMART INPUT -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">✨ Πρόσθεσε νέο site</h2>
+  </div>
+
+  <div class="smart-form">
+
+    <div class="input-with-icon">
+      <span class="input-icon">🔗</span>
+
+      <input 
+        type="text" 
+        id="smartInput" 
+        class="smart-input" 
+        placeholder="netflix.com ή youtube music"
+        autocomplete="off"
+      >
+
+      <div id="inputStatus"></div>
     </div>
 
-    <!-- SMART ADD BOOKMARK -->
-    <section class="section">
-        <div class="section-header">
-            <h2 class="section-title">
-                <span class="section-title-icon">✨</span>
-                Έξυπνη Προσθήκη
-            </h2>
-        </div>
+    <div class="form-row">
+      <select id="customCategory" class="form-select">
+        <option value="other">📁 Άλλο</option>
+        <option value="news">📰 Ειδήσεις</option>
+        <option value="sports">⚽ Αθλητικά</option>
+        <option value="work">💼 Εργασία</option>
+        <option value="social">💬 Social</option>
+        <option value="shopping">🛒 Shopping</option>
+        <option value="entertainment">🎬 Ψυχαγωγία</option>
+        <option value="finance">💰 Οικονομικά</option>
+      </select>
 
-        <div class="smart-form">
-            <div class="input-with-icon">
-                <span class="input-icon">🔍</span>
-                <input type="text" id="smartInput" class="smart-input" placeholder="Βάλε URL (netflix.com) ή λέξη για αναζήτηση..." autocomplete="off">
-                <div class="input-status" id="inputStatus"></div>
-            </div>
+      <button id="addBtn" class="btn btn-primary" disabled>
+        + Προσθήκη
+      </button>
+    </div>
 
-            <div class="form-row">
-                <select id="customCategory" class="form-select">
-                    <option value="other">📁 Άλλο</option>
-                    <option value="news">📰 Ειδήσεις</option>
-                    <option value="sports">⚽ Αθλητικά</option>
-                    <option value="work">💼 Εργασία</option>
-                    <option value="social">💬 Social</option>
-                    <option value="shopping">🛒 Shopping</option>
-                    <option value="entertainment">🎬 Ψυχαγωγία</option>
-                    <option value="finance">💰 Οικονομικά</option>
-                </select>
-                <button id="addBtn" class="btn btn-primary" disabled>+ Προσθήκη</button>
-            </div>
+    <div id="previewCard" class="preview-card">
+      <img id="previewIcon" src="">
+      <div>
+        <div id="previewName"></div>
+        <div id="previewUrl"></div>
+      </div>
+    </div>
 
-            <div id="previewCard" class="preview-card">
-                <img id="previewIcon" src="" alt="">
-                <div class="preview-info">
-                    <div id="previewName" class="preview-name"></div>
-                    <div id="previewUrl" class="preview-url"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+  </div>
+</section>
 
-    <!-- MY BOOKMARKS -->
-    <section class="section" id="myBookmarksSection">
-        <div class="section-header">
-            <h2 class="section-title">
-                <span class="section-title-icon">⭐</span>
-                Τα bookmarks μου
-            </h2>
-            <span class="section-count" id="myBookmarksCount">0 items</span>
-        </div>
-        <div class="grid" id="favoritesGrid"></div>
-    </section>
+<!-- MY BOOKMARKS -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">⭐ Τα αγαπημένα μου</h2>
+    <span id="myBookmarksCount">0</span>
+  </div>
+  <div class="grid" id="favoritesGrid"></div>
+</section>
 
-    <!-- TRENDING -->
-    <section class="section">
-        <div class="section-header">
-            <h2 class="section-title">
-                <span class="section-title-icon">🔥</span>
-                Trending
-            </h2>
-        </div>
-        <div class="grid" id="trendingGrid"></div>
-    </section>
+<!-- TRENDING -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">🔥 Δημοφιλή</h2>
+  </div>
+  <div class="grid" id="trendingGrid"></div>
+</section>
 
-    <!-- GREEK SITES -->
-    <section class="section">
-        <div class="section-header">
-            <h2 class="section-title">
-                <span class="section-title-icon">🇬🇷</span>
-                Ελληνικά Sites
-            </h2>
-        </div>
-        <div class="grid" id="greekGrid"></div>
-    </section>
+<!-- GREEK -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">🇬🇷 Ελληνικά</h2>
+  </div>
+  <div class="grid" id="greekGrid"></div>
+</section>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-links">
-            <a href="#" onclick="showShortcutsModal(); return false;">⌨️ Shortcuts</a>
-            <a href="#" onclick="exportData(); return false;">📥 Export</a>
-            <a href="#" onclick="importData(); return false;">📤 Import</a>
-        </div>
-        <p>Portify © 2026 - Your internet, perfected</p>
-    </footer>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-links">
+    <a href="#" onclick="showShortcutsModal(); return false;">⌨️ Shortcuts</a>
+    <a href="#" onclick="exportData(); return false;">📥 Export</a>
+    <a href="#" onclick="importData(); return false;">📤 Import</a>
+  </div>
+  <p>Portify © 2026</p>
+</footer>
 
 </div>
 
-<!-- TOAST CONTAINER -->
-<div class="toast-container" id="toastContainer"></div>
+<!-- TOAST -->
+<div id="toastContainer" class="toast-container"></div>
 
 <!-- SHORTCUTS MODAL -->
-<div class="modal-overlay" id="shortcutsModal">
-    <div class="modal">
-        <div class="modal-header">
-            <h3 class="modal-title">⌨️ Keyboard Shortcuts</h3>
-            <button class="modal-close" onclick="hideShortcutsModal()">×</button>
-        </div>
-        <div class="shortcuts-grid">
-            <div class="shortcut-row"><span>Focus search</span><div class="shortcut-keys"><kbd>Ctrl</kbd><kbd>K</kbd></div></div>
-            <div class="shortcut-row"><span>New bookmark</span><div class="shortcut-keys"><kbd>Ctrl</kbd><kbd>N</kbd></div></div>
-            <div class="shortcut-row"><span>Open bookmark #1-9</span><div class="shortcut-keys"><kbd>Ctrl</kbd><kbd>1-9</kbd></div></div>
-            <div class="shortcut-row"><span>Close modal</span><div class="shortcut-keys"><kbd>Esc</kbd></div></div>
-        </div>
-    </div>
+<div id="shortcutsModal" class="modal-overlay">
+  <div class="modal">
+    <h3>⌨️ Shortcuts</h3>
+    <p>Ctrl + K → Search</p>
+    <p>Ctrl + N → Add</p>
+    <p>Ctrl + 1-9 → Open</p>
+  </div>
 </div>
 
 <!-- EDIT MODAL -->
-<div class="modal-overlay" id="editModal">
-    <div class="modal">
-        <div class="modal-header">
-            <h3 class="modal-title">✏️ Επεξεργασία Bookmark</h3>
-            <button class="modal-close" onclick="hideEditModal()">×</button>
-        </div>
-        <form class="edit-form" id="editForm" onsubmit="saveEdit(event)">
-            <input type="hidden" id="editIndex">
-            <input type="text" id="editName" placeholder="Όνομα" required>
-            <input type="url" id="editUrl" placeholder="URL" required>
-            <select id="editCategory">
-                <option value="other">📁 Άλλο</option>
-                <option value="news">📰 Ειδήσεις</option>
-                <option value="sports">⚽ Αθλητικά</option>
-                <option value="work">💼 Εργασία</option>
-                <option value="social">💬 Social</option>
-                <option value="shopping">🛒 Shopping</option>
-                <option value="entertainment">🎬 Ψυχαγωγία</option>
-                <option value="finance">💰 Οικονομικά</option>
-            </select>
-            <div style="display: flex; gap: 12px; margin-top: 8px;">
-                <button type="button" class="btn btn-secondary" onclick="hideEditModal()" style="flex:1;">Ακύρωση</button>
-                <button type="submit" class="btn btn-primary" style="flex:1;">Αποθήκευση</button>
-            </div>
-        </form>
-    </div>
+<div id="editModal" class="modal-overlay">
+  <div class="modal">
+    <form onsubmit="saveEdit(event)">
+      <input type="hidden" id="editIndex">
+      <input type="text" id="editName" required>
+      <input type="url" id="editUrl" required>
+
+      <select id="editCategory">
+        <option value="other">📁 Άλλο</option>
+        <option value="news">📰</option>
+        <option value="sports">⚽</option>
+        <option value="work">💼</option>
+        <option value="social">💬</option>
+        <option value="shopping">🛒</option>
+        <option value="entertainment">🎬</option>
+        <option value="finance">💰</option>
+      </select>
+
+      <button type="submit" class="btn btn-primary">Αποθήκευση</button>
+    </form>
+  </div>
 </div>
 
 <script src="script.js"></script>
