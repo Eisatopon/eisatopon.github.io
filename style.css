@@ -1,30 +1,37 @@
 /* ============================================
-   PORTIFY DESIGN SYSTEM v3.4 - FINAL
+   PORTIFY DESIGN SYSTEM v3.5
    ============================================ */
 
 :root {
-  --bg-primary: #0a0f1c;
-  --bg-secondary: #111827;
-  --bg-card: rgba(255,255,255,0.05);
-  --bg-card-hover: rgba(255,255,255,0.1);
-  --bg-input: rgba(255,255,255,0.07);
+  --bg-primary:      #0a0f1c;
+  --bg-secondary:    #111827;
+  --bg-card:         rgba(255,255,255,0.05);
+  --bg-card-hover:   rgba(255,255,255,0.10);
+  --bg-input:        rgba(255,255,255,0.07);
 
-  --accent-blue: #3b82f6;
-  --accent-green: #22c55e;
+  --accent-blue:   #3b82f6;
+  --accent-green:  #22c55e;
   --accent-purple: #8b5cf6;
 
-  --text-primary: #ffffff;
+  --text-primary:   #ffffff;
   --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-muted:     #64748b;
+
+  --radius-pill: 9999px;
+  --radius-card: 20px;
+  --transition:  0.25s ease;
 }
 
-/* Reset */
-* {
+/* ================= RESET ================= */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* ================= BASE ================= */
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
@@ -37,9 +44,11 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at top, rgba(59,130,246,0.1), transparent 60%),
-              radial-gradient(circle at bottom right, rgba(139,92,246,0.08), transparent 50%);
+  background:
+    radial-gradient(circle at top,           rgba(59,130,246,0.10), transparent 60%),
+    radial-gradient(circle at bottom right,  rgba(139,92,246,0.08), transparent 50%);
   z-index: -1;
+  pointer-events: none;
 }
 
 .container {
@@ -75,8 +84,8 @@ body::before {
   background: linear-gradient(135deg, var(--accent-green), var(--accent-blue), var(--accent-purple));
   animation: rotate 10s linear infinite;
   z-index: -1;
-  user-select: none;
   pointer-events: none;
+  user-select: none;
 }
 
 .logo-inner {
@@ -94,7 +103,6 @@ body::before {
 }
 
 @keyframes rotate {
-  from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
@@ -105,6 +113,7 @@ body::before {
   background: linear-gradient(135deg, #fff, #a5b4fc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .brand-text p {
@@ -127,13 +136,16 @@ body::before {
 .search-input {
   width: 100%;
   padding: 1.4rem 1.6rem 1.4rem 4.5rem;
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
   border: 2px solid rgba(255,255,255,0.15);
   background: var(--bg-input);
-  color: white;
+  color: var(--text-primary);
   font-size: 1.1rem;
   outline: none;
-  transition: all 0.25s;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  /* Remove default search-input clear button in webkit */
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .search-input:focus {
@@ -193,7 +205,7 @@ body::before {
   background: var(--bg-secondary);
   border-radius: 26px;
   padding: 2rem;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.10);
 }
 
 .input-with-icon {
@@ -203,13 +215,13 @@ body::before {
 .smart-input {
   width: 100%;
   padding: 1.3rem 1.5rem 1.3rem 4rem;
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
   border: 2px solid rgba(255,255,255,0.18);
   background: var(--bg-input);
-  color: white;
+  color: var(--text-primary);
   font-size: 1.07rem;
   outline: none;
-  transition: all 0.25s;
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 
 .smart-input:focus {
@@ -238,6 +250,7 @@ body::before {
   transform: translateY(-50%);
   font-size: 0.85rem;
   color: var(--accent-green);
+  pointer-events: none;
 }
 
 .form-row {
@@ -250,38 +263,41 @@ body::before {
 .form-select {
   flex: 1;
   min-width: 140px;
-  padding: 1rem 1.3rem;
-  border-radius: 9999px;
+  padding: 1rem 3rem 1rem 1.3rem;
+  border-radius: var(--radius-pill);
   border: 2px solid rgba(255,255,255,0.15);
   background: var(--bg-input);
-  color: white;
+  color: var(--text-primary);
   font-size: 1rem;
   cursor: pointer;
   outline: none;
   appearance: none;
+  -webkit-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1.2rem center;
-  padding-right: 3rem;
 }
 
 .form-select:focus {
   border-color: var(--accent-blue);
+  box-shadow: 0 0 0 4px rgba(59,130,246,0.15);
 }
 
+/* ================= BUTTONS ================= */
 .btn {
   padding: 1rem 2.2rem;
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
   font-weight: 600;
   font-size: 1rem;
   border: none;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  white-space: nowrap;
 }
 
 .btn-primary {
   background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-  color: white;
+  color: #fff;
 }
 
 .btn-primary:hover:not(:disabled) {
@@ -290,7 +306,7 @@ body::before {
 }
 
 .btn-primary:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
@@ -314,14 +330,13 @@ body::before {
   width: 48px;
   height: 48px;
   border-radius: 12px;
-  background: white;
+  background: #fff;
   object-fit: contain;
   padding: 4px;
+  flex-shrink: 0;
 }
 
-.preview-info {
-  flex: 1;
-}
+.preview-info { flex: 1; }
 
 .preview-name {
   font-weight: 600;
@@ -333,7 +348,7 @@ body::before {
   font-size: 0.9rem;
 }
 
-/* ================= GRID - 2 ΣΤΗΛΕΣ ΣΕ ΚΙΝΗΤΑ ================= */
+/* ================= GRID ================= */
 .grid {
   display: grid;
   gap: 1.3rem;
@@ -341,49 +356,43 @@ body::before {
 }
 
 @media (min-width: 480px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (min-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  .grid { grid-template-columns: repeat(4, 1fr); }
 }
 
 @media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(162px, 1fr));
-  }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(162px, 1fr)); }
 }
 
 /* ================= CARD ================= */
 .card {
   background: var(--bg-card);
-  border-radius: 20px;
+  border-radius: var(--radius-card);
   padding: 1.4rem 1rem;
   text-align: center;
-  transition: all 0.3s;
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid rgba(255,255,255,0.06);
-  text-decoration: none;
   color: inherit;
   display: block;
   position: relative;
   cursor: pointer;
+  /* No outline here — handled by :focus-visible globally */
 }
 
 .card:hover {
   transform: translateY(-8px);
   background: var(--bg-card-hover);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.40);
 }
 
 .card-icon {
   width: 56px;
   height: 56px;
   border-radius: 16px;
-  background: white;
+  background: #fff;
   padding: 8px;
   margin: 0 auto 12px;
   object-fit: contain;
@@ -402,36 +411,57 @@ body::before {
 .card-url {
   color: var(--text-muted);
   font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Card actions (edit/delete) - φαίνονται στο hover */
+/* -----------------------------------------------
+   Card action buttons (edit / delete)
+
+   On desktop  → hidden until hover
+   On touch    → always visible (no hover state)
+----------------------------------------------- */
 .card-actions {
   position: absolute;
   top: 8px;
   right: 8px;
-  display: none;
+  display: flex;
   gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
+/* Show on hover (desktop) */
 .card:hover .card-actions {
-  display: flex;
+  opacity: 1;
+}
+
+/* Always show on touch devices */
+@media (hover: none) {
+  .card-actions {
+    opacity: 1;
+  }
 }
 
 .card-action-btn {
   width: 28px;
   height: 28px;
   border-radius: 8px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
   border: none;
-  color: white;
+  color: #fff;
   cursor: pointer;
   display: grid;
   place-items: center;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  transition: background 0.2s ease;
+  line-height: 1;
 }
 
 .card-action-btn:hover {
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.20);
 }
 
 /* ================= EMPTY STATE ================= */
@@ -467,17 +497,25 @@ body::before {
 
 .footer-links {
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
-.footer-links a {
+/* Footer uses <button> now, styled to look like links */
+.footer-btn {
+  background: none;
+  border: none;
+  padding: 0;
   color: var(--text-secondary);
-  margin: 0 15px;
-  text-decoration: none;
   font-size: 0.95rem;
-  transition: color 0.2s;
+  cursor: pointer;
+  transition: color var(--transition);
+  font-family: inherit;
 }
 
-.footer-links a:hover {
+.footer-btn:hover {
   color: var(--accent-blue);
 }
 
@@ -486,7 +524,7 @@ body::before {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.80);
   backdrop-filter: blur(4px);
   z-index: 1000;
   place-items: center;
@@ -501,7 +539,7 @@ body::before {
   background: var(--bg-secondary);
   padding: 2rem;
   border-radius: 24px;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.10);
   max-width: 420px;
   width: 100%;
   max-height: 90vh;
@@ -522,6 +560,12 @@ body::before {
   font-size: 0.95rem;
 }
 
+.confirm-message {
+  font-size: 1rem;
+  color: var(--text-primary) !important;
+  margin-bottom: 1.5rem !important;
+}
+
 .modal form {
   display: flex;
   flex-direction: column;
@@ -534,14 +578,17 @@ body::before {
   border-radius: 12px;
   border: 2px solid rgba(255,255,255,0.15);
   background: var(--bg-input);
-  color: white;
+  color: var(--text-primary);
   font-size: 1rem;
   outline: none;
+  transition: border-color var(--transition);
+  font-family: inherit;
 }
 
 .modal input:focus,
 .modal select:focus {
   border-color: var(--accent-blue);
+  box-shadow: 0 0 0 4px rgba(59,130,246,0.15);
 }
 
 .modal-buttons {
@@ -558,21 +605,22 @@ body::before {
   cursor: pointer;
   font-size: 1rem;
   font-weight: 500;
-  transition: all 0.2s;
+  transition: background 0.2s ease;
+  font-family: inherit;
 }
 
 .modal-buttons button:first-child {
-  background: rgba(255,255,255,0.1);
-  color: white;
+  background: rgba(255,255,255,0.10);
+  color: var(--text-primary);
 }
 
 .modal-buttons button:first-child:hover {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.18);
 }
 
 .modal-buttons button:last-child {
   background: var(--accent-blue);
-  color: white;
+  color: #fff;
 }
 
 .modal-buttons button:last-child:hover {
@@ -593,82 +641,75 @@ body::before {
 
 .toast {
   background: var(--bg-secondary);
-  color: white;
+  color: var(--text-primary);
   padding: 1rem 1.5rem;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.40);
   animation: slideIn 0.3s ease;
   pointer-events: auto;
   max-width: 320px;
+  font-size: 0.95rem;
 }
 
-.toast.success {
-  border-left: 4px solid var(--accent-green);
-}
-
-.toast.error {
-  border-left: 4px solid #ef4444;
-}
+.toast.success { border-left: 4px solid var(--accent-green); }
+.toast.error   { border-left: 4px solid #ef4444; }
 
 @keyframes slideIn {
-  from { 
-    transform: translateX(100%); 
-    opacity: 0; 
-  }
-  to { 
-    transform: translateX(0); 
-    opacity: 1; 
-  }
+  from { transform: translateX(110%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
 }
 
 @keyframes slideOut {
-  from { 
-    transform: translateX(0); 
-    opacity: 1; 
-  }
-  to { 
-    transform: translateX(100%); 
-    opacity: 0; 
-  }
+  from { transform: translateX(0);    opacity: 1; }
+  to   { transform: translateX(110%); opacity: 0; }
 }
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 640px) {
-  .brand-text h1 {
-    font-size: 2rem;
-  }
-  
-  .smart-form {
-    padding: 1.5rem;
-  }
-  
+  .brand-text h1 { font-size: 2rem; }
+
+  .smart-form { padding: 1.5rem; }
+
   .form-row {
     flex-direction: column;
   }
-  
+
   .form-select,
   .btn {
     width: 100%;
   }
-  
-  .footer-links a {
-    display: block;
-    margin: 8px 0;
+
+  .footer-links {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .toast-container {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+  }
+
+  .toast {
+    max-width: 100%;
   }
 }
 
 /* ================= ACCESSIBILITY ================= */
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }
 
-/* Focus visible για keyboard navigation */
+/* Keyboard navigation focus ring */
 *:focus-visible {
   outline: 2px solid var(--accent-blue);
-  outline-offset: 2px;
+  outline-offset: 3px;
+  border-radius: 4px;
 }
