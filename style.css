@@ -665,6 +665,72 @@ body::before {
   to   { transform: translateX(110%); opacity: 0; }
 }
 
+/* ================= CATEGORY FILTER BAR ================= */
+.cat-filter-bar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.cat-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-pill);
+  border: 2px solid rgba(255,255,255,0.10);
+  background: var(--bg-input);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color var(--transition), color var(--transition), background var(--transition);
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.cat-filter-btn:hover {
+  border-color: rgba(255,255,255,0.22);
+  color: var(--text-primary);
+}
+
+.cat-filter-btn.active {
+  border-color: var(--accent-blue);
+  background: rgba(59,130,246,0.15);
+  color: var(--text-primary);
+}
+
+.cat-filter-label {
+  /* hide on very small screens */
+}
+
+@media (max-width: 420px) {
+  .cat-filter-label { display: none; }
+  .cat-filter-btn   { padding: 0.4rem 0.6rem; }
+}
+
+/* ================= DRAG & DROP ================= */
+.card[draggable] {
+  cursor: grab;
+}
+
+.card[draggable]:active {
+  cursor: grabbing;
+}
+
+.card.dragging {
+  opacity: 0.35;
+  transform: scale(0.97);
+  border-color: var(--accent-blue);
+}
+
+.card.drag-over {
+  border-color: var(--accent-purple);
+  background: rgba(139,92,246,0.15);
+  transform: translateY(-4px);
+}
+
 /* ================= COUNTRY TABS ================= */
 .country-tab-bar {
   display: flex;
