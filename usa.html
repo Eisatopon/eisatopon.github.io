@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Portify USA – Your Internet, Perfected</title>
+    <meta name="description" content="Portify USA: Smart bookmarks and trending sites for the United States.">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2322c55e'/%3E%3Cstop offset='50%25' stop-color='%233b82f6'/%3E%3Cstop offset='100%25' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='100' fill='url(%23g)'/%3E%3Ctext x='50%25' y='68%25' font-size='260' text-anchor='middle' fill='white' font-weight='800'%3EP%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo-container">
+                <div class="logo-inner">P</div>
+            </div>
+            <div class="brand-text">
+                <h1>Portify <span style="color:#ef4444;">USA</span></h1>
+                <p>Your internet, perfected</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- SEARCH -->
+    <div class="search-container">
+        <div class="search-wrapper">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input 
+                type="text" 
+                class="search-input" 
+                id="searchInput" 
+                placeholder="🔍 Where do you want to go today?"
+                autocomplete="off"
+            >
+        </div>
+
+        <div class="ai-hints">
+            Try: <b>youtube nba</b> · <b>news usa</b> · <b>maps new york</b>
+        </div>
+    </div>
+
+    <!-- SMART ADD -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">✨ Smart Add</h2>
+        </div>
+
+        <div class="smart-form">
+            <div class="input-with-icon">
+                <span class="input-icon">🔗</span>
+                <input 
+                    type="text" 
+                    id="smartInput" 
+                    class="smart-input" 
+                    placeholder="netflix.com or youtube"
+                    autocomplete="off"
+                >
+                <div id="inputStatus"></div>
+            </div>
+
+            <div class="form-row">
+                <select id="customCategory" class="form-select">
+                    <option value="other">📁 Other</option>
+                    <option value="news">📰 News</option>
+                    <option value="sports">⚽ Sports</option>
+                    <option value="work">💼 Work</option>
+                    <option value="social">💬 Social</option>
+                    <option value="shopping">🛒 Shopping</option>
+                    <option value="entertainment">🎬 Entertainment</option>
+                    <option value="finance">💰 Finance</option>
+                </select>
+
+                <button id="addBtn" class="btn btn-primary" disabled>
+                    + Add
+                </button>
+            </div>
+
+            <div id="previewCard" class="preview-card">
+                <img id="previewIcon" src="" alt="">
+                <div class="preview-info">
+                    <div id="previewName" class="preview-name"></div>
+                    <div id="previewUrl" class="preview-url"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MY BOOKMARKS -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">⭐ My Favorites</h2>
+            <span id="myBookmarksCount" class="section-count">0 items</span>
+        </div>
+        <div class="grid" id="favoritesGrid"></div>
+    </section>
+
+    <!-- TRENDING -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">🔥 Trending in USA</h2>
+        </div>
+        <div class="grid" id="trendingGrid"></div>
+    </section>
+
+    <!-- USA SITES -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">🇺🇸 USA Sites</h2>
+        </div>
+        <div class="grid" id="usaGrid"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="index.html">🇬🇷 Greece</a>
+            <a href="#" onclick="showShortcutsModal(); return false;">⌨️ Shortcuts</a>
+            <a href="#" onclick="exportData(); return false;">📥 Export</a>
+            <a href="#" onclick="importData(); return false;">📤 Import</a>
+        </div>
+        <p>Portify © 2026 - Your internet, perfected</p>
+    </footer>
+
+</div>
+
+<!-- TOAST -->
+<div id="toastContainer" class="toast-container"></div>
+
+<!-- SHORTCUTS MODAL -->
+<div id="shortcutsModal" class="modal-overlay">
+    <div class="modal">
+        <h3>⌨️ Keyboard Shortcuts</h3>
+        <p><strong>Ctrl + K</strong> → Search</p>
+        <p><strong>Ctrl + N</strong> → New bookmark</p>
+        <p><strong>Ctrl + 1-9</strong> → Open bookmark</p>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
