@@ -1,5 +1,5 @@
 /* ============================================
-   PORTIFY DESIGN SYSTEM v3.3 - MATCHING YOUR HTML
+   PORTIFY COMMON STYLE v3.3
    ============================================ */
 
 :root {
@@ -17,12 +17,7 @@
   --text-muted: #64748b;
 }
 
-/* Reset */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   background: var(--bg-primary);
@@ -41,21 +36,16 @@ body::before {
 }
 
 .container {
-  max-width: 1160px;
+  max-width: 1180px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
 }
 
-/* ================= HEADER + ANIMATION ================= */
-.header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
+/* Logo Animation */
 .logo-container {
   position: relative;
-  width: 72px;
-  height: 72px;
+  width: 68px;
+  height: 68px;
   margin: 0 auto 16px;
 }
 
@@ -79,8 +69,6 @@ body::before {
   font-size: 38px;
   font-weight: 900;
   border: 4px solid rgba(255,255,255,0.25);
-  position: relative;
-  z-index: 2;
 }
 
 @keyframes rotate {
@@ -89,9 +77,8 @@ body::before {
 }
 
 .brand-text h1 {
-  font-size: 2.55rem;
+  font-size: 2.5rem;
   font-weight: 800;
-  letter-spacing: -0.03em;
 }
 
 .brand-text p {
@@ -99,14 +86,10 @@ body::before {
   margin-top: -8px;
 }
 
-/* ================= SEARCH ================= */
-.search-container {
-  margin-bottom: 3.5rem;
-}
-
+/* Search */
 .search-wrapper {
   max-width: 720px;
-  margin: 0 auto;
+  margin: 0 auto 3rem;
   position: relative;
 }
 
@@ -118,44 +101,18 @@ body::before {
   background: var(--bg-input);
   color: white;
   font-size: 1.1rem;
-  outline: none;
 }
 
 .search-input:focus {
   border-color: var(--accent-blue);
-  box-shadow: 0 0 0 6px rgba(59,130,246,0.18);
 }
 
-.search-icon {
-  position: absolute;
-  left: 1.7rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #94a3b8;
-  pointer-events: none;
-}
-
-/* ================= SMART ADD ================= */
+/* Smart Add */
 .smart-form {
   background: var(--bg-secondary);
   border-radius: 26px;
   padding: 2rem;
   border: 1px solid rgba(255,255,255,0.1);
-}
-
-.smart-input {
-  width: 100%;
-  padding: 1.3rem 1.5rem 1.3rem 4rem;
-  border-radius: 9999px;
-  border: 2px solid rgba(255,255,255,0.18);
-  background: var(--bg-input);
-  color: white;
-  font-size: 1.07rem;
-  outline: none;
-}
-
-.smart-input:focus {
-  border-color: var(--accent-blue);
 }
 
 .form-row {
@@ -165,25 +122,15 @@ body::before {
   flex-wrap: wrap;
 }
 
-.form-select {
-  padding: 1rem 1.3rem;
-  border-radius: 9999px;
-  border: 2px solid rgba(255,255,255,0.15);
-  background: var(--bg-input);
-  color: white;
-  cursor: pointer;
-}
-
 .btn-primary {
   padding: 1rem 2.2rem;
   border-radius: 9999px;
   background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
   color: white;
   font-weight: 600;
-  border: none;
 }
 
-/* ================= GRID ================= */
+/* Grid */
 .grid {
   display: grid;
   gap: 1.3rem;
@@ -196,7 +143,6 @@ body::before {
   padding: 1.4rem 1rem;
   text-align: center;
   transition: all 0.3s;
-  border: 1px solid rgba(255,255,255,0.06);
 }
 
 .card:hover {
@@ -204,84 +150,25 @@ body::before {
   background: var(--bg-card-hover);
 }
 
-/* ================= FOOTER ================= */
+.card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: white;
+  padding: 8px;
+  margin-bottom: 12px;
+}
+
+/* Footer */
 .footer {
   text-align: center;
   margin-top: 6rem;
   padding: 2rem 0;
   color: var(--text-muted);
-  border-top: 1px solid rgba(255,255,255,0.08);
 }
 
 .footer-links a {
   color: var(--text-secondary);
   margin: 0 15px;
   text-decoration: none;
-}
-
-.footer-links a:hover {
-  color: var(--accent-blue);
-}
-/* ================= HEADER - ΑΡΧΙΚΟ ΣΟΥ ΣΤΥΛ ================= */
-.header {
-  padding: 1.8rem 0 2.2rem;
-  text-align: center;
-}
-
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-}
-
-.logo-container {
-  position: relative;
-  width: 58px;
-  height: 58px;
-  flex-shrink: 0;
-}
-
-.logo-container::before {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, #22c55e, #3b82f6, #8b5cf6);
-  animation: rotate 10s linear infinite;
-  z-index: -1;
-}
-
-.logo-inner {
-  width: 100%;
-  height: 100%;
-  background: #0a0f1c;
-  border-radius: 16px;
-  display: grid;
-  place-items: center;
-  font-size: 32px;
-  font-weight: 900;
-  color: white;
-  border: 3px solid rgba(255,255,255,0.15);
-  box-shadow: 0 0 20px rgba(59,130,246,0.3);
-}
-
-@keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.brand-text h1 {
-  font-size: 2.4rem;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  background: linear-gradient(135deg, #ffffff, #a5b4fc);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.brand-text p {
-  font-size: 1rem;
-  color: #94a3b8;
-  margin-top: -6px;
 }
