@@ -2,21 +2,13 @@
 <html lang="el">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Portify – Your Internet, Perfected</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portify – Your Internet, One Place</title>
     <meta name="description" content="Portify: Your internet in one place. Smart search, bookmarks και άμεση πρόσβαση παντού.">
 
-    <!-- Portify v3.1 | 2026-03-28 -->
+    <!-- Portify v3.4 | 2026-03-28 -->
 
-    <link rel="stylesheet" href="style.css?v=3.3">
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F9993EL21B"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-F9993EL21B');
-    </script>
+    <link rel="stylesheet" href="style.css?v=3.4">
     <link rel="icon" type="image/png" href="icons/icon128.png">
 </head>
 <body>
@@ -31,7 +23,7 @@
             </div>
             <div class="brand-text">
                 <h1>Portify</h1>
-                <p>Your internet, perfected</p>
+                <p>Your internet. One place.</p>
             </div>
         </div>
     </header>
@@ -53,7 +45,7 @@
             >
         </div>
         <div class="ai-hints" aria-label="Παραδείγματα αναζήτησης">
-            Δοκίμασε: <b>youtube cats</b> · <b>news greece</b> · <b>maps athens</b>
+            Δοκίμασε: <b>youtube cats</b> · <b>maps athens</b> · <b>weather</b> · <b>wiki AI</b>
         </div>
     </div>
 
@@ -113,6 +105,14 @@
         </div>
         <div class="cat-filter-bar" id="categoryFilterBar" role="toolbar" aria-label="Φίλτρο κατηγορίας"></div>
         <div class="grid" id="favoritesGrid" role="list"></div>
+    </section>
+
+    <!-- RECENT VISITS -->
+    <section class="section" id="recentSection" aria-labelledby="recent-title" style="display:none">
+        <div class="section-header">
+            <h2 class="section-title" id="recent-title">🕐 Πρόσφατα</h2>
+        </div>
+        <div class="grid" id="recentGrid" role="list"></div>
     </section>
 
     <!-- TRENDING -->
@@ -178,6 +178,6 @@
 <!-- Visually hidden utility class for screen readers -->
 <style>.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }</style>
 
-<script src="script.js?v=3.3"></script>
+<script src="script.js?v=3.4"></script>
 </body>
 </html>
