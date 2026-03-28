@@ -1,25 +1,15 @@
 /* ============================================
-   PORTIFY DESIGN SYSTEM v3.3 - FINAL
+   PORTIFY - MINIMAL + ANIMATION FIX
    ============================================ */
 
 :root {
   --bg-primary: #0a0f1c;
   --bg-secondary: #111827;
   --bg-card: rgba(255,255,255,0.05);
-  --bg-card-hover: rgba(255,255,255,0.1);
   --bg-input: rgba(255,255,255,0.07);
-
   --accent-blue: #3b82f6;
-  --accent-green: #22c55e;
-  --accent-purple: #8b5cf6;
-  --accent-red: #ef4444;
-
-  --text-primary: #ffffff;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
 }
 
-/* Reset */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -28,31 +18,21 @@
 
 body {
   background: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: white;
+  font-family: system-ui, sans-serif;
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
-/* Background glow */
+/* BACKGROUND */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: 
-    radial-gradient(circle at top, rgba(59,130,246,0.1), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(139,92,246,0.08), transparent 60%);
+  background: radial-gradient(circle at top, rgba(59,130,246,0.1), transparent 60%);
   z-index: -1;
-  pointer-events: none;
 }
 
-.container {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem;
-}
-
-/* ================= HEADER + LOGO ANIMATION ================= */
+/* HEADER + ANIMATION */
 .header {
   text-align: center;
   margin-bottom: 3rem;
@@ -60,18 +40,18 @@ body::before {
 
 .logo-container {
   position: relative;
-  width: 68px;
-  height: 68px;
-  margin: 0 auto 14px;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 16px;
 }
 
 .logo-container::before {
   content: '';
   position: absolute;
-  inset: -8px;
-  border-radius: 22px;
+  inset: -10px;
+  border-radius: 24px;
   background: linear-gradient(135deg, #22c55e, #3b82f6, #8b5cf6);
-  animation: rotate 10s linear infinite;
+  animation: rotate 9s linear infinite;
   z-index: -1;
 }
 
@@ -82,11 +62,9 @@ body::before {
   border-radius: 20px;
   display: grid;
   place-items: center;
-  font-size: 36px;
+  font-size: 38px;
   font-weight: 900;
-  border: 4px solid rgba(255,255,255,0.22);
-  position: relative;
-  z-index: 2;
+  border: 4px solid rgba(255,255,255,0.25);
 }
 
 @keyframes rotate {
@@ -95,27 +73,19 @@ body::before {
 }
 
 .brand-text h1 {
-  font-size: 2.5rem;
+  font-size: 2.6rem;
   font-weight: 800;
-  letter-spacing: -0.03em;
-  background: linear-gradient(135deg, #fff, #a5b4fc);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .brand-text p {
   color: #94a3b8;
-  margin-top: -6px;
+  margin-top: -8px;
 }
 
-/* ================= SEARCH ================= */
-.search-container {
-  margin-bottom: 3.5rem;
-}
-
+/* SEARCH */
 .search-wrapper {
-  max-width: 740px;
-  margin: 0 auto;
+  max-width: 700px;
+  margin: 0 auto 3rem;
   position: relative;
 }
 
@@ -127,13 +97,6 @@ body::before {
   background: var(--bg-input);
   color: white;
   font-size: 1.1rem;
-  outline: none;
-  transition: all 0.25s;
-}
-
-.search-input:focus {
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 6px rgba(59,130,246,0.18);
 }
 
 .search-icon {
@@ -142,77 +105,20 @@ body::before {
   top: 50%;
   transform: translateY(-50%);
   color: #94a3b8;
-  pointer-events: none;
 }
 
-/* ================= SMART ADD ================= */
-.smart-form {
-  background: var(--bg-secondary);
-  border-radius: 26px;
-  padding: 2rem;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-.smart-input {
-  width: 100%;
-  padding: 1.3rem 1.5rem 1.3rem 4rem;
-  border-radius: 9999px;
-  border: 2px solid rgba(255,255,255,0.18);
-  background: var(--bg-input);
-  color: white;
-  font-size: 1.07rem;
-  outline: none;
-}
-
-.smart-input:focus {
-  border-color: var(--accent-blue);
-}
-
-.form-row {
-  display: flex;
-  gap: 12px;
-  margin-top: 14px;
-  flex-wrap: wrap;
-}
-
-.form-select {
-  padding: 1rem 1.3rem;
-  border-radius: 9999px;
-  border: 2px solid rgba(255,255,255,0.15);
-  background: var(--bg-input);
-  color: white;
-  cursor: pointer;
-}
-
-.btn-primary {
-  padding: 1rem 2.2rem;
-  border-radius: 9999px;
-  background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-  color: white;
-  font-weight: 600;
-  border: none;
-}
-
-/* ================= GRID ================= */
+/* Απλό grid για cards */
 .grid {
   display: grid;
-  gap: 1.3rem;
-  grid-template-columns: repeat(auto-fill, minmax(162px, 1fr));
+  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 }
 
 .card {
-  background: var(--bg-card);
-  border-radius: 20px;
-  padding: 1.4rem 1rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 18px;
+  padding: 1.3rem 1rem;
   text-align: center;
-  transition: all 0.3s;
-  border: 1px solid rgba(255,255,255,0.06);
-}
-
-.card:hover {
-  transform: translateY(-8px);
-  background: var(--bg-card-hover);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
 }
 
 .card-icon {
@@ -221,32 +127,5 @@ body::before {
   border-radius: 14px;
   background: white;
   padding: 8px;
-  margin-bottom: 12px;
-  object-fit: contain;
-}
-
-/* ================= FOOTER ================= */
-.footer {
-  text-align: center;
-  margin-top: 6rem;
-  padding: 2rem 0;
-  color: var(--text-muted);
-  border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-.footer-links a {
-  color: var(--text-secondary);
-  margin: 0 15px;
-  text-decoration: none;
-}
-
-.footer-links a:hover {
-  color: var(--accent-blue);
-}
-
-/* Accessibility */
-.search-input:focus-visible,
-.smart-input:focus-visible {
-  outline: 3px solid var(--accent-blue);
-  outline-offset: 4px;
+  margin: 0 auto 12px;
 }
