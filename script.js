@@ -496,7 +496,7 @@ const State = {
         // Navigate on click / Enter / Space
         const navigate = () => {
             RecentVisits.track(bookmark);
-            window.open(bookmark.url, '_blank', 'noopener,noreferrer');
+            Navigator.open(bookmark.url);
         };
         card.addEventListener('click', navigate);
         card.addEventListener('keydown', (e) => {
@@ -656,7 +656,7 @@ const SmartInput = {
                 this.status.textContent = '';
             }
         } else {
-            window.open(`https://www.google.com/search?q=${encodeURIComponent(value)}`, '_blank', 'noopener,noreferrer');
+            Navigator.open(`https://www.google.com/search?q=${encodeURIComponent(value)}`);
             this.input.value = '';
             this.status.textContent = '';
         }
@@ -720,7 +720,7 @@ const Search = {
                 const term = input.value.trim();
                 if (!term) return;
                 const url = this._resolveUrl(term);
-                window.open(url, '_blank', 'noopener,noreferrer');
+                Navigator.open(url);
                 input.value = '';
                 this._clearHint();
                 this.filter('');
@@ -874,7 +874,7 @@ const Shortcuts = {
             if ((e.ctrlKey || e.metaKey) && e.key >= '1' && e.key <= '9') {
                 e.preventDefault();
                 const bookmark = State.bookmarks[parseInt(e.key, 10) - 1];
-                if (bookmark) window.open(bookmark.url, '_blank', 'noopener,noreferrer');
+                if (bookmark) Navigator.open(bookmark.url);
             }
         });
     }
@@ -1152,7 +1152,18 @@ const DragDrop = {
 };
 
 /** ============================================
- * RECENT VISITS
+ * NAVIGATOR — single place for opening URLs
+ * Replaces all window.open() calls
+ * ============================================ */
+const Navigator = {
+    open(url) {
+        Navigator.open(url);
+    }
+};
+
+/** ============================================
+ * RECENT VISITS + FREQUENCY SCORING
+ * score = frequency * 0.6 + recency * 0.4
  * ============================================ */
 const RecentVisits = {
     visits: [],
@@ -1166,11 +1177,45 @@ const RecentVisits = {
     },
 
     async track(bookmark) {
-        this.visits = this.visits.filter(v => v.url !== bookmark.url);
-        this.visits.unshift({ name: bookmark.name, url: bookmark.url, category: bookmark.category, ts: Date.now() });
+        const now = Date.now();
+        const existing = this.visits.find(v => v.url === bookmark.url);
+
+        if (existing) {
+            existing.freq  = (existing.freq || 1) + 1;
+            existing.ts    = now;
+            existing.score = this._score(existing.freq, now);
+        } else {
+            this.visits.push({
+                name:     bookmark.name,
+                url:      bookmark.url,
+                category: bookmark.category,
+                freq:     1,
+                ts:       now,
+                score:    this._score(1, now)
+            });
+        }
+
+        // Sort by score descending, keep top N
+        this.visits.sort((a, b) => b.score - a.score);
         this.visits = this.visits.slice(0, CONFIG.maxRecent);
+
         try { await Storage.set(CONFIG.recentKey, this.visits); } catch {}
         this.render();
+    },
+
+    /**
+     * score = frequency_weight * 0.6 + recency_weight * 0.4
+     * recency decays over 7 days
+     */
+    _score(freq, ts) {
+        const maxFreq    = 50;
+        const freqWeight = Math.min(freq / maxFreq, 1);
+
+        const ageMs      = Date.now() - ts;
+        const sevenDays  = 7 * 24 * 60 * 60 * 1000;
+        const recWeight  = Math.max(0, 1 - ageMs / sevenDays);
+
+        return freqWeight * 0.6 + recWeight * 0.4;
     },
 
     render() {
@@ -1187,6 +1232,14 @@ const RecentVisits = {
         grid.innerHTML = '';
         this.visits.forEach(v => {
             const card = State._createCard(v, null, false);
+            // Show frequency badge if visited more than once
+            if (v.freq > 1) {
+                const badge = document.createElement('div');
+                badge.className = 'freq-badge';
+                badge.textContent = v.freq > 99 ? '99+' : v.freq;
+                badge.title = `Επισκέφτηκες ${v.freq} φορές`;
+                card.appendChild(badge);
+            }
             grid.appendChild(card);
         });
     }
@@ -1249,6 +1302,10 @@ const CountryTabs = {
         country.sites.forEach(site => {
             grid.appendChild(State._createCard(site, null, false));
         });
+
+        // Re-apply active search term if any
+        const searchTerm = document.getElementById('searchInput')?.value?.trim();
+        if (searchTerm) Search.filter(searchTerm);
     }
 };
 
