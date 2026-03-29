@@ -1,29 +1,25 @@
 {
   "manifest_version": 3,
-  "name": "Portify - Your Internet, Perfected",
-  "version": "3.0",
-  "description": "Smart bookmarks, search and quick access to your favorite sites",
-  
+  "name": "Portify – Your Internet, One Place",
+  "version": "3.5",
+  "description": "Smart bookmark dashboard with cross-device sync, AI search, country tabs, drag & drop. Free, no sign-up.",
   "permissions": [
     "storage"
   ],
-  
-  "action": {
-    "default_popup": "index.html",
-    "default_icon": {
-      "16": "icons/icon16.png",
-      "48": "icons/icon48.png",
-      "128": "icons/icon128.png"
-    }
-  },
-  
-  "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
-  },
-  
   "chrome_url_overrides": {
     "newtab": "index.html"
+  },
+  "icons": {
+    "16":  "icons/icon16.png",
+    "48":  "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_icon": {
+      "16":  "icons/icon16.png",
+      "48":  "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "Portify"
   }
 }
