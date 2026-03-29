@@ -1154,11 +1154,10 @@ const DragDrop = {
 
 /** ============================================
  * NAVIGATOR — single place for opening URLs
- * Replaces all window.open() calls
  * ============================================ */
 const Navigator = {
     open(url) {
-        Navigator.open(url);
+        window.open(url, '_blank', 'noopener,noreferrer');
     }
 };
 
