@@ -1,5 +1,5 @@
 // ============================================
-// PORTIFY SCRIPT v3.1 - CHROME EXTENSION EDITION
+// PORTIFY SCRIPT v3.5 - CHROME EXTENSION EDITION
 // ============================================
 
 'use strict';
@@ -8,12 +8,16 @@
  * CONFIGURATION
  * ============================================ */
 const CONFIG = {
-    storageKey:        'portify_bookmarks',
-    recentKey:         'portify_recent',
-    maxBookmarks:      100,
-    maxRecent:         6,
-    version:           '3.4',
-    isExtension: typeof chrome !== 'undefined' && chrome.storage !== undefined
+    storageKey:      'portify_bookmarks',
+    recentKey:       'portify_recent',
+    maxBookmarks:    100,
+    maxRecent:       6,
+    maxFileSize:     1024 * 1024, // 1MB — no magic numbers
+    version:         '3.5',
+    isExtension:     typeof chrome !== 'undefined' && chrome.storage !== undefined,
+    // Use sync storage when available (cross-device sync)
+    // Falls back to local if sync quota would be exceeded
+    useSync:         typeof chrome !== 'undefined' && chrome.storage?.sync !== undefined
 };
 
 /** ============================================
@@ -143,13 +147,42 @@ const COUNTRY_TABS = [
 ];
 
 /** ============================================
- * STORAGE ADAPTER (Browser + Extension)
+ * STORAGE ADAPTER
+ * Priority: chrome.storage.sync → chrome.storage.local → localStorage
+ *
+ * chrome.storage.sync  = cross-device sync (extension only, 100KB quota)
+ * chrome.storage.local = local only (extension, 10MB quota)
+ * localStorage         = web app fallback
  * ============================================ */
 const Storage = {
+    /**
+     * Get the best available storage backend.
+     * Bookmarks use sync for cross-device support.
+     * Recent visits use local only (device-specific makes more sense).
+     */
+    _backend(key) {
+        if (!CONFIG.isExtension) return null; // use localStorage
+        // Recent visits are device-local by design
+        if (key === CONFIG.recentKey) return chrome.storage.local;
+        // Bookmarks sync across devices when possible
+        return CONFIG.useSync ? chrome.storage.sync : chrome.storage.local;
+    },
+
     async get(key) {
-        if (CONFIG.isExtension) {
-            const result = await chrome.storage.local.get(key);
-            return result[key];
+        const backend = this._backend(key);
+        if (backend) {
+            try {
+                const result = await backend.get(key);
+                return result[key] ?? null;
+            } catch (e) {
+                console.warn(`Storage.get(${key}) failed, falling back:`, e);
+                // Fallback to local if sync fails
+                if (backend === chrome.storage.sync) {
+                    const fallback = await chrome.storage.local.get(key);
+                    return fallback[key] ?? null;
+                }
+                return null;
+            }
         }
         try {
             return JSON.parse(localStorage.getItem(key));
@@ -159,10 +192,42 @@ const Storage = {
     },
 
     async set(key, value) {
-        if (CONFIG.isExtension) {
-            await chrome.storage.local.set({ [key]: value });
-        } else {
+        const backend = this._backend(key);
+        if (backend) {
+            try {
+                await backend.set({ [key]: value });
+            } catch (e) {
+                // chrome.storage.sync has a 100KB quota per item
+                // If exceeded, fall back to local storage silently
+                if (e.message?.includes('QUOTA_BYTES') || e.message?.includes('quota')) {
+                    console.warn('Sync quota exceeded, falling back to local storage');
+                    await chrome.storage.local.set({ [key]: value });
+                    Utils.showToast('💡 Sync quota esceeded — salvat local', 'info');
+                } else {
+                    throw e;
+                }
+            }
+            return;
+        }
+        try {
             localStorage.setItem(key, JSON.stringify(value));
+        } catch (e) {
+            if (e.name === 'QuotaExceededError') {
+                Utils.showToast('⚠️ Ο αποθηκευτικός χώρος είναι γεμάτος!', 'error');
+            } else {
+                throw e;
+            }
+        }
+    },
+
+    /** Show sync status in UI — called once on init */
+    async getSyncStatus() {
+        if (!CONFIG.isExtension || !CONFIG.useSync) return 'local';
+        try {
+            await chrome.storage.sync.get(null); // test access
+            return 'sync';
+        } catch {
+            return 'local';
         }
     }
 };
@@ -849,7 +914,7 @@ const DataManager = {
             const file = e.target.files[0];
             if (!file) return;
 
-            if (file.size > 1024 * 1024) {
+            if (file.size > CONFIG.maxFileSize) {
                 Utils.showToast('Το αρχείο είναι πολύ μεγάλο (max 1MB)', 'error');
                 return;
             }
@@ -1204,5 +1269,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('exportBtn')?.addEventListener('click', () => DataManager.export());
     document.getElementById('importBtn')?.addEventListener('click', () => DataManager.import());
 
-    console.log(`🚀 Portify v${CONFIG.version} loaded! [${CONFIG.isExtension ? 'Extension' : 'Web'}]`);
+    // Show sync status
+    const syncStatus = await Storage.getSyncStatus();
+    const footer = document.querySelector('.footer p');
+    if (footer && CONFIG.isExtension) {
+        const syncBadge = document.createElement('span');
+        syncBadge.style.cssText = 'margin-left:8px;font-size:0.8rem;opacity:0.5;';
+        syncBadge.textContent = syncStatus === 'sync' ? '☁️ Sync on' : '💾 Local';
+        syncBadge.title = syncStatus === 'sync'
+            ? 'Τα bookmarks συγχρονίζονται σε όλες τις συσκευές'
+            : 'Τα bookmarks αποθηκεύονται τοπικά';
+        footer.appendChild(syncBadge);
+    }
+
+    console.log(`🚀 Portify v${CONFIG.version} [${CONFIG.isExtension ? 'Extension' : 'Web'}] [Storage: ${syncStatus ?? 'localStorage'}]`);
 }, { once: true });
