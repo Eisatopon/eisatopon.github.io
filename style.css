@@ -506,6 +506,22 @@ body::before {
   background: rgba(255,255,255,0.20);
 }
 
+/* ── Frequency badge on recent cards ── */
+.freq-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--accent-blue);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 999px;
+  line-height: 1.4;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
 /* ── Signature glow per category (Portify identity) ── */
 .card.cat-news:hover        { box-shadow: 0 20px 55px rgba(239,68,68,0.20),    0 8px 20px rgba(0,0,0,0.4); border-color: rgba(239,68,68,0.25); }
 .card.cat-sports:hover      { box-shadow: 0 20px 55px rgba(34,197,94,0.20),    0 8px 20px rgba(0,0,0,0.4); border-color: rgba(34,197,94,0.25); }
