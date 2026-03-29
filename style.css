@@ -142,6 +142,15 @@ body::before {
   letter-spacing: 0.01em;
 }
 
+.hero-sub {
+  color: var(--text-muted) !important;
+  font-size: 0.85rem !important;
+  margin-top: 4px !important;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
 /* ================= SEARCH ================= */
 .search-container {
   margin-bottom: 3.5rem;
@@ -202,6 +211,26 @@ body::before {
 .ai-hints b {
   color: var(--accent-blue);
   font-weight: 500;
+}
+
+.shortcuts-hint {
+  text-align: center;
+  margin-top: 0.6rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 5px;
+  background: rgba(255,255,255,0.06);
+  font-family: inherit;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin: 0 1px;
 }
 
 /* ================= SECTIONS ================= */
