@@ -495,8 +495,9 @@ const State = {
 
         // Navigate on click / Enter / Space
         const navigate = () => {
-            RecentVisits.track(bookmark);
             Navigator.open(bookmark.url);
+            // Track visit after navigation — non-blocking
+            RecentVisits.track(bookmark);
         };
         card.addEventListener('click', navigate);
         card.addEventListener('keydown', (e) => {
