@@ -6,12 +6,15 @@
     <title>Portify – Your Internet, One Place</title>
     <meta name="description" content="Portify: Your internet in one place. Smart search, bookmarks και άμεση πρόσβαση παντού.">
 
-    <!-- Portify v3.4 | 2026-03-28 -->
+    <!-- Portify v3.5 | 2026-03-29 -->
 
-    <link rel="stylesheet" href="style.css?v=3.4">
+    <link rel="stylesheet" href="style.css?v=3.5">
     <link rel="icon" type="image/png" href="icons/icon128.png">
 </head>
 <body>
+
+<!-- Skip link for keyboard / screen reader users -->
+<a href="#favoritesGrid" class="sr-only sr-only-focusable">Μετάβαση στα αγαπημένα</a>
 
 <div class="container">
 
@@ -19,19 +22,22 @@
     <header class="header">
         <div class="header-inner">
             <div class="logo-container">
-                <div class="logo-inner">P</div>
+                <div class="logo-inner" aria-hidden="true">P</div>
             </div>
             <div class="brand-text">
                 <h1>Portify</h1>
                 <p>Your internet. One place.</p>
+                <p class="hero-sub">Type → Enter → Done</p>
             </div>
         </div>
     </header>
 
+    <main id="main-content">
+
     <!-- SEARCH -->
-    <div class="search-container">
+    <div class="search-container" role="search">
         <div class="search-wrapper">
-            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <svg class="search-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="11" cy="11" r="8"></circle>
                 <path d="m21 21-4.35-4.35"></path>
             </svg>
@@ -39,13 +45,18 @@
                 type="search"
                 class="search-input"
                 id="searchInput"
-                placeholder="Πού θέλεις να πας σήμερα;"
+                placeholder="Type anything... (youtube cats, maps athens)"
                 autocomplete="off"
-                aria-label="Αναζήτηση bookmarks"
+                aria-label="Αναζήτηση — πληκτρολόγησε οτιδήποτε και πάτα Enter"
             >
         </div>
-        <div class="ai-hints" aria-label="Παραδείγματα αναζήτησης">
+        <div class="ai-hints" aria-live="polite" aria-label="Παραδείγματα αναζήτησης">
             Δοκίμασε: <b>youtube cats</b> · <b>maps athens</b> · <b>weather</b> · <b>wiki AI</b>
+        </div>
+        <div class="shortcuts-hint">
+            <kbd>Ctrl+K</kbd> Αναζήτηση &nbsp;·&nbsp;
+            <kbd>Alt+A</kbd> Προσθήκη &nbsp;·&nbsp;
+            <kbd>Ctrl+1–9</kbd> Άνοιγμα
         </div>
     </div>
 
@@ -64,13 +75,13 @@
                     class="smart-input"
                     placeholder="netflix.com ή youtube music"
                     autocomplete="off"
-                    aria-label="URL ή όνομα ιστοσελίδας"
+                    aria-label="URL ή όνομα ιστοσελίδας για προσθήκη"
                 >
-                <div id="inputStatus" aria-live="polite"></div>
+                <div id="inputStatus" aria-live="polite" aria-atomic="true"></div>
             </div>
 
             <div class="form-row">
-                <label for="customCategory" class="sr-only">Κατηγορία</label>
+                <label for="customCategory" class="sr-only">Κατηγορία bookmark</label>
                 <select id="customCategory" class="form-select">
                     <option value="other">📁 Άλλο</option>
                     <option value="news">📰 Ειδήσεις</option>
@@ -87,7 +98,7 @@
                 </button>
             </div>
 
-            <div id="previewCard" class="preview-card" aria-live="polite">
+            <div id="previewCard" class="preview-card" role="status" aria-live="polite" aria-atomic="true">
                 <img id="previewIcon" src="" alt="" width="48" height="48">
                 <div class="preview-info">
                     <div id="previewName" class="preview-name"></div>
@@ -101,10 +112,14 @@
     <section class="section" aria-labelledby="my-bookmarks-title">
         <div class="section-header">
             <h2 class="section-title" id="my-bookmarks-title">⭐ Τα αγαπημένα μου</h2>
-            <span id="myBookmarksCount" class="section-count" aria-live="polite">0 items</span>
+            <span id="myBookmarksCount" class="section-count" aria-live="polite" aria-atomic="true">0 items</span>
         </div>
-        <div class="cat-filter-bar" id="categoryFilterBar" role="toolbar" aria-label="Φίλτρο κατηγορίας"></div>
-        <div class="grid" id="favoritesGrid" role="list"></div>
+        <div class="cat-filter-bar" id="categoryFilterBar"
+             role="toolbar"
+             aria-label="Φίλτρο κατηγορίας αγαπημένων"></div>
+        <div class="grid" id="favoritesGrid"
+             role="list"
+             aria-label="Αγαπημένα bookmarks"></div>
     </section>
 
     <!-- RECENT VISITS -->
@@ -112,7 +127,9 @@
         <div class="section-header">
             <h2 class="section-title" id="recent-title">🕐 Πρόσφατα</h2>
         </div>
-        <div class="grid" id="recentGrid" role="list"></div>
+        <div class="grid" id="recentGrid"
+             role="list"
+             aria-label="Πρόσφατα επισκεφθέντα sites"></div>
     </section>
 
     <!-- TRENDING -->
@@ -120,7 +137,9 @@
         <div class="section-header">
             <h2 class="section-title" id="trending-title">🔥 Δημοφιλή</h2>
         </div>
-        <div class="grid" id="trendingGrid" role="list"></div>
+        <div class="grid" id="trendingGrid"
+             role="list"
+             aria-label="Δημοφιλή sites"></div>
     </section>
 
     <!-- WORLD SITES (tabbed) -->
@@ -128,9 +147,18 @@
         <div class="section-header">
             <h2 class="section-title" id="world-title">🌍 Ανά Χώρα</h2>
         </div>
-        <div class="country-tab-bar" id="countryTabBar" role="tablist" aria-label="Επιλογή χώρας"></div>
-        <div class="grid" id="countryGrid" role="list"></div>
+        <nav aria-label="Επιλογή χώρας">
+            <div class="country-tab-bar" id="countryTabBar"
+                 role="tablist"
+                 aria-label="Χώρες"></div>
+        </nav>
+        <div class="grid" id="countryGrid"
+             role="tabpanel"
+             aria-label="Sites ανά χώρα"
+             aria-live="polite"></div>
     </section>
+
+    </main>
 
     <!-- FOOTER -->
     <footer class="footer">
@@ -138,26 +166,36 @@
             <button class="footer-btn" id="exportBtn">💾 Export</button>
             <button class="footer-btn" id="importBtn">📥 Import</button>
         </div>
-        <p>Portify © 2026 - Your internet, one place</p>
-        <p style="margin-top:0.4rem;font-size:0.8rem;opacity:0.4;">Created by <a href="https://www.eisatopon.gr" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">EisatoponAI</a></p>
+        <p>Portify © 2026 &nbsp;·&nbsp; Built for speed ⚡</p>
+        <small style="opacity:0.4;font-size:0.8rem;">
+            Created by
+            <a href="https://www.eisatopon.gr" target="_blank" rel="noopener noreferrer"
+               style="color:inherit;text-decoration:none;">EisatoponAI</a>
+        </small>
     </footer>
 
 </div>
 
 <!-- TOAST CONTAINER -->
-<div id="toastContainer" class="toast-container" role="status" aria-live="polite"></div>
+<div id="toastContainer" class="toast-container"
+     role="status"
+     aria-live="polite"
+     aria-atomic="true"></div>
 
 <!-- EDIT MODAL -->
-<div id="editModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="edit-modal-title">
+<div id="editModal" class="modal-overlay"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="edit-modal-title">
     <div class="modal">
         <h3 id="edit-modal-title">✏️ Επεξεργασία</h3>
         <form id="editForm">
             <input type="hidden" id="editIndex">
-            <label for="editName" class="sr-only">Όνομα</label>
+            <label for="editName" class="sr-only">Όνομα bookmark</label>
             <input type="text" id="editName" placeholder="Όνομα" required autocomplete="off">
-            <label for="editUrl" class="sr-only">URL</label>
+            <label for="editUrl" class="sr-only">URL bookmark</label>
             <input type="url" id="editUrl" placeholder="URL" required>
-            <label for="editCategory" class="sr-only">Κατηγορία</label>
+            <label for="editCategory" class="sr-only">Κατηγορία bookmark</label>
             <select id="editCategory">
                 <option value="other">📁 Άλλο</option>
                 <option value="news">📰 Ειδήσεις</option>
@@ -176,9 +214,33 @@
     </div>
 </div>
 
-<!-- Visually hidden utility class for screen readers -->
-<style>.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }</style>
+<style>
+/* Visually hidden — accessible to screen readers */
+.sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+}
+/* Skip link — visible on keyboard focus */
+.sr-only-focusable:focus {
+    position: fixed;
+    top: 1rem; left: 1rem;
+    width: auto; height: auto;
+    padding: 0.5rem 1rem;
+    clip: auto;
+    background: #3b82f6;
+    color: white;
+    border-radius: 8px;
+    z-index: 9999;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+</style>
 
-<script src="script.js?v=3.4"></script>
+<script src="script.js?v=3.5"></script>
 </body>
 </html>
