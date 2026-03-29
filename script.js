@@ -202,7 +202,7 @@ const Storage = {
                 if (e.message?.includes('QUOTA_BYTES') || e.message?.includes('quota')) {
                     console.warn('Sync quota exceeded, falling back to local storage');
                     await chrome.storage.local.set({ [key]: value });
-                    Utils.showToast('💡 Sync quota esceeded — salvat local', 'info');
+                    Utils.showToast('💡 Το όριο sync ξεπεράστηκε — αποθηκεύτηκε τοπικά', 'info');
                 } else {
                     throw e;
                 }
