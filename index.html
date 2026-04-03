@@ -52,31 +52,38 @@
 
 <main id="main-content">
 
-    <!-- SEARCH -->
-    <div class="search-container" role="search">
-        <div class="search-wrapper">
-            <svg class="search-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.35-4.35"></path>
-            </svg>
-            <input
-                type="search"
-                class="search-input"
-                id="searchInput"
-                placeholder="Type anything... (youtube cats, maps athens)"
-                autocomplete="off"
-                aria-label="Αναζήτηση — πληκτρολόγησε οτιδήποτε και πάτα Enter"
-            >
-        </div>
-        <div class="ai-hints" aria-live="polite" aria-label="Παραδείγματα αναζήτησης">
-            Δοκίμασε: <b>youtube cats</b> · <b>maps athens</b> · <b>weather</b> · <b>wiki AI</b>
-        </div>
-        <div class="shortcuts-hint">
-            <kbd>Ctrl+K</kbd> Αναζήτηση &nbsp;·&nbsp;
-            <kbd>Alt+A</kbd> Προσθήκη &nbsp;·&nbsp;
-            <kbd>Ctrl+1–9</kbd> Άνοιγμα
-        </div>
+  <!-- SEARCH -->
+<div class="search-container" role="search">
+    <div class="search-wrapper">
+        <svg class="search-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+        </svg>
+
+        <input
+            type="search"
+            class="search-input"
+            id="searchInput"
+            placeholder="Type anything... (youtube cats, maps athens)"
+            autocomplete="off"
+            aria-label="Αναζήτηση — πληκτρολόγησε οτιδήποτε και πάτα Enter"
+        >
+
+        <!-- 👇 SUGGESTIONS (ΑΚΡΙΒΩΣ ΕΔΩ) -->
+        <div id="suggestions" class="suggestions-box"></div>
+
     </div>
+
+    <div class="ai-hints" aria-live="polite" aria-label="Παραδείγματα αναζήτησης">
+        Δοκίμασε: <b>youtube cats</b> · <b>maps athens</b> · <b>weather</b> · <b>wiki AI</b>
+    </div>
+
+    <div class="shortcuts-hint">
+        <kbd>Ctrl+K</kbd> Αναζήτηση &nbsp;·&nbsp;
+        <kbd>Alt+A</kbd> Προσθήκη &nbsp;·&nbsp;
+        <kbd>Ctrl+1–9</kbd> Άνοιγμα
+    </div>
+</div>
 
     <!-- SMART ADD -->
     <section class="section" aria-labelledby="smart-add-title">
