@@ -954,7 +954,8 @@ kbd {
 }
 .help-pill {
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 16px;
+    margin-bottom: 28px;
     padding: 6px 14px;
     font-size: 0.8rem;
     color: #cbd5f5;
@@ -966,7 +967,7 @@ kbd {
     transition: all 0.25s ease;
 }
 
-/* 👇 ΕΔΩ ΕΙΝΑΙ ΤΟ MAGIC */
+/* 👇 Hover effect */
 .help-pill:hover {
     background: rgba(59,130,246,0.12);
     border-color: rgba(59,130,246,0.4);
