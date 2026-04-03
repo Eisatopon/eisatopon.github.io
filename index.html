@@ -25,12 +25,11 @@
 </head>
 <body>
 
-<!-- Skip link for keyboard / screen reader users -->
 <a href="#favoritesGrid" class="sr-only sr-only-focusable">Μετάβαση στα αγαπημένα</a>
 
 <div class="container">
 
-   <!-- HEADER -->
+<!-- HEADER -->
 <header class="header">
     <div class="header-inner">     
 
@@ -69,159 +68,37 @@
             aria-label="Αναζήτηση — πληκτρολόγησε οτιδήποτε και πάτα Enter"
         >
 
-        <!-- 👇 SUGGESTIONS (ΑΚΡΙΒΩΣ ΕΔΩ) -->
+        <!-- 👇 SUGGESTIONS -->
         <div id="suggestions" class="suggestions-box"></div>
 
     </div>
 
-    <div class="ai-hints" aria-live="polite" aria-label="Παραδείγματα αναζήτησης">
+    <div class="ai-hints">
         Δοκίμασε: <b>youtube cats</b> · <b>maps athens</b> · <b>weather</b> · <b>wiki AI</b>
     </div>
 
     <div class="shortcuts-hint">
-        <kbd>Ctrl+K</kbd> Αναζήτηση &nbsp;·&nbsp;
-        <kbd>Alt+A</kbd> Προσθήκη &nbsp;·&nbsp;
+        <kbd>Ctrl+K</kbd> Αναζήτηση ·
+        <kbd>Alt+A</kbd> Προσθήκη ·
         <kbd>Ctrl+1–9</kbd> Άνοιγμα
     </div>
 </div>
 
-    <!-- SMART ADD -->
-    <section class="section" aria-labelledby="smart-add-title">
-        <div class="section-header">
-            <h2 class="section-title" id="smart-add-title">🚀 Έξυπνη Προσθήκη</h2>
+<!-- SMART ADD -->
+<section class="section">
+    <div class="section-header">
+        <h2 class="section-title">🚀 Έξυπνη Προσθήκη</h2>
+    </div>
+
+    <div class="smart-form">
+        <div class="input-with-icon">
+            <span class="input-icon"></span>
+            <input type="text" id="smartInput" class="smart-input" placeholder="netflix.com ή youtube music">
+            <div id="inputStatus"></div>
         </div>
 
-        <div class="smart-form">
-            <div class="input-with-icon">
-                <span class="input-icon" aria-hidden="true"></span>
-                <input
-                    type="text"
-                    id="smartInput"
-                    class="smart-input"
-                    placeholder="netflix.com ή youtube music"
-                    autocomplete="off"
-                    aria-label="URL ή όνομα ιστοσελίδας για προσθήκη"
-                >
-                <div id="inputStatus" aria-live="polite" aria-atomic="true"></div>
-            </div>
-
-            <div class="form-row">
-                <label for="customCategory" class="sr-only">Κατηγορία bookmark</label>
-                <select id="customCategory" class="form-select">
-                    <option value="other">📁 Άλλο</option>
-                    <option value="news">📰 Ειδήσεις</option>
-                    <option value="sports">⚽ Αθλητικά</option>
-                    <option value="work">💼 Εργασία</option>
-                    <option value="social">💬 Social</option>
-                    <option value="shopping">🛒 Shopping</option>
-                    <option value="entertainment">🎬 Ψυχαγωγία</option>
-                    <option value="finance">💰 Οικονομικά</option>
-                </select>
-
-                <button id="addBtn" class="btn btn-primary" disabled aria-label="Προσθήκη bookmark">
-                    + Προσθήκη
-                </button>
-            </div>
-
-            <div id="previewCard" class="preview-card" role="status" aria-live="polite" aria-atomic="true">
-                <img id="previewIcon" src="" alt="" width="48" height="48">
-                <div class="preview-info">
-                    <div id="previewName" class="preview-name"></div>
-                    <div id="previewUrl" class="preview-url"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- MY BOOKMARKS -->
-    <section class="section" aria-labelledby="my-bookmarks-title">
-        <div class="section-header">
-            <h2 class="section-title" id="my-bookmarks-title">⭐ Τα αγαπημένα μου</h2>
-            <span id="myBookmarksCount" class="section-count" aria-live="polite" aria-atomic="true">0 items</span>
-        </div>
-        <div class="cat-filter-bar" id="categoryFilterBar"
-             role="toolbar"
-             aria-label="Φίλτρο κατηγορίας αγαπημένων"></div>
-        <div class="grid" id="favoritesGrid"
-             role="list"
-             aria-label="Αγαπημένα bookmarks"></div>
-    </section>
-
-    <!-- RECENT VISITS -->
-    <section class="section" id="recentSection" aria-labelledby="recent-title" style="display:none">
-        <div class="section-header">
-            <h2 class="section-title" id="recent-title">🕐 Πρόσφατα</h2>
-        </div>
-        <div class="grid" id="recentGrid"
-             role="list"
-             aria-label="Πρόσφατα επισκεφθέντα sites"></div>
-    </section>
-
-    <!-- TRENDING -->
-    <section class="section" aria-labelledby="trending-title">
-        <div class="section-header">
-            <h2 class="section-title" id="trending-title">🔥 Δημοφιλή</h2>
-        </div>
-        <div class="grid" id="trendingGrid"
-             role="list"
-             aria-label="Δημοφιλή sites"></div>
-    </section>
-
-    <!-- WORLD SITES (tabbed) -->
-    <section class="section" aria-labelledby="world-title">
-        <div class="section-header">
-            <h2 class="section-title" id="world-title">🌍 Ανά Χώρα</h2>
-        </div>
-        <nav aria-label="Επιλογή χώρας">
-            <div class="country-tab-bar" id="countryTabBar"
-                 role="tablist"
-                 aria-label="Χώρες"></div>
-        </nav>
-        <div class="grid" id="countryGrid"
-             role="tabpanel"
-             aria-label="Sites ανά χώρα"
-             aria-live="polite"></div>
-    </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-links">
-            <button class="footer-btn" id="exportBtn">💾 Export</button>
-            <button class="footer-btn" id="importBtn">📥 Import</button>
-        </div>
-        <p>Portify © 2026 &nbsp;·&nbsp; Built for speed ⚡</p>
-        <small style="opacity:0.4;font-size:0.8rem;">
-            Created by
-            <a href="https://www.eisatopon.gr" target="_blank" rel="noopener noreferrer"
-               style="color:inherit;text-decoration:none;">EisatoponAI</a>
-        </small>
-    </footer>
-
-</div>
-
-<!-- TOAST CONTAINER -->
-<div id="toastContainer" class="toast-container"
-     role="status"
-     aria-live="polite"
-     aria-atomic="true"></div>
-
-<!-- EDIT MODAL -->
-<div id="editModal" class="modal-overlay"
-     role="dialog"
-     aria-modal="true"
-     aria-labelledby="edit-modal-title">
-    <div class="modal">
-        <h3 id="edit-modal-title">✏️ Επεξεργασία</h3>
-        <form id="editForm">
-            <input type="hidden" id="editIndex">
-            <label for="editName" class="sr-only">Όνομα bookmark</label>
-            <input type="text" id="editName" placeholder="Όνομα" required autocomplete="off">
-            <label for="editUrl" class="sr-only">URL bookmark</label>
-            <input type="url" id="editUrl" placeholder="URL" required>
-            <label for="editCategory" class="sr-only">Κατηγορία bookmark</label>
-            <select id="editCategory">
+        <div class="form-row">
+            <select id="customCategory" class="form-select">
                 <option value="other">📁 Άλλο</option>
                 <option value="news">📰 Ειδήσεις</option>
                 <option value="sports">⚽ Αθλητικά</option>
@@ -231,39 +108,47 @@
                 <option value="entertainment">🎬 Ψυχαγωγία</option>
                 <option value="finance">💰 Οικονομικά</option>
             </select>
-            <div class="modal-buttons">
-                <button type="button" id="cancelEditBtn">Ακύρωση</button>
-                <button type="submit">Αποθήκευση</button>
+
+            <button id="addBtn" class="btn btn-primary" disabled>
+                + Προσθήκη
+            </button>
+        </div>
+
+        <div id="previewCard" class="preview-card">
+            <img id="previewIcon" src="">
+            <div class="preview-info">
+                <div id="previewName"></div>
+                <div id="previewUrl"></div>
             </div>
-        </form>
+        </div>
     </div>
+</section>
+
+<!-- MY BOOKMARKS -->
+<section class="section">
+    <div class="section-header">
+        <h2 class="section-title">⭐ Τα αγαπημένα μου</h2>
+        <span id="myBookmarksCount" class="section-count">0 items</span>
+    </div>
+    <div id="categoryFilterBar" class="cat-filter-bar"></div>
+    <div id="favoritesGrid" class="grid"></div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-links">
+        <button class="footer-btn" id="exportBtn">💾 Export</button>
+        <button class="footer-btn" id="importBtn">📥 Import</button>
+    </div>
+    <p>Portify © 2026 · Built for speed ⚡</p>
+    <small>
+        Created by
+        <a href="https://www.eisatopon.gr" target="_blank">EisatoponAI</a>
+    </small>
+</footer>
+
 </div>
 
-<style>
-.sr-only {
-    position: absolute;
-    width: 1px; height: 1px;
-    padding: 0; margin: -1px;
-    overflow: hidden;
-    clip: rect(0,0,0,0);
-    white-space: nowrap;
-    border: 0;
-}
-.sr-only-focusable:focus {
-    position: fixed;
-    top: 1rem; left: 1rem;
-    width: auto; height: auto;
-    padding: 0.5rem 1rem;
-    clip: auto;
-    background: #3b82f6;
-    color: white;
-    border-radius: 8px;
-    z-index: 9999;
-    font-size: 0.9rem;
-    text-decoration: none;
-}
-</style>
-
-<script src="script.js?v=3.5"></script>
+<script src="script.js?v=3.5" defer></script>
 </body>
 </html>
