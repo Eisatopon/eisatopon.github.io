@@ -975,3 +975,22 @@ kbd {
     transform: translateY(-1px);
     box-shadow: 0 0 10px rgba(59,130,246,0.35);
 }
+/* Toggle button */
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+/* Light mode */
+body.light {
+    background: linear-gradient(135deg,#f1f5f9,#e2e8f0);
+    color: #0f172a;
+}
