@@ -203,9 +203,13 @@ body::before {
 }
 
 .search-input:focus {
-  border-color: rgba(59,130,246,0.6);
-  box-shadow: var(--shadow-input);
-  background: rgba(255,255,255,0.08);
+  border-color: rgba(59,130,246,0.7);
+  background: rgba(255,255,255,0.10);
+
+  box-shadow:
+    0 0 0 4px rgba(59,130,246,0.15),
+    0 0 30px rgba(59,130,246,0.25),
+    0 10px 40px rgba(0,0,0,0.4);
 }
 
 .search-icon {
