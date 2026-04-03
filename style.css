@@ -958,17 +958,19 @@ kbd {
     padding: 6px 14px;
     font-size: 0.8rem;
     color: #cbd5f5;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 999px;
     text-decoration: none;
     backdrop-filter: blur(6px);
     transition: all 0.25s ease;
 }
 
+/* 👇 ΕΔΩ ΕΙΝΑΙ ΤΟ MAGIC */
 .help-pill:hover {
-    background: rgba(59,130,246,0.15);
+    background: rgba(59,130,246,0.12);
     border-color: rgba(59,130,246,0.4);
     color: #93c5fd;
     transform: translateY(-1px);
+    box-shadow: 0 0 10px rgba(59,130,246,0.35);
 }
