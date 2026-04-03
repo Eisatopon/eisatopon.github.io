@@ -1340,23 +1340,95 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     console.log(`🚀 Portify v${CONFIG.version} [${CONFIG.isExtension ? 'Extension' : 'Web'}] [Storage: ${syncStatus ?? 'localStorage'}]`);
-}, { once: true });
-const toggle = document.getElementById('themeToggle');
 
-// load saved theme
-if (localStorage.getItem('theme') === 'light') {
-    document.body.classList.add('light');
-    toggle.textContent = '☀️';
-}
+    // ================= SUGGESTIONS =================
+    const input = document.querySelector(".search-input");
+    const suggestionsBox = document.getElementById("suggestions");
 
-toggle.addEventListener('click', () => {
-    document.body.classList.toggle('light');
+    let currentIndex = -1;
 
-    if (document.body.classList.contains('light')) {
-        localStorage.setItem('theme', 'light');
-        toggle.textContent = '☀️';
-    } else {
-        localStorage.setItem('theme', 'dark');
-        toggle.textContent = '🌙';
+    const commands = [
+        { key: "youtube", label: "YouTube search", action: q => `https://www.youtube.com/results?search_query=${q}` },
+        { key: "maps", label: "Google Maps", action: q => `https://www.google.com/maps/search/${q}` },
+        { key: "wiki", label: "Wikipedia", action: q => `https://en.wikipedia.org/wiki/${q}` },
+        { key: "weather", label: "Weather", action: q => `https://www.google.com/search?q=weather+${q}` }
+    ];
+
+    input.addEventListener("input", () => {
+        const value = input.value.toLowerCase().trim();
+        currentIndex = -1;
+
+        if (!value) {
+            suggestionsBox.style.display = "none";
+            return;
+        }
+
+        const matches = commands.filter(c => value.includes(c.key));
+
+        if (matches.length === 0) {
+            suggestionsBox.style.display = "none";
+            return;
+        }
+
+        suggestionsBox.innerHTML = matches.map((c, i) => `
+            <div class="suggestion-item" data-index="${i}" data-key="${c.key}">
+                🔎 ${c.label}
+            </div>
+        `).join("");
+
+        suggestionsBox.style.display = "block";
+    });
+
+    input.addEventListener("keydown", (e) => {
+        const items = document.querySelectorAll(".suggestion-item");
+
+        if (!items.length) return;
+
+        if (e.key === "ArrowDown") {
+            currentIndex = (currentIndex + 1) % items.length;
+            updateActive(items);
+            e.preventDefault();
+        }
+
+        if (e.key === "ArrowUp") {
+            currentIndex = (currentIndex - 1 + items.length) % items.length;
+            updateActive(items);
+            e.preventDefault();
+        }
+
+        if (e.key === "Enter") {
+            if (currentIndex >= 0) {
+                const key = items[currentIndex].dataset.key;
+                runCommand(key);
+                e.preventDefault();
+            }
+        }
+    });
+
+    function updateActive(items) {
+        items.forEach(el => el.classList.remove("active"));
+        if (currentIndex >= 0) {
+            items[currentIndex].classList.add("active");
+        }
     }
-});
+
+    suggestionsBox.addEventListener("click", (e) => {
+        const item = e.target.closest(".suggestion-item");
+        if (!item) return;
+        runCommand(item.dataset.key);
+    });
+
+    function runCommand(key) {
+        const value = input.value;
+        const command = commands.find(c => c.key === key);
+
+        if (!command) return;
+
+        const query = value.replace(key, "").trim();
+        const url = command.action(query);
+
+        window.open(url, "_blank");
+        suggestionsBox.style.display = "none";
+    }
+
+}, { once: true });
