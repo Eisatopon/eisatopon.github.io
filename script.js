@@ -1341,3 +1341,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     console.log(`🚀 Portify v${CONFIG.version} [${CONFIG.isExtension ? 'Extension' : 'Web'}] [Storage: ${syncStatus ?? 'localStorage'}]`);
 }, { once: true });
+const toggle = document.getElementById('themeToggle');
+
+// load saved theme
+if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light');
+    toggle.textContent = '☀️';
+}
+
+toggle.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+
+    if (document.body.classList.contains('light')) {
+        localStorage.setItem('theme', 'light');
+        toggle.textContent = '☀️';
+    } else {
+        localStorage.setItem('theme', 'dark');
+        toggle.textContent = '🌙';
+    }
+});
