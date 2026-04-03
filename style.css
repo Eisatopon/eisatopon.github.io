@@ -954,8 +954,8 @@ kbd {
 }
 .help-pill {
     display: inline-block;
-    margin-top: 16px;
-    margin-bottom: 28px;
+    margin-top: 14px;
+    margin-bottom: 12px;
     padding: 6px 14px;
     font-size: 0.8rem;
     color: #cbd5f5;
