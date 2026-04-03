@@ -952,3 +952,15 @@ kbd {
   outline-offset: 3px;
   border-radius: 4px;
 }
+.help-link {
+    display: inline-block;
+    margin-top: 6px;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.help-link:hover {
+    color: #3b82f6;
+}
