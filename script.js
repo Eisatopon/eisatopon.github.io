@@ -1437,6 +1437,116 @@ const WeatherBadge = {
     }
 };
 
+
+// ============================================
+// ONBOARDING — Εμφανίζεται μόνο την 1η φορά
+// ============================================
+const Onboarding = {
+    KEY: 'portify_onboarded',
+
+    init() {
+        if (localStorage.getItem(this.KEY)) return; // ήδη έχει δει
+        setTimeout(() => this.show(), 800); // μικρή καθυστέρηση για να φορτώσει η σελίδα
+    },
+
+    show() {
+        const input = document.getElementById('searchInput');
+        if (!input) return;
+
+        // Pulse animation στο search input
+        input.style.transition = 'box-shadow 0.4s ease';
+        input.style.boxShadow = '0 0 0 4px rgba(34,197,94,0.35), 0 0 30px rgba(34,197,94,0.20)';
+        input.style.borderColor = 'rgba(34,197,94,0.7)';
+
+        // Tooltip
+        const tip = document.createElement('div');
+        tip.id = 'onboardingTip';
+        tip.style.cssText = `
+            position: absolute;
+            top: calc(100% + 14px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #0e1525, #162035);
+            border: 1px solid rgba(34,197,94,0.35);
+            border-radius: 16px;
+            padding: 14px 20px;
+            font-family: system-ui, sans-serif;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+            white-space: nowrap;
+            z-index: 999;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(34,197,94,0.10) inset;
+            animation: tipFadeIn 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        `;
+
+        tip.innerHTML = `
+            <span style="font-size:1.2rem;">👋</span>
+            <span>Γράψε <code style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:6px;padding:2px 8px;color:#86efac;font-family:monospace;font-size:0.85rem;">youtube cats</code> και πάτα <code style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);border-radius:6px;padding:2px 8px;color:#93c5fd;font-family:monospace;font-size:0.85rem;">Enter</code> — δοκίμασέ το!</span>
+            <button id="onboardingClose" style="background:none;border:none;color:#64748b;cursor:pointer;font-size:1.1rem;padding:0;margin-left:6px;line-height:1;transition:color 0.2s;">✕</button>
+        `;
+
+        // Arrow indicator
+        const arrow = document.createElement('div');
+        arrow.style.cssText = `
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px; height: 14px;
+            background: #162035;
+            border-left: 1px solid rgba(34,197,94,0.35);
+            border-top: 1px solid rgba(34,197,94,0.35);
+            transform: translateX(-50%) rotate(45deg);
+        `;
+        tip.appendChild(arrow);
+
+        // Βάζω το tooltip σχετικά με το search wrapper
+        const wrapper = document.querySelector('.search-wrapper');
+        if (!wrapper) return;
+        wrapper.style.position = 'relative';
+        wrapper.appendChild(tip);
+
+        // CSS animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes tipFadeIn {
+                from { opacity:0; transform: translateX(-50%) translateY(-8px); }
+                to   { opacity:1; transform: translateX(-50%) translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Κλείσιμο με X
+        document.getElementById('onboardingClose').addEventListener('click', () => this.dismiss(input, tip));
+
+        // Κλείσιμο όταν αρχίσει να γράφει
+        input.addEventListener('keydown', () => this.dismiss(input, tip), { once: true });
+
+        // Αυτόματο κλείσιμο μετά από 8 δευτερόλεπτα
+        setTimeout(() => {
+            if (document.getElementById('onboardingTip')) this.dismiss(input, tip);
+        }, 8000);
+    },
+
+    dismiss(input, tip) {
+        // Reset input style
+        input.style.boxShadow = '';
+        input.style.borderColor = '';
+
+        // Fade out tooltip
+        tip.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        tip.style.opacity = '0';
+        tip.style.transform = 'translateX(-50%) translateY(-6px)';
+        setTimeout(() => tip.remove(), 300);
+
+        // Αποθήκευση — δεν ξαναεμφανίζεται
+        localStorage.setItem(this.KEY, '1');
+    }
+};
+
 // ============================================
 // INIT
 // ============================================
@@ -1454,6 +1564,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initSuggestions();
     GovLinks.render();
     WeatherBadge.init();
+    Onboarding.init();
 
     document.getElementById('exportBtn')?.addEventListener('click', () => DataManager.export());
     document.getElementById('importBtn')?.addEventListener('click', () => DataManager.import());
