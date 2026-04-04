@@ -419,90 +419,70 @@ kbd {
 .suggestion-item:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.05); }
 
 /* ============================================
-   QUICK ACCESS DOCK  v3.6
-   2 rows · 7 items per row (desktop)
+   QUICK ACCESS DOCK  v3.6  — Pill style
+   Horizontal wrapping pills · icon + label inline
    ============================================ */
 
-.dock-section { margin-bottom: 2.5rem; }
+.dock-section { margin-bottom: 2rem; }
 
-/* ── Container: CSS Grid, 7 columns on desktop → 2 rows for 13 items ── */
+/* ── Container: flexbox, wraps into ~2 rows naturally ── */
 .dock-container {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
-  max-width: 920px;
-  margin: 0 auto;
-  padding: 0.75rem 0;
-}
-
-/* Tablet: 5 per row */
-@media (max-width: 900px) {
-  .dock-container { grid-template-columns: repeat(5, 1fr); }
-}
-
-/* Small tablet / large phone: 4 per row */
-@media (max-width: 640px) {
-  .dock-container { grid-template-columns: repeat(4, 1fr); gap: 8px; }
-}
-
-/* Small phone: 3 per row */
-@media (max-width: 420px) {
-  .dock-container { grid-template-columns: repeat(3, 1fr); gap: 6px; }
-}
-
-/* ── Dock item ── */
-.dock-item {
   display: flex;
-  flex-direction: column;      /* icon on top, label below */
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
   justify-content: center;
-  gap: 6px;
-  padding: 14px 8px 12px;
-  background: var(--bg-card);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
+  padding: 0.5rem 0 0.75rem;
+}
+
+/* ── Pill item ── */
+.dock-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px 9px 10px;
+  background: rgba(255,255,255,0.055);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 999px;            /* full pill */
   color: var(--text-secondary);
   text-decoration: none;
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   font-weight: 500;
-  transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  white-space: nowrap;
   cursor: pointer;
   position: relative;
   backdrop-filter: blur(10px);
-  box-shadow: var(--shadow-card);
+  transition: all 0.22s cubic-bezier(0.34,1.56,0.64,1);
   user-select: none;
-  min-width: 0;                /* allow grid to shrink items */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 
 .dock-item:hover {
-  transform: translateY(-4px) scale(1.04);
-  background: var(--bg-card-hover);
+  transform: translateY(-3px) scale(1.05);
+  background: rgba(255,255,255,0.10);
   color: var(--text-primary);
-  box-shadow: 0 10px 35px rgba(59,130,246,0.20), 0 4px 12px rgba(0,0,0,0.3);
-  border-color: rgba(59,130,246,0.25);
+  border-color: rgba(255,255,255,0.22);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
 }
 
-.dock-item:active { transform: translateY(-2px) scale(0.98); }
-.dock-item.dragging { opacity: 0.45; transform: scale(1.05); z-index: 1000; }
-.dock-item.drag-over { border-color: var(--accent-purple); box-shadow: 0 0 20px rgba(139,92,246,0.30); }
+.dock-item:active { transform: translateY(-1px) scale(0.98); }
+.dock-item.dragging { opacity: 0.45; transform: scale(1.06); z-index: 1000; }
+.dock-item.drag-over { border-color: var(--accent-purple); box-shadow: 0 0 18px rgba(139,92,246,0.35); }
 
+/* ── Icon inside pill ── */
 .dock-icon {
-  width: 28px; height: 28px;
-  border-radius: 6px; object-fit: contain; flex-shrink: 0;
+  width: 20px; height: 20px;
+  border-radius: 4px; object-fit: contain; flex-shrink: 0;
 }
 
 .dock-icon.emoji {
-  font-size: 24px; line-height: 1;
+  font-size: 17px; line-height: 1;
   display: flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px;
 }
 
 .dock-label {
-  font-size: 0.78rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100%;
-  text-align: center;
+  font-size: 0.88rem;
+  letter-spacing: 0.01em;
 }
 
 /* ── Brand-color hover glow per app ── */
@@ -521,14 +501,15 @@ kbd {
 .dock-item[data-app="github"]    { --dg: #6e40c9; }
 
 .dock-item[data-app]:hover {
-  border-color: var(--dg, rgba(59,130,246,0.3));
-  box-shadow: 0 10px 35px color-mix(in srgb, var(--dg, #3b82f6) 28%, transparent), 0 4px 12px rgba(0,0,0,0.3);
+  border-color: color-mix(in srgb, var(--dg, #3b82f6) 60%, transparent);
+  box-shadow: 0 6px 22px color-mix(in srgb, var(--dg, #3b82f6) 30%, transparent),
+              0 2px 8px rgba(0,0,0,0.3);
 }
 
 /* ── Hint text below dock ── */
 .dock-edit-hint {
-  text-align: center; color: var(--text-muted); font-size: 0.72rem;
-  margin-top: 0.4rem; opacity: 0.55;
+  text-align: center; color: var(--text-muted);
+  font-size: 0.72rem; margin-top: 0.3rem; opacity: 0.45;
 }
 
 /* ── Context menu ── */
@@ -547,8 +528,9 @@ kbd {
 }
 .dock-context-item:hover { background: rgba(255,255,255,0.10); }
 
-/* ── Hide labels on very small screens, icon-only ── */
-@media (max-width: 380px) {
-  .dock-label { display: none; }
-  .dock-item  { padding: 12px 6px; }
+/* ── Mobile: smaller pills ── */
+@media (max-width: 480px) {
+  .dock-item { padding: 7px 12px 7px 8px; font-size: 0.8rem; gap: 6px; }
+  .dock-icon, .dock-icon.emoji { width: 16px; height: 16px; font-size: 14px; }
+  .dock-label { font-size: 0.8rem; }
 }
