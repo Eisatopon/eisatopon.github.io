@@ -1230,6 +1230,77 @@ function initSuggestions() {
     }
 }
 
+
+// ============================================
+// ΔΗΜΟΣΙΑ ΔΙΟΙΚΗΣΗ — Gov Links
+// ============================================
+const GOV_LINKS = [
+    // Κεντρική πύλη
+    { name: 'gov.gr',          url: 'https://www.gov.gr',                        icon: '🏛️' },
+    // Φορολογικά
+    { name: 'ΑΑΔΕ (myAADE)',   url: 'https://www.aade.gr',                       icon: '📊' },
+    { name: 'Taxisnet',        url: 'https://www.taxisnet.gr',                   icon: '💼' },
+    { name: 'myDATA',          url: 'https://mydata.aade.gr',                    icon: '🧾' },
+    { name: 'Εφορία Online',   url: 'https://www1.aade.gr/gsisapps5/apograph',  icon: '📋' },
+    // Ασφαλιστικά
+    { name: 'e-ΕΦΚΑ',          url: 'https://www.efka.gov.gr',                   icon: '🛡️' },
+    { name: 'myEFKA',          url: 'https://apps.ika.gr/PortalSSS',             icon: '👤' },
+    { name: 'ΔΥΠΑ (ΟΑΕΔ)',     url: 'https://www.dypa.gov.gr',                   icon: '💼' },
+    // Υγεία
+    { name: 'ΕΟΠΥΥ',           url: 'https://www.eopyy.gov.gr',                  icon: '🏥' },
+    { name: 'e-Prescription',  url: 'https://www.e-prescription.gr',             icon: '💊' },
+    { name: 'Έκτακτη Βοήθεια', url: 'https://www.ekab.gr',                       icon: '🚑' },
+    // Πολίτης
+    { name: 'KEP Online',      url: 'https://www.kep.gov.gr',                    icon: '🏢' },
+    { name: 'Ergani',          url: 'https://www.ergani.gov.gr',                 icon: '⚙️' },
+    { name: 'ΓΕΜΗ',            url: 'https://www.businessregistry.gr',           icon: '🏗️' },
+    { name: 'Κτηματολόγιο',   url: 'https://www.ktimatologio.gr',               icon: '🗺️' },
+    // Μεταφορές
+    { name: 'ΚΤΕΟ Online',     url: 'https://www.kteo.gov.gr',                   icon: '🚗' },
+    { name: 'Άδεια Οδήγησης', url: 'https://www.gov.gr/ipiresies/okhemata-kai-odegesi', icon: '🪪' },
+    { name: 'Πινακίδες',       url: 'https://www.gov.gr/ipiresies/okhemata-kai-odegesi/aiteseis-peri-okhematon', icon: '🔢' },
+    // Εκπαίδευση
+    { name: 'Υπ. Παιδείας',   url: 'https://www.minedu.gov.gr',                 icon: '🎓' },
+    { name: 'e-Enroll',        url: 'https://schools.gov.gr',                    icon: '📚' },
+    // Ψηφιακές υπηρεσίες
+    { name: 'myGov',           url: 'https://mygov.gov.gr',                      icon: '📱' },
+    { name: 'Ψηφιακή Βεβαίωση',url:'https://www.gov.gr/ipiresies/polites-kai-kathemerinoteta/psephiaka-eggrapha-gov-gr', icon: '✅' },
+    { name: 'e-Απογραφή',      url: 'https://www.statistics.gr',                 icon: '📈' },
+    // Κοινωφελή
+    { name: 'ΔΕΗ',             url: 'https://www.dei.gr',                        icon: '⚡' },
+    { name: 'ΕΥΔΑΠ',           url: 'https://www.eydap.gr',                      icon: '💧' },
+    { name: 'ΕΛΤΑ',            url: 'https://www.elta.gr',                       icon: '📮' },
+];
+
+const GovLinks = {
+    render() {
+        const grid = document.getElementById('govGrid');
+        if (!grid) return;
+
+        grid.innerHTML = '';
+        GOV_LINKS.forEach(item => {
+            const a = document.createElement('a');
+            a.className = 'gov-card';
+            a.href = item.url;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.title = item.name;
+
+            const icon = document.createElement('span');
+            icon.className = 'gov-card-icon';
+            icon.textContent = item.icon;
+
+            const name = document.createElement('span');
+            name.className = 'gov-card-name';
+            name.textContent = item.name;
+
+            a.appendChild(icon);
+            a.appendChild(name);
+            grid.appendChild(a);
+        });
+    }
+};
+
 // ============================================
 // INIT
 // ============================================
@@ -1245,6 +1316,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     DragDrop.init();
     CountryTabs.init();
     initSuggestions();
+    GovLinks.render();
 
     document.getElementById('exportBtn')?.addEventListener('click', () => DataManager.export());
     document.getElementById('importBtn')?.addEventListener('click', () => DataManager.import());
