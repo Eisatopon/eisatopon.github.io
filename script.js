@@ -525,7 +525,13 @@ const State = {
     },
 
     async save() {
-        try { await Storage.set(CONFIG.storageKey, this.bookmarks); }
+        try {
+            await Storage.set(CONFIG.storageKey, this.bookmarks);
+            // Sync to Firestore if user is logged in
+            if (typeof portifySync === 'function') {
+                portifySync(this.bookmarks, typeof QuickDock !== 'undefined' ? QuickDock.items : []);
+            }
+        }
         catch (e) { console.error('Failed to save:', e); Utils.showToast('Σφάλμα αποθήκευσης!', 'error'); }
     },
 
