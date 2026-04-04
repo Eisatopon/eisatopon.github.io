@@ -614,3 +614,50 @@ kbd {
   .gov-card { padding: 9px 11px; font-size: 0.78rem; gap: 7px; }
   .gov-card-icon { font-size: 15px; }
 }
+
+/* ============================================
+   AUTH BUTTON
+   ============================================ */
+
+.header-inner {
+  position: relative;
+}
+
+.auth-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 10px;
+  padding: 7px 16px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.22s ease;
+}
+
+.auth-btn:hover {
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.22);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.auth-btn.logged-in {
+  border-color: rgba(34,197,94,0.35);
+  background: rgba(34,197,94,0.08);
+  color: #86efac;
+}
+
+.auth-btn.logged-in:hover {
+  background: rgba(239,68,68,0.10);
+  border-color: rgba(239,68,68,0.35);
+  color: #fca5a5;
+}
+
+.auth-icon { flex-shrink: 0; }
