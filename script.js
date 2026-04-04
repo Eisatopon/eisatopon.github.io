@@ -205,15 +205,27 @@ const QuickDock = {
         a.setAttribute('draggable', 'true');
         a.title = item.name;
 
-        const icon = document.createElement('span');
-        icon.className = 'dock-icon emoji';
-        icon.textContent = item.icon;
+        // Use real favicon from Google — fallback to emoji span
+        const domain = new URL(item.url).hostname;
+        const img = document.createElement('img');
+        img.className = 'dock-icon';
+        img.src = `https://www.google.com/s2/favicons?sz=32&domain=${domain}`;
+        img.alt = item.name;
+        img.width = 20;
+        img.height = 20;
+        // On error fall back to emoji
+        img.addEventListener('error', () => {
+            const span = document.createElement('span');
+            span.className = 'dock-icon emoji';
+            span.textContent = item.icon;
+            img.replaceWith(span);
+        });
 
         const label = document.createElement('span');
         label.className = 'dock-label';
         label.textContent = item.name;
 
-        a.appendChild(icon);
+        a.appendChild(img);
         a.appendChild(label);
         return a;
     },
