@@ -187,12 +187,6 @@
 
 </div>
 
-<!-- AUTH BADGE (fixed top-right, below weather) -->
-<div id="authBadge" class="auth-badge" aria-label="Σύνδεση">
-  <img id="authAvatar" src="" alt="" class="auth-avatar">
-  <span id="authLabel" class="auth-badge-label">Σύνδεση</span>
-</div>
-
 <!-- TOAST -->
 <div id="toastContainer" class="toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
 
@@ -270,6 +264,7 @@
 
     // Click handler
     badge.onclick = () => user ? portifySignOut() : portifySignIn();
+    badge.style.cursor = 'pointer';
 
     if (user) {
       badge.title = 'Αποσύνδεση από ' + (user.displayName || '');
