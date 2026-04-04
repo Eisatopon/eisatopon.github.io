@@ -530,11 +530,30 @@ kbd {
 }
 .dock-context-item:hover { background: rgba(255,255,255,0.10); }
 
-/* ── Mobile: smaller pills ── */
-@media (max-width: 480px) {
-  .dock-item { padding: 7px 12px 7px 8px; font-size: 0.8rem; gap: 6px; }
-  .dock-icon, .dock-icon.emoji { width: 16px; height: 16px; font-size: 14px; }
-  .dock-label { font-size: 0.8rem; }
+/* ── Mobile: grid 3 columns, αριστερή στοίχιση ── */
+@media (max-width: 600px) {
+  .dock-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+    justify-items: stretch;
+  }
+  .dock-item {
+    justify-content: flex-start;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    gap: 6px;
+    width: 100%;
+  }
+  .dock-icon, .dock-icon.emoji { width: 16px; height: 16px; font-size: 15px; flex-shrink: 0; }
+  .dock-label { font-size: 0.78rem; }
+}
+
+@media (max-width: 380px) {
+  .dock-container { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .dock-item { padding: 7px 8px; font-size: 0.74rem; gap: 5px; }
+  .dock-label { font-size: 0.72rem; }
 }
 
 /* ============================================
