@@ -41,6 +41,14 @@
         <a href="help.html" target="_blank" class="help-pill">
           <span style="opacity:0.6;">❓</span> Πώς λειτουργεί
         </a>
+      
+        <button id="authBtn" onclick="document.getElementById('authBtn').classList.contains('logged-in') ? portifySignOut() : portifySignIn()" class="auth-btn" title="Σύνδεση με Google" aria-label="Σύνδεση με Google">
+          <img id="authAvatar" src="" alt="" style="display:none;width:20px;height:20px;border-radius:50%;object-fit:cover;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="auth-icon" aria-hidden="true">
+            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" fill="currentColor"/>
+          </svg>
+          <span class="auth-label">Σύνδεση</span>
+        </button>
       </div>
     </div>
   </header>
@@ -231,6 +239,103 @@
   z-index: 9999; font-size: 0.9rem; text-decoration: none;
 }
 </style>
+
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCnRC6PUfsF3AxWDzCRJrPOSZ4qU7uV3lc",
+    authDomain: "portify-b8368.firebaseapp.com",
+    projectId: "portify-b8368",
+    storageBucket: "portify-b8368.firebasestorage.app",
+    messagingSenderId: "656886117341",
+    appId: "1:656886117341:web:b4b23ec7e705b342e97c34",
+    measurementId: "G-JYGS2GJPNM"
+  };
+
+  const app      = initializeApp(firebaseConfig);
+  const auth     = getAuth(app);
+  const db       = getFirestore(app);
+  const provider = new GoogleAuthProvider();
+
+  // ── Auth state listener ──
+  onAuthStateChanged(auth, async (user) => {
+    const btn    = document.getElementById('authBtn');
+    const avatar = document.getElementById('authAvatar');
+    if (!btn) return;
+
+    if (user) {
+      // Logged in
+      btn.title = 'Αποσύνδεση';
+      if (avatar) {
+        avatar.src   = user.photoURL || '';
+        avatar.style.display = 'block';
+        btn.querySelector('.auth-label').textContent = user.displayName?.split(' ')[0] || 'Λογαριασμός';
+      }
+      btn.classList.add('logged-in');
+
+      // Load bookmarks from Firestore
+      try {
+        const docRef  = doc(db, 'users', user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          if (data.bookmarks && Array.isArray(data.bookmarks)) {
+            // Merge with local — cloud wins
+            if (typeof State !== 'undefined') {
+              State.bookmarks = data.bookmarks;
+              await State.save();
+              State.render();
+            }
+          }
+          if (data.dock && Array.isArray(data.dock) && typeof QuickDock !== 'undefined') {
+            QuickDock.items = data.dock;
+            await Storage.set('portify_dock_items', data.dock);
+            QuickDock.render();
+          }
+        }
+      } catch(e) { console.warn('Firestore load error:', e); }
+
+    } else {
+      // Logged out
+      if (avatar) { avatar.style.display = 'none'; avatar.src = ''; }
+      btn.classList.remove('logged-in');
+      btn.querySelector('.auth-label').textContent = 'Σύνδεση';
+      btn.title = 'Σύνδεση με Google';
+    }
+  });
+
+  // ── Sign in ──
+  window.portifySignIn = async () => {
+    try {
+      await signInWithPopup(auth, provider);
+    } catch(e) {
+      if (e.code !== 'auth/popup-closed-by-user') console.error(e);
+    }
+  };
+
+  // ── Sign out ──
+  window.portifySignOut = async () => {
+    await signOut(auth);
+  };
+
+  // ── Sync to Firestore (called after save) ──
+  window.portifySync = async (bookmarks, dock) => {
+    const user = auth.currentUser;
+    if (!user) return;
+    try {
+      await setDoc(doc(db, 'users', user.uid), {
+        bookmarks: bookmarks || [],
+        dock:      dock      || [],
+        updatedAt: new Date().toISOString()
+      });
+    } catch(e) { console.warn('Firestore sync error:', e); }
+  };
+</script>
 
 <script src="script.js?v=3.6"></script>
 </body>
