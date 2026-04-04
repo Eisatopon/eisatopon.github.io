@@ -1301,6 +1301,119 @@ const GovLinks = {
     }
 };
 
+
+// ============================================
+// WEATHER BADGE — Geolocation + OpenWeatherMap
+// ============================================
+const WeatherBadge = {
+    API_KEY: '442f87d7412eaa93ec27b092dad4b679',
+    
+    init() {
+        this.createBadge();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                pos => this.fetchWeather(pos.coords.latitude, pos.coords.longitude),
+                ()  => this.showError()
+            );
+        } else {
+            this.showError();
+        }
+    },
+
+    createBadge() {
+        const badge = document.createElement('div');
+        badge.id = 'weatherBadge';
+        badge.style.cssText = `
+            position: fixed;
+            top: 1rem;
+            right: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 14px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 999px;
+            backdrop-filter: blur(12px);
+            font-family: system-ui, sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #94a3b8;
+            cursor: default;
+            z-index: 500;
+            transition: all 0.25s ease;
+            user-select: none;
+        `;
+        badge.innerHTML = '<span style="opacity:0.5;font-size:0.75rem;">...</span>';
+
+        badge.addEventListener('mouseenter', () => {
+            badge.style.background = 'rgba(255,255,255,0.10)';
+            badge.style.borderColor = 'rgba(255,255,255,0.20)';
+            badge.style.color = '#ffffff';
+        });
+        badge.addEventListener('mouseleave', () => {
+            badge.style.background = 'rgba(255,255,255,0.06)';
+            badge.style.borderColor = 'rgba(255,255,255,0.10)';
+            badge.style.color = '#94a3b8';
+        });
+
+        // Click → open weather search
+        badge.addEventListener('click', () => {
+            const city = badge.dataset.city || '';
+            Navigator.open(`https://www.google.com/search?q=καιρός+${encodeURIComponent(city)}`);
+        });
+        badge.style.cursor = 'pointer';
+
+        document.body.appendChild(badge);
+    },
+
+    async fetchWeather(lat, lon) {
+        try {
+            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.API_KEY}&units=metric&lang=el`;
+            const res  = await fetch(url);
+            if (!res.ok) throw new Error('API error');
+            const data = await res.json();
+
+            const temp    = Math.round(data.main.temp);
+            const desc    = data.weather[0].description;
+            const icon    = this.getIcon(data.weather[0].id, data.weather[0].icon);
+            const city    = data.name;
+
+            const badge = document.getElementById('weatherBadge');
+            if (!badge) return;
+
+            badge.dataset.city = city;
+            badge.title = `${city} — ${desc}`;
+            badge.innerHTML = `
+                <span style="font-size:1rem;line-height:1;">${icon}</span>
+                <span style="color:#fff;font-weight:600;">${temp}°</span>
+                <span style="font-size:0.78rem;opacity:0.6;">${city}</span>
+            `;
+        } catch (e) {
+            this.showError();
+        }
+    },
+
+    getIcon(id, iconCode) {
+        const isDay = iconCode && iconCode.endsWith('d');
+        if (id >= 200 && id < 300) return '⛈️';
+        if (id >= 300 && id < 400) return '🌦️';
+        if (id >= 500 && id < 600) return '🌧️';
+        if (id >= 600 && id < 700) return '❄️';
+        if (id >= 700 && id < 800) return '🌫️';
+        if (id === 800) return isDay ? '☀️' : '🌙';
+        if (id === 801) return '🌤️';
+        if (id === 802) return '⛅';
+        if (id >= 803) return '☁️';
+        return '🌡️';
+    },
+
+    showError() {
+        const badge = document.getElementById('weatherBadge');
+        if (badge) badge.innerHTML = '<span style="font-size:0.8rem;opacity:0.4;">📍 —</span>';
+    }
+};
+
 // ============================================
 // INIT
 // ============================================
@@ -1317,6 +1430,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     CountryTabs.init();
     initSuggestions();
     GovLinks.render();
+    WeatherBadge.init();
 
     document.getElementById('exportBtn')?.addEventListener('click', () => DataManager.export());
     document.getElementById('importBtn')?.addEventListener('click', () => DataManager.import());
