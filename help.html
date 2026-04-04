@@ -6,15 +6,16 @@
 <title>Πώς λειτουργεί — Portify</title>
 <style>
   :root {
-    --bg-primary:   #080d18;
-    --bg-secondary: #0e1525;
-    --bg-card:      rgba(255,255,255,0.045);
-    --accent-blue:  #3b82f6;
-    --accent-green: #22c55e;
-    --accent-purple:#8b5cf6;
-    --text-primary: #ffffff;
+    --bg-primary:    #080d18;
+    --bg-secondary:  #0e1525;
+    --bg-card:       rgba(255,255,255,0.045);
+    --accent-blue:   #3b82f6;
+    --accent-green:  #22c55e;
+    --accent-purple: #8b5cf6;
+    --accent-amber:  #f59e0b;
+    --text-primary:  #ffffff;
     --text-secondary:#94a3b8;
-    --text-muted:   #64748b;
+    --text-muted:    #64748b;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,38 +25,31 @@
     color: var(--text-primary);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 1.5rem;
+    padding: 3rem 1.5rem 4rem;
     overflow-x: hidden;
   }
 
-  /* Background ambient glows */
   body::before {
     content: '';
     position: fixed; inset: 0;
     background:
-      radial-gradient(ellipse 70% 50% at 15% 10%,  rgba(59,130,246,0.13), transparent),
-      radial-gradient(ellipse 55% 45% at 88% 85%,  rgba(139,92,246,0.10), transparent),
-      radial-gradient(ellipse 45% 55% at 50% 100%, rgba(34,197,94,0.06),  transparent);
+      radial-gradient(ellipse 70% 50% at 15% 10%,  rgba(59,130,246,0.12), transparent),
+      radial-gradient(ellipse 55% 45% at 88% 85%,  rgba(139,92,246,0.09), transparent),
+      radial-gradient(ellipse 45% 55% at 50% 100%, rgba(34,197,94,0.05),  transparent);
     z-index: -1; pointer-events: none;
   }
 
-  /* ── Back link ── */
   .back-link {
     position: fixed; top: 1.2rem; left: 1.4rem;
-    display: flex; align-items: center; gap: 6px;
+    display: inline-flex; align-items: center; gap: 6px;
     color: var(--text-secondary); text-decoration: none;
     font-size: 0.85rem; font-weight: 500;
     padding: 6px 14px; border-radius: 999px;
     border: 1px solid rgba(255,255,255,0.08);
     background: rgba(255,255,255,0.04);
     backdrop-filter: blur(8px);
-    transition: all 0.22s ease;
-    opacity: 0;
-    animation: fadeSlideDown 0.5s ease 0.1s forwards;
+    transition: all 0.22s ease; z-index: 100;
+    animation: fadeDown 0.4s ease 0.1s both;
   }
   .back-link:hover {
     color: var(--text-primary);
@@ -64,165 +58,171 @@
     transform: translateX(-2px);
   }
 
-  /* ── Wrapper ── */
-  .wrapper {
-    width: 100%; max-width: 560px;
+  .page { max-width: 680px; margin: 0 auto; }
+
+  /* HERO */
+  .hero {
     display: flex; flex-direction: column; align-items: center;
-    gap: 0;
+    text-align: center; margin-bottom: 2.8rem;
+    animation: fadeUp 0.5s ease 0.2s both;
   }
 
-  /* ── Logo mini ── */
   .logo-mini {
-    width: 52px; height: 52px;
-    background: var(--bg-primary);
-    border-radius: 16px;
-    display: grid; place-items: center;
-    font-size: 26px; font-weight: 900;
+    width: 56px; height: 56px; background: var(--bg-primary);
+    border-radius: 17px; display: grid; place-items: center;
+    font-size: 28px; font-weight: 900;
     border: 2px solid rgba(255,255,255,0.15);
     filter: drop-shadow(0 6px 20px rgba(59,130,246,0.35));
-    margin-bottom: 1.2rem;
-    position: relative;
-    opacity: 0;
-    animation: fadeScaleIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.2s forwards;
+    margin-bottom: 1rem; position: relative;
   }
   .logo-mini::before {
-    content: '';
-    position: absolute; inset: -8px;
-    border-radius: 20px;
+    content: ''; position: absolute; inset: -8px; border-radius: 22px;
     background: linear-gradient(135deg, rgba(34,197,94,0.5), rgba(59,130,246,0.5), rgba(139,92,246,0.5));
-    z-index: -1; filter: blur(10px); opacity: 0.55;
+    z-index: -1; filter: blur(10px); opacity: 0.5;
   }
 
-  /* ── Heading ── */
-  h1 {
-    font-size: 2rem; font-weight: 800; letter-spacing: -0.03em;
+  .hero h1 {
+    font-size: 1.85rem; font-weight: 800; letter-spacing: -0.03em;
     background: linear-gradient(135deg, #fff 0%, #e0e7ff 50%, #a5b4fc 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    filter: drop-shadow(0 0 18px rgba(139,92,246,0.30));
-    text-align: center; margin-bottom: 0.4rem;
-    opacity: 0;
-    animation: fadeSlideUp 0.5s ease 0.3s forwards;
+    filter: drop-shadow(0 0 16px rgba(139,92,246,0.28));
+    margin-bottom: 0.3rem;
+  }
+  .hero p { color: var(--text-muted); font-size: 0.88rem; }
+
+  /* BLOCKS */
+  .block { margin-bottom: 2rem; animation: fadeUp 0.45s ease both; }
+  .block:nth-child(1) { animation-delay: 0.30s; }
+  .block:nth-child(2) { animation-delay: 0.40s; }
+  .block:nth-child(3) { animation-delay: 0.50s; }
+  .block:nth-child(4) { animation-delay: 0.60s; }
+  .block:nth-child(5) { animation-delay: 0.70s; }
+
+  .block-title {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.73rem; font-weight: 700; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--text-muted);
+    margin-bottom: 0.75rem; padding-left: 2px;
+  }
+  .block-title::after {
+    content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.06);
   }
 
-  .subtitle {
-    color: var(--text-muted); font-size: 0.9rem; text-align: center;
-    margin-bottom: 2.2rem;
-    opacity: 0;
-    animation: fadeSlideUp 0.5s ease 0.4s forwards;
-  }
-
-  /* ── Steps ── */
-  .steps {
-    width: 100%;
-    display: flex; flex-direction: column; gap: 12px;
-  }
+  /* STEPS */
+  .steps { display: flex; flex-direction: column; gap: 9px; }
 
   .step {
-    display: flex; align-items: flex-start; gap: 16px;
-    padding: 1.1rem 1.3rem;
-    background: var(--bg-card);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 18px;
-    backdrop-filter: blur(10px);
-    transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1),
-                box-shadow 0.25s ease, border-color 0.25s ease;
-    opacity: 0;
-    /* staggered via inline style */
+    display: flex; align-items: flex-start; gap: 13px;
+    padding: 0.95rem 1.15rem;
+    background: var(--bg-card); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 15px; backdrop-filter: blur(10px);
+    transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease, border-color 0.25s ease;
   }
+  .step:hover { transform: translateX(5px); }
+  .step:nth-child(1):hover { border-color: rgba(59,130,246,0.25);  box-shadow: 0 5px 20px rgba(59,130,246,0.10); }
+  .step:nth-child(2):hover { border-color: rgba(139,92,246,0.25); box-shadow: 0 5px 20px rgba(139,92,246,0.10); }
+  .step:nth-child(3):hover { border-color: rgba(34,197,94,0.22);  box-shadow: 0 5px 20px rgba(34,197,94,0.08); }
+  .step:nth-child(4):hover { border-color: rgba(245,158,11,0.22); box-shadow: 0 5px 20px rgba(245,158,11,0.08); }
 
-  .step:hover {
-    transform: translateX(6px);
-    border-color: rgba(59,130,246,0.25);
-    box-shadow: 0 8px 32px rgba(59,130,246,0.12), 0 2px 8px rgba(0,0,0,0.3);
-  }
-
-  /* Number badge */
   .step-num {
-    flex-shrink: 0;
-    width: 36px; height: 36px;
-    border-radius: 10px;
-    display: grid; place-items: center;
-    font-size: 0.9rem; font-weight: 700;
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-    box-shadow: 0 4px 14px rgba(59,130,246,0.30);
-    margin-top: 1px;
+    flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px;
+    display: grid; place-items: center; font-size: 0.82rem; font-weight: 700; margin-top: 1px;
   }
-
-  /* Per-step accent colors */
-  .step:nth-child(1) .step-num { background: linear-gradient(135deg, #3b82f6, #6366f1); box-shadow: 0 4px 14px rgba(59,130,246,0.30); }
-  .step:nth-child(2) .step-num { background: linear-gradient(135deg, #8b5cf6, #a855f7); box-shadow: 0 4px 14px rgba(139,92,246,0.30); }
-  .step:nth-child(3) .step-num { background: linear-gradient(135deg, #22c55e, #16a34a); box-shadow: 0 4px 14px rgba(34,197,94,0.25); }
-  .step:nth-child(4) .step-num { background: linear-gradient(135deg, #f59e0b, #f97316); box-shadow: 0 4px 14px rgba(245,158,11,0.25); }
-
-  .step:nth-child(1):hover { border-color: rgba(59,130,246,0.28);  box-shadow: 0 8px 32px rgba(59,130,246,0.13); }
-  .step:nth-child(2):hover { border-color: rgba(139,92,246,0.28); box-shadow: 0 8px 32px rgba(139,92,246,0.13); }
-  .step:nth-child(3):hover { border-color: rgba(34,197,94,0.25);  box-shadow: 0 8px 32px rgba(34,197,94,0.10); }
-  .step:nth-child(4):hover { border-color: rgba(245,158,11,0.25); box-shadow: 0 8px 32px rgba(245,158,11,0.10); }
+  .step:nth-child(1) .step-num { background: linear-gradient(135deg,#3b82f6,#6366f1); box-shadow: 0 3px 10px rgba(59,130,246,0.28); }
+  .step:nth-child(2) .step-num { background: linear-gradient(135deg,#8b5cf6,#a855f7); box-shadow: 0 3px 10px rgba(139,92,246,0.26); }
+  .step:nth-child(3) .step-num { background: linear-gradient(135deg,#22c55e,#16a34a); box-shadow: 0 3px 10px rgba(34,197,94,0.20); }
+  .step:nth-child(4) .step-num { background: linear-gradient(135deg,#f59e0b,#f97316); box-shadow: 0 3px 10px rgba(245,158,11,0.20); }
 
   .step-body { flex: 1; }
-
-  .step-title {
-    font-size: 1rem; font-weight: 650;
-    color: var(--text-primary);
-    margin-bottom: 3px;
-    letter-spacing: -0.01em;
+  .step-title { font-size: 0.93rem; font-weight: 650; margin-bottom: 3px; }
+  .step-desc  { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; }
+  .inline-code {
+    font-family: 'SF Mono','Fira Code',monospace;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px; padding: 1px 5px; font-size: 0.78rem; color: #60a5fa;
   }
 
-  .step-desc {
-    font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;
+  /* COMMANDS GRID */
+  .cmd-grid {
+    display: grid; gap: 8px;
+    grid-template-columns: repeat(2, 1fr);
   }
+  @media (min-width: 500px) { .cmd-grid { grid-template-columns: repeat(3, 1fr); } }
 
-  .step-desc code {
-    font-family: 'SF Mono', 'Fira Code', monospace;
+  .cmd-card {
+    padding: 10px 12px;
+    background: var(--bg-card); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    transition: all 0.22s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .cmd-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(59,130,246,0.24);
+    box-shadow: 0 6px 18px rgba(59,130,246,0.09);
     background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 5px; padding: 1px 6px; font-size: 0.8rem;
-    color: var(--accent-blue);
+  }
+  .cmd-trigger {
+    font-family: 'SF Mono','Fira Code',monospace;
+    font-size: 0.76rem; font-weight: 600; color: var(--accent-blue);
+    background: rgba(59,130,246,0.10); border: 1px solid rgba(59,130,246,0.18);
+    border-radius: 5px; padding: 2px 7px;
+    display: inline-block; margin-bottom: 5px;
+  }
+  .cmd-desc    { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4; }
+  .cmd-example { font-size: 0.71rem; color: var(--text-muted); margin-top: 3px; font-style: italic; }
+
+  /* FEATURE PILLS */
+  .feature-list { display: flex; flex-wrap: wrap; gap: 7px; }
+  .feature-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 7px 13px;
+    background: var(--bg-card); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 999px; font-size: 0.82rem; color: var(--text-secondary);
+    transition: all 0.2s ease;
+  }
+  .feature-pill:hover { border-color: rgba(255,255,255,0.17); color: var(--text-primary); background: rgba(255,255,255,0.07); }
+  .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+  /* SHORTCUTS */
+  .shortcut-list { display: flex; flex-direction: column; gap: 6px; }
+  .shortcut-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 13px;
+    background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px; font-size: 0.83rem;
+    transition: background 0.2s;
+  }
+  .shortcut-row:hover { background: rgba(255,255,255,0.06); }
+  .shortcut-label { color: var(--text-secondary); }
+  .shortcut-keys { display: flex; gap: 4px; }
+  .key {
+    display: inline-block; padding: 2px 7px;
+    border: 1px solid rgba(255,255,255,0.14); border-radius: 5px;
+    background: rgba(255,255,255,0.05);
+    font-family: 'SF Mono','Fira Code',monospace;
+    font-size: 0.73rem; color: var(--text-secondary);
   }
 
-  /* ── Footer ── */
-  .footer {
-    margin-top: 2rem;
+  /* FOOTER */
+  .foot {
+    text-align: center; margin-top: 2.8rem;
     color: var(--text-muted); font-size: 0.78rem;
-    display: flex; align-items: center; gap: 6px;
-    opacity: 0;
-    animation: fadeSlideUp 0.5s ease 1s forwards;
+    animation: fadeUp 0.4s ease 1s both;
   }
-  .footer a {
-    color: var(--text-secondary); text-decoration: none;
-    transition: color 0.2s;
-  }
-  .footer a:hover { color: var(--accent-blue); }
+  .foot a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: var(--accent-blue); }
 
-  /* ── Connector line between steps ── */
-  .step-connector {
-    width: 1px; height: 10px;
-    background: linear-gradient(to bottom, rgba(255,255,255,0.08), transparent);
-    margin: 0 auto;
-    opacity: 0;
-    animation: fadeSlideUp 0.4s ease 0.85s forwards;
-  }
+  @keyframes fadeUp   { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes fadeDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
 
-  /* ── Animations ── */
-  @keyframes fadeSlideUp   { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
-  @keyframes fadeSlideDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
-  @keyframes fadeScaleIn   { from { opacity:0; transform:scale(0.85); }      to { opacity:1; transform:scale(1); } }
-
-  /* Step stagger via CSS custom property */
-  .step:nth-child(1) { animation: fadeSlideUp 0.45s ease calc(0.45s) forwards; }
-  .step:nth-child(2) { animation: fadeSlideUp 0.45s ease calc(0.55s) forwards; }
-  .step:nth-child(3) { animation: fadeSlideUp 0.45s ease calc(0.65s) forwards; }
-  .step:nth-child(4) { animation: fadeSlideUp 0.45s ease calc(0.75s) forwards; }
-
-  /* ── Reduced motion ── */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; }
   }
-
   @media (max-width: 480px) {
-    h1 { font-size: 1.6rem; }
-    .step { padding: 0.9rem 1rem; gap: 12px; }
-    .step-num { width: 30px; height: 30px; font-size: 0.8rem; border-radius: 8px; }
+    body { padding: 2.5rem 1rem 3rem; }
+    .hero h1 { font-size: 1.45rem; }
+    .step { padding: 0.8rem 0.9rem; gap: 10px; }
+    .step-num { width: 27px; height: 27px; font-size: 0.76rem; border-radius: 7px; }
   }
 </style>
 </head>
@@ -230,58 +230,153 @@
 
 <a href="index.html" class="back-link">← Portify</a>
 
-<div class="wrapper">
+<div class="page">
 
-  <div class="logo-mini">P</div>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="logo-mini">P</div>
+    <h1>Πώς λειτουργεί το Portify</h1>
+    <p>Πλήρης οδηγός σε ένα μέρος</p>
+  </div>
 
-  <h1>Πώς λειτουργεί</h1>
-  <p class="subtitle">Τέσσερα βήματα · δευτερόλεπτα</p>
-
-  <div class="steps">
-
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-body">
-        <div class="step-title">Πληκτρολόγησε οτιδήποτε</div>
-        <div class="step-desc">
-          <code>youtube cats</code> &nbsp;·&nbsp; <code>maps athens</code> &nbsp;·&nbsp; <code>καιρός</code>
+  <!-- 1. Ξεκίνα -->
+  <div class="block">
+    <div class="block-title">🚀 Ξεκίνα εδώ</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Πληκτρολόγησε οτιδήποτε</div>
+          <div class="step-desc">Γράψε ό,τι θέλεις στη μπάρα αναζήτησης — site, λέξη ή smart εντολή.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Πάτα Enter</div>
+          <div class="step-desc">Πηγαίνεις άμεσα εκεί που θέλεις — YouTube, Maps, Google και πολλά άλλα.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Πρόσθεσε τα αγαπημένα σου</div>
+          <div class="step-desc">Γράψε π.χ. <span class="inline-code">netflix.com</span> στο Smart Add και πάτα Προσθήκη.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Όλο το internet σου, οργανωμένο</div>
+          <div class="step-desc">Bookmarks, γρήγορη πρόσβαση, δημοφιλή και δημόσιες υπηρεσίες — πάντα μπροστά σου.</div>
         </div>
       </div>
     </div>
-
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-body">
-        <div class="step-title">Πάτα Enter</div>
-        <div class="step-desc">Πηγαίνεις άμεσα εκεί που θέλεις — χωρίς ενδιάμεσα βήματα.</div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-body">
-        <div class="step-title">Πρόσθεσε τα αγαπημένα σου</div>
-        <div class="step-desc">Γράψε <code>netflix.com</code> στο Smart Add και πάτα Προσθήκη.</div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-num">4</div>
-      <div class="step-body">
-        <div class="step-title">Όλο το internet σου, σε ένα μέρος</div>
-        <div class="step-desc">Bookmarks, πρόσφατα, δημοφιλή — πάντα μπροστά σου.</div>
-      </div>
-    </div>
-
   </div>
 
-  <div class="footer">
-    <span>Portify</span>
-    <span style="opacity:0.4">·</span>
-    <a href="index.html">Your internet, one place</a>
+  <!-- 2. Smart εντολές -->
+  <div class="block">
+    <div class="block-title">⚡ Smart εντολές αναζήτησης</div>
+    <div class="cmd-grid">
+      <div class="cmd-card">
+        <div class="cmd-trigger">youtube …</div>
+        <div class="cmd-desc">Αναζήτηση στο YouTube</div>
+        <div class="cmd-example">youtube lofi music</div>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd-trigger">maps …</div>
+        <div class="cmd-desc">Άνοιγμα Google Maps</div>
+        <div class="cmd-example">maps Θεσσαλονίκη</div>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd-trigger">weather …</div>
+        <div class="cmd-desc">Πρόγνωση καιρού</div>
+        <div class="cmd-example">weather Athens</div>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd-trigger">wiki …</div>
+        <div class="cmd-desc">Αναζήτηση Wikipedia</div>
+        <div class="cmd-example">wiki Αριστοτέλης</div>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd-trigger">reddit …</div>
+        <div class="cmd-desc">Αναζήτηση Reddit</div>
+        <div class="cmd-example">reddit programming</div>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd-trigger">gh …</div>
+        <div class="cmd-desc">Αναζήτηση GitHub</div>
+        <div class="cmd-example">gh flutter</div>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd-trigger">amazon …</div>
+        <div class="cmd-desc">Αναζήτηση Amazon</div>
+        <div class="cmd-example">amazon headphones</div>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd-trigger">skroutz …</div>
+        <div class="cmd-desc">Αναζήτηση Skroutz</div>
+        <div class="cmd-example">skroutz laptop</div>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd-trigger">translate …</div>
+        <div class="cmd-desc">Google Translate</div>
+        <div class="cmd-example">translate hello world</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Dock -->
+  <div class="block">
+    <div class="block-title">💬 Γρήγορη Πρόσβαση — Dock</div>
+    <div class="feature-list">
+      <div class="feature-pill"><span class="dot" style="background:#25d366"></span>Κλικ για άμεσο άνοιγμα</div>
+      <div class="feature-pill"><span class="dot" style="background:#8b5cf6"></span>Drag & drop για αναδιάταξη</div>
+      <div class="feature-pill"><span class="dot" style="background:#3b82f6"></span>Δεξί κλικ → Αφαίρεση</div>
+      <div class="feature-pill"><span class="dot" style="background:#f59e0b"></span>Δεξί κλικ → Επαναφορά προεπιλογών</div>
+      <div class="feature-pill"><span class="dot" style="background:#22c55e"></span>Αποθηκεύεται αυτόματα</div>
+    </div>
+  </div>
+
+  <!-- 4. Δημόσια Διοίκηση -->
+  <div class="block">
+    <div class="block-title">🏛️ Δημόσια Διοίκηση</div>
+    <div class="feature-list">
+      <div class="feature-pill"><span class="dot" style="background:#3b82f6"></span>26 υπηρεσίες του ελληνικού κράτους</div>
+      <div class="feature-pill"><span class="dot" style="background:#22c55e"></span>ΑΑΔΕ · Taxisnet · myDATA · e-ΕΦΚΑ</div>
+      <div class="feature-pill"><span class="dot" style="background:#8b5cf6"></span>ΕΟΠΥΥ · Εργάνη · ΚΕΠ · ΓΕΜΗ</div>
+      <div class="feature-pill"><span class="dot" style="background:#f59e0b"></span>ΔΕΗ · ΕΥΔΑΠ · ΕΛΤΑ · gov.gr</div>
+    </div>
+  </div>
+
+  <!-- 5. Shortcuts -->
+  <div class="block">
+    <div class="block-title">⌨️ Συντομεύσεις πληκτρολογίου</div>
+    <div class="shortcut-list">
+      <div class="shortcut-row">
+        <span class="shortcut-label">Εστίαση στην αναζήτηση</span>
+        <span class="shortcut-keys"><span class="key">Ctrl</span><span class="key">K</span></span>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Εστίαση στο Smart Add</span>
+        <span class="shortcut-keys"><span class="key">Alt</span><span class="key">A</span></span>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Άνοιγμα 1ου–9ου bookmark</span>
+        <span class="shortcut-keys"><span class="key">Ctrl</span><span class="key">1–9</span></span>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Καθαρισμός αναζήτησης</span>
+        <span class="shortcut-keys"><span class="key">Esc</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <a href="index.html">← Επιστροφή στο Portify</a>
+    &nbsp;·&nbsp; Your internet, one place
   </div>
 
 </div>
-
 </body>
 </html>
