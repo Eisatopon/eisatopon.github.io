@@ -1313,9 +1313,32 @@ const WeatherBadge = {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 pos => this.fetchWeather(pos.coords.latitude, pos.coords.longitude),
-                ()  => this.showError()
+                ()  => this.fetchWeatherByCity('Thessaloniki'),
+                { timeout: 8000 }
             );
         } else {
+            this.fetchWeatherByCity('Thessaloniki');
+        }
+    },
+
+    async fetchWeatherByCity(city) {
+        try {
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${this.API_KEY}&units=metric&lang=el`;
+            const res  = await fetch(url);
+            if (!res.ok) throw new Error('API error');
+            const data = await res.json();
+            const temp = Math.round(data.main.temp);
+            const icon = this.getIcon(data.weather[0].id, data.weather[0].icon);
+            const badge = document.getElementById('weatherBadge');
+            if (!badge) return;
+            badge.dataset.city = data.name;
+            badge.title = data.weather[0].description;
+            badge.innerHTML = `
+                <span style="font-size:1rem;line-height:1;">${icon}</span>
+                <span style="color:#fff;font-weight:600;">${temp}°</span>
+                <span style="font-size:0.78rem;opacity:0.6;">${data.name}</span>
+            `;
+        } catch(e) {
             this.showError();
         }
     },
