@@ -1,4 +1,4 @@
-<!-- Math Chaser PRO v2 · EisatoponAI · eisatopon.gr -->
+<!-- Math Chaser PRO v2 - EisatoponAI - eisatopon.gr -->
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"></link>
 
 <style>
@@ -65,7 +65,7 @@
 .roadlines{ animation:roadMove .8s linear infinite; }
 @keyframes roadMove{ from{transform:translateX(0);} to{transform:translateX(-60px);} }
 
-.landing-desc{ font-size:1.02rem; margin:1.1rem auto .2rem; max-width:34em; }
+#mc p.landing-desc{ font-size:1.02rem; margin:1.1rem auto .2rem; max-width:34em; }
 .rules{ display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem; margin:1rem 0; }
 .rule{ background:var(--surface2); border:1px solid var(--edge); border-radius:14px; padding:.7rem .4rem; font-size:.78rem; font-weight:600; color:var(--ink); }
 .rule i{ display:block; font-style:normal; font-size:1.4rem; margin-bottom:.2rem; }
@@ -235,6 +235,13 @@
 @media (prefers-reduced-motion:reduce){
   #mc *, #mc *::before, #mc *::after{ animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
 }
+
+html body #mc{ text-align:center!important; }
+html body #mc div, html body #mc p, html body #mc span, html body #mc label, html body #mc h2, html body #mc h3{ text-align:inherit!important; }
+html body #mc .panel, html body #mc .leaderboard, html body #mc .lvl, html body #mc .lb-entry, html body #mc .topic-row{ text-align:left!important; }
+html body #mc .topic-row .pc{ text-align:right!important; }
+html body #mc .hero-title{ text-align:center!important; }
+html body #mc svg{ max-width:none; }
 </style>
 
 <div id="mc" data-theme="light">
@@ -242,9 +249,9 @@
   <div class="mc-top">
     <div class="mc-brand"><div class="mc-logo"><span>e</span></div><small>EisatoponAI</small></div>
     <div class="mc-tools">
-      <div class="langs" id="langs"><button id="lang-gr" type="button" onclick="setLang('gr')">ΕΛ</button><button id="lang-en" type="button" onclick="setLang('en')">EN</button></div>
-      <button class="tool" id="soundToggle" type="button" onclick="toggleSound()" aria-label="Sound">🔊</button>
-      <button class="tool" id="themeToggle" type="button" onclick="toggleTheme()" aria-label="Theme">🌙</button>
+      <div class="langs" id="langs"><button id="lang-gr" type="button" onclick="setLang('gr')">&#917;&#923;</button><button id="lang-en" type="button" onclick="setLang('en')">EN</button></div>
+      <button class="tool" id="soundToggle" type="button" onclick="toggleSound()" aria-label="Sound">&#128266;</button>
+      <button class="tool" id="themeToggle" type="button" onclick="toggleTheme()" aria-label="Theme">&#127769;</button>
     </div>
   </div>
 
@@ -253,18 +260,18 @@
     <div class="hero chase-anim" aria-hidden="true">
       <svg viewBox="0 0 680 210" preserveAspectRatio="xMidYMid slice">
         <defs>
-          <linearGradient id="mcSun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD166"/><stop offset="1" stop-color="#E01B6A"/></linearGradient>
+          <linearGradient id="mcSun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD166"></stop><stop offset="1" stop-color="#E01B6A"></stop></linearGradient>
         </defs>
-        <circle cx="520" cy="96" r="44" fill="url(#mcSun)" opacity=".9"/>
-        <g fill="#0b0f33"><rect x="0" y="118" width="60" height="62"/><rect x="52" y="96" width="46" height="84"/><rect x="104" y="128" width="70" height="52"/><rect x="180" y="104" width="40" height="76"/><rect x="226" y="122" width="76" height="58"/><rect x="310" y="90" width="44" height="90"/><rect x="360" y="124" width="64" height="56"/><rect x="430" y="108" width="50" height="72"/><rect x="560" y="120" width="60" height="60"/><rect x="620" y="100" width="60" height="80"/></g>
-        <g fill="#FFD166" opacity=".75"><rect x="62" y="108" width="5" height="5"/><rect x="74" y="120" width="5" height="5"/><rect x="190" y="116" width="5" height="5"/><rect x="320" y="104" width="5" height="5"/><rect x="332" y="124" width="5" height="5"/><rect x="442" y="122" width="5" height="5"/><rect x="636" y="116" width="5" height="5"/></g>
-        <rect x="0" y="176" width="680" height="34" fill="#070a22"/>
-        <g class="roadlines"><g fill="#fff" opacity=".6"><rect x="0" y="192" width="30" height="4"/><rect x="60" y="192" width="30" height="4"/><rect x="120" y="192" width="30" height="4"/><rect x="180" y="192" width="30" height="4"/><rect x="240" y="192" width="30" height="4"/><rect x="300" y="192" width="30" height="4"/><rect x="360" y="192" width="30" height="4"/><rect x="420" y="192" width="30" height="4"/><rect x="480" y="192" width="30" height="4"/><rect x="540" y="192" width="30" height="4"/><rect x="600" y="192" width="30" height="4"/><rect x="660" y="192" width="30" height="4"/></g></g>
-        <g class="chaser-g"><g transform="translate(120,124)"><path d="M2 50 L2 24 Q2 4 24 4 Q46 4 46 24 L46 50 L39 44 L32 50 L24 44 L16 50 L9 44 Z" fill="#F5B82E"/><path d="M8 20 Q10 9 24 8" fill="none" stroke="#FFE9A8" stroke-width="3" stroke-linecap="round" opacity=".7"/><circle cx="17" cy="23" r="7" fill="#fff"/><circle cx="33" cy="23" r="7" fill="#fff"/><circle cx="19.5" cy="24" r="3.4" fill="#0A0E27"/><circle cx="35.5" cy="24" r="3.4" fill="#0A0E27"/><circle cx="20.6" cy="22.8" r="1.1" fill="#fff"/><circle cx="36.6" cy="22.8" r="1.1" fill="#fff"/><ellipse cx="10" cy="33" rx="4" ry="2.4" fill="#E01B6A" opacity=".45"/><ellipse cx="40" cy="33" rx="4" ry="2.4" fill="#E01B6A" opacity=".45"/><path d="M19 35 Q25 40 31 35" fill="none" stroke="#0A0E27" stroke-width="2.6" stroke-linecap="round"/></g></g>
-        <g class="runner-g"><g transform="translate(420,130)"><defs><radialGradient id="mcRedH" cx="35%" cy="28%" r="80%"><stop offset="0" stop-color="#FF7A6B"/><stop offset=".55" stop-color="#F0364B"/><stop offset="1" stop-color="#B8102F"/></radialGradient></defs>
-          <circle cx="23" cy="24" r="22" fill="url(#mcRedH)"/><circle cx="23" cy="24" r="22" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="3"/>
+        <circle cx="520" cy="96" r="44" fill="url(#mcSun)" opacity=".9"></circle>
+        <g fill="#0b0f33"><rect x="0" y="118" width="60" height="62"></rect><rect x="52" y="96" width="46" height="84"></rect><rect x="104" y="128" width="70" height="52"></rect><rect x="180" y="104" width="40" height="76"></rect><rect x="226" y="122" width="76" height="58"></rect><rect x="310" y="90" width="44" height="90"></rect><rect x="360" y="124" width="64" height="56"></rect><rect x="430" y="108" width="50" height="72"></rect><rect x="560" y="120" width="60" height="60"></rect><rect x="620" y="100" width="60" height="80"></rect></g>
+        <g fill="#FFD166" opacity=".75"><rect x="62" y="108" width="5" height="5"></rect><rect x="74" y="120" width="5" height="5"></rect><rect x="190" y="116" width="5" height="5"></rect><rect x="320" y="104" width="5" height="5"></rect><rect x="332" y="124" width="5" height="5"></rect><rect x="442" y="122" width="5" height="5"></rect><rect x="636" y="116" width="5" height="5"></rect></g>
+        <rect x="0" y="176" width="680" height="34" fill="#070a22"></rect>
+        <g class="roadlines"><g fill="#fff" opacity=".6"><rect x="0" y="192" width="30" height="4"></rect><rect x="60" y="192" width="30" height="4"></rect><rect x="120" y="192" width="30" height="4"></rect><rect x="180" y="192" width="30" height="4"></rect><rect x="240" y="192" width="30" height="4"></rect><rect x="300" y="192" width="30" height="4"></rect><rect x="360" y="192" width="30" height="4"></rect><rect x="420" y="192" width="30" height="4"></rect><rect x="480" y="192" width="30" height="4"></rect><rect x="540" y="192" width="30" height="4"></rect><rect x="600" y="192" width="30" height="4"></rect><rect x="660" y="192" width="30" height="4"></rect></g></g>
+        <g class="chaser-g"><g transform="translate(120,124)"><path d="M2 50 L2 24 Q2 4 24 4 Q46 4 46 24 L46 50 L39 44 L32 50 L24 44 L16 50 L9 44 Z" fill="#F5B82E"></path><path d="M8 20 Q10 9 24 8" fill="none" stroke="#FFE9A8" stroke-width="3" stroke-linecap="round" opacity=".7"></path><circle cx="17" cy="23" r="7" fill="#fff"></circle><circle cx="33" cy="23" r="7" fill="#fff"></circle><circle cx="19.5" cy="24" r="3.4" fill="#0A0E27"></circle><circle cx="35.5" cy="24" r="3.4" fill="#0A0E27"></circle><circle cx="20.6" cy="22.8" r="1.1" fill="#fff"></circle><circle cx="36.6" cy="22.8" r="1.1" fill="#fff"></circle><ellipse cx="10" cy="33" rx="4" ry="2.4" fill="#E01B6A" opacity=".45"></ellipse><ellipse cx="40" cy="33" rx="4" ry="2.4" fill="#E01B6A" opacity=".45"></ellipse><path d="M19 35 Q25 40 31 35" fill="none" stroke="#0A0E27" stroke-width="2.6" stroke-linecap="round"></path></g></g>
+        <g class="runner-g"><g transform="translate(420,130)"><defs><radialGradient id="mcRedH" cx="35%" cy="28%" r="80%"><stop offset="0" stop-color="#FF7A6B"></stop><stop offset=".55" stop-color="#F0364B"></stop><stop offset="1" stop-color="#B8102F"></stop></radialGradient></defs>
+          <circle cx="23" cy="24" r="22" fill="url(#mcRedH)"></circle><circle cx="23" cy="24" r="22" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="3"></circle>
           <text x="23" y="33" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="28" fill="#fff">e</text>
-          <ellipse cx="12" cy="49" rx="9" ry="4" fill="#fff"/><ellipse cx="34" cy="48" rx="9" ry="4" fill="#fff"/>
+          <ellipse cx="12" cy="49" rx="9" ry="4" fill="#fff"></ellipse><ellipse cx="34" cy="48" rx="9" ry="4" fill="#fff"></ellipse>
         </g></g>
       </svg>
       <div class="hero-title"><h2>MATH <em>CHASER</em></h2><p data-i="tagline"></p></div>
@@ -272,17 +279,17 @@
 
     <p class="landing-desc" data-i="landDesc"></p>
     <div class="rules">
-      <div class="rule"><i>💥</i><span data-i="rule1"></span></div>
-      <div class="rule"><i>⏱️</i><span data-i="rule2"></span></div>
-      <div class="rule"><i>👑</i><span data-i="rule3"></span></div>
+      <div class="rule"><i>&#128165;</i><span data-i="rule1"></span></div>
+      <div class="rule"><i>&#9201;&#65039;</i><span data-i="rule2"></span></div>
+      <div class="rule"><i>&#128081;</i><span data-i="rule3"></span></div>
     </div>
-    <button class="btn-main" type="button" onclick="showLevelSelect()"><span>🎮</span><span data-i="play"></span></button>
+    <button class="btn-main" type="button" onclick="showLevelSelect()"><span>&#127918;</span><span data-i="play"></span></button>
     <div class="row">
-      <button class="btn-sec btn-daily" type="button" onclick="startDailyChallenge()">📅 <span id="daily-btn-text"></span></button>
-      <button class="btn-sec" type="button" onclick="toggleStats()">📊 <span data-i="stats"></span></button>
+      <button class="btn-sec btn-daily" type="button" onclick="startDailyChallenge()">&#128197; <span id="daily-btn-text"></span></button>
+      <button class="btn-sec" type="button" onclick="toggleStats()">&#128202; <span data-i="stats"></span></button>
     </div>
     <div id="streakBox"></div>
-    <div class="panel hidden" id="statsPanel"><h3 style="text-align:center;margin-bottom:.8rem;font-size:1.1rem">📊 <span data-i="statsTitle"></span></h3><div id="statsBody"></div></div>
+    <div class="panel hidden" id="statsPanel"><h3 style="text-align:center;margin-bottom:.8rem;font-size:1.1rem">&#128202; <span data-i="statsTitle"></span></h3><div id="statsBody"></div></div>
     <div class="achievements" id="achievements"></div>
   </div>
 
@@ -290,17 +297,17 @@
   <div class="screen hidden" id="level-select">
     <h3 class="ttl" data-i="chooseLevel"></h3>
     <div class="levels" id="levelGrid"></div>
-    <label class="switch"><input id="survivalToggle" type="checkbox" onchange="renderLevels()"><span>♾ <span data-i="survival"></span></span></label>
+    <label class="switch"><input id="survivalToggle" type="checkbox" onchange="renderLevels()"><span>&#9854; <span data-i="survival"></span></span></label>
     <p style="font-size:.78rem;opacity:.7" data-i="survivalHint"></p>
     <div style="margin-top:1.4rem">
       <h3 style="font-size:1.1rem" data-i="lbTitle"></h3>
       <div class="lb-tabs" id="lbTabs">
         <button class="lb-tab active" id="localLbToggle" type="button" onclick="if(_globalView) toggleGlobalLeaderboard();"><span data-i="lbLocal"></span></button>
-        <button class="lb-tab hidden" id="globalLbToggle" type="button" onclick="toggleGlobalLeaderboard()">🌐 <span data-i="lbGlobal"></span></button>
+        <button class="lb-tab hidden" id="globalLbToggle" type="button" onclick="toggleGlobalLeaderboard()">&#127760; <span data-i="lbGlobal"></span></button>
       </div>
       <div class="leaderboard" id="leaderboard-preview"></div>
     </div>
-    <button class="btn-sec back" type="button" onclick="showLanding()">← <span data-i="back"></span></button>
+    <button class="btn-sec back" type="button" onclick="showLanding()">&#8592; <span data-i="back"></span></button>
   </div>
 
   <!-- GAME -->
@@ -309,25 +316,25 @@
       <span class="chip" id="score">0</span>
       <span class="chip lv" id="lvChip"></span>
       <span style="display:flex;gap:.35rem;align-items:center">
-        <span class="chip combo" id="combo-counter" style="visibility:hidden">🔥 0</span>
-        <button class="tool sm" type="button" onclick="pauseGame(true)" aria-label="Pause">❚❚</button>
+        <span class="chip combo" id="combo-counter" style="visibility:hidden">&#128293; 0</span>
+        <button class="tool sm" type="button" onclick="pauseGame(true)" aria-label="Pause">&#10074;&#10074;</button>
       </span>
     </div>
     <div class="progress-pills" id="progress-pills"></div>
     <div class="track" id="track" aria-hidden="true">
       <div class="lane"></div><div class="ground"></div><div class="finish"></div>
-      <div class="chaserx" id="chaserx"><svg viewBox="0 0 48 52"><path d="M2 50 L2 24 Q2 4 24 4 Q46 4 46 24 L46 50 L39 44 L32 50 L24 44 L16 50 L9 44 Z" fill="#F5B82E"/><path d="M8 20 Q10 9 24 8" fill="none" stroke="#FFE9A8" stroke-width="3" stroke-linecap="round" opacity=".7"/><circle cx="17" cy="23" r="7" fill="#fff"/><circle cx="33" cy="23" r="7" fill="#fff"/><circle cx="19.5" cy="24" r="3.4" fill="#0A0E27"/><circle cx="35.5" cy="24" r="3.4" fill="#0A0E27"/><circle cx="20.6" cy="22.8" r="1.1" fill="#fff"/><circle cx="36.6" cy="22.8" r="1.1" fill="#fff"/><ellipse cx="10" cy="33" rx="4" ry="2.4" fill="#E01B6A" opacity=".45"/><ellipse cx="40" cy="33" rx="4" ry="2.4" fill="#E01B6A" opacity=".45"/><path d="M19 35 Q25 40 31 35" fill="none" stroke="#0A0E27" stroke-width="2.6" stroke-linecap="round"/></svg></div>
-      <div class="runner" id="runner"><svg viewBox="0 0 46 52"><defs><radialGradient id="mcRedT" cx="35%" cy="28%" r="80%"><stop offset="0" stop-color="#FF7A6B"/><stop offset=".55" stop-color="#F0364B"/><stop offset="1" stop-color="#B8102F"/></radialGradient></defs><circle cx="23" cy="24" r="22" fill="url(#mcRedT)"/><circle cx="23" cy="24" r="22" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="3"/><text x="23" y="33" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="28" fill="#fff">e</text><ellipse cx="12" cy="49" rx="9" ry="4" fill="#fff"/><ellipse cx="34" cy="48" rx="9" ry="4" fill="#fff"/></svg></div>
+      <div class="chaserx" id="chaserx"><svg viewBox="0 0 48 52"><path d="M2 50 L2 24 Q2 4 24 4 Q46 4 46 24 L46 50 L39 44 L32 50 L24 44 L16 50 L9 44 Z" fill="#F5B82E"></path><path d="M8 20 Q10 9 24 8" fill="none" stroke="#FFE9A8" stroke-width="3" stroke-linecap="round" opacity=".7"></path><circle cx="17" cy="23" r="7" fill="#fff"></circle><circle cx="33" cy="23" r="7" fill="#fff"></circle><circle cx="19.5" cy="24" r="3.4" fill="#0A0E27"></circle><circle cx="35.5" cy="24" r="3.4" fill="#0A0E27"></circle><circle cx="20.6" cy="22.8" r="1.1" fill="#fff"></circle><circle cx="36.6" cy="22.8" r="1.1" fill="#fff"></circle><ellipse cx="10" cy="33" rx="4" ry="2.4" fill="#E01B6A" opacity=".45"></ellipse><ellipse cx="40" cy="33" rx="4" ry="2.4" fill="#E01B6A" opacity=".45"></ellipse><path d="M19 35 Q25 40 31 35" fill="none" stroke="#0A0E27" stroke-width="2.6" stroke-linecap="round"></path></svg></div>
+      <div class="runner" id="runner"><svg viewBox="0 0 46 52"><defs><radialGradient id="mcRedT" cx="35%" cy="28%" r="80%"><stop offset="0" stop-color="#FF7A6B"></stop><stop offset=".55" stop-color="#F0364B"></stop><stop offset="1" stop-color="#B8102F"></stop></radialGradient></defs><circle cx="23" cy="24" r="22" fill="url(#mcRedT)"></circle><circle cx="23" cy="24" r="22" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="3"></circle><text x="23" y="33" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="28" fill="#fff">e</text><ellipse cx="12" cy="49" rx="9" ry="4" fill="#fff"></ellipse><ellipse cx="34" cy="48" rx="9" ry="4" fill="#fff"></ellipse></svg></div>
     </div>
     <div class="timebar" id="timerBar" role="progressbar" aria-label="Time remaining" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><i id="bar"></i></div>
-    <div class="timetext" id="timeText">–</div>
-    <div class="hidden" id="bossBanner">👑 <span id="boss-banner-text"></span></div>
-    <div class="hidden" id="adaptiveBadge">⚡ <span id="adaptive-badge-text"></span></div>
+    <div class="timetext" id="timeText">&#8211;</div>
+    <div class="hidden" id="bossBanner">&#128081; <span id="boss-banner-text"></span></div>
+    <div class="hidden" id="adaptiveBadge">&#9889; <span id="adaptive-badge-text"></span></div>
     <p class="question" id="question" aria-live="polite"></p>
     <div id="options"></div>
     <div class="lifelines">
-      <button class="life" id="life5050" type="button" onclick="useFifty()">✂️ <span data-i="fifty"></span></button>
-      <button class="life" id="lifeTime" type="button" onclick="useTime()">⏱ <span data-i="plus3"></span></button>
+      <button class="life" id="life5050" type="button" onclick="useFifty()">&#9986;&#65039; <span data-i="fifty"></span></button>
+      <button class="life" id="lifeTime" type="button" onclick="useTime()">&#9201; <span data-i="plus3"></span></button>
     </div>
     <div id="pauseOv" class="hidden"><h3 data-i="paused"></h3><button class="btn-main" type="button" onclick="pauseGame(false)"><span data-i="resume"></span></button></div>
   </div>
@@ -344,13 +351,13 @@
     </div>
     <div class="best" id="bestScore"></div>
     <div class="tip" id="sessionTip"></div>
-    <div class="newach hidden" id="newAchievements"><p>🎉 <span data-i="newAch"></span></p><div class="achievements" id="result-achievements"></div></div>
+    <div class="newach hidden" id="newAchievements"><p>&#127881; <span data-i="newAch"></span></p><div class="achievements" id="result-achievements"></div></div>
     <div class="row" style="margin-top:1.2rem">
       <button class="btn-main" type="button" onclick="playAgain()" style="padding:.9rem 2rem;font-size:1.05rem"><span data-i="playAgain"></span></button>
     </div>
     <div class="row">
-      <button class="btn-sec" type="button" id="shareBtn" onclick="shareResult()">📤 <span id="share-text"></span></button>
-      <button class="btn-sec" type="button" onclick="showLanding()">🏠 <span data-i="menu"></span></button>
+      <button class="btn-sec" type="button" id="shareBtn" onclick="shareResult()">&#128228; <span id="share-text"></span></button>
+      <button class="btn-sec" type="button" onclick="showLanding()">&#127968; <span data-i="menu"></span></button>
     </div>
   </div>
  </div>
@@ -381,51 +388,51 @@ if (theme !== 'dark' && theme !== 'light') {
 // ================================================
 const STR = {
  gr:{
-  tagline:"Μία λάθος απάντηση και ο Chaser σε πιάνει!",
-  landDesc:"Δοκίμασε τις μαθηματικές σου ικανότητες! Απάντησε γρήγορα — ο χρόνος μικραίνει όσο πιο καλά τα πας. 🔥",
-  rule1:"Ένα λάθος = σε πιάνει", rule2:"Σερί σωστών = λιγότερος χρόνος", rule3:"Boss κάθε 10η = διπλοί πόντοι",
-  play:"ΠΑΙΞΕ ΤΩΡΑ", stats:"Στατιστικά", statsTitle:"Τα Στατιστικά σου",
-  daily:"Πρόκληση Ημέρας", chooseLevel:"Επίλεξε επίπεδο δυσκολίας",
-  beginner:"Αρχάριος", easy:"Εύκολο", normal:"Κανονικό", hard:"Δύσκολο", expert:"Έμπειρος", impossible:"Αδύνατο",
-  survival:"Επιβίωση (ατελείωτο)", survivalHint:"Χωρίς τέλος — παίζεις μέχρι να κάνεις λάθος.",
-  lbTitle:"🏆 Κορυφαία σκορ", lbLocal:"Τοπικό ρεκόρ", lbGlobal:"Παγκόσμια", back:"Πίσω",
-  score:"Σκορ", combo:"Combo", escaped:"🔥 ΔΙΕΦΥΓΕΣ!", caught:"💥 Ο CHASER ΣΕ ΠΙΑΣΕ!", timeup:"⏱ Τέλος χρόνου!",
-  finalScore:"Σκορ", maxCombo:"Μέγ. combo", accuracy:"Ακρίβεια", best:"Καλύτερο",
-  playAgain:"ΠΑΙΞΕ ΞΑΝΑ", menu:"Μενού", share:"Μοιράσου το", copied:"Αντιγράφηκε! ✓",
-  newAch:"Νέα Επιτεύγματα!", boss:"BOSS ΕΡΩΤΗΣΗ — Διπλοί Πόντοι!", adaptive:"Η δυσκολία ανέβηκε λόγω σερί!",
-  fifty:"50:50", plus3:"+3 sec", paused:"Παύση", resume:"ΣΥΝΕΧΕΙΑ",
-  newRecord:"🏅 ΝΕΟ ΡΕΚΟΡ!", sec:"δλ", pts:"π.", noScores:"Δεν υπάρχουν ακόμη σκορ...",
-  dailyDone:"✅ Η πρόκληση της ημέρας ολοκληρώθηκε", streakDays:(n)=>`🔥 Σερί: ${n} ${n===1?'ημέρα':'ημέρες'}`,
-  overall:"Συνολική ακρίβεια", games:"παιχνίδια", playMore:"Παίξε λίγο ακόμα για στατιστικά ανά θέμα.",
-  correctWas:(v,q)=>`✓ Η σωστή απάντηση ήταν: ${v}`, cleanRun:"🎯 Καθαρό παιχνίδι — καμία λανθασμένη απάντηση!",
-  mistakes:(n,t)=>`📊 Έκανες ${n} λάθος${n>1?'η':''} στην κατηγορία: ${t}. Άξιζε λίγη ακόμα εξάσκηση εκεί.`,
-  loading:"Φόρτωση…", unavailable:"Η online κατάταξη δεν είναι διαθέσιμη αυτή τη στιγμή.", noGlobal:"Δεν υπάρχουν ακόμη σκορ. Γίνε ο πρώτος!", failed:"Αποτυχία φόρτωσης.", player:"Παίκτης",
-  best_:"Ρεκόρ", dailyTag:"Ημέρας", surv:"Επιβίωση",
-  shareText:(o)=>`🧠 Math Chaser PRO — ${o.won?'Ξέφυγα από τον Chaser!':'Ο Chaser με έπιασε!'}\n${o.lvl}${o.surv?' · ♾':''}: σκορ ${o.score}, combo ${o.combo}, ακρίβεια ${o.acc}%\nΔοκίμασε να με ξεπεράσεις 👉 ${SITE_URL}`,
-  topics:{"Arithmetic":"Αριθμητική","Powers & Roots":"Δυνάμεις & Ρίζες","Percentages":"Ποσοστά","Algebra":"Άλγεβρα","Geometry":"Γεωμετρία","Number Theory":"Θεωρία Αριθμών","Trigonometry":"Τριγωνομετρία","Logarithms":"Λογάριθμοι","Calculus":"Ανάλυση","Complex Numbers":"Μιγαδικοί","Fractions":"Κλάσματα","Statistics & Probability":"Στατιστική & Πιθανότητες","Sequences":"Ακολουθίες","Combinatorics":"Συνδυαστική"}
+  tagline:"\u039c\u03af\u03b1 \u03bb\u03ac\u03b8\u03bf\u03c2 \u03b1\u03c0\u03ac\u03bd\u03c4\u03b7\u03c3\u03b7 \u03ba\u03b1\u03b9 \u03bf Chaser \u03c3\u03b5 \u03c0\u03b9\u03ac\u03bd\u03b5\u03b9!",
+  landDesc:"\u0394\u03bf\u03ba\u03af\u03bc\u03b1\u03c3\u03b5 \u03c4\u03b9\u03c2 \u03bc\u03b1\u03b8\u03b7\u03bc\u03b1\u03c4\u03b9\u03ba\u03ad\u03c2 \u03c3\u03bf\u03c5 \u03b9\u03ba\u03b1\u03bd\u03cc\u03c4\u03b7\u03c4\u03b5\u03c2! \u0391\u03c0\u03ac\u03bd\u03c4\u03b7\u03c3\u03b5 \u03b3\u03c1\u03ae\u03b3\u03bf\u03c1\u03b1 \u2014 \u03bf \u03c7\u03c1\u03cc\u03bd\u03bf\u03c2 \u03bc\u03b9\u03ba\u03c1\u03b1\u03af\u03bd\u03b5\u03b9 \u03cc\u03c3\u03bf \u03c0\u03b9\u03bf \u03ba\u03b1\u03bb\u03ac \u03c4\u03b1 \u03c0\u03b1\u03c2. \ud83d\udd25",
+  rule1:"\u0388\u03bd\u03b1 \u03bb\u03ac\u03b8\u03bf\u03c2 = \u03c3\u03b5 \u03c0\u03b9\u03ac\u03bd\u03b5\u03b9", rule2:"\u03a3\u03b5\u03c1\u03af \u03c3\u03c9\u03c3\u03c4\u03ce\u03bd = \u03bb\u03b9\u03b3\u03cc\u03c4\u03b5\u03c1\u03bf\u03c2 \u03c7\u03c1\u03cc\u03bd\u03bf\u03c2", rule3:"Boss \u03ba\u03ac\u03b8\u03b5 10\u03b7 = \u03b4\u03b9\u03c0\u03bb\u03bf\u03af \u03c0\u03cc\u03bd\u03c4\u03bf\u03b9",
+  play:"\u03a0\u0391\u0399\u039e\u0395 \u03a4\u03a9\u03a1\u0391", stats:"\u03a3\u03c4\u03b1\u03c4\u03b9\u03c3\u03c4\u03b9\u03ba\u03ac", statsTitle:"\u03a4\u03b1 \u03a3\u03c4\u03b1\u03c4\u03b9\u03c3\u03c4\u03b9\u03ba\u03ac \u03c3\u03bf\u03c5",
+  daily:"\u03a0\u03c1\u03cc\u03ba\u03bb\u03b7\u03c3\u03b7 \u0397\u03bc\u03ad\u03c1\u03b1\u03c2", chooseLevel:"\u0395\u03c0\u03af\u03bb\u03b5\u03be\u03b5 \u03b5\u03c0\u03af\u03c0\u03b5\u03b4\u03bf \u03b4\u03c5\u03c3\u03ba\u03bf\u03bb\u03af\u03b1\u03c2",
+  beginner:"\u0391\u03c1\u03c7\u03ac\u03c1\u03b9\u03bf\u03c2", easy:"\u0395\u03cd\u03ba\u03bf\u03bb\u03bf", normal:"\u039a\u03b1\u03bd\u03bf\u03bd\u03b9\u03ba\u03cc", hard:"\u0394\u03cd\u03c3\u03ba\u03bf\u03bb\u03bf", expert:"\u0388\u03bc\u03c0\u03b5\u03b9\u03c1\u03bf\u03c2", impossible:"\u0391\u03b4\u03cd\u03bd\u03b1\u03c4\u03bf",
+  survival:"\u0395\u03c0\u03b9\u03b2\u03af\u03c9\u03c3\u03b7 (\u03b1\u03c4\u03b5\u03bb\u03b5\u03af\u03c9\u03c4\u03bf)", survivalHint:"\u03a7\u03c9\u03c1\u03af\u03c2 \u03c4\u03ad\u03bb\u03bf\u03c2 \u2014 \u03c0\u03b1\u03af\u03b6\u03b5\u03b9\u03c2 \u03bc\u03ad\u03c7\u03c1\u03b9 \u03bd\u03b1 \u03ba\u03ac\u03bd\u03b5\u03b9\u03c2 \u03bb\u03ac\u03b8\u03bf\u03c2.",
+  lbTitle:"\ud83c\udfc6 \u039a\u03bf\u03c1\u03c5\u03c6\u03b1\u03af\u03b1 \u03c3\u03ba\u03bf\u03c1", lbLocal:"\u03a4\u03bf\u03c0\u03b9\u03ba\u03cc \u03c1\u03b5\u03ba\u03cc\u03c1", lbGlobal:"\u03a0\u03b1\u03b3\u03ba\u03cc\u03c3\u03bc\u03b9\u03b1", back:"\u03a0\u03af\u03c3\u03c9",
+  score:"\u03a3\u03ba\u03bf\u03c1", combo:"Combo", escaped:"\ud83d\udd25 \u0394\u0399\u0395\u03a6\u03a5\u0393\u0395\u03a3!", caught:"\ud83d\udca5 \u039f CHASER \u03a3\u0395 \u03a0\u0399\u0391\u03a3\u0395!", timeup:"\u23f1 \u03a4\u03ad\u03bb\u03bf\u03c2 \u03c7\u03c1\u03cc\u03bd\u03bf\u03c5!",
+  finalScore:"\u03a3\u03ba\u03bf\u03c1", maxCombo:"\u039c\u03ad\u03b3. combo", accuracy:"\u0391\u03ba\u03c1\u03af\u03b2\u03b5\u03b9\u03b1", best:"\u039a\u03b1\u03bb\u03cd\u03c4\u03b5\u03c1\u03bf",
+  playAgain:"\u03a0\u0391\u0399\u039e\u0395 \u039e\u0391\u039d\u0391", menu:"\u039c\u03b5\u03bd\u03bf\u03cd", share:"\u039c\u03bf\u03b9\u03c1\u03ac\u03c3\u03bf\u03c5 \u03c4\u03bf", copied:"\u0391\u03bd\u03c4\u03b9\u03b3\u03c1\u03ac\u03c6\u03b7\u03ba\u03b5! \u2713",
+  newAch:"\u039d\u03ad\u03b1 \u0395\u03c0\u03b9\u03c4\u03b5\u03cd\u03b3\u03bc\u03b1\u03c4\u03b1!", boss:"BOSS \u0395\u03a1\u03a9\u03a4\u0397\u03a3\u0397 \u2014 \u0394\u03b9\u03c0\u03bb\u03bf\u03af \u03a0\u03cc\u03bd\u03c4\u03bf\u03b9!", adaptive:"\u0397 \u03b4\u03c5\u03c3\u03ba\u03bf\u03bb\u03af\u03b1 \u03b1\u03bd\u03ad\u03b2\u03b7\u03ba\u03b5 \u03bb\u03cc\u03b3\u03c9 \u03c3\u03b5\u03c1\u03af!",
+  fifty:"50:50", plus3:"+3 sec", paused:"\u03a0\u03b1\u03cd\u03c3\u03b7", resume:"\u03a3\u03a5\u039d\u0395\u03a7\u0395\u0399\u0391",
+  newRecord:"\ud83c\udfc5 \u039d\u0395\u039f \u03a1\u0395\u039a\u039f\u03a1!", sec:"\u03b4\u03bb", pts:"\u03c0.", noScores:"\u0394\u03b5\u03bd \u03c5\u03c0\u03ac\u03c1\u03c7\u03bf\u03c5\u03bd \u03b1\u03ba\u03cc\u03bc\u03b7 \u03c3\u03ba\u03bf\u03c1...",
+  dailyDone:"\u2705 \u0397 \u03c0\u03c1\u03cc\u03ba\u03bb\u03b7\u03c3\u03b7 \u03c4\u03b7\u03c2 \u03b7\u03bc\u03ad\u03c1\u03b1\u03c2 \u03bf\u03bb\u03bf\u03ba\u03bb\u03b7\u03c1\u03ce\u03b8\u03b7\u03ba\u03b5", streakDays:(n)=>`\ud83d\udd25 \u03a3\u03b5\u03c1\u03af: ${n} ${n===1?'\u03b7\u03bc\u03ad\u03c1\u03b1':'\u03b7\u03bc\u03ad\u03c1\u03b5\u03c2'}`,
+  overall:"\u03a3\u03c5\u03bd\u03bf\u03bb\u03b9\u03ba\u03ae \u03b1\u03ba\u03c1\u03af\u03b2\u03b5\u03b9\u03b1", games:"\u03c0\u03b1\u03b9\u03c7\u03bd\u03af\u03b4\u03b9\u03b1", playMore:"\u03a0\u03b1\u03af\u03be\u03b5 \u03bb\u03af\u03b3\u03bf \u03b1\u03ba\u03cc\u03bc\u03b1 \u03b3\u03b9\u03b1 \u03c3\u03c4\u03b1\u03c4\u03b9\u03c3\u03c4\u03b9\u03ba\u03ac \u03b1\u03bd\u03ac \u03b8\u03ad\u03bc\u03b1.",
+  correctWas:(v,q)=>`\u2713 \u0397 \u03c3\u03c9\u03c3\u03c4\u03ae \u03b1\u03c0\u03ac\u03bd\u03c4\u03b7\u03c3\u03b7 \u03ae\u03c4\u03b1\u03bd: ${v}`, cleanRun:"\ud83c\udfaf \u039a\u03b1\u03b8\u03b1\u03c1\u03cc \u03c0\u03b1\u03b9\u03c7\u03bd\u03af\u03b4\u03b9 \u2014 \u03ba\u03b1\u03bc\u03af\u03b1 \u03bb\u03b1\u03bd\u03b8\u03b1\u03c3\u03bc\u03ad\u03bd\u03b7 \u03b1\u03c0\u03ac\u03bd\u03c4\u03b7\u03c3\u03b7!",
+  mistakes:(n,t)=>`\ud83d\udcca \u0388\u03ba\u03b1\u03bd\u03b5\u03c2 ${n} \u03bb\u03ac\u03b8\u03bf\u03c2${n>1?'\u03b7':''} \u03c3\u03c4\u03b7\u03bd \u03ba\u03b1\u03c4\u03b7\u03b3\u03bf\u03c1\u03af\u03b1: ${t}. \u0386\u03be\u03b9\u03b6\u03b5 \u03bb\u03af\u03b3\u03b7 \u03b1\u03ba\u03cc\u03bc\u03b1 \u03b5\u03be\u03ac\u03c3\u03ba\u03b7\u03c3\u03b7 \u03b5\u03ba\u03b5\u03af.`,
+  loading:"\u03a6\u03cc\u03c1\u03c4\u03c9\u03c3\u03b7\u2026", unavailable:"\u0397 online \u03ba\u03b1\u03c4\u03ac\u03c4\u03b1\u03be\u03b7 \u03b4\u03b5\u03bd \u03b5\u03af\u03bd\u03b1\u03b9 \u03b4\u03b9\u03b1\u03b8\u03ad\u03c3\u03b9\u03bc\u03b7 \u03b1\u03c5\u03c4\u03ae \u03c4\u03b7 \u03c3\u03c4\u03b9\u03b3\u03bc\u03ae.", noGlobal:"\u0394\u03b5\u03bd \u03c5\u03c0\u03ac\u03c1\u03c7\u03bf\u03c5\u03bd \u03b1\u03ba\u03cc\u03bc\u03b7 \u03c3\u03ba\u03bf\u03c1. \u0393\u03af\u03bd\u03b5 \u03bf \u03c0\u03c1\u03ce\u03c4\u03bf\u03c2!", failed:"\u0391\u03c0\u03bf\u03c4\u03c5\u03c7\u03af\u03b1 \u03c6\u03cc\u03c1\u03c4\u03c9\u03c3\u03b7\u03c2.", player:"\u03a0\u03b1\u03af\u03ba\u03c4\u03b7\u03c2",
+  best_:"\u03a1\u03b5\u03ba\u03cc\u03c1", dailyTag:"\u0397\u03bc\u03ad\u03c1\u03b1\u03c2", surv:"\u0395\u03c0\u03b9\u03b2\u03af\u03c9\u03c3\u03b7",
+  shareText:(o)=>`\ud83e\udde0 Math Chaser PRO \u2014 ${o.won?'\u039e\u03ad\u03c6\u03c5\u03b3\u03b1 \u03b1\u03c0\u03cc \u03c4\u03bf\u03bd Chaser!':'\u039f Chaser \u03bc\u03b5 \u03ad\u03c0\u03b9\u03b1\u03c3\u03b5!'}\n${o.lvl}${o.surv?' \u00b7 \u267e':''}: \u03c3\u03ba\u03bf\u03c1 ${o.score}, combo ${o.combo}, \u03b1\u03ba\u03c1\u03af\u03b2\u03b5\u03b9\u03b1 ${o.acc}%\n\u0394\u03bf\u03ba\u03af\u03bc\u03b1\u03c3\u03b5 \u03bd\u03b1 \u03bc\u03b5 \u03be\u03b5\u03c0\u03b5\u03c1\u03ac\u03c3\u03b5\u03b9\u03c2 \ud83d\udc49 ${SITE_URL}`,
+  topics:{"Arithmetic":"\u0391\u03c1\u03b9\u03b8\u03bc\u03b7\u03c4\u03b9\u03ba\u03ae","Powers & Roots":"\u0394\u03c5\u03bd\u03ac\u03bc\u03b5\u03b9\u03c2 & \u03a1\u03af\u03b6\u03b5\u03c2","Percentages":"\u03a0\u03bf\u03c3\u03bf\u03c3\u03c4\u03ac","Algebra":"\u0386\u03bb\u03b3\u03b5\u03b2\u03c1\u03b1","Geometry":"\u0393\u03b5\u03c9\u03bc\u03b5\u03c4\u03c1\u03af\u03b1","Number Theory":"\u0398\u03b5\u03c9\u03c1\u03af\u03b1 \u0391\u03c1\u03b9\u03b8\u03bc\u03ce\u03bd","Trigonometry":"\u03a4\u03c1\u03b9\u03b3\u03c9\u03bd\u03bf\u03bc\u03b5\u03c4\u03c1\u03af\u03b1","Logarithms":"\u039b\u03bf\u03b3\u03ac\u03c1\u03b9\u03b8\u03bc\u03bf\u03b9","Calculus":"\u0391\u03bd\u03ac\u03bb\u03c5\u03c3\u03b7","Complex Numbers":"\u039c\u03b9\u03b3\u03b1\u03b4\u03b9\u03ba\u03bf\u03af","Fractions":"\u039a\u03bb\u03ac\u03c3\u03bc\u03b1\u03c4\u03b1","Statistics & Probability":"\u03a3\u03c4\u03b1\u03c4\u03b9\u03c3\u03c4\u03b9\u03ba\u03ae & \u03a0\u03b9\u03b8\u03b1\u03bd\u03cc\u03c4\u03b7\u03c4\u03b5\u03c2","Sequences":"\u0391\u03ba\u03bf\u03bb\u03bf\u03c5\u03b8\u03af\u03b5\u03c2","Combinatorics":"\u03a3\u03c5\u03bd\u03b4\u03c5\u03b1\u03c3\u03c4\u03b9\u03ba\u03ae"}
  },
  en:{
   tagline:"One wrong answer and the Chaser catches you!",
-  landDesc:"Test your math skills! Answer fast — the timer shrinks the better you do. 🔥",
+  landDesc:"Test your math skills! Answer fast \u2014 the timer shrinks the better you do. \ud83d\udd25",
   rule1:"One mistake = caught", rule2:"Streak = less time", rule3:"Boss every 10th = double points",
   play:"PLAY NOW", stats:"Statistics", statsTitle:"Your Statistics",
   daily:"Daily Challenge", chooseLevel:"Choose difficulty",
   beginner:"Beginner", easy:"Easy", normal:"Normal", hard:"Hard", expert:"Expert", impossible:"Impossible",
-  survival:"Survival (endless)", survivalHint:"No end — you play until you slip.",
-  lbTitle:"🏆 Top scores", lbLocal:"Local best", lbGlobal:"Global", back:"Back",
-  score:"Score", combo:"Combo", escaped:"🔥 YOU ESCAPED!", caught:"💥 CHASER CAUGHT YOU!", timeup:"⏱ Time's up!",
+  survival:"Survival (endless)", survivalHint:"No end \u2014 you play until you slip.",
+  lbTitle:"\ud83c\udfc6 Top scores", lbLocal:"Local best", lbGlobal:"Global", back:"Back",
+  score:"Score", combo:"Combo", escaped:"\ud83d\udd25 YOU ESCAPED!", caught:"\ud83d\udca5 CHASER CAUGHT YOU!", timeup:"\u23f1 Time's up!",
   finalScore:"Score", maxCombo:"Max combo", accuracy:"Accuracy", best:"Best",
-  playAgain:"PLAY AGAIN", menu:"Menu", share:"Share", copied:"Copied! ✓",
-  newAch:"New Achievements!", boss:"BOSS QUESTION — Double Points!", adaptive:"Difficulty boosted by your streak!",
+  playAgain:"PLAY AGAIN", menu:"Menu", share:"Share", copied:"Copied! \u2713",
+  newAch:"New Achievements!", boss:"BOSS QUESTION \u2014 Double Points!", adaptive:"Difficulty boosted by your streak!",
   fifty:"50:50", plus3:"+3 sec", paused:"Paused", resume:"RESUME",
-  newRecord:"🏅 NEW RECORD!", sec:"s", pts:"pts", noScores:"No scores yet...",
-  dailyDone:"✅ Today's challenge completed", streakDays:(n)=>`🔥 Streak: ${n} day${n===1?'':'s'}`,
+  newRecord:"\ud83c\udfc5 NEW RECORD!", sec:"s", pts:"pts", noScores:"No scores yet...",
+  dailyDone:"\u2705 Today's challenge completed", streakDays:(n)=>`\ud83d\udd25 Streak: ${n} day${n===1?'':'s'}`,
   overall:"Overall accuracy", games:"games", playMore:"Play a bit more to see per-topic stats.",
-  correctWas:(v,q)=>`✓ The correct answer was: ${v}`, cleanRun:"🎯 Clean run — no mistakes this time!",
-  mistakes:(n,t)=>`📊 You made ${n} mistake${n>1?'s':''} in: ${t}. Worth another look next time.`,
-  loading:"Loading…", unavailable:"Online ranking isn’t available right now.", noGlobal:"No scores yet. Be the first!", failed:"Failed to load.", player:"Player",
+  correctWas:(v,q)=>`\u2713 The correct answer was: ${v}`, cleanRun:"\ud83c\udfaf Clean run \u2014 no mistakes this time!",
+  mistakes:(n,t)=>`\ud83d\udcca You made ${n} mistake${n>1?'s':''} in: ${t}. Worth another look next time.`,
+  loading:"Loading\u2026", unavailable:"Online ranking isn\u2019t available right now.", noGlobal:"No scores yet. Be the first!", failed:"Failed to load.", player:"Player",
   best_:"Best", dailyTag:"Daily", surv:"Survival",
-  shareText:(o)=>`🧠 Math Chaser PRO — ${o.won?'I escaped the Chaser!':'The Chaser caught me!'}\n${o.lvl}${o.surv?' · ♾':''}: score ${o.score}, combo ${o.combo}, accuracy ${o.acc}%\nBeat me 👉 ${SITE_URL}`,
+  shareText:(o)=>`\ud83e\udde0 Math Chaser PRO \u2014 ${o.won?'I escaped the Chaser!':'The Chaser caught me!'}\n${o.lvl}${o.surv?' \u00b7 \u267e':''}: score ${o.score}, combo ${o.combo}, accuracy ${o.acc}%\nBeat me \ud83d\udc49 ${SITE_URL}`,
   topics:{}
  }
 };
@@ -438,20 +445,20 @@ const topicName = t => (STR[lang].topics && STR[lang].topics[t]) || t;
 function applyTheme(){
   ROOT.setAttribute('data-theme', theme);
   const b = $('themeToggle');
-  b.textContent = theme === 'dark' ? '🌞' : '🌙';
+  b.textContent = theme === 'dark' ? '\ud83c\udf1e' : '\ud83c\udf19';
   b.setAttribute('aria-label', theme === 'dark' ? 'Light mode' : 'Dark mode');
 }
 function toggleTheme(){ theme = theme === 'dark' ? 'light' : 'dark'; safeSet('mc_theme', theme); applyTheme(); }
 function applySound(){
   const b = $('soundToggle');
-  b.textContent = soundEnabled ? '🔊' : '🔇';
+  b.textContent = soundEnabled ? '\ud83d\udd0a' : '\ud83d\udd07';
   b.setAttribute('aria-label', soundEnabled ? 'Mute' : 'Unmute');
 }
 function toggleSound(){ soundEnabled = !soundEnabled; safeSet('mc_sound', soundEnabled); applySound(); if (soundEnabled) playSound('click'); }
 function setLang(l){ lang = l; safeSet('mc_lang', l); updateTexts(); }
 
 // ================================================
-// Sound (Web Audio) — tiny synth, all failures swallowed
+// Sound (Web Audio) \u2014 tiny synth, all failures swallowed
 // ================================================
 let _ac = null;
 function getAC(){
@@ -538,7 +545,7 @@ function gcd(a,b){ return b===0?a:gcd(b,a%b); }
 const L = (gr,en) => lang==='gr'?gr:en;
 
 // ================================================
-// Question generators (original pools — unchanged)
+// Question generators (original pools \u2014 unchanged)
 // ================================================
 const questionTypes = {
     easy: [
@@ -583,34 +590,34 @@ const questionTypes = {
         const variation = getRandomInt(0, 3);
         
         if (variation === 0) {
-          // Direct: a × b = ?
+          // Direct: a \u00d7 b = ?
           return {
-            gr: `${a} × ${b} =`,
-            en: `${a} × ${b} =`,
+            gr: `${a} \u00d7 ${b} =`,
+            en: `${a} \u00d7 ${b} =`,
             correct: product,
             options: shuffleArray([product - 5, product, product + 5])
           };
         } else if (variation === 1) {
-          // Commutative: b × a = ?
+          // Commutative: b \u00d7 a = ?
           return {
-            gr: `${b} × ${a} =`,
-            en: `${b} × ${a} =`,
+            gr: `${b} \u00d7 ${a} =`,
+            en: `${b} \u00d7 ${a} =`,
             correct: product,
             options: shuffleArray([product - 5, product, product + 5])
           };
         } else if (variation === 2) {
-          // Inverse: product ÷ a = ?
+          // Inverse: product \u00f7 a = ?
           return {
-            gr: `${product} ÷ ${a} =`,
-            en: `${product} ÷ ${a} =`,
+            gr: `${product} \u00f7 ${a} =`,
+            en: `${product} \u00f7 ${a} =`,
             correct: b,
             options: shuffleArray([b - 1, b, b + 1])
           };
         } else {
-          // Reciprocal inverse: product ÷ b = ?
+          // Reciprocal inverse: product \u00f7 b = ?
           return {
-            gr: `${product} ÷ ${b} =`,
-            en: `${product} ÷ ${b} =`,
+            gr: `${product} \u00f7 ${b} =`,
+            en: `${product} \u00f7 ${b} =`,
             correct: a,
             options: shuffleArray([a - 1, a, a + 1])
           };
@@ -657,18 +664,18 @@ const questionTypes = {
         const variation = getRandomInt(0, 1);
         
         if (variation === 0) {
-          // Direct: base² = ?
+          // Direct: base\u00b2 = ?
           return {
-            gr: `${base}² =`,
-            en: `${base}² =`,
+            gr: `${base}\u00b2 =`,
+            en: `${base}\u00b2 =`,
             correct: square,
             options: shuffleArray([square - 5, square, square + 5])
           };
         } else {
-          // Inverse: √square = ?
+          // Inverse: \u221asquare = ?
           return {
-            gr: `√${square} =`,
-            en: `√${square} =`,
+            gr: `\u221a${square} =`,
+            en: `\u221a${square} =`,
             correct: base,
             options: shuffleArray([base - 1, base, base + 1])
           };
@@ -682,18 +689,18 @@ const questionTypes = {
         const variation = getRandomInt(0, 1);
         
         if (variation === 0) {
-          // Direct: √num = ?
+          // Direct: \u221anum = ?
           return {
-            gr: `√${num} =`,
-            en: `√${num} =`,
+            gr: `\u221a${num} =`,
+            en: `\u221a${num} =`,
             correct: root,
             options: shuffleArray([root - 1, root, root + 1])
           };
         } else {
-          // Inverse: root² = ?
+          // Inverse: root\u00b2 = ?
           return {
-            gr: `${root}² =`,
-            en: `${root}² =`,
+            gr: `${root}\u00b2 =`,
+            en: `${root}\u00b2 =`,
             correct: num,
             options: shuffleArray([num, num - 15, num + 15])
           };
@@ -739,16 +746,16 @@ const questionTypes = {
         };
       },
       () => {
-        // Geometry formula: E = α² is area of which shape?
+        // Geometry formula: E = \u03b1\u00b2 is area of which shape?
         const formulas = [
-          {gr: "Ε = α²", en: "A = a²", correct: "Τετράγωνο", correctEn: "Square", wrong1Gr: "Τρίγωνο", wrong1En: "Triangle", wrong2Gr: "Ορθογώνιο", wrong2En: "Rectangle"}
+          {gr: "\u0395 = \u03b1\u00b2", en: "A = a\u00b2", correct: "\u03a4\u03b5\u03c4\u03c1\u03ac\u03b3\u03c9\u03bd\u03bf", correctEn: "Square", wrong1Gr: "\u03a4\u03c1\u03af\u03b3\u03c9\u03bd\u03bf", wrong1En: "Triangle", wrong2Gr: "\u039f\u03c1\u03b8\u03bf\u03b3\u03ce\u03bd\u03b9\u03bf", wrong2En: "Rectangle"}
         ];
         
         const formula = formulas[0]; // Only one for now
         
         return {
-          gr: `${formula.gr} → Εμβαδόν;`,
-          en: `${formula.en} → Area of?`,
+          gr: `${formula.gr} \u2192 \u0395\u03bc\u03b2\u03b1\u03b4\u03cc\u03bd;`,
+          en: `${formula.en} \u2192 Area of?`,
           correct: lang === "gr" ? formula.correct : formula.correctEn,
           options: lang === "gr" 
             ? shuffleArray([formula.correct, formula.wrong1Gr, formula.wrong2Gr])
@@ -765,26 +772,26 @@ const questionTypes = {
         const variation = getRandomInt(0, 2);
         
         if (variation === 0) {
-          // Direct: a × b = ?
+          // Direct: a \u00d7 b = ?
           return {
-            gr: `${a} × ${b} =`,
-            en: `${a} × ${b} =`,
+            gr: `${a} \u00d7 ${b} =`,
+            en: `${a} \u00d7 ${b} =`,
             correct: product,
             options: shuffleArray([product - 10, product, product + 10])
           };
         } else if (variation === 1) {
-          // Commutative: b × a = ?
+          // Commutative: b \u00d7 a = ?
           return {
-            gr: `${b} × ${a} =`,
-            en: `${b} × ${a} =`,
+            gr: `${b} \u00d7 ${a} =`,
+            en: `${b} \u00d7 ${a} =`,
             correct: product,
             options: shuffleArray([product - 10, product, product + 10])
           };
         } else {
-          // Division inverse: product ÷ a = ?
+          // Division inverse: product \u00f7 a = ?
           return {
-            gr: `${product} ÷ ${a} =`,
-            en: `${product} ÷ ${a} =`,
+            gr: `${product} \u00f7 ${a} =`,
+            en: `${product} \u00f7 ${a} =`,
             correct: b,
             options: shuffleArray([b - 2, b, b + 2])
           };
@@ -797,8 +804,8 @@ const questionTypes = {
         const divisor = divisors[dividends.indexOf(dividend)];
         const correct = dividend / divisor;
         return {
-          gr: `${dividend} ÷ ${divisor} =`,
-          en: `${dividend} ÷ ${divisor} =`,
+          gr: `${dividend} \u00f7 ${divisor} =`,
+          en: `${dividend} \u00f7 ${divisor} =`,
           correct,
           options: shuffleArray([correct - 1, correct, correct + 1])
         };
@@ -808,22 +815,22 @@ const questionTypes = {
         const b = getRandomInt(3, 7);
         const correct = a * a + b * b;
         return {
-          gr: `${a}² + ${b}² =`,
-          en: `${a}² + ${b}² =`,
+          gr: `${a}\u00b2 + ${b}\u00b2 =`,
+          en: `${a}\u00b2 + ${b}\u00b2 =`,
           correct,
           options: shuffleArray([correct - 2, correct, correct + 2])
         };
       },
       () => {
         // num restricted to multiples of 20 so every percentage in the list
-        // (10/15/20/25/30%) divides it exactly — no more silently rounding
+        // (10/15/20/25/30%) divides it exactly \u2014 no more silently rounding
         // an inexact percentage to a "correct" answer.
         const percentages = [10, 15, 20, 25, 30];
         const pct = percentages[getRandomInt(0, percentages.length - 1)];
         const num = getRandomInt(5, 10) * 20;
         const correct = num * pct / 100;
         return {
-          gr: `${pct}% του ${num}`,
+          gr: `${pct}% \u03c4\u03bf\u03c5 ${num}`,
           en: `${pct}% of ${num}`,
           correct,
           options: shuffleArray([correct - 5, correct, correct + 5])
@@ -835,14 +842,14 @@ const questionTypes = {
         const c = getRandomInt(3, 7);
         const correct = (a + b) * c;
         return {
-          gr: `(${a} + ${b}) × ${c} =`,
-          en: `(${a} + ${b}) × ${c} =`,
+          gr: `(${a} + ${b}) \u00d7 ${c} =`,
+          en: `(${a} + ${b}) \u00d7 ${c} =`,
           correct,
           options: shuffleArray([correct - 5, correct, correct + 5])
         };
       },
       () => {
-        // Mixed multiplication and addition like 2×1+2×3+3×4
+        // Mixed multiplication and addition like 2\u00d71+2\u00d73+3\u00d74
         const a = getRandomInt(2, 4);
         const b = getRandomInt(1, 3);
         const c = getRandomInt(2, 4);
@@ -851,14 +858,14 @@ const questionTypes = {
         const f = getRandomInt(3, 6);
         const correct = a * b + c * d + e * f;
         return {
-          gr: `${a}×${b}+${c}×${d}+${e}×${f} =`,
-          en: `${a}×${b}+${c}×${d}+${e}×${f} =`,
+          gr: `${a}\u00d7${b}+${c}\u00d7${d}+${e}\u00d7${f} =`,
+          en: `${a}\u00d7${b}+${c}\u00d7${d}+${e}\u00d7${f} =`,
           correct,
           options: shuffleArray([correct, correct - 5, correct + 5])
         };
       },
       () => {
-        // Mixed multiplication with subtraction like 2×1+2×3-3×4
+        // Mixed multiplication with subtraction like 2\u00d71+2\u00d73-3\u00d74
         const a = getRandomInt(2, 4);
         const b = getRandomInt(1, 3);
         const c = getRandomInt(2, 4);
@@ -867,8 +874,8 @@ const questionTypes = {
         const f = getRandomInt(4, 7);
         const correct = a * b + c * d - e * f;
         return {
-          gr: `${a}×${b}+${c}×${d}-${e}×${f} =`,
-          en: `${a}×${b}+${c}×${d}-${e}×${f} =`,
+          gr: `${a}\u00d7${b}+${c}\u00d7${d}-${e}\u00d7${f} =`,
+          en: `${a}\u00d7${b}+${c}\u00d7${d}-${e}\u00d7${f} =`,
           correct,
           options: shuffleArray([correct, correct - 3, correct + 3])
         };
@@ -939,16 +946,16 @@ const questionTypes = {
         };
       },
       () => {
-        // Geometry formula: E = πR² is area of which shape?
+        // Geometry formula: E = \u03c0R\u00b2 is area of which shape?
         const formulas = [
-          {gr: "Ε = πR²", en: "A = πR²", correct: "Κύκλος", correctEn: "Circle", wrong1Gr: "Τετράγωνο", wrong1En: "Square", wrong2Gr: "Τρίγωνο", wrong2En: "Triangle"}
+          {gr: "\u0395 = \u03c0R\u00b2", en: "A = \u03c0R\u00b2", correct: "\u039a\u03cd\u03ba\u03bb\u03bf\u03c2", correctEn: "Circle", wrong1Gr: "\u03a4\u03b5\u03c4\u03c1\u03ac\u03b3\u03c9\u03bd\u03bf", wrong1En: "Square", wrong2Gr: "\u03a4\u03c1\u03af\u03b3\u03c9\u03bd\u03bf", wrong2En: "Triangle"}
         ];
         
         const formula = formulas[0]; // Only one for now
         
         return {
-          gr: `${formula.gr} → Εμβαδόν;`,
-          en: `${formula.en} → Area of?`,
+          gr: `${formula.gr} \u2192 \u0395\u03bc\u03b2\u03b1\u03b4\u03cc\u03bd;`,
+          en: `${formula.en} \u2192 Area of?`,
           correct: lang === "gr" ? formula.correct : formula.correctEn,
           options: lang === "gr" 
             ? shuffleArray([formula.correct, formula.wrong1Gr, formula.wrong2Gr])
@@ -958,25 +965,25 @@ const questionTypes = {
       () => {
         // Coordinate plane quadrants: Point A(x,y) belongs to which quadrant?
         const points = [
-          {x: -1, y: 3, quadrant: "Β'", quadrantEn: "II"},   // x<0, y>0
-          {x: 2, y: 5, quadrant: "Α'", quadrantEn: "I"},     // x>0, y>0
-          {x: -3, y: -2, quadrant: "Γ'", quadrantEn: "III"}, // x<0, y<0
-          {x: 4, y: -1, quadrant: "Δ'", quadrantEn: "IV"},   // x>0, y<0
-          {x: -2, y: 4, quadrant: "Β'", quadrantEn: "II"},
-          {x: 3, y: 2, quadrant: "Α'", quadrantEn: "I"},
-          {x: -4, y: -3, quadrant: "Γ'", quadrantEn: "III"},
-          {x: 5, y: -2, quadrant: "Δ'", quadrantEn: "IV"}
+          {x: -1, y: 3, quadrant: "\u0392'", quadrantEn: "II"},   // x<0, y>0
+          {x: 2, y: 5, quadrant: "\u0391'", quadrantEn: "I"},     // x>0, y>0
+          {x: -3, y: -2, quadrant: "\u0393'", quadrantEn: "III"}, // x<0, y<0
+          {x: 4, y: -1, quadrant: "\u0394'", quadrantEn: "IV"},   // x>0, y<0
+          {x: -2, y: 4, quadrant: "\u0392'", quadrantEn: "II"},
+          {x: 3, y: 2, quadrant: "\u0391'", quadrantEn: "I"},
+          {x: -4, y: -3, quadrant: "\u0393'", quadrantEn: "III"},
+          {x: 5, y: -2, quadrant: "\u0394'", quadrantEn: "IV"}
         ];
         
         const point = points[getRandomInt(0, points.length - 1)];
-        const allGr = ["Α'", "Β'", "Γ'", "Δ'"];
+        const allGr = ["\u0391'", "\u0392'", "\u0393'", "\u0394'"];
         const allEn = ["I", "II", "III", "IV"];
         const wrongGr = shuffleArray(allGr.filter(q => q !== point.quadrant)).slice(0, 2);
         const wrongEn = shuffleArray(allEn.filter(q => q !== point.quadrantEn)).slice(0, 2);
         
         return {
-          gr: `Α(${point.x}, ${point.y}) → Τεταρτημόριο;`,
-          en: `A(${point.x}, ${point.y}) → Quadrant?`,
+          gr: `\u0391(${point.x}, ${point.y}) \u2192 \u03a4\u03b5\u03c4\u03b1\u03c1\u03c4\u03b7\u03bc\u03cc\u03c1\u03b9\u03bf;`,
+          en: `A(${point.x}, ${point.y}) \u2192 Quadrant?`,
           correct: lang === "gr" ? point.quadrant : point.quadrantEn,
           options: lang === "gr" 
             ? shuffleArray([point.quadrant, ...wrongGr])
@@ -984,11 +991,11 @@ const questionTypes = {
         };
       },
       () => {
-        // Power of zero trick: a⁰ = 1 for any a ≠ 0
+        // Power of zero trick: a\u2070 = 1 for any a \u2260 0
         const powerOfZero = [
-          {expr: "1⁰ + 2⁰ + 3⁰", answer: "3", wrong1: "0", wrong2: "6"},
-          {expr: "5⁰ + 10⁰", answer: "2", wrong1: "0", wrong2: "15"},
-          {expr: "7⁰ + 8⁰ + 9⁰ + 10⁰", answer: "4", wrong1: "0", wrong2: "34"}
+          {expr: "1\u2070 + 2\u2070 + 3\u2070", answer: "3", wrong1: "0", wrong2: "6"},
+          {expr: "5\u2070 + 10\u2070", answer: "2", wrong1: "0", wrong2: "15"},
+          {expr: "7\u2070 + 8\u2070 + 9\u2070 + 10\u2070", answer: "4", wrong1: "0", wrong2: "34"}
         ];
         
         const power = powerOfZero[getRandomInt(0, powerOfZero.length - 1)];
@@ -1008,38 +1015,38 @@ const questionTypes = {
         const variation = getRandomInt(0, 3);
         
         if (variation === 0) {
-          // Direct: (a × b) + c = ?
+          // Direct: (a \u00d7 b) + c = ?
           const result = a * b + c;
           return {
-            gr: `(${a} × ${b}) + ${c} =`,
-            en: `(${a} × ${b}) + ${c} =`,
+            gr: `(${a} \u00d7 ${b}) + ${c} =`,
+            en: `(${a} \u00d7 ${b}) + ${c} =`,
             correct: result,
             options: shuffleArray([result, result - 5, result + 5])
           };
         } else if (variation === 1) {
-          // Inverse: (result - c) ÷ b = ?
+          // Inverse: (result - c) \u00f7 b = ?
           const result = a * b + c;
           return {
-            gr: `(${result} - ${c}) ÷ ${b} =`,
-            en: `(${result} - ${c}) ÷ ${b} =`,
+            gr: `(${result} - ${c}) \u00f7 ${b} =`,
+            en: `(${result} - ${c}) \u00f7 ${b} =`,
             correct: a,
             options: shuffleArray([a, a - 1, a + 1])
           };
         } else if (variation === 2) {
-          // Direct: (a × b) - c = ?
+          // Direct: (a \u00d7 b) - c = ?
           const result = a * b - c;
           return {
-            gr: `(${a} × ${b}) - ${c} =`,
-            en: `(${a} × ${b}) - ${c} =`,
+            gr: `(${a} \u00d7 ${b}) - ${c} =`,
+            en: `(${a} \u00d7 ${b}) - ${c} =`,
             correct: result,
             options: shuffleArray([result, result - 5, result + 5])
           };
         } else {
-          // Inverse: (result + c) ÷ b = ?
+          // Inverse: (result + c) \u00f7 b = ?
           const result = a * b - c;
           return {
-            gr: `(${result} + ${c}) ÷ ${b} =`,
-            en: `(${result} + ${c}) ÷ ${b} =`,
+            gr: `(${result} + ${c}) \u00f7 ${b} =`,
+            en: `(${result} + ${c}) \u00f7 ${b} =`,
             correct: a,
             options: shuffleArray([a, a - 1, a + 1])
           };
@@ -1060,8 +1067,8 @@ const questionTypes = {
         };
       },
       () => {
-        // Real Pythagorean triples (scaled up), so √(a²+b²) is an exact
-        // integer — the old version rounded an irrational result to a
+        // Real Pythagorean triples (scaled up), so \u221a(a\u00b2+b\u00b2) is an exact
+        // integer \u2014 the old version rounded an irrational result to a
         // "correct" integer without ever showing that it was an approximation.
         const triples = [
           [128, 96, 160], [160, 120, 200], [120, 50, 130], [120, 64, 136],
@@ -1069,16 +1076,16 @@ const questionTypes = {
         ];
         const [a, b, hyp] = triples[getRandomInt(0, triples.length - 1)];
         return {
-          gr: `√(${a * a} + ${b * b}) =`,
-          en: `√(${a * a} + ${b * b}) =`,
+          gr: `\u221a(${a * a} + ${b * b}) =`,
+          en: `\u221a(${a * a} + ${b * b}) =`,
           correct: hyp,
           options: shuffleArray([hyp - 2, hyp, hyp + 2])
         };
       },
       () => {
-        // b,c chosen first, then a is forced to an exact multiple of b×c
+        // b,c chosen first, then a is forced to an exact multiple of b\u00d7c
         // (previously used Math.floor() silently, which meant the shown
-        // "÷" wasn't the real division result whenever it didn't divide evenly).
+        // "\u00f7" wasn't the real division result whenever it didn't divide evenly).
         const b = getRandomInt(3, 6);
         const c = getRandomInt(2, 5);
         const p = b * c;
@@ -1088,8 +1095,8 @@ const questionTypes = {
         const d = getRandomInt(4, 8);
         const correct = (a / p) + d * d;
         return {
-          gr: `${a} ÷ (${b}×${c}) + ${d}²`,
-          en: `${a} ÷ (${b}×${c}) + ${d}²`,
+          gr: `${a} \u00f7 (${b}\u00d7${c}) + ${d}\u00b2`,
+          en: `${a} \u00f7 (${b}\u00d7${c}) + ${d}\u00b2`,
           correct,
           options: shuffleArray([correct, correct + 5, correct - 5])
         };
@@ -1098,28 +1105,28 @@ const questionTypes = {
         const squares = [144, 169, 196, 225, 256, 289, 324, 361, 400];
         const sq = squares[getRandomInt(0, squares.length - 1)];
         const root = Math.sqrt(sq);
-        // Correct answer must include BOTH roots — "14" alone (forgetting
+        // Correct answer must include BOTH roots \u2014 "14" alone (forgetting
         // the negative root) is the single most common real mistake here,
         // so it's deliberately included as a distractor.
         return {
-          gr: `x² = ${sq} → x =`,
-          en: `x² = ${sq} → x =`,
-          correct: `±${root}`,
-          options: shuffleArray([`±${root}`, `${root}`, `±${root - 2}`])
+          gr: `x\u00b2 = ${sq} \u2192 x =`,
+          en: `x\u00b2 = ${sq} \u2192 x =`,
+          correct: `\u00b1${root}`,
+          options: shuffleArray([`\u00b1${root}`, `${root}`, `\u00b1${root - 2}`])
         };
       },
       () => {
-        // a×b.b really means a×(b+b/10). The old formula (a×b + b×10) had
+        // a\u00d7b.b really means a\u00d7(b+b/10). The old formula (a\u00d7b + b\u00d710) had
         // nothing to do with that and was simply wrong. Restricting a to a
-        // multiple of 10 makes a×b/10 land on a whole number, so the
+        // multiple of 10 makes a\u00d7b/10 land on a whole number, so the
         // question always has a clean, mathematically correct answer.
         const aOptions = [20, 30];
         const a = aOptions[getRandomInt(0, aOptions.length - 1)];
         const b = getRandomInt(2, 4);
         const correct = a * b + (a * b) / 10;
         return {
-          gr: `${a} × ${b}.${b} =`,
-          en: `${a} × ${b}.${b} =`,
+          gr: `${a} \u00d7 ${b}.${b} =`,
+          en: `${a} \u00d7 ${b}.${b} =`,
           correct,
           options: shuffleArray([correct, correct + 10, correct - 10])
         };
@@ -1137,7 +1144,7 @@ const questionTypes = {
         };
       },
       () => {
-        // Power division with same base: a^m ÷ a^n = a^(m-n)
+        // Power division with same base: a^m \u00f7 a^n = a^(m-n)
         const bases = [2, 3, 5];
         const base = bases[getRandomInt(0, bases.length - 1)];
         const expTop = getRandomInt(6, 9);
@@ -1145,35 +1152,35 @@ const questionTypes = {
         const resultExp = expTop - expBottom;
         const correct = Math.pow(base, resultExp);
         return {
-          gr: `${base}^${expTop} ÷ ${base}^${expBottom} =`,
-          en: `${base}^${expTop} ÷ ${base}^${expBottom} =`,
+          gr: `${base}^${expTop} \u00f7 ${base}^${expBottom} =`,
+          en: `${base}^${expTop} \u00f7 ${base}^${expBottom} =`,
           correct,
           options: shuffleArray([correct, Math.pow(base, resultExp + 1), Math.pow(base, resultExp - 1)])
         };
       },
       () => {
-        // Algebraic identities: (x+a)² = x² + 2ax + a²
+        // Algebraic identities: (x+a)\u00b2 = x\u00b2 + 2ax + a\u00b2
         const identities = [
-          // Type 1: (x+a)² = x² + ? + a² (asking for 2ax as NUMBER)
-          {a: 3, type: "middle", gr: "(x+3)² = x² + ? + 9", en: "(x+3)² = x² + ? + 9", answer: "6x", wrong1: "3x", wrong2: "9x"},
-          {a: 4, type: "middle", gr: "(x+4)² = x² + ? + 16", en: "(x+4)² = x² + ? + 16", answer: "8x", wrong1: "4x", wrong2: "16x"},
-          {a: 5, type: "middle", gr: "(x+5)² = x² + ? + 25", en: "(x+5)² = x² + ? + 25", answer: "10x", wrong1: "5x", wrong2: "25x"},
-          {a: 2, type: "middle", gr: "(x+2)² = x² + ? + 4", en: "(x+2)² = x² + ? + 4", answer: "4x", wrong1: "2x", wrong2: "8x"},
+          // Type 1: (x+a)\u00b2 = x\u00b2 + ? + a\u00b2 (asking for 2ax as NUMBER)
+          {a: 3, type: "middle", gr: "(x+3)\u00b2 = x\u00b2 + ? + 9", en: "(x+3)\u00b2 = x\u00b2 + ? + 9", answer: "6x", wrong1: "3x", wrong2: "9x"},
+          {a: 4, type: "middle", gr: "(x+4)\u00b2 = x\u00b2 + ? + 16", en: "(x+4)\u00b2 = x\u00b2 + ? + 16", answer: "8x", wrong1: "4x", wrong2: "16x"},
+          {a: 5, type: "middle", gr: "(x+5)\u00b2 = x\u00b2 + ? + 25", en: "(x+5)\u00b2 = x\u00b2 + ? + 25", answer: "10x", wrong1: "5x", wrong2: "25x"},
+          {a: 2, type: "middle", gr: "(x+2)\u00b2 = x\u00b2 + ? + 4", en: "(x+2)\u00b2 = x\u00b2 + ? + 4", answer: "4x", wrong1: "2x", wrong2: "8x"},
           
-          // Type 2: (x+a)² = x² + 2ax + ? (asking for a² as NUMBER)
-          {a: 3, type: "last", gr: "(x+3)² = x² + 6x + ?", en: "(x+3)² = x² + 6x + ?", answer: "9", wrong1: "6", wrong2: "12"},
-          {a: 5, type: "last", gr: "(x+5)² = x² + 10x + ?", en: "(x+5)² = x² + 10x + ?", answer: "25", wrong1: "10", wrong2: "20"},
-          {a: 4, type: "last", gr: "(x+4)² = x² + 8x + ?", en: "(x+4)² = x² + 8x + ?", answer: "16", wrong1: "8", wrong2: "12"},
-          {a: 6, type: "last", gr: "(x+6)² = x² + 12x + ?", en: "(x+6)² = x² + 12x + ?", answer: "36", wrong1: "12", wrong2: "24"},
+          // Type 2: (x+a)\u00b2 = x\u00b2 + 2ax + ? (asking for a\u00b2 as NUMBER)
+          {a: 3, type: "last", gr: "(x+3)\u00b2 = x\u00b2 + 6x + ?", en: "(x+3)\u00b2 = x\u00b2 + 6x + ?", answer: "9", wrong1: "6", wrong2: "12"},
+          {a: 5, type: "last", gr: "(x+5)\u00b2 = x\u00b2 + 10x + ?", en: "(x+5)\u00b2 = x\u00b2 + 10x + ?", answer: "25", wrong1: "10", wrong2: "20"},
+          {a: 4, type: "last", gr: "(x+4)\u00b2 = x\u00b2 + 8x + ?", en: "(x+4)\u00b2 = x\u00b2 + 8x + ?", answer: "16", wrong1: "8", wrong2: "12"},
+          {a: 6, type: "last", gr: "(x+6)\u00b2 = x\u00b2 + 12x + ?", en: "(x+6)\u00b2 = x\u00b2 + 12x + ?", answer: "36", wrong1: "12", wrong2: "24"},
           
-          // Type 3: (x-a)² = x² - ? + a² (asking for 2ax)
-          {a: 2, type: "middle-neg", gr: "(x-2)² = x² - ? + 4", en: "(x-2)² = x² - ? + 4", answer: "4x", wrong1: "2x", wrong2: "8x"},
-          {a: 3, type: "middle-neg", gr: "(x-3)² = x² - ? + 9", en: "(x-3)² = x² - ? + 9", answer: "6x", wrong1: "3x", wrong2: "9x"},
+          // Type 3: (x-a)\u00b2 = x\u00b2 - ? + a\u00b2 (asking for 2ax)
+          {a: 2, type: "middle-neg", gr: "(x-2)\u00b2 = x\u00b2 - ? + 4", en: "(x-2)\u00b2 = x\u00b2 - ? + 4", answer: "4x", wrong1: "2x", wrong2: "8x"},
+          {a: 3, type: "middle-neg", gr: "(x-3)\u00b2 = x\u00b2 - ? + 9", en: "(x-3)\u00b2 = x\u00b2 - ? + 9", answer: "6x", wrong1: "3x", wrong2: "9x"},
           
-          // Type 4: (x+a)(x-a) = x² - ? (difference of squares)
-          {a: 5, type: "diff-sq", gr: "(x+5)(x-5) = x² - ?", en: "(x+5)(x-5) = x² - ?", answer: "25", wrong1: "10", wrong2: "5"},
-          {a: 7, type: "diff-sq", gr: "(x+7)(x-7) = x² - ?", en: "(x+7)(x-7) = x² - ?", answer: "49", wrong1: "14", wrong2: "7"},
-          {a: 4, type: "diff-sq", gr: "(x+4)(x-4) = x² - ?", en: "(x+4)(x-4) = x² - ?", answer: "16", wrong1: "8", wrong2: "4"}
+          // Type 4: (x+a)(x-a) = x\u00b2 - ? (difference of squares)
+          {a: 5, type: "diff-sq", gr: "(x+5)(x-5) = x\u00b2 - ?", en: "(x+5)(x-5) = x\u00b2 - ?", answer: "25", wrong1: "10", wrong2: "5"},
+          {a: 7, type: "diff-sq", gr: "(x+7)(x-7) = x\u00b2 - ?", en: "(x+7)(x-7) = x\u00b2 - ?", answer: "49", wrong1: "14", wrong2: "7"},
+          {a: 4, type: "diff-sq", gr: "(x+4)(x-4) = x\u00b2 - ?", en: "(x+4)(x-4) = x\u00b2 - ?", answer: "16", wrong1: "8", wrong2: "4"}
         ];
         
         const identity = identities[getRandomInt(0, identities.length - 1)];
@@ -1188,8 +1195,8 @@ const questionTypes = {
     ],
     chaser: [
       () => {
-        // Pick a,b then choose c from the ACTUAL divisors of (a²-b²)
-        // so the division is always exact — never rounded.
+        // Pick a,b then choose c from the ACTUAL divisors of (a\u00b2-b\u00b2)
+        // so the division is always exact \u2014 never rounded.
         let a, b, c, diff, divisors;
         do {
           a = getRandomInt(11, 15);
@@ -1203,8 +1210,8 @@ const questionTypes = {
         c = divisors[getRandomInt(0, divisors.length - 1)];
         const correct = diff / c;
         return {
-          gr: `(${a}² – ${b}²) ÷ ${c}`,
-          en: `(${a}² – ${b}²) ÷ ${c}`,
+          gr: `(${a}\u00b2 \u2013 ${b}\u00b2) \u00f7 ${c}`,
+          en: `(${a}\u00b2 \u2013 ${b}\u00b2) \u00f7 ${c}`,
           correct,
           options: shuffleArray([correct, correct + 2, correct - 2])
         };
@@ -1221,15 +1228,15 @@ const questionTypes = {
         const d = getRandomInt(10, 15);
         const correct = (a / p) + d * d;
         return {
-          gr: `${a} ÷ (${b}×${c}) + ${d}²`,
-          en: `${a} ÷ (${b}×${c}) + ${d}²`,
+          gr: `${a} \u00f7 (${b}\u00d7${c}) + ${d}\u00b2`,
+          en: `${a} \u00f7 (${b}\u00d7${c}) + ${d}\u00b2`,
           correct,
           options: shuffleArray([correct, correct + 10, correct - 10])
         };
       },
       () => {
         // Pick the perfect square a, then pick a result r so that
-        // b = a - r² keeps a - b an EXACT perfect square (never rounded).
+        // b = a - r\u00b2 keeps a - b an EXACT perfect square (never rounded).
         const roots = [400, 625, 900, 1225, 1600];
         const a = roots[getRandomInt(0, roots.length - 1)];
         const aRoot = Math.sqrt(a);
@@ -1238,8 +1245,8 @@ const questionTypes = {
         const r = getRandomInt(minR, maxR);
         const b = a - r * r;
         return {
-          gr: `√(${a} – ${b}) =`,
-          en: `√(${a} – ${b}) =`,
+          gr: `\u221a(${a} \u2013 ${b}) =`,
+          en: `\u221a(${a} \u2013 ${b}) =`,
           correct: r,
           options: shuffleArray([r - 2, r, r + 2])
         };
@@ -1251,8 +1258,8 @@ const questionTypes = {
         const add = getRandomInt(5, 10);
         const correct = Math.pow(base, exp) / Math.pow(base, exp - div) + add;
         return {
-          gr: `${base}^${exp} ÷ ${base}^${exp - div} + ${add} =`,
-          en: `${base}^${exp} ÷ ${base}^${exp - div} + ${add} =`,
+          gr: `${base}^${exp} \u00f7 ${base}^${exp - div} + ${add} =`,
+          en: `${base}^${exp} \u00f7 ${base}^${exp - div} + ${add} =`,
           correct: Math.round(correct),
           options: shuffleArray([Math.round(correct), Math.round(correct) + 5, Math.round(correct) - 5])
         };
@@ -1282,7 +1289,7 @@ const questionTypes = {
         };
       },
       () => {
-        // Logarithm addition: log2 + log5 = log(2×5) = log10 = 1
+        // Logarithm addition: log2 + log5 = log(2\u00d75) = log10 = 1
         const logPairs = [
           {a: 2, b: 5, product: 10, result: 1},
           {a: 4, b: 25, product: 100, result: 2},
@@ -1299,27 +1306,27 @@ const questionTypes = {
         };
       },
       () => {
-        // Polynomial roots count: P(x) = x² + c, how many real roots?
+        // Polynomial roots count: P(x) = x\u00b2 + c, how many real roots?
         const polynomials = [
-          {expr: "x² + 1", exprEn: "x² + 1", roots: 0},  // No real roots (Δ < 0)
-          {expr: "x² - 1", exprEn: "x² - 1", roots: 2},  // Two roots: x = ±1
-          {expr: "x²", exprEn: "x²", roots: 1},          // One double root: x = 0
-          {expr: "x² + 4", exprEn: "x² + 4", roots: 0},  // No real roots
-          {expr: "x² - 4", exprEn: "x² - 4", roots: 2},  // Two roots: x = ±2
-          {expr: "x² - 9", exprEn: "x² - 9", roots: 2}   // Two roots: x = ±3
+          {expr: "x\u00b2 + 1", exprEn: "x\u00b2 + 1", roots: 0},  // No real roots (\u0394 < 0)
+          {expr: "x\u00b2 - 1", exprEn: "x\u00b2 - 1", roots: 2},  // Two roots: x = \u00b11
+          {expr: "x\u00b2", exprEn: "x\u00b2", roots: 1},          // One double root: x = 0
+          {expr: "x\u00b2 + 4", exprEn: "x\u00b2 + 4", roots: 0},  // No real roots
+          {expr: "x\u00b2 - 4", exprEn: "x\u00b2 - 4", roots: 2},  // Two roots: x = \u00b12
+          {expr: "x\u00b2 - 9", exprEn: "x\u00b2 - 9", roots: 2}   // Two roots: x = \u00b13
         ];
         
         const poly = polynomials[getRandomInt(0, polynomials.length - 1)];
         
         return {
-          gr: `P(x) = ${poly.expr}, Πλήθος ριζών;`,
+          gr: `P(x) = ${poly.expr}, \u03a0\u03bb\u03ae\u03b8\u03bf\u03c2 \u03c1\u03b9\u03b6\u03ce\u03bd;`,
           en: `P(x) = ${poly.exprEn}, Number of roots?`,
           correct: poly.roots,
           options: shuffleArray([0, 1, 2])
         };
       },
       () => {
-        // Complex numbers: √(-n) = ?
+        // Complex numbers: \u221a(-n) = ?
         const complexRoots = [
           {num: -4, answer: "2i", wrong1: "2", wrong2: "-2"},
           {num: -9, answer: "3i", wrong1: "3", wrong2: "-3"},
@@ -1330,21 +1337,21 @@ const questionTypes = {
         const root = complexRoots[getRandomInt(0, complexRoots.length - 1)];
         
         return {
-          gr: `[Μιγαδικοί] √(${root.num}) = ?`,
-          en: `[Complex numbers] √(${root.num}) = ?`,
+          gr: `[\u039c\u03b9\u03b3\u03b1\u03b4\u03b9\u03ba\u03bf\u03af] \u221a(${root.num}) = ?`,
+          en: `[Complex numbers] \u221a(${root.num}) = ?`,
           correct: root.answer,
           options: shuffleArray([root.answer, root.wrong1, root.wrong2])
         };
       },
       () => {
-        // Indeterminate forms: ∞ - ∞ = ?
+        // Indeterminate forms: \u221e - \u221e = ?
         const indeterminateForms = [
           {
-            expr: "∞ - ∞",
-            correct: "Απροσδιόριστη μορφή",
+            expr: "\u221e - \u221e",
+            correct: "\u0391\u03c0\u03c1\u03bf\u03c3\u03b4\u03b9\u03cc\u03c1\u03b9\u03c3\u03c4\u03b7 \u03bc\u03bf\u03c1\u03c6\u03ae",
             correctEn: "Indeterminate form",
-            wrong1Gr: "∞",
-            wrong1En: "∞",
+            wrong1Gr: "\u221e",
+            wrong1En: "\u221e",
             wrong2Gr: "0",
             wrong2En: "0"
           }
@@ -1362,26 +1369,26 @@ const questionTypes = {
         };
       },
       () => {
-        // Trigonometry: sin30° + cos60° = 1/2 + 1/2 = 1
+        // Trigonometry: sin30\u00b0 + cos60\u00b0 = 1/2 + 1/2 = 1
         const trigFunctions = [
           {
-            exprGr: "ημ30° + συν60°",
-            exprEn: "sin30° + cos60°",
+            exprGr: "\u03b7\u03bc30\u00b0 + \u03c3\u03c5\u03bd60\u00b0",
+            exprEn: "sin30\u00b0 + cos60\u00b0",
             answer: "1",
             wrong1: "1/2",
             wrong2: "2"
           },
           {
-            exprGr: "ημ45° + συν45°",
-            exprEn: "sin45° + cos45°",
-            answer: "√2",
+            exprGr: "\u03b7\u03bc45\u00b0 + \u03c3\u03c5\u03bd45\u00b0",
+            exprEn: "sin45\u00b0 + cos45\u00b0",
+            answer: "\u221a2",
             wrong1: "1",
             wrong2: "2"
           },
           {
-            exprGr: "ημ60° + συν30°",
-            exprEn: "sin60° + cos30°",
-            answer: "√3",
+            exprGr: "\u03b7\u03bc60\u00b0 + \u03c3\u03c5\u03bd30\u00b0",
+            exprEn: "sin60\u00b0 + cos30\u00b0",
+            answer: "\u221a3",
             wrong1: "1",
             wrong2: "2"
           }
@@ -1397,11 +1404,11 @@ const questionTypes = {
         };
       },
       () => {
-        // Powers of imaginary unit: i² = -1, i³ = -i, i⁴ = 1
+        // Powers of imaginary unit: i\u00b2 = -1, i\u00b3 = -i, i\u2074 = 1
         const imaginaryPowers = [
-          {expr: "i² + i⁴", answer: "0", wrong1: "1", wrong2: "-1"},  // -1 + 1 = 0
-          {expr: "i² + i³", answer: "-1-i", wrong1: "0", wrong2: "1"}, // -1 + (-i) = -1-i
-          {expr: "i³ + i⁴", answer: "1-i", wrong1: "0", wrong2: "-1"}  // -i + 1 = 1-i
+          {expr: "i\u00b2 + i\u2074", answer: "0", wrong1: "1", wrong2: "-1"},  // -1 + 1 = 0
+          {expr: "i\u00b2 + i\u00b3", answer: "-1-i", wrong1: "0", wrong2: "1"}, // -1 + (-i) = -1-i
+          {expr: "i\u00b3 + i\u2074", answer: "1-i", wrong1: "0", wrong2: "-1"}  // -i + 1 = 1-i
         ];
         
         const imaginary = imaginaryPowers[getRandomInt(0, imaginaryPowers.length - 1)];
@@ -1414,21 +1421,21 @@ const questionTypes = {
         };
       },
       () => {
-        // Integrals: ∫x^n dx = x^(n+1)/(n+1) + C
+        // Integrals: \u222bx^n dx = x^(n+1)/(n+1) + C
         const integrals = [
           // Basic integrals
-          {expr: "∫x dx", exprEn: "∫x dx", answer: "x²/2+C", wrong1: "x²+C", wrong2: "2x+C"},
-          {expr: "∫x² dx", exprEn: "∫x² dx", answer: "x³/3+C", wrong1: "x³+C", wrong2: "3x²+C"},
-          {expr: "∫x³ dx", exprEn: "∫x³ dx", answer: "x⁴/4+C", wrong1: "x⁴+C", wrong2: "4x³+C"},
-          {expr: "∫5 dx", exprEn: "∫5 dx", answer: "5x+C", wrong1: "5+C", wrong2: "x+C"},
-          {expr: "∫3 dx", exprEn: "∫3 dx", answer: "3x+C", wrong1: "3+C", wrong2: "x+C"},
+          {expr: "\u222bx dx", exprEn: "\u222bx dx", answer: "x\u00b2/2+C", wrong1: "x\u00b2+C", wrong2: "2x+C"},
+          {expr: "\u222bx\u00b2 dx", exprEn: "\u222bx\u00b2 dx", answer: "x\u00b3/3+C", wrong1: "x\u00b3+C", wrong2: "3x\u00b2+C"},
+          {expr: "\u222bx\u00b3 dx", exprEn: "\u222bx\u00b3 dx", answer: "x\u2074/4+C", wrong1: "x\u2074+C", wrong2: "4x\u00b3+C"},
+          {expr: "\u222b5 dx", exprEn: "\u222b5 dx", answer: "5x+C", wrong1: "5+C", wrong2: "x+C"},
+          {expr: "\u222b3 dx", exprEn: "\u222b3 dx", answer: "3x+C", wrong1: "3+C", wrong2: "x+C"},
           
           // Compound integrals
-          {expr: "∫(2x+3) dx", exprEn: "∫(2x+3) dx", answer: "x²+3x+C", wrong1: "2x²+3x+C", wrong2: "x²+x+C"},
-          {expr: "∫(x+5) dx", exprEn: "∫(x+5) dx", answer: "x²/2+5x+C", wrong1: "x²+5x+C", wrong2: "x+5x+C"},
-          {expr: "∫3x² dx", exprEn: "∫3x² dx", answer: "x³+C", wrong1: "3x³+C", wrong2: "x³/3+C"},
-          {expr: "∫2x dx", exprEn: "∫2x dx", answer: "x²+C", wrong1: "2x²+C", wrong2: "x²/2+C"},
-          {expr: "∫(x²+2) dx", exprEn: "∫(x²+2) dx", answer: "x³/3+2x+C", wrong1: "x³+2x+C", wrong2: "x²+2x+C"}
+          {expr: "\u222b(2x+3) dx", exprEn: "\u222b(2x+3) dx", answer: "x\u00b2+3x+C", wrong1: "2x\u00b2+3x+C", wrong2: "x\u00b2+x+C"},
+          {expr: "\u222b(x+5) dx", exprEn: "\u222b(x+5) dx", answer: "x\u00b2/2+5x+C", wrong1: "x\u00b2+5x+C", wrong2: "x+5x+C"},
+          {expr: "\u222b3x\u00b2 dx", exprEn: "\u222b3x\u00b2 dx", answer: "x\u00b3+C", wrong1: "3x\u00b3+C", wrong2: "x\u00b3/3+C"},
+          {expr: "\u222b2x dx", exprEn: "\u222b2x dx", answer: "x\u00b2+C", wrong1: "2x\u00b2+C", wrong2: "x\u00b2/2+C"},
+          {expr: "\u222b(x\u00b2+2) dx", exprEn: "\u222b(x\u00b2+2) dx", answer: "x\u00b3/3+2x+C", wrong1: "x\u00b3+2x+C", wrong2: "x\u00b2+2x+C"}
         ];
         
         const integral = integrals[getRandomInt(0, integrals.length - 1)];
@@ -1447,18 +1454,18 @@ const questionTypes = {
 // NEW question generators (appended to the original pools)
 // ================================================
 const mk = (gr, en, correct, wrongs) => ({ gr, en, correct, options: shuffleArray([correct, ...wrongs]) });
-const MINUS = '−';
+const MINUS = '\u2212';
 const sgn = n => (n < 0 ? MINUS + Math.abs(n) : String(n));
 
 // ---------- EASY ----------
 questionTypes.easy.push(
   () => { // change
     const P = pick([10, 20, 50]), c = getRandomInt(3, P - 2), r = P - c;
-    return mk(`Πληρώνεις ${P}€ για κάτι που κοστίζει ${c}€. Ρέστα;`, `You pay €${P} for something that costs €${c}. Change?`, r, [r + 1, r - 1]);
+    return mk(`\u03a0\u03bb\u03b7\u03c1\u03ce\u03bd\u03b5\u03b9\u03c2 ${P}\u20ac \u03b3\u03b9\u03b1 \u03ba\u03ac\u03c4\u03b9 \u03c0\u03bf\u03c5 \u03ba\u03bf\u03c3\u03c4\u03af\u03b6\u03b5\u03b9 ${c}\u20ac. \u03a1\u03ad\u03c3\u03c4\u03b1;`, `You pay \u20ac${P} for something that costs \u20ac${c}. Change?`, r, [r + 1, r - 1]);
   },
   () => { // double / half
-    if (getRandomInt(0, 1)) { const n = getRandomInt(12, 49); return mk(`Το διπλάσιο του ${n}`, `Double of ${n}`, n * 2, [n * 2 + 2, n * 2 - 2]); }
-    const n = getRandomInt(6, 45) * 2; return mk(`Το μισό του ${n}`, `Half of ${n}`, n / 2, [n / 2 + 1, n / 2 - 1]);
+    if (getRandomInt(0, 1)) { const n = getRandomInt(12, 49); return mk(`\u03a4\u03bf \u03b4\u03b9\u03c0\u03bb\u03ac\u03c3\u03b9\u03bf \u03c4\u03bf\u03c5 ${n}`, `Double of ${n}`, n * 2, [n * 2 + 2, n * 2 - 2]); }
+    const n = getRandomInt(6, 45) * 2; return mk(`\u03a4\u03bf \u03bc\u03b9\u03c3\u03cc \u03c4\u03bf\u03c5 ${n}`, `Half of ${n}`, n / 2, [n / 2 + 1, n / 2 - 1]);
   },
   () => { // sequence
     const s = getRandomInt(1, 12), d = getRandomInt(2, 6), c = s + 4 * d;
@@ -1467,21 +1474,21 @@ questionTypes.easy.push(
   () => { // rounding
     let n; do { n = getRandomInt(101, 998); } while (n % 10 === 5);
     const r = Math.round(n / 10) * 10;
-    return mk(`Στρογγυλοποίησε το ${n} στη δεκάδα`, `Round ${n} to the nearest ten`, r, [r + 10, r - 10]);
+    return mk(`\u03a3\u03c4\u03c1\u03bf\u03b3\u03b3\u03c5\u03bb\u03bf\u03c0\u03bf\u03af\u03b7\u03c3\u03b5 \u03c4\u03bf ${n} \u03c3\u03c4\u03b7 \u03b4\u03b5\u03ba\u03ac\u03b4\u03b1`, `Round ${n} to the nearest ten`, r, [r + 10, r - 10]);
   },
   () => { // time
     const k = getRandomInt(2, 9);
-    if (getRandomInt(0, 1)) return mk(`Πόσα δευτερόλεπτα σε ${k} λεπτά;`, `Seconds in ${k} minutes?`, 60 * k, [60 * k + 60, 6 * k * 10 + 100]);
-    return mk(`Πόσες ημέρες σε ${k} εβδομάδες;`, `Days in ${k} weeks?`, 7 * k, [7 * k + 7, 7 * k - 7]);
+    if (getRandomInt(0, 1)) return mk(`\u03a0\u03cc\u03c3\u03b1 \u03b4\u03b5\u03c5\u03c4\u03b5\u03c1\u03cc\u03bb\u03b5\u03c0\u03c4\u03b1 \u03c3\u03b5 ${k} \u03bb\u03b5\u03c0\u03c4\u03ac;`, `Seconds in ${k} minutes?`, 60 * k, [60 * k + 60, 6 * k * 10 + 100]);
+    return mk(`\u03a0\u03cc\u03c3\u03b5\u03c2 \u03b7\u03bc\u03ad\u03c1\u03b5\u03c2 \u03c3\u03b5 ${k} \u03b5\u03b2\u03b4\u03bf\u03bc\u03ac\u03b4\u03b5\u03c2;`, `Days in ${k} weeks?`, 7 * k, [7 * k + 7, 7 * k - 7]);
   },
   () => { // perimeter of square
     const a = getRandomInt(5, 12);
-    return mk(`Περίμετρος τετραγώνου με πλευρά ${a}`, `Perimeter of a square with side ${a}`, 4 * a, [2 * a, a * a]);
+    return mk(`\u03a0\u03b5\u03c1\u03af\u03bc\u03b5\u03c4\u03c1\u03bf\u03c2 \u03c4\u03b5\u03c4\u03c1\u03b1\u03b3\u03ce\u03bd\u03bf\u03c5 \u03bc\u03b5 \u03c0\u03bb\u03b5\u03c5\u03c1\u03ac ${a}`, `Perimeter of a square with side ${a}`, 4 * a, [2 * a, a * a]);
   },
   () => { // decimals compare
     let x, y; do { x = getRandomInt(11, 99) / 100; y = getRandomInt(1, 9) / 10; } while (x === y || x * 10 === Math.floor(x * 10));
     const big = Math.max(x, y), small = Math.min(x, y);
-    return { gr: `Ποιο είναι μεγαλύτερο: ${x} ή ${y};`, en: `Which is bigger: ${x} or ${y}?`, correct: String(big), options: shuffleArray([String(big), String(small), L('Ίσα', 'Equal')]) };
+    return { gr: `\u03a0\u03bf\u03b9\u03bf \u03b5\u03af\u03bd\u03b1\u03b9 \u03bc\u03b5\u03b3\u03b1\u03bb\u03cd\u03c4\u03b5\u03c1\u03bf: ${x} \u03ae ${y};`, en: `Which is bigger: ${x} or ${y}?`, correct: String(big), options: shuffleArray([String(big), String(small), L('\u038a\u03c3\u03b1', 'Equal')]) };
   },
   () => { // roman numerals
     const R = { 4: 'IV', 9: 'IX', 14: 'XIV', 19: 'XIX', 24: 'XXIV', 29: 'XXIX', 40: 'XL', 49: 'XLIX' };
@@ -1490,18 +1497,18 @@ questionTypes.easy.push(
     return { gr: `${R[n]} = ?`, en: `${R[n]} = ?`, correct: n, options: shuffleArray([n, ...wr]) };
   },
   () => { // polygon sides
-    const S = [[3, 'τρίγωνο', 'triangle'], [4, 'τετράπλευρο', 'quadrilateral'], [5, 'πεντάγωνο', 'pentagon'], [6, 'εξάγωνο', 'hexagon'], [8, 'οκτάγωνο', 'octagon']];
+    const S = [[3, '\u03c4\u03c1\u03af\u03b3\u03c9\u03bd\u03bf', 'triangle'], [4, '\u03c4\u03b5\u03c4\u03c1\u03ac\u03c0\u03bb\u03b5\u03c5\u03c1\u03bf', 'quadrilateral'], [5, '\u03c0\u03b5\u03bd\u03c4\u03ac\u03b3\u03c9\u03bd\u03bf', 'pentagon'], [6, '\u03b5\u03be\u03ac\u03b3\u03c9\u03bd\u03bf', 'hexagon'], [8, '\u03bf\u03ba\u03c4\u03ac\u03b3\u03c9\u03bd\u03bf', 'octagon']];
     const s = pick(S), wr = shuffleArray(S.filter(x => x !== s)).slice(0, 2).map(x => x[0]);
-    return { gr: `Πόσες πλευρές έχει το ${s[1]};`, en: `How many sides has a ${s[2]}?`, correct: s[0], options: shuffleArray([s[0], ...wr]) };
+    return { gr: `\u03a0\u03cc\u03c3\u03b5\u03c2 \u03c0\u03bb\u03b5\u03c5\u03c1\u03ad\u03c2 \u03ad\u03c7\u03b5\u03b9 \u03c4\u03bf ${s[1]};`, en: `How many sides has a ${s[2]}?`, correct: s[0], options: shuffleArray([s[0], ...wr]) };
   },
   () => { // missing factor
     const a = getRandomInt(3, 9), b = getRandomInt(3, 9);
-    return mk(`? × ${a} = ${a * b}`, `? × ${a} = ${a * b}`, b, [b + 1, b - 1]);
+    return mk(`? \u00d7 ${a} = ${a * b}`, `? \u00d7 ${a} = ${a * b}`, b, [b + 1, b - 1]);
   },
   () => { // which is prime
     const P = [11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47], C = [9, 15, 21, 25, 27, 33, 35, 39, 45, 49, 51];
     const p = pick(P), c = shuffleArray(C).slice(0, 2);
-    return { gr: 'Ποιος είναι πρώτος αριθμός;', en: 'Which number is prime?', correct: p, options: shuffleArray([p, ...c]) };
+    return { gr: '\u03a0\u03bf\u03b9\u03bf\u03c2 \u03b5\u03af\u03bd\u03b1\u03b9 \u03c0\u03c1\u03ce\u03c4\u03bf\u03c2 \u03b1\u03c1\u03b9\u03b8\u03bc\u03cc\u03c2;', en: 'Which number is prime?', correct: p, options: shuffleArray([p, ...c]) };
   }
 );
 
@@ -1509,40 +1516,40 @@ questionTypes.easy.push(
 questionTypes.medium.push(
   () => { // linear equation
     const x = getRandomInt(2, 12), a = getRandomInt(2, 9), b = getRandomInt(1, 20);
-    return mk(`${a}x + ${b} = ${a * x + b} → x =`, `${a}x + ${b} = ${a * x + b} → x =`, x, [x + 1, x - 1]);
+    return mk(`${a}x + ${b} = ${a * x + b} \u2192 x =`, `${a}x + ${b} = ${a * x + b} \u2192 x =`, x, [x + 1, x - 1]);
   },
   () => { // rectangle area
     const l = getRandomInt(4, 15), w = getRandomInt(3, 12);
-    return mk(`Εμβαδόν ορθογωνίου ${l} × ${w}`, `Area of a ${l} × ${w} rectangle`, l * w, [2 * (l + w), l * w + l]);
+    return mk(`\u0395\u03bc\u03b2\u03b1\u03b4\u03cc\u03bd \u03bf\u03c1\u03b8\u03bf\u03b3\u03c9\u03bd\u03af\u03bf\u03c5 ${l} \u00d7 ${w}`, `Area of a ${l} \u00d7 ${w} rectangle`, l * w, [2 * (l + w), l * w + l]);
   },
   () => { // triangle area
     const b = getRandomInt(3, 12) * 2, h = getRandomInt(3, 12), c = b * h / 2;
-    return mk(`Τρίγωνο: βάση ${b}, ύψος ${h}. Εμβαδόν;`, `Triangle: base ${b}, height ${h}. Area?`, c, [b * h, c + b]);
+    return mk(`\u03a4\u03c1\u03af\u03b3\u03c9\u03bd\u03bf: \u03b2\u03ac\u03c3\u03b7 ${b}, \u03cd\u03c8\u03bf\u03c2 ${h}. \u0395\u03bc\u03b2\u03b1\u03b4\u03cc\u03bd;`, `Triangle: base ${b}, height ${h}. Area?`, c, [b * h, c + b]);
   },
   () => { // average
     const m = getRandomInt(6, 24), d1 = getRandomInt(1, 5), d2 = getRandomInt(1, 5);
     const n1 = m - d1, n2 = m + d2, n3 = 3 * m - n1 - n2;
-    return mk(`Μέσος όρος των ${n1}, ${n2}, ${n3}`, `Average of ${n1}, ${n2}, ${n3}`, m, [m + 1, m - 1]);
+    return mk(`\u039c\u03ad\u03c3\u03bf\u03c2 \u03cc\u03c1\u03bf\u03c2 \u03c4\u03c9\u03bd ${n1}, ${n2}, ${n3}`, `Average of ${n1}, ${n2}, ${n3}`, m, [m + 1, m - 1]);
   },
   () => { // percent change
     const p = getRandomInt(2, 10) * 20, pc = pick([10, 20, 25, 50]), ch = p * pc / 100, up = getRandomInt(0, 1);
     const c = up ? p + ch : p - ch;
-    return mk(up ? `Τιμή ${p}€ με αύξηση ${pc}%. Νέα τιμή;` : `Τιμή ${p}€ με έκπτωση ${pc}%. Νέα τιμή;`,
-      up ? `Price €${p} with a ${pc}% increase. New price?` : `Price €${p} with a ${pc}% discount. New price?`,
+    return mk(up ? `\u03a4\u03b9\u03bc\u03ae ${p}\u20ac \u03bc\u03b5 \u03b1\u03cd\u03be\u03b7\u03c3\u03b7 ${pc}%. \u039d\u03ad\u03b1 \u03c4\u03b9\u03bc\u03ae;` : `\u03a4\u03b9\u03bc\u03ae ${p}\u20ac \u03bc\u03b5 \u03ad\u03ba\u03c0\u03c4\u03c9\u03c3\u03b7 ${pc}%. \u039d\u03ad\u03b1 \u03c4\u03b9\u03bc\u03ae;`,
+      up ? `Price \u20ac${p} with a ${pc}% increase. New price?` : `Price \u20ac${p} with a ${pc}% discount. New price?`,
       c, [up ? p - ch : p + ch, c + 10]);
   },
   () => { // third angle
     const a = getRandomInt(30, 80), b = getRandomInt(30, 80), c = 180 - a - b;
-    return mk(`Τρίγωνο με γωνίες ${a}° και ${b}°. Η τρίτη;`, `Triangle with angles ${a}° and ${b}°. The third?`, c + '°', [(c + 10) + '°', (c - 10 > 0 ? c - 10 : c + 20) + '°']);
+    return mk(`\u03a4\u03c1\u03af\u03b3\u03c9\u03bd\u03bf \u03bc\u03b5 \u03b3\u03c9\u03bd\u03af\u03b5\u03c2 ${a}\u00b0 \u03ba\u03b1\u03b9 ${b}\u00b0. \u0397 \u03c4\u03c1\u03af\u03c4\u03b7;`, `Triangle with angles ${a}\u00b0 and ${b}\u00b0. The third?`, c + '\u00b0', [(c + 10) + '\u00b0', (c - 10 > 0 ? c - 10 : c + 20) + '\u00b0']);
   },
   () => { // distance = speed x time
     const v = getRandomInt(4, 9) * 10, t = getRandomInt(2, 5);
-    return mk(`${v} km/h για ${t} ώρες. Διανυθείσα διαδρομή (km);`, `${v} km/h for ${t} hours. Distance travelled (km)?`, v * t, [v * t + 10, v + t * 10]);
+    return mk(`${v} km/h \u03b3\u03b9\u03b1 ${t} \u03ce\u03c1\u03b5\u03c2. \u0394\u03b9\u03b1\u03bd\u03c5\u03b8\u03b5\u03af\u03c3\u03b1 \u03b4\u03b9\u03b1\u03b4\u03c1\u03bf\u03bc\u03ae (km);`, `${v} km/h for ${t} hours. Distance travelled (km)?`, v * t, [v * t + 10, v + t * 10]);
   },
   () => { // negative numbers
     const a = getRandomInt(2, 12), b = getRandomInt(2, 12), t = getRandomInt(0, 3);
     if (t === 0) { const c = b - a; return mk(`${MINUS}${a} + ${b} =`, `${MINUS}${a} + ${b} =`, sgn(c), [sgn(-c), sgn(-(a + b))]); }
-    if (t === 1) return mk(`(${MINUS}${a}) × (${MINUS}${b}) =`, `(${MINUS}${a}) × (${MINUS}${b}) =`, sgn(a * b), [sgn(-a * b), sgn(a * b + 2)]);
+    if (t === 1) return mk(`(${MINUS}${a}) \u00d7 (${MINUS}${b}) =`, `(${MINUS}${a}) \u00d7 (${MINUS}${b}) =`, sgn(a * b), [sgn(-a * b), sgn(a * b + 2)]);
     if (t === 2) return mk(`${MINUS}${a} ${MINUS} ${b} =`, `${MINUS}${a} ${MINUS} ${b} =`, sgn(-(a + b)), [sgn(a + b), sgn(a - b)]);
     return mk(`${a} ${MINUS} (${MINUS}${b}) =`, `${a} ${MINUS} (${MINUS}${b}) =`, sgn(a + b), [sgn(a - b), sgn(-(a + b))]);
   },
@@ -1553,7 +1560,7 @@ questionTypes.medium.push(
   },
   () => { // order of operations
     const a = getRandomInt(2, 9), b = getRandomInt(2, 5), c = getRandomInt(2, 4);
-    return mk(`${a} + ${b} × ${c}² =`, `${a} + ${b} × ${c}² =`, a + b * c * c, [(a + b) * c * c, a + b * c * 2]);
+    return mk(`${a} + ${b} \u00d7 ${c}\u00b2 =`, `${a} + ${b} \u00d7 ${c}\u00b2 =`, a + b * c * c, [(a + b) * c * c, a + b * c * 2]);
   },
   () => { // unit conversion
     const k = pick([0.5, 1.5, 2.5, 3.5, 4.5, 0.2, 7.5]);
@@ -1561,11 +1568,11 @@ questionTypes.medium.push(
   },
   () => { // proportion
     const p = getRandomInt(2, 6), n1 = getRandomInt(3, 4), n2 = getRandomInt(6, 9);
-    return mk(`${n1} τετράδια κοστίζουν ${n1 * p}€. Πόσο κοστίζουν ${n2};`, `${n1} notebooks cost €${n1 * p}. How much for ${n2}?`, n2 * p, [n2 * p + p, n2 * p - p]);
+    return mk(`${n1} \u03c4\u03b5\u03c4\u03c1\u03ac\u03b4\u03b9\u03b1 \u03ba\u03bf\u03c3\u03c4\u03af\u03b6\u03bf\u03c5\u03bd ${n1 * p}\u20ac. \u03a0\u03cc\u03c3\u03bf \u03ba\u03bf\u03c3\u03c4\u03af\u03b6\u03bf\u03c5\u03bd ${n2};`, `${n1} notebooks cost \u20ac${n1 * p}. How much for ${n2}?`, n2 * p, [n2 * p + p, n2 * p - p]);
   },
   () => { // circle area
     const r = getRandomInt(3, 9);
-    return { gr: `Κύκλος ακτίνας ${r}. Εμβαδόν;`, en: `Circle of radius ${r}. Area?`, correct: `${r * r}π`, options: shuffleArray([`${r * r}π`, `${2 * r}π`, `${r}π`]) };
+    return { gr: `\u039a\u03cd\u03ba\u03bb\u03bf\u03c2 \u03b1\u03ba\u03c4\u03af\u03bd\u03b1\u03c2 ${r}. \u0395\u03bc\u03b2\u03b1\u03b4\u03cc\u03bd;`, en: `Circle of radius ${r}. Area?`, correct: `${r * r}\u03c0`, options: shuffleArray([`${r * r}\u03c0`, `${2 * r}\u03c0`, `${r}\u03c0`]) };
   }
 );
 
@@ -1574,69 +1581,69 @@ questionTypes.hard.push(
   () => { // quadratic roots
     const p = getRandomInt(1, 6); let q; do { q = getRandomInt(1, 7); } while (q === p);
     const lo = Math.min(p, q), hi = Math.max(p, q), S = lo + hi, P = lo * hi;
-    const and = L('και', 'and');
-    return { gr: `x² ${MINUS} ${S}x + ${P} = 0 → x =`, en: `x² ${MINUS} ${S}x + ${P} = 0 → x =`, correct: `${lo} ${and} ${hi}`,
+    const and = L('\u03ba\u03b1\u03b9', 'and');
+    return { gr: `x\u00b2 ${MINUS} ${S}x + ${P} = 0 \u2192 x =`, en: `x\u00b2 ${MINUS} ${S}x + ${P} = 0 \u2192 x =`, correct: `${lo} ${and} ${hi}`,
       options: shuffleArray([`${lo} ${and} ${hi}`, `${MINUS}${lo} ${and} ${MINUS}${hi}`, `${S} ${and} ${P}`]) };
   },
   () => { // slope
     let m; do { m = getRandomInt(-4, 5); } while (m === 0);
     const x1 = getRandomInt(0, 4), dx = getRandomInt(1, 4), y1 = getRandomInt(0, 6), y2 = y1 + m * dx, x2 = x1 + dx;
-    return mk(`Κλίση της ευθείας Α(${x1}, ${y1}) – Β(${x2}, ${y2})`, `Slope of the line A(${x1}, ${y1}) – B(${x2}, ${y2})`, sgn(m), [sgn(m + 1), sgn(-m)]);
+    return mk(`\u039a\u03bb\u03af\u03c3\u03b7 \u03c4\u03b7\u03c2 \u03b5\u03c5\u03b8\u03b5\u03af\u03b1\u03c2 \u0391(${x1}, ${y1}) \u2013 \u0392(${x2}, ${y2})`, `Slope of the line A(${x1}, ${y1}) \u2013 B(${x2}, ${y2})`, sgn(m), [sgn(m + 1), sgn(-m)]);
   },
   () => { // distance
     const T = [[3, 4, 5], [5, 12, 13], [6, 8, 10], [8, 15, 17], [9, 12, 15]], [a, b, d] = pick(T);
     const x = getRandomInt(0, 5), y = getRandomInt(0, 5);
-    return mk(`Απόσταση μεταξύ Α(${x}, ${y}) και Β(${x + a}, ${y + b})`, `Distance between A(${x}, ${y}) and B(${x + a}, ${y + b})`, d, [a + b, d + 1]);
+    return mk(`\u0391\u03c0\u03cc\u03c3\u03c4\u03b1\u03c3\u03b7 \u03bc\u03b5\u03c4\u03b1\u03be\u03cd \u0391(${x}, ${y}) \u03ba\u03b1\u03b9 \u0392(${x + a}, ${y + b})`, `Distance between A(${x}, ${y}) and B(${x + a}, ${y + b})`, d, [a + b, d + 1]);
   },
   () => { // permutations / handshakes
     if (getRandomInt(0, 1)) {
       const n = getRandomInt(3, 6), f = [1, 1, 2, 6, 24, 120, 720][n];
-      return mk(`Με πόσους τρόπους κάθονται ${n} άτομα σε σειρά;`, `In how many ways can ${n} people sit in a row?`, f, [f + n, f - n]);
+      return mk(`\u039c\u03b5 \u03c0\u03cc\u03c3\u03bf\u03c5\u03c2 \u03c4\u03c1\u03cc\u03c0\u03bf\u03c5\u03c2 \u03ba\u03ac\u03b8\u03bf\u03bd\u03c4\u03b1\u03b9 ${n} \u03ac\u03c4\u03bf\u03bc\u03b1 \u03c3\u03b5 \u03c3\u03b5\u03b9\u03c1\u03ac;`, `In how many ways can ${n} people sit in a row?`, f, [f + n, f - n]);
     }
     const n = getRandomInt(5, 10), c = n * (n - 1) / 2;
-    return mk(`${n} άτομα δίνουν χειραψία ανά δύο. Πόσες χειραψίες;`, `${n} people shake hands in pairs. How many handshakes?`, c, [n * (n - 1), n * n]);
+    return mk(`${n} \u03ac\u03c4\u03bf\u03bc\u03b1 \u03b4\u03af\u03bd\u03bf\u03c5\u03bd \u03c7\u03b5\u03b9\u03c1\u03b1\u03c8\u03af\u03b1 \u03b1\u03bd\u03ac \u03b4\u03cd\u03bf. \u03a0\u03cc\u03c3\u03b5\u03c2 \u03c7\u03b5\u03b9\u03c1\u03b1\u03c8\u03af\u03b5\u03c2;`, `${n} people shake hands in pairs. How many handshakes?`, c, [n * (n - 1), n * n]);
   },
   () => { // probability
     const P = [
-      ['Ζάρι: P(άρτιος αριθμός)', 'Die: P(even number)', '1/2', ['1/3', '1/6']],
-      ['Ζάρι: P(αριθμός > 4)', 'Die: P(number > 4)', '1/3', ['1/2', '1/6']],
-      ['Ζάρι: P(πρώτος αριθμός)', 'Die: P(prime number)', '1/2', ['1/3', '2/3']],
-      ['Ζάρι: P(πολλαπλάσιο του 3)', 'Die: P(multiple of 3)', '1/3', ['1/6', '1/2']],
-      ['2 νομίσματα: P(2 φορές κορώνα)', '2 coins: P(two heads)', '1/4', ['1/2', '1/3']],
-      ['Τράπουλα 52 φύλλων: P(άσσος)', '52-card deck: P(ace)', '1/13', ['1/4', '1/52']],
-      ['Κουτί: 3 κόκκινες, 2 μπλε. P(μπλε)', 'Box: 3 red, 2 blue. P(blue)', '2/5', ['3/5', '1/2']]
+      ['\u0396\u03ac\u03c1\u03b9: P(\u03ac\u03c1\u03c4\u03b9\u03bf\u03c2 \u03b1\u03c1\u03b9\u03b8\u03bc\u03cc\u03c2)', 'Die: P(even number)', '1/2', ['1/3', '1/6']],
+      ['\u0396\u03ac\u03c1\u03b9: P(\u03b1\u03c1\u03b9\u03b8\u03bc\u03cc\u03c2 > 4)', 'Die: P(number > 4)', '1/3', ['1/2', '1/6']],
+      ['\u0396\u03ac\u03c1\u03b9: P(\u03c0\u03c1\u03ce\u03c4\u03bf\u03c2 \u03b1\u03c1\u03b9\u03b8\u03bc\u03cc\u03c2)', 'Die: P(prime number)', '1/2', ['1/3', '2/3']],
+      ['\u0396\u03ac\u03c1\u03b9: P(\u03c0\u03bf\u03bb\u03bb\u03b1\u03c0\u03bb\u03ac\u03c3\u03b9\u03bf \u03c4\u03bf\u03c5 3)', 'Die: P(multiple of 3)', '1/3', ['1/6', '1/2']],
+      ['2 \u03bd\u03bf\u03bc\u03af\u03c3\u03bc\u03b1\u03c4\u03b1: P(2 \u03c6\u03bf\u03c1\u03ad\u03c2 \u03ba\u03bf\u03c1\u03ce\u03bd\u03b1)', '2 coins: P(two heads)', '1/4', ['1/2', '1/3']],
+      ['\u03a4\u03c1\u03ac\u03c0\u03bf\u03c5\u03bb\u03b1 52 \u03c6\u03cd\u03bb\u03bb\u03c9\u03bd: P(\u03ac\u03c3\u03c3\u03bf\u03c2)', '52-card deck: P(ace)', '1/13', ['1/4', '1/52']],
+      ['\u039a\u03bf\u03c5\u03c4\u03af: 3 \u03ba\u03cc\u03ba\u03ba\u03b9\u03bd\u03b5\u03c2, 2 \u03bc\u03c0\u03bb\u03b5. P(\u03bc\u03c0\u03bb\u03b5)', 'Box: 3 red, 2 blue. P(blue)', '2/5', ['3/5', '1/2']]
     ], x = pick(P);
     return { gr: x[0], en: x[1], correct: x[2], options: shuffleArray([x[2], ...x[3]]) };
   },
   () => { // polygon angles
     const n = getRandomInt(5, 10), c = (n - 2) * 180;
-    return mk(`Άθροισμα γωνιών κυρτού ${n}-γώνου`, `Sum of the angles of a convex ${n}-gon`, c + '°', [((n - 1) * 180) + '°', ((n - 2) * 90) + '°']);
+    return mk(`\u0386\u03b8\u03c1\u03bf\u03b9\u03c3\u03bc\u03b1 \u03b3\u03c9\u03bd\u03b9\u03ce\u03bd \u03ba\u03c5\u03c1\u03c4\u03bf\u03cd ${n}-\u03b3\u03ce\u03bd\u03bf\u03c5`, `Sum of the angles of a convex ${n}-gon`, c + '\u00b0', [((n - 1) * 180) + '\u00b0', ((n - 2) * 90) + '\u00b0']);
   },
   () => { // arithmetic progression
     const a = getRandomInt(2, 9), d = getRandomInt(2, 6), n = getRandomInt(8, 12);
-    return mk(`Αριθμ. πρόοδος: ${a}, ${a + d}, ${a + 2 * d}, … ο ${n}ος όρος;`, `Arithmetic sequence: ${a}, ${a + d}, ${a + 2 * d}, … term #${n}?`, a + (n - 1) * d, [a + n * d, a + (n - 2) * d]);
+    return mk(`\u0391\u03c1\u03b9\u03b8\u03bc. \u03c0\u03c1\u03cc\u03bf\u03b4\u03bf\u03c2: ${a}, ${a + d}, ${a + 2 * d}, \u2026 \u03bf ${n}\u03bf\u03c2 \u03cc\u03c1\u03bf\u03c2;`, `Arithmetic sequence: ${a}, ${a + d}, ${a + 2 * d}, \u2026 term #${n}?`, a + (n - 1) * d, [a + n * d, a + (n - 2) * d]);
   },
   () => { // geometric progression
     const s = getRandomInt(1, 3), r = getRandomInt(2, 3), t = [s, s * r, s * r * r, s * r * r * r], c = s * Math.pow(r, 4);
-    return mk(`Γεωμ. πρόοδος: ${t.join(', ')}, ?`, `Geometric sequence: ${t.join(', ')}, ?`, c, [t[3] + (t[3] - t[2]), c + r]);
+    return mk(`\u0393\u03b5\u03c9\u03bc. \u03c0\u03c1\u03cc\u03bf\u03b4\u03bf\u03c2: ${t.join(', ')}, ?`, `Geometric sequence: ${t.join(', ')}, ?`, c, [t[3] + (t[3] - t[2]), c + r]);
   },
   () => { // last digit
     const C = { 2: [2, 4, 8, 6], 3: [3, 9, 7, 1], 7: [7, 9, 3, 1], 8: [8, 4, 2, 6] }, b = pick([2, 3, 7, 8]), e = getRandomInt(20, 99), c = C[b][(e - 1) % 4];
     const wr = shuffleArray(C[b].filter(x => x !== c)).slice(0, 2);
-    return { gr: `Τελευταίο ψηφίο του ${b}^${e}`, en: `Last digit of ${b}^${e}`, correct: c, options: shuffleArray([c, ...wr]) };
+    return { gr: `\u03a4\u03b5\u03bb\u03b5\u03c5\u03c4\u03b1\u03af\u03bf \u03c8\u03b7\u03c6\u03af\u03bf \u03c4\u03bf\u03c5 ${b}^${e}`, en: `Last digit of ${b}^${e}`, correct: c, options: shuffleArray([c, ...wr]) };
   },
   () => { // up p% then down p%
     const p = pick([10, 20, 30, 40, 50]), c = `${MINUS}${p * p / 100}%`;
-    return { gr: `Αύξηση ${p}% και μετά μείωση ${p}%. Συνολική μεταβολή;`, en: `A ${p}% rise followed by a ${p}% drop. Overall change?`, correct: c, options: shuffleArray([c, '0%', `+${p * p / 100}%`]) };
+    return { gr: `\u0391\u03cd\u03be\u03b7\u03c3\u03b7 ${p}% \u03ba\u03b1\u03b9 \u03bc\u03b5\u03c4\u03ac \u03bc\u03b5\u03af\u03c9\u03c3\u03b7 ${p}%. \u03a3\u03c5\u03bd\u03bf\u03bb\u03b9\u03ba\u03ae \u03bc\u03b5\u03c4\u03b1\u03b2\u03bf\u03bb\u03ae;`, en: `A ${p}% rise followed by a ${p}% drop. Overall change?`, correct: c, options: shuffleArray([c, '0%', `+${p * p / 100}%`]) };
   },
   () => { // simplify surd
     let a, b; do { a = getRandomInt(2, 6); b = pick([2, 3, 5, 6]); } while (a === b);
-    return { gr: `√${a * a * b} =`, en: `√${a * a * b} =`, correct: `${a}√${b}`, options: shuffleArray([`${a}√${b}`, `${a * a}√${b}`, `${a}√${b + 1}`]) };
+    return { gr: `\u221a${a * a * b} =`, en: `\u221a${a * a * b} =`, correct: `${a}\u221a${b}`, options: shuffleArray([`${a}\u221a${b}`, `${a * a}\u221a${b}`, `${a}\u221a${b + 1}`]) };
   },
   () => { // median
     const s = new Set(); while (s.size < 5) s.add(getRandomInt(1, 40));
     const sorted = [...s].sort((x, y) => x - y), med = sorted[2], arr = shuffleArray(sorted);
-    return mk(`Διάμεσος των ${arr.join(', ')}`, `Median of ${arr.join(', ')}`, med, [sorted[3], sorted[1]]);
+    return mk(`\u0394\u03b9\u03ac\u03bc\u03b5\u03c3\u03bf\u03c2 \u03c4\u03c9\u03bd ${arr.join(', ')}`, `Median of ${arr.join(', ')}`, med, [sorted[3], sorted[1]]);
   }
 );
 
@@ -1644,17 +1651,17 @@ questionTypes.hard.push(
 questionTypes.chaser.push(
   () => { // derivatives
     const D = [
-      ["(x³)′", "(x³)′", "3x²", "x²", "3x³"], ["(x²+3x)′", "(x²+3x)′", "2x+3", "x²+3", "2x+3x"],
-      ["(5x⁴)′", "(5x⁴)′", "20x³", "5x³", "4x³"], ["(eˣ)′", "(eˣ)′", "eˣ", "xeˣ⁻¹", "e"],
-      ["(ln x)′", "(ln x)′", "1/x", "x", "ln x"], ["(ημx)′", "(sin x)′", L("συνx", "cos x"), L("−συνx", "−cos x"), L("ημx", "sin x")],
-      ["(x⁵−2x)′", "(x⁵−2x)′", "5x⁴−2", "5x⁴", "x⁴−2"], ["(√x)′", "(√x)′", "1/(2√x)", "1/√x", "2√x"],
-      ["(συνx)′", "(cos x)′", L("−ημx", "−sin x"), L("ημx", "sin x"), L("−συνx", "−cos x")]
+      ["(x\u00b3)\u2032", "(x\u00b3)\u2032", "3x\u00b2", "x\u00b2", "3x\u00b3"], ["(x\u00b2+3x)\u2032", "(x\u00b2+3x)\u2032", "2x+3", "x\u00b2+3", "2x+3x"],
+      ["(5x\u2074)\u2032", "(5x\u2074)\u2032", "20x\u00b3", "5x\u00b3", "4x\u00b3"], ["(e\u02e3)\u2032", "(e\u02e3)\u2032", "e\u02e3", "xe\u02e3\u207b\u00b9", "e"],
+      ["(ln x)\u2032", "(ln x)\u2032", "1/x", "x", "ln x"], ["(\u03b7\u03bcx)\u2032", "(sin x)\u2032", L("\u03c3\u03c5\u03bdx", "cos x"), L("\u2212\u03c3\u03c5\u03bdx", "\u2212cos x"), L("\u03b7\u03bcx", "sin x")],
+      ["(x\u2075\u22122x)\u2032", "(x\u2075\u22122x)\u2032", "5x\u2074\u22122", "5x\u2074", "x\u2074\u22122"], ["(\u221ax)\u2032", "(\u221ax)\u2032", "1/(2\u221ax)", "1/\u221ax", "2\u221ax"],
+      ["(\u03c3\u03c5\u03bdx)\u2032", "(cos x)\u2032", L("\u2212\u03b7\u03bcx", "\u2212sin x"), L("\u03b7\u03bcx", "sin x"), L("\u2212\u03c3\u03c5\u03bdx", "\u2212cos x")]
     ], d = pick(D);
     return { gr: `${d[0]} =`, en: `${d[1]} =`, correct: d[2], options: shuffleArray([d[2], d[3], d[4]]) };
   },
   () => { // limits
-    const Lm = [["x→1: (x²−1)/(x−1)", 2, [0, 1]], ["x→0: ημx / x", 1, [0, "∞"]], ["x→∞: 1/x", 0, [1, "∞"]], ["x→2: (x²−4)/(x−2)", 4, [0, 2]], ["x→3: (x²−9)/(x−3)", 6, [0, 3]], ["x→0: (eˣ−1)/x", 1, [0, "∞"]]];
-    const l = pick(Lm), enTxt = l[0].replace('ημx', 'sin x');
+    const Lm = [["x\u21921: (x\u00b2\u22121)/(x\u22121)", 2, [0, 1]], ["x\u21920: \u03b7\u03bcx / x", 1, [0, "\u221e"]], ["x\u2192\u221e: 1/x", 0, [1, "\u221e"]], ["x\u21922: (x\u00b2\u22124)/(x\u22122)", 4, [0, 2]], ["x\u21923: (x\u00b2\u22129)/(x\u22123)", 6, [0, 3]], ["x\u21920: (e\u02e3\u22121)/x", 1, [0, "\u221e"]]];
+    const l = pick(Lm), enTxt = l[0].replace('\u03b7\u03bcx', 'sin x');
     return { gr: `lim ${l[0]} =`, en: `lim ${enTxt} =`, correct: l[1], options: shuffleArray([l[1], ...l[2]]) };
   },
   () => { // determinant
@@ -1662,7 +1669,7 @@ questionTypes.chaser.push(
     return mk(`det [ ${a} ${b} ; ${c} ${d} ] =`, `det [ ${a} ${b} ; ${c} ${d} ] =`, sgn(D), [sgn(a * d + b * c), sgn(a * b - c * d)]);
   },
   () => { // logs
-    const sub = { 2: '₂', 3: '₃', 5: '₅', 10: '₁₀' }, b = pick([2, 3, 5, 10]), k = getRandomInt(2, b === 2 ? 8 : b === 3 ? 5 : 4), v = Math.pow(b, k);
+    const sub = { 2: '\u2082', 3: '\u2083', 5: '\u2085', 10: '\u2081\u2080' }, b = pick([2, 3, 5, 10]), k = getRandomInt(2, b === 2 ? 8 : b === 3 ? 5 : 4), v = Math.pow(b, k);
     return mk(`log${sub[b]} ${v} =`, `log${sub[b]} ${v} =`, k, [k + 1, k - 1]);
   },
   () => { // binomial
@@ -1682,40 +1689,40 @@ questionTypes.chaser.push(
   },
   () => { // Vieta
     const r1 = getRandomInt(1, 9), r2 = getRandomInt(1, 9), S = r1 + r2, P = r1 * r2, ask = getRandomInt(0, 1);
-    const eq = `x² ${MINUS} ${S}x + ${P} = 0`;
+    const eq = `x\u00b2 ${MINUS} ${S}x + ${P} = 0`;
     return ask
-      ? mk(`${eq}: γινόμενο ριζών;`, `${eq}: product of roots?`, P, [S, P + 1, -P])
-      : mk(`${eq}: άθροισμα ριζών;`, `${eq}: sum of roots?`, S, [P, S + 1, -S]);
+      ? mk(`${eq}: \u03b3\u03b9\u03bd\u03cc\u03bc\u03b5\u03bd\u03bf \u03c1\u03b9\u03b6\u03ce\u03bd;`, `${eq}: product of roots?`, P, [S, P + 1, -P])
+      : mk(`${eq}: \u03ac\u03b8\u03c1\u03bf\u03b9\u03c3\u03bc\u03b1 \u03c1\u03b9\u03b6\u03ce\u03bd;`, `${eq}: sum of roots?`, S, [P, S + 1, -S]);
   },
   () => { // discriminant
     let b; do { b = getRandomInt(-6, 6); } while (b === 0);
     const c = getRandomInt(1, 8), D = b * b - 4 * c;
-    return mk(`Διακρίνουσα της x² ${b < 0 ? MINUS : '+'} ${Math.abs(b)}x + ${c}`, `Discriminant of x² ${b < 0 ? MINUS : '+'} ${Math.abs(b)}x + ${c}`, sgn(D), [sgn(b * b + 4 * c), sgn(b * b - 2 * c)]);
+    return mk(`\u0394\u03b9\u03b1\u03ba\u03c1\u03af\u03bd\u03bf\u03c5\u03c3\u03b1 \u03c4\u03b7\u03c2 x\u00b2 ${b < 0 ? MINUS : '+'} ${Math.abs(b)}x + ${c}`, `Discriminant of x\u00b2 ${b < 0 ? MINUS : '+'} ${Math.abs(b)}x + ${c}`, sgn(D), [sgn(b * b + 4 * c), sgn(b * b - 2 * c)]);
   },
   () => { // geometric series
-    const S = [["1 + 1/2 + 1/4 + 1/8 + …", "2", ["∞", "1"]], ["1/2 + 1/4 + 1/8 + …", "1", ["2", "∞"]], ["1/3 + 1/9 + 1/27 + …", "1/2", ["1", "2/3"]], ["2 + 1 + 1/2 + 1/4 + …", "4", ["3", "∞"]]], s = pick(S);
-    return { gr: `Σειρά: ${s[0]} =`, en: `Series: ${s[0]} =`, correct: s[1], options: shuffleArray([s[1], ...s[2]]) };
+    const S = [["1 + 1/2 + 1/4 + 1/8 + \u2026", "2", ["\u221e", "1"]], ["1/2 + 1/4 + 1/8 + \u2026", "1", ["2", "\u221e"]], ["1/3 + 1/9 + 1/27 + \u2026", "1/2", ["1", "2/3"]], ["2 + 1 + 1/2 + 1/4 + \u2026", "4", ["3", "\u221e"]]], s = pick(S);
+    return { gr: `\u03a3\u03b5\u03b9\u03c1\u03ac: ${s[0]} =`, en: `Series: ${s[0]} =`, correct: s[1], options: shuffleArray([s[1], ...s[2]]) };
   },
   () => { // diagonals
     const n = getRandomInt(6, 12), c = n * (n - 3) / 2;
-    return mk(`Πόσες διαγώνιους έχει ένα ${n}-γωνο;`, `How many diagonals has a ${n}-gon?`, c, [n * (n - 1) / 2, n * (n - 3)]);
+    return mk(`\u03a0\u03cc\u03c3\u03b5\u03c2 \u03b4\u03b9\u03b1\u03b3\u03ce\u03bd\u03b9\u03bf\u03c5\u03c2 \u03ad\u03c7\u03b5\u03b9 \u03ad\u03bd\u03b1 ${n}-\u03b3\u03c9\u03bd\u03bf;`, `How many diagonals has a ${n}-gon?`, c, [n * (n - 1) / 2, n * (n - 3)]);
   },
   () => { // special trig values
-    const T = [["ημ90°", "sin90°", "1"], ["συν180°", "cos180°", "-1"], ["ημ²30° + συν²30°", "sin²30° + cos²30°", "1"], ["εφ45°", "tan45°", "1"], ["ημ150°", "sin150°", "1/2"], ["συν120°", "cos120°", "-1/2"], ["ημ(−30°)", "sin(−30°)", "-1/2"], ["συν0°", "cos0°", "1"], ["ημ0° + συν90°", "sin0° + cos90°", "0"]];
-    const t = pick(T), pool = ["0", "1", "-1", "1/2", "-1/2", "√3/2"], wr = shuffleArray(pool.filter(x => x !== t[2])).slice(0, 2);
+    const T = [["\u03b7\u03bc90\u00b0", "sin90\u00b0", "1"], ["\u03c3\u03c5\u03bd180\u00b0", "cos180\u00b0", "-1"], ["\u03b7\u03bc\u00b230\u00b0 + \u03c3\u03c5\u03bd\u00b230\u00b0", "sin\u00b230\u00b0 + cos\u00b230\u00b0", "1"], ["\u03b5\u03c645\u00b0", "tan45\u00b0", "1"], ["\u03b7\u03bc150\u00b0", "sin150\u00b0", "1/2"], ["\u03c3\u03c5\u03bd120\u00b0", "cos120\u00b0", "-1/2"], ["\u03b7\u03bc(\u221230\u00b0)", "sin(\u221230\u00b0)", "-1/2"], ["\u03c3\u03c5\u03bd0\u00b0", "cos0\u00b0", "1"], ["\u03b7\u03bc0\u00b0 + \u03c3\u03c5\u03bd90\u00b0", "sin0\u00b0 + cos90\u00b0", "0"]];
+    const t = pick(T), pool = ["0", "1", "-1", "1/2", "-1/2", "\u221a3/2"], wr = shuffleArray(pool.filter(x => x !== t[2])).slice(0, 2);
     return { gr: `${t[0]} =`, en: `${t[1]} =`, correct: t[2], options: shuffleArray([t[2], ...wr]) };
   },
   () => { // count multiples
     const m = pick([7, 9, 11, 13]), N = pick([100, 200, 300]), c = Math.floor(N / m);
-    return mk(`Πόσα πολλαπλάσια του ${m} υπάρχουν από 1 έως ${N};`, `How many multiples of ${m} are there from 1 to ${N}?`, c, [c + 1, c - 1]);
+    return mk(`\u03a0\u03cc\u03c3\u03b1 \u03c0\u03bf\u03bb\u03bb\u03b1\u03c0\u03bb\u03ac\u03c3\u03b9\u03b1 \u03c4\u03bf\u03c5 ${m} \u03c5\u03c0\u03ac\u03c1\u03c7\u03bf\u03c5\u03bd \u03b1\u03c0\u03cc 1 \u03ad\u03c9\u03c2 ${N};`, `How many multiples of ${m} are there from 1 to ${N}?`, c, [c + 1, c - 1]);
   },
   () => { // symmetric identity
     if (getRandomInt(0, 1)) {
       const S = getRandomInt(6, 12), P = getRandomInt(5, 20), c = S * S - 2 * P;
-      return mk(`a + b = ${S}, ab = ${P} → a² + b² =`, `a + b = ${S}, ab = ${P} → a² + b² =`, c, [S * S - P, S * S + 2 * P]);
+      return mk(`a + b = ${S}, ab = ${P} \u2192 a\u00b2 + b\u00b2 =`, `a + b = ${S}, ab = ${P} \u2192 a\u00b2 + b\u00b2 =`, c, [S * S - P, S * S + 2 * P]);
     }
     const s = getRandomInt(3, 6), c = s * s - 2;
-    return mk(`x + 1/x = ${s} → x² + 1/x² =`, `x + 1/x = ${s} → x² + 1/x² =`, c, [s * s, c - 1]);
+    return mk(`x + 1/x = ${s} \u2192 x\u00b2 + 1/x\u00b2 =`, `x + 1/x = ${s} \u2192 x\u00b2 + 1/x\u00b2 =`, c, [s * s, c - 1]);
   }
 );
 
@@ -1729,11 +1736,11 @@ function buildQuestion(raw){
   const seen = new Set(); const out = [];
   opts.forEach(o => { if (!seen.has(o)) { seen.add(o); out.push(o); } });
   if (!seen.has(correct)) out.splice(getRandomInt(0, out.length), 0, correct);
-  const numeric = out.every(o => /^[−-]?\d+(\.\d+)?$/.test(o));
+  const numeric = out.every(o => /^[\u2212-]?\d+(\.\d+)?$/.test(o));
   let guard = 0;
   while (out.length < 3 && guard++ < 20) {
     let cand;
-    if (numeric) { const n = parseFloat(correct.replace('−', '-')) + (getRandomInt(1, 4) * (getRandomInt(0, 1) ? 1 : -1)); cand = n < 0 ? '−' + Math.abs(n) : String(n); }
+    if (numeric) { const n = parseFloat(correct.replace('\u2212', '-')) + (getRandomInt(1, 4) * (getRandomInt(0, 1) ? 1 : -1)); cand = n < 0 ? '\u2212' + Math.abs(n) : String(n); }
     else cand = String(getRandomInt(2, 99));
     if (!seen.has(cand)) { seen.add(cand); out.splice(getRandomInt(0, out.length), 0, cand); }
   }
@@ -1757,84 +1764,84 @@ function generateQuestions(pool, count){
 const Q = (gr, en, o, a) => ({ gr, en, o, a });
 const QUESTION_SETS = {
   easy: [
-    Q("4 + 7 =","4 + 7 =",["9","13","11"],2), Q("8 × 5 =","8 × 5 =",["40","35","45"],0),
-    Q("Πόσα λεπτά σε 2 ώρες;","Minutes in 2 hours?",["100","140","120"],2), Q("15 - 6 =","15 - 6 =",["9","7","8"],0),
-    Q("Τετραγωνική ρίζα 64","√64 =",["7","8","6"],1), Q("25 + 38 =","25 + 38 =",["61","63","65"],1),
-    Q("9 × 9 =","9 × 9 =",["72","90","81"],2), Q("100 ÷ 4 =","100 ÷ 4 =",["25","20","30"],0),
-    Q("Ισόπλευρο τρίγωνο: κάθε γωνία;","Equilateral triangle: each angle?",["60°","90°","45°"],0),
-    Q("½ του 48","Half of 48",["24","20","22"],0), Q("7² =","7² =",["42","56","49"],2),
-    Q("3 × 12 + 9 =","3 × 12 + 9 =",["45","42","48"],0), Q("80 – 37 =","80 – 37 =",["45","43","41"],1),
-    Q("√100 =","√100 =",["11","9","10"],2), Q("6 × 7 – 8 =","6 × 7 – 8 =",["36","34","32"],1),
-    Q("Πόσες πλευρές έχει ένα τετράγωνο;","How many sides does a square have?",["3","4","5"],1),
-    Q("Ποιος αριθμός είναι άρτιος;","Which number is even?",["17","23","18"],2),
-    Q("2 + 2 × 2 =","2 + 2 × 2 =",["6","8","4"],0), Q("1/2 + 1/2 =","1/2 + 1/2 =",["1","1/4","2"],0),
-    Q("Το διπλάσιο του 35","Double of 35",["60","70","75"],1), Q("10 × 10 =","10 × 10 =",["100","1000","110"],0),
-    Q("Άθροισμα γωνιών τριγώνου;","Sum of the angles of a triangle?",["90°","180°","360°"],1),
-    Q("Ο μικρότερος πρώτος αριθμός","The smallest prime number",["1","2","3"],1),
-    Q("√49 =","√49 =",["6","7","9"],1), Q("1000 ÷ 10 =","1000 ÷ 10 =",["10","1000","100"],2),
-    Q("Πόσα εκατοστά έχει ένα μέτρο;","Centimetres in a metre?",["10","100","1000"],1),
-    Q("3 × 3 × 3 =","3 × 3 × 3 =",["9","27","18"],1), Q("20% του 50","20% of 50",["5","10","25"],1),
-    Q("Ένα μολύβι κοστίζει 3€. Πόσο κοστίζουν 4;","A pencil costs €3. How much are 4?",["7€","12€","10€"],1)
+    Q("4 + 7 =","4 + 7 =",["9","13","11"],2), Q("8 \u00d7 5 =","8 \u00d7 5 =",["40","35","45"],0),
+    Q("\u03a0\u03cc\u03c3\u03b1 \u03bb\u03b5\u03c0\u03c4\u03ac \u03c3\u03b5 2 \u03ce\u03c1\u03b5\u03c2;","Minutes in 2 hours?",["100","140","120"],2), Q("15 - 6 =","15 - 6 =",["9","7","8"],0),
+    Q("\u03a4\u03b5\u03c4\u03c1\u03b1\u03b3\u03c9\u03bd\u03b9\u03ba\u03ae \u03c1\u03af\u03b6\u03b1 64","\u221a64 =",["7","8","6"],1), Q("25 + 38 =","25 + 38 =",["61","63","65"],1),
+    Q("9 \u00d7 9 =","9 \u00d7 9 =",["72","90","81"],2), Q("100 \u00f7 4 =","100 \u00f7 4 =",["25","20","30"],0),
+    Q("\u0399\u03c3\u03cc\u03c0\u03bb\u03b5\u03c5\u03c1\u03bf \u03c4\u03c1\u03af\u03b3\u03c9\u03bd\u03bf: \u03ba\u03ac\u03b8\u03b5 \u03b3\u03c9\u03bd\u03af\u03b1;","Equilateral triangle: each angle?",["60\u00b0","90\u00b0","45\u00b0"],0),
+    Q("\u00bd \u03c4\u03bf\u03c5 48","Half of 48",["24","20","22"],0), Q("7\u00b2 =","7\u00b2 =",["42","56","49"],2),
+    Q("3 \u00d7 12 + 9 =","3 \u00d7 12 + 9 =",["45","42","48"],0), Q("80 \u2013 37 =","80 \u2013 37 =",["45","43","41"],1),
+    Q("\u221a100 =","\u221a100 =",["11","9","10"],2), Q("6 \u00d7 7 \u2013 8 =","6 \u00d7 7 \u2013 8 =",["36","34","32"],1),
+    Q("\u03a0\u03cc\u03c3\u03b5\u03c2 \u03c0\u03bb\u03b5\u03c5\u03c1\u03ad\u03c2 \u03ad\u03c7\u03b5\u03b9 \u03ad\u03bd\u03b1 \u03c4\u03b5\u03c4\u03c1\u03ac\u03b3\u03c9\u03bd\u03bf;","How many sides does a square have?",["3","4","5"],1),
+    Q("\u03a0\u03bf\u03b9\u03bf\u03c2 \u03b1\u03c1\u03b9\u03b8\u03bc\u03cc\u03c2 \u03b5\u03af\u03bd\u03b1\u03b9 \u03ac\u03c1\u03c4\u03b9\u03bf\u03c2;","Which number is even?",["17","23","18"],2),
+    Q("2 + 2 \u00d7 2 =","2 + 2 \u00d7 2 =",["6","8","4"],0), Q("1/2 + 1/2 =","1/2 + 1/2 =",["1","1/4","2"],0),
+    Q("\u03a4\u03bf \u03b4\u03b9\u03c0\u03bb\u03ac\u03c3\u03b9\u03bf \u03c4\u03bf\u03c5 35","Double of 35",["60","70","75"],1), Q("10 \u00d7 10 =","10 \u00d7 10 =",["100","1000","110"],0),
+    Q("\u0386\u03b8\u03c1\u03bf\u03b9\u03c3\u03bc\u03b1 \u03b3\u03c9\u03bd\u03b9\u03ce\u03bd \u03c4\u03c1\u03b9\u03b3\u03ce\u03bd\u03bf\u03c5;","Sum of the angles of a triangle?",["90\u00b0","180\u00b0","360\u00b0"],1),
+    Q("\u039f \u03bc\u03b9\u03ba\u03c1\u03cc\u03c4\u03b5\u03c1\u03bf\u03c2 \u03c0\u03c1\u03ce\u03c4\u03bf\u03c2 \u03b1\u03c1\u03b9\u03b8\u03bc\u03cc\u03c2","The smallest prime number",["1","2","3"],1),
+    Q("\u221a49 =","\u221a49 =",["6","7","9"],1), Q("1000 \u00f7 10 =","1000 \u00f7 10 =",["10","1000","100"],2),
+    Q("\u03a0\u03cc\u03c3\u03b1 \u03b5\u03ba\u03b1\u03c4\u03bf\u03c3\u03c4\u03ac \u03ad\u03c7\u03b5\u03b9 \u03ad\u03bd\u03b1 \u03bc\u03ad\u03c4\u03c1\u03bf;","Centimetres in a metre?",["10","100","1000"],1),
+    Q("3 \u00d7 3 \u00d7 3 =","3 \u00d7 3 \u00d7 3 =",["9","27","18"],1), Q("20% \u03c4\u03bf\u03c5 50","20% of 50",["5","10","25"],1),
+    Q("\u0388\u03bd\u03b1 \u03bc\u03bf\u03bb\u03cd\u03b2\u03b9 \u03ba\u03bf\u03c3\u03c4\u03af\u03b6\u03b5\u03b9 3\u20ac. \u03a0\u03cc\u03c3\u03bf \u03ba\u03bf\u03c3\u03c4\u03af\u03b6\u03bf\u03c5\u03bd 4;","A pencil costs \u20ac3. How much are 4?",["7\u20ac","12\u20ac","10\u20ac"],1)
   ],
   medium: [
-    Q("12 × 8 =","12 × 8 =",["88","104","96"],2), Q("144 ÷ 12 =","144 ÷ 12 =",["12","10","14"],0),
-    Q("5² + 3² =","5² + 3² =",["32","34","36"],1), Q("20% του 150","20% of 150",["35","30","25"],1),
-    Q("√81 + 7 =","√81 + 7 =",["14","16","15"],1), Q("(8 + 4) × 5 =","(8 + 4) × 5 =",["60","50","70"],0),
-    Q("72 ÷ 8 + 15 =","72 ÷ 8 + 15 =",["26","24","22"],1), Q("3³ =","3³ =",["21","27","24"],1),
-    Q("ΜΚΔ(12,18)","GCD(12,18)",["4","8","6"],2), Q("15 × 6 ÷ 3 =","15 × 6 ÷ 3 =",["30","25","35"],0),
-    Q("√144 =","√144 =",["10","14","12"],2), Q("25 × 4 =","25 × 4 =",["100","90","110"],0),
-    Q("10³ ÷ 10 =","10³ ÷ 10 =",["110","100","90"],1), Q("(20 - 8) × 3 =","(20 - 8) × 3 =",["42","36","30"],1),
-    Q("6² - 4² =","6² - 4² =",["20","16","24"],0),
-    Q("Εμβαδόν ορθογωνίου 8 × 5","Area of an 8 × 5 rectangle",["26","40","13"],1),
-    Q("3x = 24 → x =","3x = 24 → x =",["6","8","9"],1),
-    Q("Άθροισμα γωνιών τετραπλεύρου;","Sum of the angles of a quadrilateral?",["180°","270°","360°"],2),
-    Q("ΕΚΠ(4,6)","LCM(4,6)",["12","24","10"],0), Q("2⁶ =","2⁶ =",["32","64","128"],1),
-    Q("−8 + 15 =","−8 + 15 =",["−7","7","23"],1), Q("Μέσος όρος: 6, 8, 10","Average of 6, 8, 10",["7","9","8"],2),
-    Q("25% του 240","25% of 240",["60","50","80"],0), Q("√196 =","√196 =",["13","14","16"],1),
+    Q("12 \u00d7 8 =","12 \u00d7 8 =",["88","104","96"],2), Q("144 \u00f7 12 =","144 \u00f7 12 =",["12","10","14"],0),
+    Q("5\u00b2 + 3\u00b2 =","5\u00b2 + 3\u00b2 =",["32","34","36"],1), Q("20% \u03c4\u03bf\u03c5 150","20% of 150",["35","30","25"],1),
+    Q("\u221a81 + 7 =","\u221a81 + 7 =",["14","16","15"],1), Q("(8 + 4) \u00d7 5 =","(8 + 4) \u00d7 5 =",["60","50","70"],0),
+    Q("72 \u00f7 8 + 15 =","72 \u00f7 8 + 15 =",["26","24","22"],1), Q("3\u00b3 =","3\u00b3 =",["21","27","24"],1),
+    Q("\u039c\u039a\u0394(12,18)","GCD(12,18)",["4","8","6"],2), Q("15 \u00d7 6 \u00f7 3 =","15 \u00d7 6 \u00f7 3 =",["30","25","35"],0),
+    Q("\u221a144 =","\u221a144 =",["10","14","12"],2), Q("25 \u00d7 4 =","25 \u00d7 4 =",["100","90","110"],0),
+    Q("10\u00b3 \u00f7 10 =","10\u00b3 \u00f7 10 =",["110","100","90"],1), Q("(20 - 8) \u00d7 3 =","(20 - 8) \u00d7 3 =",["42","36","30"],1),
+    Q("6\u00b2 - 4\u00b2 =","6\u00b2 - 4\u00b2 =",["20","16","24"],0),
+    Q("\u0395\u03bc\u03b2\u03b1\u03b4\u03cc\u03bd \u03bf\u03c1\u03b8\u03bf\u03b3\u03c9\u03bd\u03af\u03bf\u03c5 8 \u00d7 5","Area of an 8 \u00d7 5 rectangle",["26","40","13"],1),
+    Q("3x = 24 \u2192 x =","3x = 24 \u2192 x =",["6","8","9"],1),
+    Q("\u0386\u03b8\u03c1\u03bf\u03b9\u03c3\u03bc\u03b1 \u03b3\u03c9\u03bd\u03b9\u03ce\u03bd \u03c4\u03b5\u03c4\u03c1\u03b1\u03c0\u03bb\u03b5\u03cd\u03c1\u03bf\u03c5;","Sum of the angles of a quadrilateral?",["180\u00b0","270\u00b0","360\u00b0"],2),
+    Q("\u0395\u039a\u03a0(4,6)","LCM(4,6)",["12","24","10"],0), Q("2\u2076 =","2\u2076 =",["32","64","128"],1),
+    Q("\u22128 + 15 =","\u22128 + 15 =",["\u22127","7","23"],1), Q("\u039c\u03ad\u03c3\u03bf\u03c2 \u03cc\u03c1\u03bf\u03c2: 6, 8, 10","Average of 6, 8, 10",["7","9","8"],2),
+    Q("25% \u03c4\u03bf\u03c5 240","25% of 240",["60","50","80"],0), Q("\u221a196 =","\u221a196 =",["13","14","16"],1),
     Q("0.25 + 0.75 =","0.25 + 0.75 =",["1","0.1","1.25"],0),
-    Q("Πόσοι διαιρέτες έχει το 12;","How many divisors does 12 have?",["6","5","8"],0),
-    Q("Ο πρώτος αριθμός μεταξύ 20 και 24","The prime between 20 and 24",["21","22","23"],2),
-    Q("(−3)² =","(−3)² =",["−9","9","6"],1), Q("1/2 + 1/4 =","1/2 + 1/4 =",["2/6","3/4","1/6"],1)
+    Q("\u03a0\u03cc\u03c3\u03bf\u03b9 \u03b4\u03b9\u03b1\u03b9\u03c1\u03ad\u03c4\u03b5\u03c2 \u03ad\u03c7\u03b5\u03b9 \u03c4\u03bf 12;","How many divisors does 12 have?",["6","5","8"],0),
+    Q("\u039f \u03c0\u03c1\u03ce\u03c4\u03bf\u03c2 \u03b1\u03c1\u03b9\u03b8\u03bc\u03cc\u03c2 \u03bc\u03b5\u03c4\u03b1\u03be\u03cd 20 \u03ba\u03b1\u03b9 24","The prime between 20 and 24",["21","22","23"],2),
+    Q("(\u22123)\u00b2 =","(\u22123)\u00b2 =",["\u22129","9","6"],1), Q("1/2 + 1/4 =","1/2 + 1/4 =",["2/6","3/4","1/6"],1)
   ],
   hard: [
-    Q("ΕΚΠ(6,8,12)","LCM(6,8,12)",["72","24","48"],1), Q("15% του 200","15% of 200",["35","30","25"],1),
-    Q("2⁵ =","2⁵ =",["24","40","32"],2), Q("√(144 + 256) =","√(144 + 256) =",["20","18","22"],0),
-    Q("48 ÷ (3×4) + 5²","48 ÷ (3×4) + 5²",["45","29","37"],1), Q("x² = 196 → x =","x² = 196 → x =",["±16","14","±14"],2),
-    Q("3³ × 4 =","3³ × 4 =",["96","120","108"],2), Q("Πόσοι πρώτοι ≤ 20;","Primes ≤ 20?",["9","8","7"],1),
-    Q("25 × 3.6","25 × 3.6",["100","90","80"],1), Q("√625 =","√625 =",["20","30","25"],2),
-    Q("(7+8)×(9-4)","(7+8)×(9-4)",["75","65","85"],0), Q("2⁴ + 3⁴ =","2⁴ + 3⁴ =",["97","107","117"],0),
-    Q("1+2+3+...+100 =","1+2+3+...+100 =",["5050","5000","5500"],0), Q("0.999... =","0.999... =",["1","0.999","≈1"],0),
-    Q("Άθροισμα γωνιών εξαγώνου;","Sum of the angles of a hexagon?",["540°","720°","900°"],1),
-    Q("log₁₀ 1000 =","log₁₀ 1000 =",["2","3","10"],1), Q("C(5,2) =","C(5,2) =",["10","20","25"],0),
-    Q("4! =","4! =",["12","24","16"],1), Q("x² − 9 = 0 → x =","x² − 9 = 0 → x =",["3","±3","9"],1),
-    Q("(a+b)² =","(a+b)² =",["a²+b²","a²+2ab+b²","a²+ab+b²"],1), Q("2⁻³ =","2⁻³ =",["−8","1/8","−6"],1),
-    Q("√2 · √8 =","√2 · √8 =",["4","√10","16"],0),
-    Q("Πόσα δευτερόλεπτα έχει μία ημέρα;","How many seconds in a day?",["3.600","86.400","1.440"],1),
-    Q("Κύκλος ακτίνας 5. Εμβαδόν;","Circle of radius 5. Area?",["10π","25π","5π"],1),
-    Q("Πόσες διαγώνιους έχει ένα εξάγωνο;","How many diagonals has a hexagon?",["6","9","12"],1),
-    Q("0! =","0! =",["0","1",L("δεν ορίζεται","undefined")],1),
-    Q("x + y = 7, xy = 12 → x² + y² =","x + y = 7, xy = 12 → x² + y² =",["25","37","19"],0),
-    Q("1 ÷ 0.5 =","1 ÷ 0.5 =",["0.5","2","5"],1)
+    Q("\u0395\u039a\u03a0(6,8,12)","LCM(6,8,12)",["72","24","48"],1), Q("15% \u03c4\u03bf\u03c5 200","15% of 200",["35","30","25"],1),
+    Q("2\u2075 =","2\u2075 =",["24","40","32"],2), Q("\u221a(144 + 256) =","\u221a(144 + 256) =",["20","18","22"],0),
+    Q("48 \u00f7 (3\u00d74) + 5\u00b2","48 \u00f7 (3\u00d74) + 5\u00b2",["45","29","37"],1), Q("x\u00b2 = 196 \u2192 x =","x\u00b2 = 196 \u2192 x =",["\u00b116","14","\u00b114"],2),
+    Q("3\u00b3 \u00d7 4 =","3\u00b3 \u00d7 4 =",["96","120","108"],2), Q("\u03a0\u03cc\u03c3\u03bf\u03b9 \u03c0\u03c1\u03ce\u03c4\u03bf\u03b9 \u2264 20;","Primes \u2264 20?",["9","8","7"],1),
+    Q("25 \u00d7 3.6","25 \u00d7 3.6",["100","90","80"],1), Q("\u221a625 =","\u221a625 =",["20","30","25"],2),
+    Q("(7+8)\u00d7(9-4)","(7+8)\u00d7(9-4)",["75","65","85"],0), Q("2\u2074 + 3\u2074 =","2\u2074 + 3\u2074 =",["97","107","117"],0),
+    Q("1+2+3+...+100 =","1+2+3+...+100 =",["5050","5000","5500"],0), Q("0.999... =","0.999... =",["1","0.999","\u22481"],0),
+    Q("\u0386\u03b8\u03c1\u03bf\u03b9\u03c3\u03bc\u03b1 \u03b3\u03c9\u03bd\u03b9\u03ce\u03bd \u03b5\u03be\u03b1\u03b3\u03ce\u03bd\u03bf\u03c5;","Sum of the angles of a hexagon?",["540\u00b0","720\u00b0","900\u00b0"],1),
+    Q("log\u2081\u2080 1000 =","log\u2081\u2080 1000 =",["2","3","10"],1), Q("C(5,2) =","C(5,2) =",["10","20","25"],0),
+    Q("4! =","4! =",["12","24","16"],1), Q("x\u00b2 \u2212 9 = 0 \u2192 x =","x\u00b2 \u2212 9 = 0 \u2192 x =",["3","\u00b13","9"],1),
+    Q("(a+b)\u00b2 =","(a+b)\u00b2 =",["a\u00b2+b\u00b2","a\u00b2+2ab+b\u00b2","a\u00b2+ab+b\u00b2"],1), Q("2\u207b\u00b3 =","2\u207b\u00b3 =",["\u22128","1/8","\u22126"],1),
+    Q("\u221a2 \u00b7 \u221a8 =","\u221a2 \u00b7 \u221a8 =",["4","\u221a10","16"],0),
+    Q("\u03a0\u03cc\u03c3\u03b1 \u03b4\u03b5\u03c5\u03c4\u03b5\u03c1\u03cc\u03bb\u03b5\u03c0\u03c4\u03b1 \u03ad\u03c7\u03b5\u03b9 \u03bc\u03af\u03b1 \u03b7\u03bc\u03ad\u03c1\u03b1;","How many seconds in a day?",["3.600","86.400","1.440"],1),
+    Q("\u039a\u03cd\u03ba\u03bb\u03bf\u03c2 \u03b1\u03ba\u03c4\u03af\u03bd\u03b1\u03c2 5. \u0395\u03bc\u03b2\u03b1\u03b4\u03cc\u03bd;","Circle of radius 5. Area?",["10\u03c0","25\u03c0","5\u03c0"],1),
+    Q("\u03a0\u03cc\u03c3\u03b5\u03c2 \u03b4\u03b9\u03b1\u03b3\u03ce\u03bd\u03b9\u03bf\u03c5\u03c2 \u03ad\u03c7\u03b5\u03b9 \u03ad\u03bd\u03b1 \u03b5\u03be\u03ac\u03b3\u03c9\u03bd\u03bf;","How many diagonals has a hexagon?",["6","9","12"],1),
+    Q("0! =","0! =",["0","1",L("\u03b4\u03b5\u03bd \u03bf\u03c1\u03af\u03b6\u03b5\u03c4\u03b1\u03b9","undefined")],1),
+    Q("x + y = 7, xy = 12 \u2192 x\u00b2 + y\u00b2 =","x + y = 7, xy = 12 \u2192 x\u00b2 + y\u00b2 =",["25","37","19"],0),
+    Q("1 \u00f7 0.5 =","1 \u00f7 0.5 =",["0.5","2","5"],1)
   ],
   chaser: [
-    Q("Πόσοι πρώτοι ≤ 50;","Primes ≤ 50?",["14","15","13"],1), Q("96 ÷ (4×3) + 11²","96 ÷ (4×3) + 11²",["121","129","113"],1),
-    Q("√(625 – 225) =","√(625 – 225) =",["18","22","20"],2), Q("3⁵ ÷ 9 + 7 =","3⁵ ÷ 9 + 7 =",["34","37","40"],0),
-    Q("Διαιρέτες του 60;","Divisors of 60?",["14","12","10"],1), Q("√(1296) =","√(1296) =",["38","36","34"],1),
-    Q("(13² – 5²) ÷ 8","(13² – 5²) ÷ 8",["18","20","22"],0),
-    // fixed: 241 is ALSO prime with digit sum 7 — replaced by 133 = 7×19
-    Q("Πρώτος > 100 με άθροισμα ψηφίων 7;","Prime > 100 with digit sum 7?",["151","160","133"],0),
-    Q("2²⁰²⁶ ÷ 2²⁰²⁵ + 2 =","2²⁰²⁶ ÷ 2²⁰²⁵ + 2 =",["4","2026","2"],0),
-    Q("lim ημx / x, x→0","lim sin x / x, x→0",["0","1","∞"],1), Q("ln(e⁵) =","ln(e⁵) =",["5","e","1/5"],0),
-    Q("|3 + 4i| =","|3 + 4i| =",["7","5","25"],1), Q("∫₀¹ 2x dx =","∫₀¹ 2x dx =",["1","2","1/2"],0),
-    Q("Πόσα υποσύνολα έχει σύνολο με 4 στοιχεία;","How many subsets has a 4-element set?",["8","16","12"],1),
-    Q("Άθροισμα των 10 πρώτων περιττών","Sum of the first 10 odd numbers",["55","100","90"],1),
+    Q("\u03a0\u03cc\u03c3\u03bf\u03b9 \u03c0\u03c1\u03ce\u03c4\u03bf\u03b9 \u2264 50;","Primes \u2264 50?",["14","15","13"],1), Q("96 \u00f7 (4\u00d73) + 11\u00b2","96 \u00f7 (4\u00d73) + 11\u00b2",["121","129","113"],1),
+    Q("\u221a(625 \u2013 225) =","\u221a(625 \u2013 225) =",["18","22","20"],2), Q("3\u2075 \u00f7 9 + 7 =","3\u2075 \u00f7 9 + 7 =",["34","37","40"],0),
+    Q("\u0394\u03b9\u03b1\u03b9\u03c1\u03ad\u03c4\u03b5\u03c2 \u03c4\u03bf\u03c5 60;","Divisors of 60?",["14","12","10"],1), Q("\u221a(1296) =","\u221a(1296) =",["38","36","34"],1),
+    Q("(13\u00b2 \u2013 5\u00b2) \u00f7 8","(13\u00b2 \u2013 5\u00b2) \u00f7 8",["18","20","22"],0),
+    // fixed: 241 is ALSO prime with digit sum 7 \u2014 replaced by 133 = 7\u00d719
+    Q("\u03a0\u03c1\u03ce\u03c4\u03bf\u03c2 > 100 \u03bc\u03b5 \u03ac\u03b8\u03c1\u03bf\u03b9\u03c3\u03bc\u03b1 \u03c8\u03b7\u03c6\u03af\u03c9\u03bd 7;","Prime > 100 with digit sum 7?",["151","160","133"],0),
+    Q("2\u00b2\u2070\u00b2\u2076 \u00f7 2\u00b2\u2070\u00b2\u2075 + 2 =","2\u00b2\u2070\u00b2\u2076 \u00f7 2\u00b2\u2070\u00b2\u2075 + 2 =",["4","2026","2"],0),
+    Q("lim \u03b7\u03bcx / x, x\u21920","lim sin x / x, x\u21920",["0","1","\u221e"],1), Q("ln(e\u2075) =","ln(e\u2075) =",["5","e","1/5"],0),
+    Q("|3 + 4i| =","|3 + 4i| =",["7","5","25"],1), Q("\u222b\u2080\u00b9 2x dx =","\u222b\u2080\u00b9 2x dx =",["1","2","1/2"],0),
+    Q("\u03a0\u03cc\u03c3\u03b1 \u03c5\u03c0\u03bf\u03c3\u03cd\u03bd\u03bf\u03bb\u03b1 \u03ad\u03c7\u03b5\u03b9 \u03c3\u03cd\u03bd\u03bf\u03bb\u03bf \u03bc\u03b5 4 \u03c3\u03c4\u03bf\u03b9\u03c7\u03b5\u03af\u03b1;","How many subsets has a 4-element set?",["8","16","12"],1),
+    Q("\u0386\u03b8\u03c1\u03bf\u03b9\u03c3\u03bc\u03b1 \u03c4\u03c9\u03bd 10 \u03c0\u03c1\u03ce\u03c4\u03c9\u03bd \u03c0\u03b5\u03c1\u03b9\u03c4\u03c4\u03ce\u03bd","Sum of the first 10 odd numbers",["55","100","90"],1),
     Q("C(10,3) =","C(10,3) =",["120","720","90"],0),
-    Q("Ψηφίο μονάδων του 3²⁰²⁰","Last digit of 3²⁰²⁰",["1","3","9"],0), Q("i²⁰²⁶ =","i²⁰²⁶ =",["1","−1","i"],1),
-    Q("log₂ 1024 =","log₂ 1024 =",["8","10","12"],1), Q("f(x) = x³ − 3x → f′(1) =","f(x) = x³ − 3x → f′(1) =",["0","−2","1"],0),
-    Q("Πόσοι τέλειοι τετράγωνοι ≤ 200;","How many perfect squares ≤ 200?",["13","14","15"],1),
-    Q("2⁰ + 2¹ + 2² + 2³ + 2⁴ =","2⁰ + 2¹ + 2² + 2³ + 2⁴ =",["30","31","32"],1),
-    Q("0.111… =","0.111… =",["1/10","1/9","1/11"],1),
-    Q("Δύο ζάρια: P(διπλό 6)","Two dice: P(double six)",["1/12","1/36","1/6"],1)
+    Q("\u03a8\u03b7\u03c6\u03af\u03bf \u03bc\u03bf\u03bd\u03ac\u03b4\u03c9\u03bd \u03c4\u03bf\u03c5 3\u00b2\u2070\u00b2\u2070","Last digit of 3\u00b2\u2070\u00b2\u2070",["1","3","9"],0), Q("i\u00b2\u2070\u00b2\u2076 =","i\u00b2\u2070\u00b2\u2076 =",["1","\u22121","i"],1),
+    Q("log\u2082 1024 =","log\u2082 1024 =",["8","10","12"],1), Q("f(x) = x\u00b3 \u2212 3x \u2192 f\u2032(1) =","f(x) = x\u00b3 \u2212 3x \u2192 f\u2032(1) =",["0","\u22122","1"],0),
+    Q("\u03a0\u03cc\u03c3\u03bf\u03b9 \u03c4\u03ad\u03bb\u03b5\u03b9\u03bf\u03b9 \u03c4\u03b5\u03c4\u03c1\u03ac\u03b3\u03c9\u03bd\u03bf\u03b9 \u2264 200;","How many perfect squares \u2264 200?",["13","14","15"],1),
+    Q("2\u2070 + 2\u00b9 + 2\u00b2 + 2\u00b3 + 2\u2074 =","2\u2070 + 2\u00b9 + 2\u00b2 + 2\u00b3 + 2\u2074 =",["30","31","32"],1),
+    Q("0.111\u2026 =","0.111\u2026 =",["1/10","1/9","1/11"],1),
+    Q("\u0394\u03cd\u03bf \u03b6\u03ac\u03c1\u03b9\u03b1: P(\u03b4\u03b9\u03c0\u03bb\u03cc 6)","Two dice: P(double six)",["1/12","1/36","1/6"],1)
   ]
 };
 
@@ -1842,17 +1849,17 @@ const QUESTION_SETS = {
 // Achievements
 // ================================================
 const ACH = {
-  firstWin:   { icon:"🏆", gr:"Πρώτη Νίκη",        en:"First Victory" },
-  perfectRun: { icon:"💯", gr:"Άψογο Παιχνίδι",    en:"Perfect Run" },
-  speedDemon: { icon:"⚡", gr:"Ταχύτητα Φωτός",    en:"Speed Demon" },
-  comboMaster:{ icon:"🔥", gr:"Κυρίαρχος Combo",   en:"Combo Master" },
-  mathGenius: { icon:"🧠", gr:"Μαθηματική Ιδιοφυΐα", en:"Math Genius" },
-  persistent: { icon:"💪", gr:"Επίμονος",           en:"Persistent" },
-  bossSlayer: { icon:"👑", gr:"Νικητής Boss",       en:"Boss Slayer" },
-  survivor:   { icon:"♾️", gr:"Επιζών (25+ στην Επιβίωση)", en:"Survivor (25+ in Survival)" },
-  dailyHero:  { icon:"📅", gr:"Ήρωας της Ημέρας",   en:"Daily Hero" },
-  streak3:    { icon:"🗓️", gr:"3 ημέρες στη σειρά", en:"3-day streak" },
-  hundred:    { icon:"🎯", gr:"100 σωστές απαντήσεις", en:"100 correct answers" }
+  firstWin:   { icon:"\ud83c\udfc6", gr:"\u03a0\u03c1\u03ce\u03c4\u03b7 \u039d\u03af\u03ba\u03b7",        en:"First Victory" },
+  perfectRun: { icon:"\ud83d\udcaf", gr:"\u0386\u03c8\u03bf\u03b3\u03bf \u03a0\u03b1\u03b9\u03c7\u03bd\u03af\u03b4\u03b9",    en:"Perfect Run" },
+  speedDemon: { icon:"\u26a1", gr:"\u03a4\u03b1\u03c7\u03cd\u03c4\u03b7\u03c4\u03b1 \u03a6\u03c9\u03c4\u03cc\u03c2",    en:"Speed Demon" },
+  comboMaster:{ icon:"\ud83d\udd25", gr:"\u039a\u03c5\u03c1\u03af\u03b1\u03c1\u03c7\u03bf\u03c2 Combo",   en:"Combo Master" },
+  mathGenius: { icon:"\ud83e\udde0", gr:"\u039c\u03b1\u03b8\u03b7\u03bc\u03b1\u03c4\u03b9\u03ba\u03ae \u0399\u03b4\u03b9\u03bf\u03c6\u03c5\u0390\u03b1", en:"Math Genius" },
+  persistent: { icon:"\ud83d\udcaa", gr:"\u0395\u03c0\u03af\u03bc\u03bf\u03bd\u03bf\u03c2",           en:"Persistent" },
+  bossSlayer: { icon:"\ud83d\udc51", gr:"\u039d\u03b9\u03ba\u03b7\u03c4\u03ae\u03c2 Boss",       en:"Boss Slayer" },
+  survivor:   { icon:"\u267e\ufe0f", gr:"\u0395\u03c0\u03b9\u03b6\u03ce\u03bd (25+ \u03c3\u03c4\u03b7\u03bd \u0395\u03c0\u03b9\u03b2\u03af\u03c9\u03c3\u03b7)", en:"Survivor (25+ in Survival)" },
+  dailyHero:  { icon:"\ud83d\udcc5", gr:"\u0389\u03c1\u03c9\u03b1\u03c2 \u03c4\u03b7\u03c2 \u0397\u03bc\u03ad\u03c1\u03b1\u03c2",   en:"Daily Hero" },
+  streak3:    { icon:"\ud83d\uddd3\ufe0f", gr:"3 \u03b7\u03bc\u03ad\u03c1\u03b5\u03c2 \u03c3\u03c4\u03b7 \u03c3\u03b5\u03b9\u03c1\u03ac", en:"3-day streak" },
+  hundred:    { icon:"\ud83c\udfaf", gr:"100 \u03c3\u03c9\u03c3\u03c4\u03ad\u03c2 \u03b1\u03c0\u03b1\u03bd\u03c4\u03ae\u03c3\u03b5\u03b9\u03c2", en:"100 correct answers" }
 };
 const loadAch = () => safeGetJSON('mc_achievements', {});
 function unlock(key){
@@ -1875,13 +1882,13 @@ function displayAchievements(){
 // Game config
 // ================================================
 const LEVEL_CONFIG = {
-  beginner:   { pool:'easy',   baseTime:15,  comboRate:0,     floor:1.0,  ico:'⚪', color:'#7D8AA8' },
-  easy:       { pool:'easy',   baseTime:12,  comboRate:0.02,  floor:0.7,  ico:'🟢', color:'#00A97A' },
-  normal:     { pool:'medium', baseTime:10,  comboRate:0.025, floor:0.65, ico:'🔵', color:'#0B87AC' },
-  hard:       { pool:'hard',   baseTime:8,   comboRate:0.03,  floor:0.6,  ico:'🟡', color:'#B57A00' },
-  expert:     { pool:'chaser', baseTime:6,   comboRate:0.035, floor:0.55, ico:'🔴', color:'#D4501A' },
-  impossible: { pool:'chaser', baseTime:4.5, comboRate:0.04,  floor:0.5,  ico:'💀', color:'#C4165E' },
-  daily:      { pool:'medium', baseTime:10,  comboRate:0.02,  floor:0.7,  ico:'📅', color:'#B57A00' }
+  beginner:   { pool:'easy',   baseTime:15,  comboRate:0,     floor:1.0,  ico:'\u26aa', color:'#7D8AA8' },
+  easy:       { pool:'easy',   baseTime:12,  comboRate:0.02,  floor:0.7,  ico:'\ud83d\udfe2', color:'#00A97A' },
+  normal:     { pool:'medium', baseTime:10,  comboRate:0.025, floor:0.65, ico:'\ud83d\udd35', color:'#0B87AC' },
+  hard:       { pool:'hard',   baseTime:8,   comboRate:0.03,  floor:0.6,  ico:'\ud83d\udfe1', color:'#B57A00' },
+  expert:     { pool:'chaser', baseTime:6,   comboRate:0.035, floor:0.55, ico:'\ud83d\udd34', color:'#D4501A' },
+  impossible: { pool:'chaser', baseTime:4.5, comboRate:0.04,  floor:0.5,  ico:'\ud83d\udc80', color:'#C4165E' },
+  daily:      { pool:'medium', baseTime:10,  comboRate:0.02,  floor:0.7,  ico:'\ud83d\udcc5', color:'#B57A00' }
 };
 const TIERS = ['beginner','easy','normal','hard','expert','impossible'];
 const POOL_ORDER = ['easy','medium','hard','chaser'];
@@ -1925,7 +1932,7 @@ function renderLevels(){
     const c = LEVEL_CONFIG[t], best = parseInt(safeGet(bestKey(t, surv))) || 0;
     const b = document.createElement('button');
     b.type = 'button'; b.className = 'lvl'; b.style.background = c.color;
-    b.innerHTML = `<span class="n">${c.ico} ${STR[lang][t]}</span><span class="m">⏱ ${c.baseTime}${STR[lang].sec}${c.comboRate ? ' ↘' : ''}</span><span class="b">🏅 ${best}</span>`;
+    b.innerHTML = `<span class="n">${c.ico} ${STR[lang][t]}</span><span class="m">\u23f1 ${c.baseTime}${STR[lang].sec}${c.comboRate ? ' \u2198' : ''}</span><span class="b">\ud83c\udfc5 ${best}</span>`;
     b.onclick = () => startGame(t);
     grid.appendChild(b);
   });
@@ -1936,7 +1943,7 @@ function renderStreak(){
   const alive = s.last === today || s.last === yest;
   if (alive && s.count > 0) box.innerHTML = `<div class="streak">${tr('streakDays', s.count)}</div>`;
   const dd = safeGetJSON('mc_daily_done', null);
-  if (dd && dd.date === new Date().toISOString().slice(0, 10)) box.innerHTML += `<div style="margin-top:.5rem;font-size:.82rem;font-weight:700;color:var(--success)">${tr('dailyDone')} · ${dd.score}</div>`;
+  if (dd && dd.date === new Date().toISOString().slice(0, 10)) box.innerHTML += `<div style="margin-top:.5rem;font-size:.82rem;font-weight:700;color:var(--success)">${tr('dailyDone')} \u00b7 ${dd.score}</div>`;
 }
 function localDate(offset){
   const d = new Date(); d.setDate(d.getDate() + offset);
@@ -1982,7 +1989,7 @@ function renderStatsPanel(){
   const n = totals.correct + totals.wrong, acc = n ? Math.round(totals.correct / n * 100) : 0, games = parseInt(safeGet('mc_games_played')) || 0;
   const rows = Object.entries(topics).map(([k, s]) => { const tt = s.correct + s.wrong; return { k, tt, acc: tt ? Math.round(s.correct / tt * 100) : 0 }; })
     .filter(r => r.tt > 0).sort((a, b) => a.acc - b.acc);
-  let h = `<div class="stat-big"><b>${acc}%</b><small>${tr('overall')} · ${games} ${tr('games')}</small></div>`;
+  let h = `<div class="stat-big"><b>${acc}%</b><small>${tr('overall')} \u00b7 ${games} ${tr('games')}</small></div>`;
   if (!rows.length) h += `<p style="text-align:center;opacity:.7">${tr('playMore')}</p>`;
   rows.forEach(r => {
     const col = r.acc >= 75 ? 'var(--success)' : r.acc >= 50 ? 'var(--gold)' : 'var(--danger)';
@@ -1992,19 +1999,19 @@ function renderStatsPanel(){
 }
 function classifyTopic(q){
   const x = (q.en || '') + ' ' + (q.gr || '');
-  if (/\[Complex|\[Μιγαδικοί|\|\d+ \+ \d+i\||\bi[²³⁴]/.test(x)) return 'Complex Numbers';
-  if (/∫|′|\blim\b/.test(x)) return 'Calculus';
+  if (/\[Complex|\[\u039c\u03b9\u03b3\u03b1\u03b4\u03b9\u03ba\u03bf\u03af|\|\d+ \+ \d+i\||\bi[\u00b2\u00b3\u2074]/.test(x)) return 'Complex Numbers';
+  if (/\u222b|\u2032|\blim\b/.test(x)) return 'Calculus';
   if (/log|ln\(|ln /i.test(x)) return 'Logarithms';
-  if (/sin\d|cos\d|tan\d|ημ\d|συν\d|εφ\d|sin²|ημ²|sin\(|ημ\(/i.test(x)) return 'Trigonometry';
-  if (/C\(\d|τρόπους|ways|χειραψ|handshake|διαγών|diagonal|υποσύνολ|subset|!/.test(x)) return 'Combinatorics';
-  if (/Πιθανότητα|Probability|P\(|Μέσος όρος|Average|Διάμεσος|Median/.test(x)) return 'Statistics & Probability';
-  if (/πρόοδος|sequence|Σειρά|Series|1\+2\+3|Άθροισμα των 10/i.test(x)) return 'Sequences';
-  if (/GCD|LCM|ΕΚΠ|ΜΚΔ|prime|πρώτ|mod |διαιρέτ|divisor|πολλαπλάσι|multiple|ψηφίο|last digit|άρτι|even/i.test(x)) return 'Number Theory';
-  if (/Quadrant|Τεταρτημόριο|πR|Εμβαδόν|Area|Περίμετρος|Perimeter|γωνί|angle|πλευρ|sides|Κλίση|Slope|Απόσταση μεταξύ|Distance between|ακτίνας|radius|τρίγων|triangle/i.test(x)) return 'Geometry';
+  if (/sin\d|cos\d|tan\d|\u03b7\u03bc\d|\u03c3\u03c5\u03bd\d|\u03b5\u03c6\d|sin\u00b2|\u03b7\u03bc\u00b2|sin\(|\u03b7\u03bc\(/i.test(x)) return 'Trigonometry';
+  if (/C\(\d|\u03c4\u03c1\u03cc\u03c0\u03bf\u03c5\u03c2|ways|\u03c7\u03b5\u03b9\u03c1\u03b1\u03c8|handshake|\u03b4\u03b9\u03b1\u03b3\u03ce\u03bd|diagonal|\u03c5\u03c0\u03bf\u03c3\u03cd\u03bd\u03bf\u03bb|subset|!/.test(x)) return 'Combinatorics';
+  if (/\u03a0\u03b9\u03b8\u03b1\u03bd\u03cc\u03c4\u03b7\u03c4\u03b1|Probability|P\(|\u039c\u03ad\u03c3\u03bf\u03c2 \u03cc\u03c1\u03bf\u03c2|Average|\u0394\u03b9\u03ac\u03bc\u03b5\u03c3\u03bf\u03c2|Median/.test(x)) return 'Statistics & Probability';
+  if (/\u03c0\u03c1\u03cc\u03bf\u03b4\u03bf\u03c2|sequence|\u03a3\u03b5\u03b9\u03c1\u03ac|Series|1\+2\+3|\u0386\u03b8\u03c1\u03bf\u03b9\u03c3\u03bc\u03b1 \u03c4\u03c9\u03bd 10/i.test(x)) return 'Sequences';
+  if (/GCD|LCM|\u0395\u039a\u03a0|\u039c\u039a\u0394|prime|\u03c0\u03c1\u03ce\u03c4|mod |\u03b4\u03b9\u03b1\u03b9\u03c1\u03ad\u03c4|divisor|\u03c0\u03bf\u03bb\u03bb\u03b1\u03c0\u03bb\u03ac\u03c3\u03b9|multiple|\u03c8\u03b7\u03c6\u03af\u03bf|last digit|\u03ac\u03c1\u03c4\u03b9|even/i.test(x)) return 'Number Theory';
+  if (/Quadrant|\u03a4\u03b5\u03c4\u03b1\u03c1\u03c4\u03b7\u03bc\u03cc\u03c1\u03b9\u03bf|\u03c0R|\u0395\u03bc\u03b2\u03b1\u03b4\u03cc\u03bd|Area|\u03a0\u03b5\u03c1\u03af\u03bc\u03b5\u03c4\u03c1\u03bf\u03c2|Perimeter|\u03b3\u03c9\u03bd\u03af|angle|\u03c0\u03bb\u03b5\u03c5\u03c1|sides|\u039a\u03bb\u03af\u03c3\u03b7|Slope|\u0391\u03c0\u03cc\u03c3\u03c4\u03b1\u03c3\u03b7 \u03bc\u03b5\u03c4\u03b1\u03be\u03cd|Distance between|\u03b1\u03ba\u03c4\u03af\u03bd\u03b1\u03c2|radius|\u03c4\u03c1\u03af\u03b3\u03c9\u03bd|triangle/i.test(x)) return 'Geometry';
   if (/%/.test(x)) return 'Percentages';
-  if (/x[²³\^]|\(x[+\-]|\dx\b|\bx =|ρίζ(ες|ων)|roots|Διακρίνουσα|Discriminant|det \[|x \+ 1\/x|a \+ b/.test(x)) return 'Algebra';
+  if (/x[\u00b2\u00b3\^]|\(x[+\-]|\dx\b|\bx =|\u03c1\u03af\u03b6(\u03b5\u03c2|\u03c9\u03bd)|roots|\u0394\u03b9\u03b1\u03ba\u03c1\u03af\u03bd\u03bf\u03c5\u03c3\u03b1|Discriminant|det \[|x \+ 1\/x|a \+ b/.test(x)) return 'Algebra';
   if (/\d\/\d/.test(x)) return 'Fractions';
-  if (/[²³]|√|\^|\d⁻/.test(x)) return 'Powers & Roots';
+  if (/[\u00b2\u00b3]|\u221a|\^|\d\u207b/.test(x)) return 'Powers & Roots';
   return 'Arithmetic';
 }
 function recordTopicStat(q, ok){
@@ -2030,7 +2037,7 @@ function resetRun(){
 }
 function enterGame(){
   showScreen('game');
-  $('lvChip').textContent = (LEVEL_CONFIG[level].ico) + ' ' + (level === 'daily' ? tr('daily') : STR[lang][level]) + (survivalMode ? ' ♾' : '');
+  $('lvChip').textContent = (LEVEL_CONFIG[level].ico) + ' ' + (level === 'daily' ? tr('daily') : STR[lang][level]) + (survivalMode ? ' \u267e' : '');
   updateScoreDisplay();
 }
 function buildDeck(pool){
@@ -2110,7 +2117,7 @@ function tick(){
   const left = Math.max(0, qEnd - performance.now()), frac = left / qDur; lastFrac = frac;
   $('bar').style.width = (frac * 100) + '%';
   $('timerBar').setAttribute('aria-valuenow', Math.round(frac * 100));
-  $('timeText').textContent = (left / 1000).toFixed(1) + (lang === 'gr' ? ' δλ' : ' s');
+  $('timeText').textContent = (left / 1000).toFixed(1) + (lang === 'gr' ? ' \u03b4\u03bb' : ' s');
   const tb = $('timerBar');
   tb.classList.toggle('warning', frac < 0.3 && frac >= 0.15); tb.classList.toggle('danger', frac < 0.15);
   $('chaserx').style.left = (2 + (1 - frac) * 58) + '%';
@@ -2196,7 +2203,7 @@ function showComboText(){
 }
 function updateScoreDisplay(){
   $('score').textContent = `${STR[lang].score}: ${score}`;
-  $('combo-counter').textContent = `🔥 ${combo}`;
+  $('combo-counter').textContent = `\ud83d\udd25 ${combo}`;
 }
 
 // ================================================
@@ -2211,7 +2218,7 @@ function endGame(won){
   $('resultMsg').textContent = won ? tr('escaped') : tr('caught');
   const ratio = survivalMode ? Math.min(1, score / 30) : okN / DECK_SIZE;
   const stars = won ? 3 : ratio >= 0.6 ? 2 : ratio >= 0.25 ? 1 : 0;
-  $('stars').innerHTML = [0, 1, 2].map(i => `<s class="${i < stars ? 'on' : ''}" style="animation-delay:${i * 0.18}s">★</s>`).join('');
+  $('stars').innerHTML = [0, 1, 2].map(i => `<s class="${i < stars ? 'on' : ''}" style="animation-delay:${i * 0.18}s">\u2605</s>`).join('');
   $('rScore').textContent = score; $('rCombo').textContent = maxCombo; $('rAcc').textContent = acc + '%';
 
   if (level === 'daily') safeSetJSON('mc_daily_done', { date: dailyDateStr, score });
@@ -2272,10 +2279,10 @@ function updateLeaderboard(){
   const box = $('leaderboard-preview'); if (_globalView) return; box.innerHTML = '';
   TIERS.forEach(l => {
     const lb = safeGetJSON(`mc_leaderboard_${l}`, []), lbs = safeGetJSON(`mc_leaderboard_${l}_survival`, []);
-    [[lb, ''], [lbs, ' ♾']].forEach(([arr, tag]) => {
+    [[lb, ''], [lbs, ' \u267e']].forEach(([arr, tag]) => {
       if (!arr.length) return;
       const e = document.createElement('div'); e.className = 'lb-entry';
-      e.innerHTML = `<span>${LEVEL_CONFIG[l].ico} ${STR[lang][l]}${tag}</span><b>${arr[0].score} ${tr('pts')} <small style="font-weight:500;opacity:.6">· 🔥${arr[0].combo || 0}</small></b>`;
+      e.innerHTML = `<span>${LEVEL_CONFIG[l].ico} ${STR[lang][l]}${tag}</span><b>${arr[0].score} ${tr('pts')} <small style="font-weight:500;opacity:.6">\u00b7 \ud83d\udd25${arr[0].combo || 0}</small></b>`;
       box.appendChild(e);
     });
   });
