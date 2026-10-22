@@ -1,0 +1,2353 @@
+<!-- Math Chaser PRO v2 · EisatoponAI · eisatopon.gr -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"></link>
+
+<style>
+#mc, #mc *, #mc *::before, #mc *::after { box-sizing: border-box; }
+#mc{
+  --bg:#F3F6FD; --surface:#FFFFFF; --surface2:#EDF1FB; --edge:#D6DEF2;
+  --ink:#0B1030; --mute:#5B6590;
+  --primary:#0FA9D6; --primary2:#0B87AC; --danger:#E01B6A; --success:#00A97A;
+  --gold:#C98A00; --orange:#E05A1E; --logo:#E63946; --night:#0A0E27;
+  --font-d:'Space Grotesk',system-ui,sans-serif; --font-b:'Inter',system-ui,sans-serif;
+  display:block; width:100%; max-width:680px; margin:1.5rem auto; padding:0 .75rem;
+  font-family:var(--font-b); color:var(--ink); line-height:1.45; text-align:center;
+}
+#mc[data-theme="dark"]{
+  --bg:#0A0E27; --surface:#10163A; --surface2:#182049; --edge:#2A3470;
+  --ink:#EAF0FF; --mute:#9AA6D6; --gold:#F2B431; --primary:#25C2EE;
+}
+
+/* ---- blog-theme resets (scoped) ---- */
+#mc h2,#mc h3,#mc h4,#mc p{ margin:0; padding:0; border:0; background:none; text-transform:none; text-shadow:none; letter-spacing:0; font-style:normal; color:var(--ink)!important; }
+#mc h2,#mc h3{ font-family:var(--font-d)!important; font-weight:700!important; line-height:1.15!important; }
+#mc p{ font-family:var(--font-b)!important; font-size:inherit; line-height:1.5; }
+#mc span,#mc div,#mc label,#mc small,#mc b,#mc strong{ color:inherit; text-shadow:none; }
+#mc button{
+  all:unset; box-sizing:border-box; cursor:pointer; font-family:var(--font-d); font-weight:700;
+  text-align:center; -webkit-tap-highlight-color:transparent; user-select:none;
+  transition:transform .12s ease, filter .15s ease, background .15s, border-color .15s, opacity .15s;
+}
+#mc button:focus-visible, #mc input:focus-visible{ outline:3px solid var(--primary); outline-offset:2px; }
+#mc button:active:not(:disabled){ transform:scale(.97); }
+#mc .hidden{ display:none!important; }
+
+/* ---- card ---- */
+#mc-card{
+  position:relative; overflow:hidden; background:var(--surface); border:1px solid var(--edge);
+  border-radius:22px; box-shadow:0 1px 0 var(--edge), 0 30px 60px -36px rgba(10,14,39,.55);
+}
+.mc-top{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding:.7rem .8rem .2rem; }
+.mc-brand{ display:flex; align-items:center; gap:.5rem; }
+.mc-logo{ width:28px; height:28px; border-radius:50%; background:var(--logo); display:flex; align-items:center; justify-content:center; flex:none; box-shadow:0 0 0 3px rgba(230,57,70,.18); }
+.mc-logo span{ font-family:var(--font-d); font-weight:700; color:#fff!important; font-size:15px; line-height:1; }
+.mc-brand small{ font-size:.72rem; font-weight:700; color:var(--mute)!important; letter-spacing:.3px; }
+.mc-tools{ display:flex; gap:.35rem; align-items:center; }
+#mc .tool{ width:34px; height:34px; border-radius:10px; border:1px solid var(--edge); background:var(--surface2); display:flex; align-items:center; justify-content:center; font-size:1rem; color:var(--ink); }
+#mc .tool:hover{ filter:brightness(1.07); }
+#mc .langs{ display:inline-flex; border:1px solid var(--edge); border-radius:10px; overflow:hidden; }
+#mc .langs button{ padding:.42rem .65rem; font-size:.74rem; color:var(--mute); background:var(--surface2); }
+#mc .langs button.on{ background:var(--primary); color:#fff!important; }
+
+.screen{ padding:.4rem 1.1rem 1.4rem; animation:mcIn .35s ease; }
+@keyframes mcIn{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;} }
+
+/* ---- hero ---- */
+.hero{ position:relative; margin:.3rem -1.1rem 0; height:210px; overflow:hidden; background:linear-gradient(180deg,#0A0E27 0%,#1b1f5a 62%,#3a1d5e 100%); }
+.hero svg{ position:absolute; inset:0; width:100%; height:100%; }
+.hero-title{ position:absolute; left:0; right:0; top:22px; z-index:2; }
+#mc .hero-title h2{ color:#fff!important; font-size:2rem!important; letter-spacing:1px!important; text-shadow:0 3px 0 rgba(224,27,106,.55)!important; }
+#mc .hero-title h2 em{ font-style:normal; color:#FFD166!important; }
+#mc .hero-title p{ color:#B9C3F5!important; font-size:.85rem; font-weight:600; margin-top:.2rem; }
+.chase-anim .chaser-g{ animation:hChase 3.2s ease-in-out infinite; }
+.chase-anim .runner-g{ animation:hRun .5s ease-in-out infinite alternate; }
+@keyframes hChase{ 0%,100%{transform:translateX(0);} 50%{transform:translateX(26px);} }
+@keyframes hRun{ from{transform:translateY(0);} to{transform:translateY(-4px);} }
+.roadlines{ animation:roadMove .8s linear infinite; }
+@keyframes roadMove{ from{transform:translateX(0);} to{transform:translateX(-60px);} }
+
+.landing-desc{ font-size:1.02rem; margin:1.1rem auto .2rem; max-width:34em; }
+.rules{ display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem; margin:1rem 0; }
+.rule{ background:var(--surface2); border:1px solid var(--edge); border-radius:14px; padding:.7rem .4rem; font-size:.78rem; font-weight:600; color:var(--ink); }
+.rule i{ display:block; font-style:normal; font-size:1.4rem; margin-bottom:.2rem; }
+#mc .btn-main{
+  display:inline-flex; align-items:center; justify-content:center; gap:.5rem; padding:1rem 2.4rem; border-radius:16px; font-size:1.2rem;
+  color:#fff!important; background:linear-gradient(135deg,#E01B6A,#E05A1E); box-shadow:0 10px 24px -10px rgba(224,27,106,.8), inset 0 -3px 0 rgba(0,0,0,.18);
+}
+#mc .btn-main:hover{ filter:brightness(1.07); transform:translateY(-2px); }
+#mc .btn-main span{ color:#fff!important; }
+#mc .btn-sec{ display:inline-flex; align-items:center; gap:.4rem; padding:.7rem 1.1rem; border-radius:12px; font-size:.92rem; background:var(--surface2); border:1px solid var(--edge); color:var(--ink)!important; }
+#mc .btn-sec span{ color:var(--ink)!important; }
+#mc .btn-sec:hover{ border-color:var(--primary); }
+#mc .btn-daily{ background:linear-gradient(135deg,#C98A00,#E05A1E); border:0; color:#fff!important; }
+#mc .btn-daily span{ color:#fff!important; }
+.row{ display:flex; flex-wrap:wrap; gap:.55rem; justify-content:center; margin-top:.8rem; }
+.streak{ display:inline-flex; align-items:center; gap:.4rem; margin-top:.9rem; padding:.35rem .8rem; border-radius:999px; background:rgba(224,90,30,.12); border:1px solid rgba(224,90,30,.35); font-weight:700; font-size:.82rem; color:var(--orange)!important; }
+#mc[data-theme="dark"] .streak{ color:#FFB27A!important; }
+.achievements{ display:flex; gap:.35rem; justify-content:center; margin:.9rem 0 0; flex-wrap:wrap; }
+.badge{ width:38px; height:38px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; border-radius:12px; background:var(--surface2); border:1px solid var(--edge); filter:grayscale(1); opacity:.4; transition:all .3s; }
+.badge.unlocked{ filter:none; opacity:1; border-color:var(--gold); box-shadow:0 0 14px -4px var(--gold); }
+
+/* ---- stats ---- */
+.panel{ background:var(--surface2); border:1px solid var(--edge); border-radius:16px; margin-top:1rem; padding:1rem; text-align:left; }
+.stat-big{ text-align:center; margin-bottom:.8rem; }
+.stat-big b{ display:block; font-family:var(--font-d); font-size:2.2rem; color:var(--primary); line-height:1; }
+.stat-big small{ color:var(--mute)!important; font-size:.82rem; }
+.topic-row{ display:flex; align-items:center; gap:.6rem; padding:.4rem 0; font-size:.88rem; }
+.topic-row .nm{ flex:0 0 38%; font-weight:600; }
+.topic-row .bar{ flex:1; height:8px; background:var(--edge); border-radius:6px; overflow:hidden; }
+.topic-row .bar i{ display:block; height:100%; border-radius:6px; }
+.topic-row .pc{ flex:0 0 3.2rem; text-align:right; font-weight:700; font-family:var(--font-d); }
+
+/* ---- level select ---- */
+.ttl{ font-size:1.3rem!important; margin:.6rem 0 .9rem!important; }
+.levels{ display:grid; grid-template-columns:repeat(2,1fr); gap:.6rem; }
+#mc .lvl{ display:flex; flex-direction:column; align-items:flex-start; gap:.15rem; padding:.8rem .9rem; border-radius:16px; color:#fff!important; text-align:left; position:relative; overflow:hidden; box-shadow:inset 0 -3px 0 rgba(0,0,0,.2); }
+#mc .lvl::after{ content:""; position:absolute; right:-18px; top:-18px; width:70px; height:70px; border-radius:50%; background:rgba(255,255,255,.14); }
+#mc .lvl:hover{ transform:translateY(-3px); filter:brightness(1.07); }
+#mc .lvl *{ color:#fff!important; }
+#mc .lvl .n{ font-size:1.05rem; }
+#mc .lvl .m{ font-family:var(--font-b); font-weight:600; font-size:.74rem; opacity:.92; }
+#mc .lvl .b{ font-family:var(--font-b); font-weight:700; font-size:.74rem; background:rgba(0,0,0,.22); padding:.1rem .5rem; border-radius:999px; margin-top:.25rem; }
+.switch{ display:inline-flex; align-items:center; gap:.6rem; margin:1.1rem 0 .2rem; cursor:pointer; font-weight:700; font-size:.92rem; color:var(--ink); }
+.switch input{ appearance:none; -webkit-appearance:none; width:44px; height:26px; border-radius:20px; background:var(--edge); position:relative; cursor:pointer; transition:background .2s; margin:0; flex:none; }
+.switch input::after{ content:""; position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:#fff; transition:transform .2s; box-shadow:0 1px 3px rgba(0,0,0,.3); }
+.switch input:checked{ background:var(--success); }
+.switch input:checked::after{ transform:translateX(18px); }
+.lb-tabs{ display:flex; gap:.4rem; margin:.5rem 0 .3rem; }
+#mc .lb-tab{ flex:1; font-family:var(--font-b); font-size:.78rem; padding:.45rem .3rem; border-radius:9px; border:1px solid var(--edge); background:var(--surface2); color:var(--ink)!important; opacity:.55; }
+#mc .lb-tab.active{ opacity:1; border-color:var(--primary); }
+.leaderboard{ background:var(--surface2); border:1px solid var(--edge); padding:.5rem .8rem; border-radius:14px; margin:.5rem 0; max-height:240px; overflow-y:auto; text-align:left; }
+.lb-entry{ display:flex; justify-content:space-between; align-items:center; padding:.45rem 0; border-bottom:1px solid var(--edge); font-size:.9rem; }
+.lb-entry:last-child{ border-bottom:0; }
+.lb-entry b{ font-family:var(--font-d); }
+.lb-empty{ color:var(--mute)!important; font-size:.85rem; padding:.6rem 0; text-align:center; }
+.back{ margin-top:1rem; }
+
+/* ---- game ---- */
+.hud{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; margin:.5rem 0 .2rem; }
+.chip{ display:inline-flex; align-items:center; gap:.35rem; padding:.3rem .7rem; border-radius:999px; background:var(--surface2); border:1px solid var(--edge); font-family:var(--font-d); font-weight:700; font-size:.95rem; color:var(--ink); }
+.chip.combo{ color:var(--orange)!important; border-color:rgba(224,90,30,.4); }
+.chip.combo.pop{ animation:pop .35s ease; }
+.chip.lv{ font-size:.78rem; color:var(--mute)!important; }
+#mc .tool.sm{ width:30px; height:30px; font-size:.62rem; letter-spacing:-1px; }
+.progress-pills{ display:flex; justify-content:center; gap:.28rem; margin:.5rem 0 .3rem; flex-wrap:wrap; min-height:10px; }
+.pill{ width:9px; height:9px; border-radius:50%; background:var(--edge); transition:all .3s; }
+.pill.current{ background:var(--primary); transform:scale(1.5); }
+.pill.correct{ background:var(--success); }
+.pill.wrong{ background:var(--danger); }
+.pill.boss{ border-radius:3px; background:var(--gold); opacity:.55; }
+.pill.boss.correct{ background:var(--success); opacity:1; }
+.pill.boss.wrong{ background:var(--danger); opacity:1; }
+
+.track{ position:relative; height:70px; margin:.4rem -1.1rem .1rem; background:linear-gradient(180deg,#171c52,#0d1131); overflow:hidden; border-top:1px solid var(--edge); border-bottom:1px solid var(--edge); }
+.track .lane{ position:absolute; left:0; right:0; bottom:14px; height:4px; background:repeating-linear-gradient(90deg,rgba(255,255,255,.55) 0 22px,transparent 22px 44px); animation:laneMove .7s linear infinite; opacity:.55; }
+.track .ground{ position:absolute; left:0; right:0; bottom:0; height:14px; background:#070a22; }
+.track.danger .lane{ animation-duration:.25s; background:repeating-linear-gradient(90deg,rgba(255,80,110,.9) 0 22px,transparent 22px 44px); }
+.track.danger{ animation:dangerPulse .6s ease-in-out infinite alternate; }
+@keyframes laneMove{ from{background-position:0 0;} to{background-position:-44px 0;} }
+@keyframes dangerPulse{ from{box-shadow:inset 0 0 0 rgba(224,27,106,0);} to{box-shadow:inset 0 0 34px rgba(224,27,106,.55);} }
+.finish{ position:absolute; right:0; top:0; bottom:14px; width:14px; background:repeating-conic-gradient(#fff 0 25%,#111 0 50%) 0 0/14px 14px; opacity:.85; }
+.runner,.chaserx{ position:absolute; bottom:15px; width:46px; height:46px; }
+.runner{ left:calc(78% - 23px); }
+.runner svg,.chaserx svg{ width:100%; height:100%; overflow:visible; }
+.runner.bounce{ animation:rBounce .45s ease; }
+@keyframes rBounce{ 0%{transform:translateY(0);} 40%{transform:translateY(-16px) rotate(-8deg);} 100%{transform:none;} }
+.chaserx{ left:2%; transition:left .09s linear; }
+.chaserx.snap{ transition:left .4s cubic-bezier(.2,.9,.3,1); }
+.chaserx svg{ animation:chBob .28s ease-in-out infinite alternate; }
+@keyframes chBob{ from{transform:translateY(0) scaleY(1);} to{transform:translateY(-3px) scaleY(.94);} }
+.track.caught .chaserx{ left:calc(78% - 30px)!important; }
+.track.caught .runner{ animation:rHit .5s ease forwards; }
+@keyframes rHit{ to{transform:translateX(40px) rotate(70deg); opacity:.25;} }
+
+.timebar{ height:8px; background:var(--surface2); border:1px solid var(--edge); border-radius:6px; overflow:hidden; margin:.8rem 0 .25rem; }
+.timebar i{ display:block; height:100%; width:100%; border-radius:6px; background:linear-gradient(90deg,var(--primary),var(--success)); }
+.timebar.warning i{ background:linear-gradient(90deg,var(--gold),var(--orange)); }
+.timebar.danger i{ background:linear-gradient(90deg,var(--orange),var(--danger)); }
+.timetext{ font-family:var(--font-d); font-weight:700; font-size:.95rem; color:var(--mute)!important; }
+#bossBanner{ margin:.5rem 0 0; padding:.45rem; border-radius:12px; font-family:var(--font-d); font-weight:700; background:linear-gradient(90deg,#F2B431,#E05A1E); color:#1a1200!important; animation:glow 1s ease-in-out infinite; }
+#bossBanner span{ color:#1a1200!important; }
+#adaptiveBadge{ margin-top:.4rem; font-size:.82rem; font-weight:700; color:var(--primary)!important; }
+@keyframes glow{ 0%,100%{box-shadow:0 0 0 1px var(--gold);} 50%{box-shadow:0 0 22px -2px var(--gold);} }
+.question{ font-family:var(--font-d)!important; font-size:2.3rem!important; font-weight:700!important; min-height:5.2rem; display:flex; align-items:center; justify-content:center; margin:.8rem 0 .4rem!important; word-break:break-word; line-height:1.2!important; }
+.question.long{ font-size:1.55rem!important; }
+.question.xl{ font-size:1.2rem!important; }
+#options{ display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.7rem 0; }
+#mc .option{
+  position:relative; display:flex; align-items:center; justify-content:center; min-height:62px; padding:.8rem .4rem; font-size:1.15rem; border-radius:14px;
+  background:var(--surface2); border:2px solid var(--edge); color:var(--ink)!important; box-shadow:inset 0 -3px 0 var(--edge); word-break:break-word;
+}
+#mc .option:hover:not(:disabled){ border-color:var(--primary); transform:translateY(-2px); }
+#mc .option kbd{ position:absolute; left:6px; top:4px; font-family:var(--font-b); font-size:.62rem; opacity:.45; font-weight:700; }
+#mc .option.correct{ background:var(--success)!important; border-color:var(--success)!important; color:#fff!important; box-shadow:none; animation:pop .45s ease; }
+#mc .option.wrong{ background:var(--danger)!important; border-color:var(--danger)!important; color:#fff!important; box-shadow:none; animation:shake .4s; }
+#mc .option.gone{ opacity:.15; pointer-events:none; }
+#mc .option:disabled:not(.correct):not(.wrong){ opacity:.55; cursor:default; }
+@keyframes pop{ 0%{transform:scale(1);} 50%{transform:scale(1.07);} 100%{transform:scale(1);} }
+@keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-7px);} 75%{transform:translateX(7px);} }
+.reveal{ font-size:.92rem; font-weight:700; color:var(--success)!important; margin-top:.4rem; animation:mcIn .3s ease; }
+.lifelines{ display:flex; justify-content:center; gap:.6rem; margin-top:.6rem; }
+#mc .life{ display:inline-flex; align-items:center; gap:.35rem; padding:.5rem .9rem; border-radius:12px; font-size:.85rem; background:var(--surface2); border:1px solid var(--edge); color:var(--ink)!important; }
+#mc .life:hover:not(:disabled){ border-color:var(--primary); }
+#mc .life:disabled{ opacity:.35; cursor:default; }
+#mc .life span{ color:inherit!important; }
+
+.combo-display{ position:absolute; top:42%; left:50%; font-family:var(--font-d); font-size:2.6rem; font-weight:700; color:var(--gold); animation:comboUp .7s ease-out forwards; pointer-events:none; z-index:50; text-shadow:0 3px 14px rgba(0,0,0,.35); white-space:nowrap; }
+@keyframes comboUp{ 0%{opacity:0; transform:translate(-50%,-50%) scale(.5);} 40%{opacity:1; transform:translate(-50%,-50%) scale(1.15);} 100%{opacity:0; transform:translate(-50%,-120%) scale(1);} }
+.particle{ position:absolute; width:8px; height:8px; border-radius:50%; pointer-events:none; animation:pFly 1s ease-out forwards; z-index:40; }
+@keyframes pFly{ 0%{opacity:1; transform:translate(0,0) scale(1);} 100%{opacity:0; transform:translate(var(--tx),var(--ty)) scale(0);} }
+.confetti{ position:absolute; top:-12px; width:9px; height:14px; z-index:60; pointer-events:none; animation:cFall linear forwards; }
+@keyframes cFall{ to{ transform:translate(var(--dx),620px) rotate(720deg); opacity:.9; } }
+
+#pauseOv{ position:absolute; inset:0; z-index:80; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; background:rgba(10,14,39,.92); backdrop-filter:blur(8px); }
+#pauseOv h3{ color:#fff!important; font-size:1.6rem!important; }
+
+/* ---- result ---- */
+.stars{ font-size:2.4rem; letter-spacing:.2rem; margin:.2rem 0; }
+.stars s{ text-decoration:none; color:var(--edge)!important; }
+.stars s.on{ color:#F2B431!important; text-shadow:0 2px 10px rgba(242,180,49,.6); animation:badgeUnlock .6s ease both; }
+@keyframes badgeUnlock{ 0%{transform:scale(.3) rotate(-30deg);} 60%{transform:scale(1.3) rotate(8deg);} 100%{transform:scale(1);} }
+.res-title{ font-size:1.8rem!important; margin:.4rem 0!important; }
+.res-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem; margin:.9rem 0; }
+.res-cell{ background:var(--surface2); border:1px solid var(--edge); border-radius:14px; padding:.7rem .3rem; }
+.res-cell b{ display:block; font-family:var(--font-d); font-size:1.6rem; line-height:1.1; color:var(--ink); }
+.res-cell small{ font-size:.72rem; font-weight:600; color:var(--mute)!important; }
+.newrec{ display:inline-block; padding:.25rem .8rem; border-radius:999px; background:linear-gradient(90deg,#F2B431,#E05A1E); color:#1a1200!important; font-weight:800; font-size:.8rem; animation:glow 1s ease-in-out infinite; }
+.tip{ font-size:.92rem; color:var(--mute)!important; margin-top:.8rem; }
+.best{ font-size:.9rem; color:var(--mute)!important; margin-top:.3rem; }
+.newach{ margin:1rem 0 0; }
+.newach p{ color:var(--gold)!important; font-weight:700; }
+
+@media (max-width:560px){
+  #mc{ padding:0 .35rem; margin:.6rem auto; }
+  .screen{ padding:.4rem .85rem 1.2rem; }
+  .hero{ margin:.3rem -.85rem 0; height:190px; }
+  .track{ margin-left:-.85rem; margin-right:-.85rem; }
+  #mc .hero-title h2{ font-size:1.6rem!important; }
+  .question{ font-size:1.8rem!important; }
+  .question.long{ font-size:1.3rem!important; }
+  #options{ grid-template-columns:1fr; gap:.5rem; }
+  #mc .option{ min-height:54px; }
+  .rules{ gap:.35rem; }
+  .levels{ gap:.45rem; }
+  .topic-row .nm{ flex-basis:42%; }
+}
+@media (prefers-reduced-motion:reduce){
+  #mc *, #mc *::before, #mc *::after{ animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
+}
+</style>
+
+<div id="mc" data-theme="light">
+ <div id="mc-card">
+  <div class="mc-top">
+    <div class="mc-brand"><div class="mc-logo"><span>e</span></div><small>EisatoponAI</small></div>
+    <div class="mc-tools">
+      <div class="langs" id="langs"><button id="lang-gr" type="button" onclick="setLang('gr')">ΕΛ</button><button id="lang-en" type="button" onclick="setLang('en')">EN</button></div>
+      <button class="tool" id="soundToggle" type="button" onclick="toggleSound()" aria-label="Sound">🔊</button>
+      <button class="tool" id="themeToggle" type="button" onclick="toggleTheme()" aria-label="Theme">🌙</button>
+    </div>
+  </div>
+
+  <!-- LANDING -->
+  <div class="screen" id="landing-page">
+    <div class="hero chase-anim" aria-hidden="true">
+      <svg viewBox="0 0 680 210" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="mcSun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD166"/><stop offset="1" stop-color="#E01B6A"/></linearGradient>
+        </defs>
+        <circle cx="520" cy="96" r="44" fill="url(#mcSun)" opacity=".9"/>
+        <g fill="#0b0f33"><rect x="0" y="118" width="60" height="62"/><rect x="52" y="96" width="46" height="84"/><rect x="104" y="128" width="70" height="52"/><rect x="180" y="104" width="40" height="76"/><rect x="226" y="122" width="76" height="58"/><rect x="310" y="90" width="44" height="90"/><rect x="360" y="124" width="64" height="56"/><rect x="430" y="108" width="50" height="72"/><rect x="560" y="120" width="60" height="60"/><rect x="620" y="100" width="60" height="80"/></g>
+        <g fill="#FFD166" opacity=".75"><rect x="62" y="108" width="5" height="5"/><rect x="74" y="120" width="5" height="5"/><rect x="190" y="116" width="5" height="5"/><rect x="320" y="104" width="5" height="5"/><rect x="332" y="124" width="5" height="5"/><rect x="442" y="122" width="5" height="5"/><rect x="636" y="116" width="5" height="5"/></g>
+        <rect x="0" y="176" width="680" height="34" fill="#070a22"/>
+        <g class="roadlines"><g fill="#fff" opacity=".6"><rect x="0" y="192" width="30" height="4"/><rect x="60" y="192" width="30" height="4"/><rect x="120" y="192" width="30" height="4"/><rect x="180" y="192" width="30" height="4"/><rect x="240" y="192" width="30" height="4"/><rect x="300" y="192" width="30" height="4"/><rect x="360" y="192" width="30" height="4"/><rect x="420" y="192" width="30" height="4"/><rect x="480" y="192" width="30" height="4"/><rect x="540" y="192" width="30" height="4"/><rect x="600" y="192" width="30" height="4"/><rect x="660" y="192" width="30" height="4"/></g></g>
+        <g class="chaser-g"><g transform="translate(120,124)"><path d="M2 50 L2 24 Q2 4 24 4 Q46 4 46 24 L46 50 L39 44 L32 50 L24 44 L16 50 L9 44 Z" fill="#F5B82E"/><path d="M8 20 Q10 9 24 8" fill="none" stroke="#FFE9A8" stroke-width="3" stroke-linecap="round" opacity=".7"/><circle cx="17" cy="23" r="7" fill="#fff"/><circle cx="33" cy="23" r="7" fill="#fff"/><circle cx="19.5" cy="24" r="3.4" fill="#0A0E27"/><circle cx="35.5" cy="24" r="3.4" fill="#0A0E27"/><circle cx="20.6" cy="22.8" r="1.1" fill="#fff"/><circle cx="36.6" cy="22.8" r="1.1" fill="#fff"/><ellipse cx="10" cy="33" rx="4" ry="2.4" fill="#E01B6A" opacity=".45"/><ellipse cx="40" cy="33" rx="4" ry="2.4" fill="#E01B6A" opacity=".45"/><path d="M19 35 Q25 40 31 35" fill="none" stroke="#0A0E27" stroke-width="2.6" stroke-linecap="round"/></g></g>
+        <g class="runner-g"><g transform="translate(420,130)"><defs><radialGradient id="mcRedH" cx="35%" cy="28%" r="80%"><stop offset="0" stop-color="#FF7A6B"/><stop offset=".55" stop-color="#F0364B"/><stop offset="1" stop-color="#B8102F"/></radialGradient></defs>
+          <circle cx="23" cy="24" r="22" fill="url(#mcRedH)"/><circle cx="23" cy="24" r="22" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="3"/>
+          <text x="23" y="33" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="28" fill="#fff">e</text>
+          <ellipse cx="12" cy="49" rx="9" ry="4" fill="#fff"/><ellipse cx="34" cy="48" rx="9" ry="4" fill="#fff"/>
+        </g></g>
+      </svg>
+      <div class="hero-title"><h2>MATH <em>CHASER</em></h2><p data-i="tagline"></p></div>
+    </div>
+
+    <p class="landing-desc" data-i="landDesc"></p>
+    <div class="rules">
+      <div class="rule"><i>💥</i><span data-i="rule1"></span></div>
+      <div class="rule"><i>⏱️</i><span data-i="rule2"></span></div>
+      <div class="rule"><i>👑</i><span data-i="rule3"></span></div>
+    </div>
+    <button class="btn-main" type="button" onclick="showLevelSelect()"><span>🎮</span><span data-i="play"></span></button>
+    <div class="row">
+      <button class="btn-sec btn-daily" type="button" onclick="startDailyChallenge()">📅 <span id="daily-btn-text"></span></button>
+      <button class="btn-sec" type="button" onclick="toggleStats()">📊 <span data-i="stats"></span></button>
+    </div>
+    <div id="streakBox"></div>
+    <div class="panel hidden" id="statsPanel"><h3 style="text-align:center;margin-bottom:.8rem;font-size:1.1rem">📊 <span data-i="statsTitle"></span></h3><div id="statsBody"></div></div>
+    <div class="achievements" id="achievements"></div>
+  </div>
+
+  <!-- LEVEL SELECT -->
+  <div class="screen hidden" id="level-select">
+    <h3 class="ttl" data-i="chooseLevel"></h3>
+    <div class="levels" id="levelGrid"></div>
+    <label class="switch"><input id="survivalToggle" type="checkbox" onchange="renderLevels()"><span>♾ <span data-i="survival"></span></span></label>
+    <p style="font-size:.78rem;opacity:.7" data-i="survivalHint"></p>
+    <div style="margin-top:1.4rem">
+      <h3 style="font-size:1.1rem" data-i="lbTitle"></h3>
+      <div class="lb-tabs" id="lbTabs">
+        <button class="lb-tab active" id="localLbToggle" type="button" onclick="if(_globalView) toggleGlobalLeaderboard();"><span data-i="lbLocal"></span></button>
+        <button class="lb-tab hidden" id="globalLbToggle" type="button" onclick="toggleGlobalLeaderboard()">🌐 <span data-i="lbGlobal"></span></button>
+      </div>
+      <div class="leaderboard" id="leaderboard-preview"></div>
+    </div>
+    <button class="btn-sec back" type="button" onclick="showLanding()">← <span data-i="back"></span></button>
+  </div>
+
+  <!-- GAME -->
+  <div class="screen hidden" id="game">
+    <div class="hud">
+      <span class="chip" id="score">0</span>
+      <span class="chip lv" id="lvChip"></span>
+      <span style="display:flex;gap:.35rem;align-items:center">
+        <span class="chip combo" id="combo-counter" style="visibility:hidden">🔥 0</span>
+        <button class="tool sm" type="button" onclick="pauseGame(true)" aria-label="Pause">❚❚</button>
+      </span>
+    </div>
+    <div class="progress-pills" id="progress-pills"></div>
+    <div class="track" id="track" aria-hidden="true">
+      <div class="lane"></div><div class="ground"></div><div class="finish"></div>
+      <div class="chaserx" id="chaserx"><svg viewBox="0 0 48 52"><path d="M2 50 L2 24 Q2 4 24 4 Q46 4 46 24 L46 50 L39 44 L32 50 L24 44 L16 50 L9 44 Z" fill="#F5B82E"/><path d="M8 20 Q10 9 24 8" fill="none" stroke="#FFE9A8" stroke-width="3" stroke-linecap="round" opacity=".7"/><circle cx="17" cy="23" r="7" fill="#fff"/><circle cx="33" cy="23" r="7" fill="#fff"/><circle cx="19.5" cy="24" r="3.4" fill="#0A0E27"/><circle cx="35.5" cy="24" r="3.4" fill="#0A0E27"/><circle cx="20.6" cy="22.8" r="1.1" fill="#fff"/><circle cx="36.6" cy="22.8" r="1.1" fill="#fff"/><ellipse cx="10" cy="33" rx="4" ry="2.4" fill="#E01B6A" opacity=".45"/><ellipse cx="40" cy="33" rx="4" ry="2.4" fill="#E01B6A" opacity=".45"/><path d="M19 35 Q25 40 31 35" fill="none" stroke="#0A0E27" stroke-width="2.6" stroke-linecap="round"/></svg></div>
+      <div class="runner" id="runner"><svg viewBox="0 0 46 52"><defs><radialGradient id="mcRedT" cx="35%" cy="28%" r="80%"><stop offset="0" stop-color="#FF7A6B"/><stop offset=".55" stop-color="#F0364B"/><stop offset="1" stop-color="#B8102F"/></radialGradient></defs><circle cx="23" cy="24" r="22" fill="url(#mcRedT)"/><circle cx="23" cy="24" r="22" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="3"/><text x="23" y="33" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="28" fill="#fff">e</text><ellipse cx="12" cy="49" rx="9" ry="4" fill="#fff"/><ellipse cx="34" cy="48" rx="9" ry="4" fill="#fff"/></svg></div>
+    </div>
+    <div class="timebar" id="timerBar" role="progressbar" aria-label="Time remaining" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><i id="bar"></i></div>
+    <div class="timetext" id="timeText">–</div>
+    <div class="hidden" id="bossBanner">👑 <span id="boss-banner-text"></span></div>
+    <div class="hidden" id="adaptiveBadge">⚡ <span id="adaptive-badge-text"></span></div>
+    <p class="question" id="question" aria-live="polite"></p>
+    <div id="options"></div>
+    <div class="lifelines">
+      <button class="life" id="life5050" type="button" onclick="useFifty()">✂️ <span data-i="fifty"></span></button>
+      <button class="life" id="lifeTime" type="button" onclick="useTime()">⏱ <span data-i="plus3"></span></button>
+    </div>
+    <div id="pauseOv" class="hidden"><h3 data-i="paused"></h3><button class="btn-main" type="button" onclick="pauseGame(false)"><span data-i="resume"></span></button></div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="screen hidden" id="result">
+    <div class="stars" id="stars"></div>
+    <h3 class="res-title" id="resultMsg"></h3>
+    <div id="recBox"></div>
+    <div class="res-grid">
+      <div class="res-cell"><b id="rScore">0</b><small data-i="finalScore"></small></div>
+      <div class="res-cell"><b id="rCombo">0</b><small data-i="maxCombo"></small></div>
+      <div class="res-cell"><b id="rAcc">0%</b><small data-i="accuracy"></small></div>
+    </div>
+    <div class="best" id="bestScore"></div>
+    <div class="tip" id="sessionTip"></div>
+    <div class="newach hidden" id="newAchievements"><p>🎉 <span data-i="newAch"></span></p><div class="achievements" id="result-achievements"></div></div>
+    <div class="row" style="margin-top:1.2rem">
+      <button class="btn-main" type="button" onclick="playAgain()" style="padding:.9rem 2rem;font-size:1.05rem"><span data-i="playAgain"></span></button>
+    </div>
+    <div class="row">
+      <button class="btn-sec" type="button" id="shareBtn" onclick="shareResult()">📤 <span id="share-text"></span></button>
+      <button class="btn-sec" type="button" onclick="showLanding()">🏠 <span data-i="menu"></span></button>
+    </div>
+  </div>
+ </div>
+</div>
+<script>
+(function(){
+"use strict";
+// ================================================
+// Storage helpers (never throw)
+// ================================================
+function safeGet(k, fb=null){ try{ const v=localStorage.getItem(k); return v===null?fb:v; }catch(e){ return fb; } }
+function safeSet(k, v){ try{ localStorage.setItem(k, v); return true; }catch(e){ return false; } }
+function safeGetJSON(k, fb){ try{ const r=localStorage.getItem(k); return r?JSON.parse(r):fb; }catch(e){ return fb; } }
+function safeSetJSON(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } }
+const $ = id => document.getElementById(id);
+const ROOT = $('mc');
+const SITE_URL = 'https://www.eisatopon.gr/p/math-chaser-eisatoponai-root.html';
+
+let lang = safeGet('mc_lang') === 'en' ? 'en' : 'gr';
+let soundEnabled = safeGet('mc_sound') !== 'false';
+let theme = safeGet('mc_theme');
+if (theme !== 'dark' && theme !== 'light') {
+  theme = (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+}
+
+// ================================================
+// i18n
+// ================================================
+const STR = {
+ gr:{
+  tagline:"Μία λάθος απάντηση και ο Chaser σε πιάνει!",
+  landDesc:"Δοκίμασε τις μαθηματικές σου ικανότητες! Απάντησε γρήγορα — ο χρόνος μικραίνει όσο πιο καλά τα πας. 🔥",
+  rule1:"Ένα λάθος = σε πιάνει", rule2:"Σερί σωστών = λιγότερος χρόνος", rule3:"Boss κάθε 10η = διπλοί πόντοι",
+  play:"ΠΑΙΞΕ ΤΩΡΑ", stats:"Στατιστικά", statsTitle:"Τα Στατιστικά σου",
+  daily:"Πρόκληση Ημέρας", chooseLevel:"Επίλεξε επίπεδο δυσκολίας",
+  beginner:"Αρχάριος", easy:"Εύκολο", normal:"Κανονικό", hard:"Δύσκολο", expert:"Έμπειρος", impossible:"Αδύνατο",
+  survival:"Επιβίωση (ατελείωτο)", survivalHint:"Χωρίς τέλος — παίζεις μέχρι να κάνεις λάθος.",
+  lbTitle:"🏆 Κορυφαία σκορ", lbLocal:"Τοπικό ρεκόρ", lbGlobal:"Παγκόσμια", back:"Πίσω",
+  score:"Σκορ", combo:"Combo", escaped:"🔥 ΔΙΕΦΥΓΕΣ!", caught:"💥 Ο CHASER ΣΕ ΠΙΑΣΕ!", timeup:"⏱ Τέλος χρόνου!",
+  finalScore:"Σκορ", maxCombo:"Μέγ. combo", accuracy:"Ακρίβεια", best:"Καλύτερο",
+  playAgain:"ΠΑΙΞΕ ΞΑΝΑ", menu:"Μενού", share:"Μοιράσου το", copied:"Αντιγράφηκε! ✓",
+  newAch:"Νέα Επιτεύγματα!", boss:"BOSS ΕΡΩΤΗΣΗ — Διπλοί Πόντοι!", adaptive:"Η δυσκολία ανέβηκε λόγω σερί!",
+  fifty:"50:50", plus3:"+3 sec", paused:"Παύση", resume:"ΣΥΝΕΧΕΙΑ",
+  newRecord:"🏅 ΝΕΟ ΡΕΚΟΡ!", sec:"δλ", pts:"π.", noScores:"Δεν υπάρχουν ακόμη σκορ...",
+  dailyDone:"✅ Η πρόκληση της ημέρας ολοκληρώθηκε", streakDays:(n)=>`🔥 Σερί: ${n} ${n===1?'ημέρα':'ημέρες'}`,
+  overall:"Συνολική ακρίβεια", games:"παιχνίδια", playMore:"Παίξε λίγο ακόμα για στατιστικά ανά θέμα.",
+  correctWas:(v,q)=>`✓ Η σωστή απάντηση ήταν: ${v}`, cleanRun:"🎯 Καθαρό παιχνίδι — καμία λανθασμένη απάντηση!",
+  mistakes:(n,t)=>`📊 Έκανες ${n} λάθος${n>1?'η':''} στην κατηγορία: ${t}. Άξιζε λίγη ακόμα εξάσκηση εκεί.`,
+  loading:"Φόρτωση…", unavailable:"Η online κατάταξη δεν είναι διαθέσιμη αυτή τη στιγμή.", noGlobal:"Δεν υπάρχουν ακόμη σκορ. Γίνε ο πρώτος!", failed:"Αποτυχία φόρτωσης.", player:"Παίκτης",
+  best_:"Ρεκόρ", dailyTag:"Ημέρας", surv:"Επιβίωση",
+  shareText:(o)=>`🧠 Math Chaser PRO — ${o.won?'Ξέφυγα από τον Chaser!':'Ο Chaser με έπιασε!'}\n${o.lvl}${o.surv?' · ♾':''}: σκορ ${o.score}, combo ${o.combo}, ακρίβεια ${o.acc}%\nΔοκίμασε να με ξεπεράσεις 👉 ${SITE_URL}`,
+  topics:{"Arithmetic":"Αριθμητική","Powers & Roots":"Δυνάμεις & Ρίζες","Percentages":"Ποσοστά","Algebra":"Άλγεβρα","Geometry":"Γεωμετρία","Number Theory":"Θεωρία Αριθμών","Trigonometry":"Τριγωνομετρία","Logarithms":"Λογάριθμοι","Calculus":"Ανάλυση","Complex Numbers":"Μιγαδικοί","Fractions":"Κλάσματα","Statistics & Probability":"Στατιστική & Πιθανότητες","Sequences":"Ακολουθίες","Combinatorics":"Συνδυαστική"}
+ },
+ en:{
+  tagline:"One wrong answer and the Chaser catches you!",
+  landDesc:"Test your math skills! Answer fast — the timer shrinks the better you do. 🔥",
+  rule1:"One mistake = caught", rule2:"Streak = less time", rule3:"Boss every 10th = double points",
+  play:"PLAY NOW", stats:"Statistics", statsTitle:"Your Statistics",
+  daily:"Daily Challenge", chooseLevel:"Choose difficulty",
+  beginner:"Beginner", easy:"Easy", normal:"Normal", hard:"Hard", expert:"Expert", impossible:"Impossible",
+  survival:"Survival (endless)", survivalHint:"No end — you play until you slip.",
+  lbTitle:"🏆 Top scores", lbLocal:"Local best", lbGlobal:"Global", back:"Back",
+  score:"Score", combo:"Combo", escaped:"🔥 YOU ESCAPED!", caught:"💥 CHASER CAUGHT YOU!", timeup:"⏱ Time's up!",
+  finalScore:"Score", maxCombo:"Max combo", accuracy:"Accuracy", best:"Best",
+  playAgain:"PLAY AGAIN", menu:"Menu", share:"Share", copied:"Copied! ✓",
+  newAch:"New Achievements!", boss:"BOSS QUESTION — Double Points!", adaptive:"Difficulty boosted by your streak!",
+  fifty:"50:50", plus3:"+3 sec", paused:"Paused", resume:"RESUME",
+  newRecord:"🏅 NEW RECORD!", sec:"s", pts:"pts", noScores:"No scores yet...",
+  dailyDone:"✅ Today's challenge completed", streakDays:(n)=>`🔥 Streak: ${n} day${n===1?'':'s'}`,
+  overall:"Overall accuracy", games:"games", playMore:"Play a bit more to see per-topic stats.",
+  correctWas:(v,q)=>`✓ The correct answer was: ${v}`, cleanRun:"🎯 Clean run — no mistakes this time!",
+  mistakes:(n,t)=>`📊 You made ${n} mistake${n>1?'s':''} in: ${t}. Worth another look next time.`,
+  loading:"Loading…", unavailable:"Online ranking isn’t available right now.", noGlobal:"No scores yet. Be the first!", failed:"Failed to load.", player:"Player",
+  best_:"Best", dailyTag:"Daily", surv:"Survival",
+  shareText:(o)=>`🧠 Math Chaser PRO — ${o.won?'I escaped the Chaser!':'The Chaser caught me!'}\n${o.lvl}${o.surv?' · ♾':''}: score ${o.score}, combo ${o.combo}, accuracy ${o.acc}%\nBeat me 👉 ${SITE_URL}`,
+  topics:{}
+ }
+};
+const tr = (k, ...a) => { const v = STR[lang][k]; return typeof v === 'function' ? v(...a) : v; };
+const topicName = t => (STR[lang].topics && STR[lang].topics[t]) || t;
+
+// ================================================
+// Settings / theme / language
+// ================================================
+function applyTheme(){
+  ROOT.setAttribute('data-theme', theme);
+  const b = $('themeToggle');
+  b.textContent = theme === 'dark' ? '🌞' : '🌙';
+  b.setAttribute('aria-label', theme === 'dark' ? 'Light mode' : 'Dark mode');
+}
+function toggleTheme(){ theme = theme === 'dark' ? 'light' : 'dark'; safeSet('mc_theme', theme); applyTheme(); }
+function applySound(){
+  const b = $('soundToggle');
+  b.textContent = soundEnabled ? '🔊' : '🔇';
+  b.setAttribute('aria-label', soundEnabled ? 'Mute' : 'Unmute');
+}
+function toggleSound(){ soundEnabled = !soundEnabled; safeSet('mc_sound', soundEnabled); applySound(); if (soundEnabled) playSound('click'); }
+function setLang(l){ lang = l; safeSet('mc_lang', l); updateTexts(); }
+
+// ================================================
+// Sound (Web Audio) — tiny synth, all failures swallowed
+// ================================================
+let _ac = null;
+function getAC(){
+  try{
+    if (!_ac) _ac = new (window.AudioContext || window.webkitAudioContext)();
+    if (_ac.state === 'suspended') _ac.resume();
+    return _ac;
+  }catch(e){ return null; }
+}
+function tone(f0, f1, t0, dur, type, vol){
+  const ac = getAC(); if (!ac) return;
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.type = type || 'sine';
+  o.connect(g); g.connect(ac.destination);
+  const t = ac.currentTime + t0;
+  o.frequency.setValueAtTime(f0, t);
+  if (f1 && f1 !== f0) o.frequency.exponentialRampToValueAtTime(f1, t + dur * 0.8);
+  g.gain.setValueAtTime(vol || 0.2, t);
+  g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+  o.start(t); o.stop(t + dur + 0.02);
+}
+function playSound(type){
+  if (!soundEnabled) return;
+  try{
+    switch(type){
+      case 'correct': tone(523.25, 783.99, 0, .2, 'sine', .25); break;
+      case 'wrong': tone(220, 90, 0, .4, 'sawtooth', .16); break;
+      case 'combo': tone(659.25, 1046.5, 0, .3, 'triangle', .28); break;
+      case 'click': tone(420, 420, 0, .05, 'sine', .1); break;
+      case 'tick': tone(900, 900, 0, .04, 'square', .05); break;
+      case 'win': [523.25,659.25,783.99,1046.5].forEach((f,i)=>tone(f,f,i*.11,.3,'triangle',.25)); break;
+      case 'lose': [392,330,262,196].forEach((f,i)=>tone(f,f*.95,i*.14,.3,'sawtooth',.14)); break;
+    }
+  }catch(e){}
+}
+
+// ================================================
+// Effects
+// ================================================
+function createParticles(x, y, color){
+  for (let i=0;i<14;i++){
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = x+'px'; p.style.top = y+'px'; p.style.background = color;
+    const ang = (Math.PI*2*i)/14, v = 45 + Math.random()*55;
+    p.style.setProperty('--tx', Math.cos(ang)*v+'px'); p.style.setProperty('--ty', Math.sin(ang)*v+'px');
+    $('mc-card').appendChild(p);
+    setTimeout(()=>p.remove(), 1000);
+  }
+}
+function confetti(){
+  const card = $('mc-card'), w = card.clientWidth || 600;
+  const cols = ['#E01B6A','#0FA9D6','#F2B431','#00A97A','#E05A1E','#7a35d8'];
+  for (let i=0;i<46;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random()*w+'px';
+    c.style.background = cols[i%cols.length];
+    c.style.setProperty('--dx', (Math.random()*160-80)+'px');
+    c.style.animationDuration = (1.6+Math.random()*1.6)+'s';
+    c.style.animationDelay = (Math.random()*.5)+'s';
+    card.appendChild(c);
+    setTimeout(()=>c.remove(), 3800);
+  }
+}
+
+// ================================================
+// RNG (seedable for Daily Challenge)
+// ================================================
+let rng = Math.random;
+function getRandomInt(min, max){ return Math.floor(rng()*(max-min+1))+min; }
+function shuffleArray(a){
+  const arr=[...a];
+  for(let i=arr.length-1;i>0;i--){ const j=Math.floor(rng()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
+  return arr;
+}
+function pick(a){ return a[getRandomInt(0, a.length-1)]; }
+function hashStringToSeed(s){ let h=0; for(let i=0;i<s.length;i++) h=(Math.imul(31,h)+s.charCodeAt(i))|0; return h>>>0; }
+function seededRNG(seed){
+  let a=seed;
+  return function(){ a|=0; a=(a+0x6D2B79F5)|0; let t=Math.imul(a^(a>>>15),1|a); t=(t+Math.imul(t^(t>>>7),61|t))^t; return ((t^(t>>>14))>>>0)/4294967296; };
+}
+function gcd(a,b){ return b===0?a:gcd(b,a%b); }
+const L = (gr,en) => lang==='gr'?gr:en;
+
+// ================================================
+// Question generators (original pools — unchanged)
+// ================================================
+const questionTypes = {
+    easy: [
+      () => {
+        // Addition with inverse variations
+        const a = getRandomInt(3, 15);
+        const b = getRandomInt(3, 15);
+        const sum = a + b;
+        const variation = getRandomInt(0, 2);
+        
+        if (variation === 0) {
+          // Direct: a + b = ?
+          return {
+            gr: `${a} + ${b} =`,
+            en: `${a} + ${b} =`,
+            correct: sum,
+            options: shuffleArray([sum - 2, sum, sum + 2])
+          };
+        } else if (variation === 1) {
+          // Reverse: ? + b = sum
+          return {
+            gr: `? + ${b} = ${sum}`,
+            en: `? + ${b} = ${sum}`,
+            correct: a,
+            options: shuffleArray([a - 1, a, a + 1])
+          };
+        } else {
+          // Subtraction inverse: sum - a = ?
+          return {
+            gr: `${sum} - ${a} =`,
+            en: `${sum} - ${a} =`,
+            correct: b,
+            options: shuffleArray([b - 1, b, b + 1])
+          };
+        }
+      },
+      () => {
+        // Multiplication with inverse variations INCLUDING reciprocal
+        const a = getRandomInt(5, 12);
+        const b = getRandomInt(5, 12);
+        const product = a * b;
+        const variation = getRandomInt(0, 3);
+        
+        if (variation === 0) {
+          // Direct: a × b = ?
+          return {
+            gr: `${a} × ${b} =`,
+            en: `${a} × ${b} =`,
+            correct: product,
+            options: shuffleArray([product - 5, product, product + 5])
+          };
+        } else if (variation === 1) {
+          // Commutative: b × a = ?
+          return {
+            gr: `${b} × ${a} =`,
+            en: `${b} × ${a} =`,
+            correct: product,
+            options: shuffleArray([product - 5, product, product + 5])
+          };
+        } else if (variation === 2) {
+          // Inverse: product ÷ a = ?
+          return {
+            gr: `${product} ÷ ${a} =`,
+            en: `${product} ÷ ${a} =`,
+            correct: b,
+            options: shuffleArray([b - 1, b, b + 1])
+          };
+        } else {
+          // Reciprocal inverse: product ÷ b = ?
+          return {
+            gr: `${product} ÷ ${b} =`,
+            en: `${product} ÷ ${b} =`,
+            correct: a,
+            options: shuffleArray([a - 1, a, a + 1])
+          };
+        }
+      },
+      () => {
+        // Subtraction with inverse variations INCLUDING reciprocal
+        const a = getRandomInt(15, 25);
+        const b = getRandomInt(5, 12);
+        const diff = a - b;
+        const variation = getRandomInt(0, 2);
+        
+        if (variation === 0) {
+          // Direct: a - b = ?
+          return {
+            gr: `${a} - ${b} =`,
+            en: `${a} - ${b} =`,
+            correct: diff,
+            options: shuffleArray([diff - 1, diff, diff + 1])
+          };
+        } else if (variation === 1) {
+          // Inverse (addition): diff + b = ?
+          return {
+            gr: `${diff} + ${b} =`,
+            en: `${diff} + ${b} =`,
+            correct: a,
+            options: shuffleArray([a - 1, a, a + 1])
+          };
+        } else {
+          // Reciprocal inverse: a - diff = ?
+          return {
+            gr: `${a} - ${diff} =`,
+            en: `${a} - ${diff} =`,
+            correct: b,
+            options: shuffleArray([b - 1, b, b + 1])
+          };
+        }
+      },
+      () => {
+        // Squares with inverse variations
+        const bases = [6, 7, 8, 9, 11, 12];
+        const base = bases[getRandomInt(0, bases.length - 1)];
+        const square = base * base;
+        const variation = getRandomInt(0, 1);
+        
+        if (variation === 0) {
+          // Direct: base² = ?
+          return {
+            gr: `${base}² =`,
+            en: `${base}² =`,
+            correct: square,
+            options: shuffleArray([square - 5, square, square + 5])
+          };
+        } else {
+          // Inverse: √square = ?
+          return {
+            gr: `√${square} =`,
+            en: `√${square} =`,
+            correct: base,
+            options: shuffleArray([base - 1, base, base + 1])
+          };
+        }
+      },
+      () => {
+        // Square roots with inverse variations
+        const roots = [36, 49, 64, 81, 121, 144];
+        const num = roots[getRandomInt(0, roots.length - 1)];
+        const root = Math.sqrt(num);
+        const variation = getRandomInt(0, 1);
+        
+        if (variation === 0) {
+          // Direct: √num = ?
+          return {
+            gr: `√${num} =`,
+            en: `√${num} =`,
+            correct: root,
+            options: shuffleArray([root - 1, root, root + 1])
+          };
+        } else {
+          // Inverse: root² = ?
+          return {
+            gr: `${root}² =`,
+            en: `${root}² =`,
+            correct: num,
+            options: shuffleArray([num, num - 15, num + 15])
+          };
+        }
+      },
+      () => {
+        // Simple sequences like 1+2+3+4
+        const start = getRandomInt(1, 5);
+        const count = getRandomInt(3, 5);
+        let seq = [];
+        let sum = 0;
+        for (let i = 0; i < count; i++) {
+          seq.push(start + i);
+          sum += start + i;
+        }
+        return {
+          gr: seq.join('+') + ' =',
+          en: seq.join('+') + ' =',
+          correct: sum,
+          options: shuffleArray([sum, sum - 2, sum + 2])
+        };
+      },
+      () => {
+        // Alternating add/subtract like 1-2+3-4
+        const start = getRandomInt(1, 5);
+        const count = 4;
+        let seq = [];
+        let result = 0;
+        for (let i = 0; i < count; i++) {
+          const num = start + i;
+          if (i % 2 === 0) {
+            seq.push(num);
+          } else {
+            seq.push(`-${num}`);
+          }
+          result += (i % 2 === 0 ? num : -num);
+        }
+        return {
+          gr: seq.join('+').replaceAll('+-', '-') + ' =',
+          en: seq.join('+').replaceAll('+-', '-') + ' =',
+          correct: result,
+          options: shuffleArray([result, result - 1, result + 1])
+        };
+      },
+      () => {
+        // Geometry formula: E = α² is area of which shape?
+        const formulas = [
+          {gr: "Ε = α²", en: "A = a²", correct: "Τετράγωνο", correctEn: "Square", wrong1Gr: "Τρίγωνο", wrong1En: "Triangle", wrong2Gr: "Ορθογώνιο", wrong2En: "Rectangle"}
+        ];
+        
+        const formula = formulas[0]; // Only one for now
+        
+        return {
+          gr: `${formula.gr} → Εμβαδόν;`,
+          en: `${formula.en} → Area of?`,
+          correct: lang === "gr" ? formula.correct : formula.correctEn,
+          options: lang === "gr" 
+            ? shuffleArray([formula.correct, formula.wrong1Gr, formula.wrong2Gr])
+            : shuffleArray([formula.correctEn, formula.wrong1En, formula.wrong2En])
+        };
+      }
+    ],
+    medium: [
+      () => {
+        // Multiplication with inverse variations
+        const a = getRandomInt(8, 15);
+        const b = getRandomInt(8, 15);
+        const product = a * b;
+        const variation = getRandomInt(0, 2);
+        
+        if (variation === 0) {
+          // Direct: a × b = ?
+          return {
+            gr: `${a} × ${b} =`,
+            en: `${a} × ${b} =`,
+            correct: product,
+            options: shuffleArray([product - 10, product, product + 10])
+          };
+        } else if (variation === 1) {
+          // Commutative: b × a = ?
+          return {
+            gr: `${b} × ${a} =`,
+            en: `${b} × ${a} =`,
+            correct: product,
+            options: shuffleArray([product - 10, product, product + 10])
+          };
+        } else {
+          // Division inverse: product ÷ a = ?
+          return {
+            gr: `${product} ÷ ${a} =`,
+            en: `${product} ÷ ${a} =`,
+            correct: b,
+            options: shuffleArray([b - 2, b, b + 2])
+          };
+        }
+      },
+      () => {
+        const dividends = [144, 169, 196, 225, 256];
+        const dividend = dividends[getRandomInt(0, dividends.length - 1)];
+        const divisors = [12, 13, 14, 15, 16];
+        const divisor = divisors[dividends.indexOf(dividend)];
+        const correct = dividend / divisor;
+        return {
+          gr: `${dividend} ÷ ${divisor} =`,
+          en: `${dividend} ÷ ${divisor} =`,
+          correct,
+          options: shuffleArray([correct - 1, correct, correct + 1])
+        };
+      },
+      () => {
+        const a = getRandomInt(5, 9);
+        const b = getRandomInt(3, 7);
+        const correct = a * a + b * b;
+        return {
+          gr: `${a}² + ${b}² =`,
+          en: `${a}² + ${b}² =`,
+          correct,
+          options: shuffleArray([correct - 2, correct, correct + 2])
+        };
+      },
+      () => {
+        // num restricted to multiples of 20 so every percentage in the list
+        // (10/15/20/25/30%) divides it exactly — no more silently rounding
+        // an inexact percentage to a "correct" answer.
+        const percentages = [10, 15, 20, 25, 30];
+        const pct = percentages[getRandomInt(0, percentages.length - 1)];
+        const num = getRandomInt(5, 10) * 20;
+        const correct = num * pct / 100;
+        return {
+          gr: `${pct}% του ${num}`,
+          en: `${pct}% of ${num}`,
+          correct,
+          options: shuffleArray([correct - 5, correct, correct + 5])
+        };
+      },
+      () => {
+        const a = getRandomInt(5, 12);
+        const b = getRandomInt(3, 8);
+        const c = getRandomInt(3, 7);
+        const correct = (a + b) * c;
+        return {
+          gr: `(${a} + ${b}) × ${c} =`,
+          en: `(${a} + ${b}) × ${c} =`,
+          correct,
+          options: shuffleArray([correct - 5, correct, correct + 5])
+        };
+      },
+      () => {
+        // Mixed multiplication and addition like 2×1+2×3+3×4
+        const a = getRandomInt(2, 4);
+        const b = getRandomInt(1, 3);
+        const c = getRandomInt(2, 4);
+        const d = getRandomInt(2, 5);
+        const e = getRandomInt(3, 5);
+        const f = getRandomInt(3, 6);
+        const correct = a * b + c * d + e * f;
+        return {
+          gr: `${a}×${b}+${c}×${d}+${e}×${f} =`,
+          en: `${a}×${b}+${c}×${d}+${e}×${f} =`,
+          correct,
+          options: shuffleArray([correct, correct - 5, correct + 5])
+        };
+      },
+      () => {
+        // Mixed multiplication with subtraction like 2×1+2×3-3×4
+        const a = getRandomInt(2, 4);
+        const b = getRandomInt(1, 3);
+        const c = getRandomInt(2, 4);
+        const d = getRandomInt(3, 5);
+        const e = getRandomInt(2, 4);
+        const f = getRandomInt(4, 7);
+        const correct = a * b + c * d - e * f;
+        return {
+          gr: `${a}×${b}+${c}×${d}-${e}×${f} =`,
+          en: `${a}×${b}+${c}×${d}-${e}×${f} =`,
+          correct,
+          options: shuffleArray([correct, correct - 3, correct + 3])
+        };
+      },
+      () => {
+        // Trick question: fractions with zero numerator like 0/2 + 0/3 + 0/5 = 0
+        const count = getRandomInt(2, 4);
+        let seq = [];
+        const denominators = [2, 3, 4, 5, 6, 7];
+        
+        for (let i = 0; i < count; i++) {
+          const denom = denominators[getRandomInt(0, denominators.length - 1)];
+          seq.push(`0/${denom}`);
+        }
+        
+        const correct = 0;
+        return {
+          gr: seq.join('+') + ' =',
+          en: seq.join('+') + ' =',
+          correct,
+          options: shuffleArray([0, 1, -1])
+        };
+      },
+      () => {
+        // Fraction to percentage conversion: 3/5 = 60%, 2/5 = 40%, 3/4 = 75%, 1/2 = 50%
+        const fractions = [
+          {num: 3, denom: 5, pct: 60},
+          {num: 2, denom: 5, pct: 40},
+          {num: 3, denom: 4, pct: 75},
+          {num: 1, denom: 2, pct: 50},
+          {num: 1, denom: 4, pct: 25},
+          {num: 4, denom: 5, pct: 80}
+        ];
+        
+        const frac = fractions[getRandomInt(0, fractions.length - 1)];
+        const correct = frac.pct;
+        
+        // Generate wrong options that are multiples of 5
+        const wrongOptions = [correct - 20, correct - 10, correct + 10, correct + 20]
+          .filter(x => x > 0 && x <= 100 && x !== correct);
+        
+        return {
+          gr: `${frac.num}/${frac.denom} = ?%`,
+          en: `${frac.num}/${frac.denom} = ?%`,
+          correct: correct,
+          options: shuffleArray([correct, wrongOptions[0], wrongOptions[1]])
+        };
+      },
+      () => {
+        // Decimal to fraction conversion: 0.5 = 1/2, 0.25 = 1/4, 0.75 = 3/4, etc.
+        const conversions = [
+          {decimal: "0.5", answer: "1/2", wrong1: "1/3", wrong2: "2/5"},
+          {decimal: "0.25", answer: "1/4", wrong1: "1/5", wrong2: "2/7"},
+          {decimal: "0.75", answer: "3/4", wrong1: "2/3", wrong2: "4/5"},
+          {decimal: "0.2", answer: "1/5", wrong1: "1/4", wrong2: "2/9"},
+          {decimal: "0.4", answer: "2/5", wrong1: "1/3", wrong2: "3/7"},
+          {decimal: "0.6", answer: "3/5", wrong1: "2/3", wrong2: "5/8"},
+          {decimal: "0.8", answer: "4/5", wrong1: "3/4", wrong2: "5/6"}
+        ];
+        
+        const conv = conversions[getRandomInt(0, conversions.length - 1)];
+        
+        return {
+          gr: `${conv.decimal} = ?`,
+          en: `${conv.decimal} = ?`,
+          correct: conv.answer,
+          options: shuffleArray([conv.answer, conv.wrong1, conv.wrong2])
+        };
+      },
+      () => {
+        // Geometry formula: E = πR² is area of which shape?
+        const formulas = [
+          {gr: "Ε = πR²", en: "A = πR²", correct: "Κύκλος", correctEn: "Circle", wrong1Gr: "Τετράγωνο", wrong1En: "Square", wrong2Gr: "Τρίγωνο", wrong2En: "Triangle"}
+        ];
+        
+        const formula = formulas[0]; // Only one for now
+        
+        return {
+          gr: `${formula.gr} → Εμβαδόν;`,
+          en: `${formula.en} → Area of?`,
+          correct: lang === "gr" ? formula.correct : formula.correctEn,
+          options: lang === "gr" 
+            ? shuffleArray([formula.correct, formula.wrong1Gr, formula.wrong2Gr])
+            : shuffleArray([formula.correctEn, formula.wrong1En, formula.wrong2En])
+        };
+      },
+      () => {
+        // Coordinate plane quadrants: Point A(x,y) belongs to which quadrant?
+        const points = [
+          {x: -1, y: 3, quadrant: "Β'", quadrantEn: "II"},   // x<0, y>0
+          {x: 2, y: 5, quadrant: "Α'", quadrantEn: "I"},     // x>0, y>0
+          {x: -3, y: -2, quadrant: "Γ'", quadrantEn: "III"}, // x<0, y<0
+          {x: 4, y: -1, quadrant: "Δ'", quadrantEn: "IV"},   // x>0, y<0
+          {x: -2, y: 4, quadrant: "Β'", quadrantEn: "II"},
+          {x: 3, y: 2, quadrant: "Α'", quadrantEn: "I"},
+          {x: -4, y: -3, quadrant: "Γ'", quadrantEn: "III"},
+          {x: 5, y: -2, quadrant: "Δ'", quadrantEn: "IV"}
+        ];
+        
+        const point = points[getRandomInt(0, points.length - 1)];
+        const allGr = ["Α'", "Β'", "Γ'", "Δ'"];
+        const allEn = ["I", "II", "III", "IV"];
+        const wrongGr = shuffleArray(allGr.filter(q => q !== point.quadrant)).slice(0, 2);
+        const wrongEn = shuffleArray(allEn.filter(q => q !== point.quadrantEn)).slice(0, 2);
+        
+        return {
+          gr: `Α(${point.x}, ${point.y}) → Τεταρτημόριο;`,
+          en: `A(${point.x}, ${point.y}) → Quadrant?`,
+          correct: lang === "gr" ? point.quadrant : point.quadrantEn,
+          options: lang === "gr" 
+            ? shuffleArray([point.quadrant, ...wrongGr])
+            : shuffleArray([point.quadrantEn, ...wrongEn])
+        };
+      },
+      () => {
+        // Power of zero trick: a⁰ = 1 for any a ≠ 0
+        const powerOfZero = [
+          {expr: "1⁰ + 2⁰ + 3⁰", answer: "3", wrong1: "0", wrong2: "6"},
+          {expr: "5⁰ + 10⁰", answer: "2", wrong1: "0", wrong2: "15"},
+          {expr: "7⁰ + 8⁰ + 9⁰ + 10⁰", answer: "4", wrong1: "0", wrong2: "34"}
+        ];
+        
+        const power = powerOfZero[getRandomInt(0, powerOfZero.length - 1)];
+        
+        return {
+          gr: `${power.expr} = ?`,
+          en: `${power.expr} = ?`,
+          correct: power.answer,
+          options: shuffleArray([power.answer, power.wrong1, power.wrong2])
+        };
+      },
+      () => {
+        // Compound operations with inverse variations (for Medium)
+        const a = getRandomInt(5, 15);
+        const b = getRandomInt(3, 8);
+        const c = getRandomInt(5, 12);
+        const variation = getRandomInt(0, 3);
+        
+        if (variation === 0) {
+          // Direct: (a × b) + c = ?
+          const result = a * b + c;
+          return {
+            gr: `(${a} × ${b}) + ${c} =`,
+            en: `(${a} × ${b}) + ${c} =`,
+            correct: result,
+            options: shuffleArray([result, result - 5, result + 5])
+          };
+        } else if (variation === 1) {
+          // Inverse: (result - c) ÷ b = ?
+          const result = a * b + c;
+          return {
+            gr: `(${result} - ${c}) ÷ ${b} =`,
+            en: `(${result} - ${c}) ÷ ${b} =`,
+            correct: a,
+            options: shuffleArray([a, a - 1, a + 1])
+          };
+        } else if (variation === 2) {
+          // Direct: (a × b) - c = ?
+          const result = a * b - c;
+          return {
+            gr: `(${a} × ${b}) - ${c} =`,
+            en: `(${a} × ${b}) - ${c} =`,
+            correct: result,
+            options: shuffleArray([result, result - 5, result + 5])
+          };
+        } else {
+          // Inverse: (result + c) ÷ b = ?
+          const result = a * b - c;
+          return {
+            gr: `(${result} + ${c}) ÷ ${b} =`,
+            en: `(${result} + ${c}) ÷ ${b} =`,
+            correct: a,
+            options: shuffleArray([a, a - 1, a + 1])
+          };
+        }
+      }
+    ],
+    hard: [
+      () => {
+        const bases = [2, 3, 4, 5];
+        const base = bases[getRandomInt(0, bases.length - 1)];
+        const exp = getRandomInt(4, 6);
+        const correct = Math.pow(base, exp);
+        return {
+          gr: `${base}^${exp} =`,
+          en: `${base}^${exp} =`,
+          correct,
+          options: shuffleArray([correct, correct * 2, Math.round(correct / 2)])
+        };
+      },
+      () => {
+        // Real Pythagorean triples (scaled up), so √(a²+b²) is an exact
+        // integer — the old version rounded an irrational result to a
+        // "correct" integer without ever showing that it was an approximation.
+        const triples = [
+          [128, 96, 160], [160, 120, 200], [120, 50, 130], [120, 64, 136],
+          [105, 100, 145], [120, 90, 150], [156, 117, 195], [168, 70, 182]
+        ];
+        const [a, b, hyp] = triples[getRandomInt(0, triples.length - 1)];
+        return {
+          gr: `√(${a * a} + ${b * b}) =`,
+          en: `√(${a * a} + ${b * b}) =`,
+          correct: hyp,
+          options: shuffleArray([hyp - 2, hyp, hyp + 2])
+        };
+      },
+      () => {
+        // b,c chosen first, then a is forced to an exact multiple of b×c
+        // (previously used Math.floor() silently, which meant the shown
+        // "÷" wasn't the real division result whenever it didn't divide evenly).
+        const b = getRandomInt(3, 6);
+        const c = getRandomInt(2, 5);
+        const p = b * c;
+        const kMin = Math.max(1, Math.ceil(40 / p));
+        const kMax = Math.max(kMin, Math.floor(80 / p));
+        const a = p * getRandomInt(kMin, kMax);
+        const d = getRandomInt(4, 8);
+        const correct = (a / p) + d * d;
+        return {
+          gr: `${a} ÷ (${b}×${c}) + ${d}²`,
+          en: `${a} ÷ (${b}×${c}) + ${d}²`,
+          correct,
+          options: shuffleArray([correct, correct + 5, correct - 5])
+        };
+      },
+      () => {
+        const squares = [144, 169, 196, 225, 256, 289, 324, 361, 400];
+        const sq = squares[getRandomInt(0, squares.length - 1)];
+        const root = Math.sqrt(sq);
+        // Correct answer must include BOTH roots — "14" alone (forgetting
+        // the negative root) is the single most common real mistake here,
+        // so it's deliberately included as a distractor.
+        return {
+          gr: `x² = ${sq} → x =`,
+          en: `x² = ${sq} → x =`,
+          correct: `±${root}`,
+          options: shuffleArray([`±${root}`, `${root}`, `±${root - 2}`])
+        };
+      },
+      () => {
+        // a×b.b really means a×(b+b/10). The old formula (a×b + b×10) had
+        // nothing to do with that and was simply wrong. Restricting a to a
+        // multiple of 10 makes a×b/10 land on a whole number, so the
+        // question always has a clean, mathematically correct answer.
+        const aOptions = [20, 30];
+        const a = aOptions[getRandomInt(0, aOptions.length - 1)];
+        const b = getRandomInt(2, 4);
+        const correct = a * b + (a * b) / 10;
+        return {
+          gr: `${a} × ${b}.${b} =`,
+          en: `${a} × ${b}.${b} =`,
+          correct,
+          options: shuffleArray([correct, correct + 10, correct - 10])
+        };
+      },
+      () => {
+        // Gauss sum: 1+2+3+...+n
+        const maxNums = [30, 40, 50, 60, 75];
+        const n = maxNums[getRandomInt(0, maxNums.length - 1)];
+        const correct = (n * (n + 1)) / 2;
+        return {
+          gr: `1+2+3+...+${n} =`,
+          en: `1+2+3+...+${n} =`,
+          correct,
+          options: shuffleArray([correct, correct + 50, correct - 50])
+        };
+      },
+      () => {
+        // Power division with same base: a^m ÷ a^n = a^(m-n)
+        const bases = [2, 3, 5];
+        const base = bases[getRandomInt(0, bases.length - 1)];
+        const expTop = getRandomInt(6, 9);
+        const expBottom = getRandomInt(3, 5);
+        const resultExp = expTop - expBottom;
+        const correct = Math.pow(base, resultExp);
+        return {
+          gr: `${base}^${expTop} ÷ ${base}^${expBottom} =`,
+          en: `${base}^${expTop} ÷ ${base}^${expBottom} =`,
+          correct,
+          options: shuffleArray([correct, Math.pow(base, resultExp + 1), Math.pow(base, resultExp - 1)])
+        };
+      },
+      () => {
+        // Algebraic identities: (x+a)² = x² + 2ax + a²
+        const identities = [
+          // Type 1: (x+a)² = x² + ? + a² (asking for 2ax as NUMBER)
+          {a: 3, type: "middle", gr: "(x+3)² = x² + ? + 9", en: "(x+3)² = x² + ? + 9", answer: "6x", wrong1: "3x", wrong2: "9x"},
+          {a: 4, type: "middle", gr: "(x+4)² = x² + ? + 16", en: "(x+4)² = x² + ? + 16", answer: "8x", wrong1: "4x", wrong2: "16x"},
+          {a: 5, type: "middle", gr: "(x+5)² = x² + ? + 25", en: "(x+5)² = x² + ? + 25", answer: "10x", wrong1: "5x", wrong2: "25x"},
+          {a: 2, type: "middle", gr: "(x+2)² = x² + ? + 4", en: "(x+2)² = x² + ? + 4", answer: "4x", wrong1: "2x", wrong2: "8x"},
+          
+          // Type 2: (x+a)² = x² + 2ax + ? (asking for a² as NUMBER)
+          {a: 3, type: "last", gr: "(x+3)² = x² + 6x + ?", en: "(x+3)² = x² + 6x + ?", answer: "9", wrong1: "6", wrong2: "12"},
+          {a: 5, type: "last", gr: "(x+5)² = x² + 10x + ?", en: "(x+5)² = x² + 10x + ?", answer: "25", wrong1: "10", wrong2: "20"},
+          {a: 4, type: "last", gr: "(x+4)² = x² + 8x + ?", en: "(x+4)² = x² + 8x + ?", answer: "16", wrong1: "8", wrong2: "12"},
+          {a: 6, type: "last", gr: "(x+6)² = x² + 12x + ?", en: "(x+6)² = x² + 12x + ?", answer: "36", wrong1: "12", wrong2: "24"},
+          
+          // Type 3: (x-a)² = x² - ? + a² (asking for 2ax)
+          {a: 2, type: "middle-neg", gr: "(x-2)² = x² - ? + 4", en: "(x-2)² = x² - ? + 4", answer: "4x", wrong1: "2x", wrong2: "8x"},
+          {a: 3, type: "middle-neg", gr: "(x-3)² = x² - ? + 9", en: "(x-3)² = x² - ? + 9", answer: "6x", wrong1: "3x", wrong2: "9x"},
+          
+          // Type 4: (x+a)(x-a) = x² - ? (difference of squares)
+          {a: 5, type: "diff-sq", gr: "(x+5)(x-5) = x² - ?", en: "(x+5)(x-5) = x² - ?", answer: "25", wrong1: "10", wrong2: "5"},
+          {a: 7, type: "diff-sq", gr: "(x+7)(x-7) = x² - ?", en: "(x+7)(x-7) = x² - ?", answer: "49", wrong1: "14", wrong2: "7"},
+          {a: 4, type: "diff-sq", gr: "(x+4)(x-4) = x² - ?", en: "(x+4)(x-4) = x² - ?", answer: "16", wrong1: "8", wrong2: "4"}
+        ];
+        
+        const identity = identities[getRandomInt(0, identities.length - 1)];
+        
+        return {
+          gr: identity.gr,
+          en: identity.en,
+          correct: identity.answer,
+          options: shuffleArray([identity.answer, identity.wrong1, identity.wrong2])
+        };
+      }
+    ],
+    chaser: [
+      () => {
+        // Pick a,b then choose c from the ACTUAL divisors of (a²-b²)
+        // so the division is always exact — never rounded.
+        let a, b, c, diff, divisors;
+        do {
+          a = getRandomInt(11, 15);
+          b = getRandomInt(4, 8);
+          diff = a * a - b * b;
+          divisors = [];
+          for (let d = 2; d <= 10; d++) {
+            if (diff % d === 0) divisors.push(d);
+          }
+        } while (divisors.length === 0);
+        c = divisors[getRandomInt(0, divisors.length - 1)];
+        const correct = diff / c;
+        return {
+          gr: `(${a}² – ${b}²) ÷ ${c}`,
+          en: `(${a}² – ${b}²) ÷ ${c}`,
+          correct,
+          options: shuffleArray([correct, correct + 2, correct - 2])
+        };
+      },
+      () => {
+        // Same fix as the Hard-pool version above: force exact division
+        // instead of silently flooring a non-exact result.
+        const b = getRandomInt(3, 6);
+        const c = getRandomInt(2, 4);
+        const p = b * c;
+        const kMin = Math.max(1, Math.ceil(80 / p));
+        const kMax = Math.max(kMin, Math.floor(120 / p));
+        const a = p * getRandomInt(kMin, kMax);
+        const d = getRandomInt(10, 15);
+        const correct = (a / p) + d * d;
+        return {
+          gr: `${a} ÷ (${b}×${c}) + ${d}²`,
+          en: `${a} ÷ (${b}×${c}) + ${d}²`,
+          correct,
+          options: shuffleArray([correct, correct + 10, correct - 10])
+        };
+      },
+      () => {
+        // Pick the perfect square a, then pick a result r so that
+        // b = a - r² keeps a - b an EXACT perfect square (never rounded).
+        const roots = [400, 625, 900, 1225, 1600];
+        const a = roots[getRandomInt(0, roots.length - 1)];
+        const aRoot = Math.sqrt(a);
+        const minR = Math.max(1, Math.ceil(aRoot / 3));
+        const maxR = aRoot - 1;
+        const r = getRandomInt(minR, maxR);
+        const b = a - r * r;
+        return {
+          gr: `√(${a} – ${b}) =`,
+          en: `√(${a} – ${b}) =`,
+          correct: r,
+          options: shuffleArray([r - 2, r, r + 2])
+        };
+      },
+      () => {
+        const base = getRandomInt(2, 4);
+        const exp = getRandomInt(6, 9);
+        const div = getRandomInt(2, 4);
+        const add = getRandomInt(5, 10);
+        const correct = Math.pow(base, exp) / Math.pow(base, exp - div) + add;
+        return {
+          gr: `${base}^${exp} ÷ ${base}^${exp - div} + ${add} =`,
+          en: `${base}^${exp} ÷ ${base}^${exp - div} + ${add} =`,
+          correct: Math.round(correct),
+          options: shuffleArray([Math.round(correct), Math.round(correct) + 5, Math.round(correct) - 5])
+        };
+      },
+      () => {
+        // Alternating fraction sum (e.g. 3/4-1/4+5/4-2/4). Numerators are
+        // randomized and re-rolled until the alternating sum divides the
+        // denominator exactly, so the result is always a clean whole number.
+        const denominators = [2, 3, 4];
+        let denominator, nums, sum;
+        let attempts = 0;
+        do {
+          denominator = denominators[getRandomInt(0, denominators.length - 1)];
+          nums = [getRandomInt(1, 8), getRandomInt(1, 8), getRandomInt(1, 8), getRandomInt(1, 8)];
+          sum = nums[0] - nums[1] + nums[2] - nums[3];
+          attempts++;
+        } while (sum % denominator !== 0 && attempts < 200);
+
+        const seq = nums.map((n, i) => (i % 2 === 0 ? `${n}` : `-${n}`) + `/${denominator}`);
+        const correct = sum / denominator;
+
+        return {
+          gr: seq.join('+').replaceAll('+-', '-') + ' =',
+          en: seq.join('+').replaceAll('+-', '-') + ' =',
+          correct,
+          options: shuffleArray([correct, correct - 1, correct + 1])
+        };
+      },
+      () => {
+        // Logarithm addition: log2 + log5 = log(2×5) = log10 = 1
+        const logPairs = [
+          {a: 2, b: 5, product: 10, result: 1},
+          {a: 4, b: 25, product: 100, result: 2},
+          {a: 8, b: 125, product: 1000, result: 3}
+        ];
+        
+        const pair = logPairs[getRandomInt(0, logPairs.length - 1)];
+        
+        return {
+          gr: `log${pair.a} + log${pair.b} =`,
+          en: `log${pair.a} + log${pair.b} =`,
+          correct: pair.result,
+          options: shuffleArray([pair.result, pair.result - 1, pair.result + 1])
+        };
+      },
+      () => {
+        // Polynomial roots count: P(x) = x² + c, how many real roots?
+        const polynomials = [
+          {expr: "x² + 1", exprEn: "x² + 1", roots: 0},  // No real roots (Δ < 0)
+          {expr: "x² - 1", exprEn: "x² - 1", roots: 2},  // Two roots: x = ±1
+          {expr: "x²", exprEn: "x²", roots: 1},          // One double root: x = 0
+          {expr: "x² + 4", exprEn: "x² + 4", roots: 0},  // No real roots
+          {expr: "x² - 4", exprEn: "x² - 4", roots: 2},  // Two roots: x = ±2
+          {expr: "x² - 9", exprEn: "x² - 9", roots: 2}   // Two roots: x = ±3
+        ];
+        
+        const poly = polynomials[getRandomInt(0, polynomials.length - 1)];
+        
+        return {
+          gr: `P(x) = ${poly.expr}, Πλήθος ριζών;`,
+          en: `P(x) = ${poly.exprEn}, Number of roots?`,
+          correct: poly.roots,
+          options: shuffleArray([0, 1, 2])
+        };
+      },
+      () => {
+        // Complex numbers: √(-n) = ?
+        const complexRoots = [
+          {num: -4, answer: "2i", wrong1: "2", wrong2: "-2"},
+          {num: -9, answer: "3i", wrong1: "3", wrong2: "-3"},
+          {num: -16, answer: "4i", wrong1: "4", wrong2: "-4"},
+          {num: -1, answer: "i", wrong1: "1", wrong2: "-1"}
+        ];
+        
+        const root = complexRoots[getRandomInt(0, complexRoots.length - 1)];
+        
+        return {
+          gr: `[Μιγαδικοί] √(${root.num}) = ?`,
+          en: `[Complex numbers] √(${root.num}) = ?`,
+          correct: root.answer,
+          options: shuffleArray([root.answer, root.wrong1, root.wrong2])
+        };
+      },
+      () => {
+        // Indeterminate forms: ∞ - ∞ = ?
+        const indeterminateForms = [
+          {
+            expr: "∞ - ∞",
+            correct: "Απροσδιόριστη μορφή",
+            correctEn: "Indeterminate form",
+            wrong1Gr: "∞",
+            wrong1En: "∞",
+            wrong2Gr: "0",
+            wrong2En: "0"
+          }
+        ];
+        
+        const form = indeterminateForms[0];
+        
+        return {
+          gr: `${form.expr} = ?`,
+          en: `${form.expr} = ?`,
+          correct: lang === "gr" ? form.correct : form.correctEn,
+          options: lang === "gr" 
+            ? shuffleArray([form.correct, form.wrong1Gr, form.wrong2Gr])
+            : shuffleArray([form.correctEn, form.wrong1En, form.wrong2En])
+        };
+      },
+      () => {
+        // Trigonometry: sin30° + cos60° = 1/2 + 1/2 = 1
+        const trigFunctions = [
+          {
+            exprGr: "ημ30° + συν60°",
+            exprEn: "sin30° + cos60°",
+            answer: "1",
+            wrong1: "1/2",
+            wrong2: "2"
+          },
+          {
+            exprGr: "ημ45° + συν45°",
+            exprEn: "sin45° + cos45°",
+            answer: "√2",
+            wrong1: "1",
+            wrong2: "2"
+          },
+          {
+            exprGr: "ημ60° + συν30°",
+            exprEn: "sin60° + cos30°",
+            answer: "√3",
+            wrong1: "1",
+            wrong2: "2"
+          }
+        ];
+        
+        const trig = trigFunctions[getRandomInt(0, trigFunctions.length - 1)];
+        
+        return {
+          gr: `${trig.exprGr} = ?`,
+          en: `${trig.exprEn} = ?`,
+          correct: trig.answer,
+          options: shuffleArray([trig.answer, trig.wrong1, trig.wrong2])
+        };
+      },
+      () => {
+        // Powers of imaginary unit: i² = -1, i³ = -i, i⁴ = 1
+        const imaginaryPowers = [
+          {expr: "i² + i⁴", answer: "0", wrong1: "1", wrong2: "-1"},  // -1 + 1 = 0
+          {expr: "i² + i³", answer: "-1-i", wrong1: "0", wrong2: "1"}, // -1 + (-i) = -1-i
+          {expr: "i³ + i⁴", answer: "1-i", wrong1: "0", wrong2: "-1"}  // -i + 1 = 1-i
+        ];
+        
+        const imaginary = imaginaryPowers[getRandomInt(0, imaginaryPowers.length - 1)];
+        
+        return {
+          gr: `${imaginary.expr} = ?`,
+          en: `${imaginary.expr} = ?`,
+          correct: imaginary.answer,
+          options: shuffleArray([imaginary.answer, imaginary.wrong1, imaginary.wrong2])
+        };
+      },
+      () => {
+        // Integrals: ∫x^n dx = x^(n+1)/(n+1) + C
+        const integrals = [
+          // Basic integrals
+          {expr: "∫x dx", exprEn: "∫x dx", answer: "x²/2+C", wrong1: "x²+C", wrong2: "2x+C"},
+          {expr: "∫x² dx", exprEn: "∫x² dx", answer: "x³/3+C", wrong1: "x³+C", wrong2: "3x²+C"},
+          {expr: "∫x³ dx", exprEn: "∫x³ dx", answer: "x⁴/4+C", wrong1: "x⁴+C", wrong2: "4x³+C"},
+          {expr: "∫5 dx", exprEn: "∫5 dx", answer: "5x+C", wrong1: "5+C", wrong2: "x+C"},
+          {expr: "∫3 dx", exprEn: "∫3 dx", answer: "3x+C", wrong1: "3+C", wrong2: "x+C"},
+          
+          // Compound integrals
+          {expr: "∫(2x+3) dx", exprEn: "∫(2x+3) dx", answer: "x²+3x+C", wrong1: "2x²+3x+C", wrong2: "x²+x+C"},
+          {expr: "∫(x+5) dx", exprEn: "∫(x+5) dx", answer: "x²/2+5x+C", wrong1: "x²+5x+C", wrong2: "x+5x+C"},
+          {expr: "∫3x² dx", exprEn: "∫3x² dx", answer: "x³+C", wrong1: "3x³+C", wrong2: "x³/3+C"},
+          {expr: "∫2x dx", exprEn: "∫2x dx", answer: "x²+C", wrong1: "2x²+C", wrong2: "x²/2+C"},
+          {expr: "∫(x²+2) dx", exprEn: "∫(x²+2) dx", answer: "x³/3+2x+C", wrong1: "x³+2x+C", wrong2: "x²+2x+C"}
+        ];
+        
+        const integral = integrals[getRandomInt(0, integrals.length - 1)];
+        
+        return {
+          gr: `${integral.expr} = ?`,
+          en: `${integral.exprEn} = ?`,
+          correct: integral.answer,
+          options: shuffleArray([integral.answer, integral.wrong1, integral.wrong2])
+        };
+      }
+    ]
+  };
+
+// ================================================
+// NEW question generators (appended to the original pools)
+// ================================================
+const mk = (gr, en, correct, wrongs) => ({ gr, en, correct, options: shuffleArray([correct, ...wrongs]) });
+const MINUS = '−';
+const sgn = n => (n < 0 ? MINUS + Math.abs(n) : String(n));
+
+// ---------- EASY ----------
+questionTypes.easy.push(
+  () => { // change
+    const P = pick([10, 20, 50]), c = getRandomInt(3, P - 2), r = P - c;
+    return mk(`Πληρώνεις ${P}€ για κάτι που κοστίζει ${c}€. Ρέστα;`, `You pay €${P} for something that costs €${c}. Change?`, r, [r + 1, r - 1]);
+  },
+  () => { // double / half
+    if (getRandomInt(0, 1)) { const n = getRandomInt(12, 49); return mk(`Το διπλάσιο του ${n}`, `Double of ${n}`, n * 2, [n * 2 + 2, n * 2 - 2]); }
+    const n = getRandomInt(6, 45) * 2; return mk(`Το μισό του ${n}`, `Half of ${n}`, n / 2, [n / 2 + 1, n / 2 - 1]);
+  },
+  () => { // sequence
+    const s = getRandomInt(1, 12), d = getRandomInt(2, 6), c = s + 4 * d;
+    return mk(`${s}, ${s + d}, ${s + 2 * d}, ${s + 3 * d}, ?`, `${s}, ${s + d}, ${s + 2 * d}, ${s + 3 * d}, ?`, c, [c + 1, c - 1]);
+  },
+  () => { // rounding
+    let n; do { n = getRandomInt(101, 998); } while (n % 10 === 5);
+    const r = Math.round(n / 10) * 10;
+    return mk(`Στρογγυλοποίησε το ${n} στη δεκάδα`, `Round ${n} to the nearest ten`, r, [r + 10, r - 10]);
+  },
+  () => { // time
+    const k = getRandomInt(2, 9);
+    if (getRandomInt(0, 1)) return mk(`Πόσα δευτερόλεπτα σε ${k} λεπτά;`, `Seconds in ${k} minutes?`, 60 * k, [60 * k + 60, 6 * k * 10 + 100]);
+    return mk(`Πόσες ημέρες σε ${k} εβδομάδες;`, `Days in ${k} weeks?`, 7 * k, [7 * k + 7, 7 * k - 7]);
+  },
+  () => { // perimeter of square
+    const a = getRandomInt(5, 12);
+    return mk(`Περίμετρος τετραγώνου με πλευρά ${a}`, `Perimeter of a square with side ${a}`, 4 * a, [2 * a, a * a]);
+  },
+  () => { // decimals compare
+    let x, y; do { x = getRandomInt(11, 99) / 100; y = getRandomInt(1, 9) / 10; } while (x === y || x * 10 === Math.floor(x * 10));
+    const big = Math.max(x, y), small = Math.min(x, y);
+    return { gr: `Ποιο είναι μεγαλύτερο: ${x} ή ${y};`, en: `Which is bigger: ${x} or ${y}?`, correct: String(big), options: shuffleArray([String(big), String(small), L('Ίσα', 'Equal')]) };
+  },
+  () => { // roman numerals
+    const R = { 4: 'IV', 9: 'IX', 14: 'XIV', 19: 'XIX', 24: 'XXIV', 29: 'XXIX', 40: 'XL', 49: 'XLIX' };
+    const keys = Object.keys(R).map(Number), n = pick(keys);
+    const wr = shuffleArray(keys.filter(k => k !== n)).slice(0, 2);
+    return { gr: `${R[n]} = ?`, en: `${R[n]} = ?`, correct: n, options: shuffleArray([n, ...wr]) };
+  },
+  () => { // polygon sides
+    const S = [[3, 'τρίγωνο', 'triangle'], [4, 'τετράπλευρο', 'quadrilateral'], [5, 'πεντάγωνο', 'pentagon'], [6, 'εξάγωνο', 'hexagon'], [8, 'οκτάγωνο', 'octagon']];
+    const s = pick(S), wr = shuffleArray(S.filter(x => x !== s)).slice(0, 2).map(x => x[0]);
+    return { gr: `Πόσες πλευρές έχει το ${s[1]};`, en: `How many sides has a ${s[2]}?`, correct: s[0], options: shuffleArray([s[0], ...wr]) };
+  },
+  () => { // missing factor
+    const a = getRandomInt(3, 9), b = getRandomInt(3, 9);
+    return mk(`? × ${a} = ${a * b}`, `? × ${a} = ${a * b}`, b, [b + 1, b - 1]);
+  },
+  () => { // which is prime
+    const P = [11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47], C = [9, 15, 21, 25, 27, 33, 35, 39, 45, 49, 51];
+    const p = pick(P), c = shuffleArray(C).slice(0, 2);
+    return { gr: 'Ποιος είναι πρώτος αριθμός;', en: 'Which number is prime?', correct: p, options: shuffleArray([p, ...c]) };
+  }
+);
+
+// ---------- MEDIUM ----------
+questionTypes.medium.push(
+  () => { // linear equation
+    const x = getRandomInt(2, 12), a = getRandomInt(2, 9), b = getRandomInt(1, 20);
+    return mk(`${a}x + ${b} = ${a * x + b} → x =`, `${a}x + ${b} = ${a * x + b} → x =`, x, [x + 1, x - 1]);
+  },
+  () => { // rectangle area
+    const l = getRandomInt(4, 15), w = getRandomInt(3, 12);
+    return mk(`Εμβαδόν ορθογωνίου ${l} × ${w}`, `Area of a ${l} × ${w} rectangle`, l * w, [2 * (l + w), l * w + l]);
+  },
+  () => { // triangle area
+    const b = getRandomInt(3, 12) * 2, h = getRandomInt(3, 12), c = b * h / 2;
+    return mk(`Τρίγωνο: βάση ${b}, ύψος ${h}. Εμβαδόν;`, `Triangle: base ${b}, height ${h}. Area?`, c, [b * h, c + b]);
+  },
+  () => { // average
+    const m = getRandomInt(6, 24), d1 = getRandomInt(1, 5), d2 = getRandomInt(1, 5);
+    const n1 = m - d1, n2 = m + d2, n3 = 3 * m - n1 - n2;
+    return mk(`Μέσος όρος των ${n1}, ${n2}, ${n3}`, `Average of ${n1}, ${n2}, ${n3}`, m, [m + 1, m - 1]);
+  },
+  () => { // percent change
+    const p = getRandomInt(2, 10) * 20, pc = pick([10, 20, 25, 50]), ch = p * pc / 100, up = getRandomInt(0, 1);
+    const c = up ? p + ch : p - ch;
+    return mk(up ? `Τιμή ${p}€ με αύξηση ${pc}%. Νέα τιμή;` : `Τιμή ${p}€ με έκπτωση ${pc}%. Νέα τιμή;`,
+      up ? `Price €${p} with a ${pc}% increase. New price?` : `Price €${p} with a ${pc}% discount. New price?`,
+      c, [up ? p - ch : p + ch, c + 10]);
+  },
+  () => { // third angle
+    const a = getRandomInt(30, 80), b = getRandomInt(30, 80), c = 180 - a - b;
+    return mk(`Τρίγωνο με γωνίες ${a}° και ${b}°. Η τρίτη;`, `Triangle with angles ${a}° and ${b}°. The third?`, c + '°', [(c + 10) + '°', (c - 10 > 0 ? c - 10 : c + 20) + '°']);
+  },
+  () => { // distance = speed x time
+    const v = getRandomInt(4, 9) * 10, t = getRandomInt(2, 5);
+    return mk(`${v} km/h για ${t} ώρες. Διανυθείσα διαδρομή (km);`, `${v} km/h for ${t} hours. Distance travelled (km)?`, v * t, [v * t + 10, v + t * 10]);
+  },
+  () => { // negative numbers
+    const a = getRandomInt(2, 12), b = getRandomInt(2, 12), t = getRandomInt(0, 3);
+    if (t === 0) { const c = b - a; return mk(`${MINUS}${a} + ${b} =`, `${MINUS}${a} + ${b} =`, sgn(c), [sgn(-c), sgn(-(a + b))]); }
+    if (t === 1) return mk(`(${MINUS}${a}) × (${MINUS}${b}) =`, `(${MINUS}${a}) × (${MINUS}${b}) =`, sgn(a * b), [sgn(-a * b), sgn(a * b + 2)]);
+    if (t === 2) return mk(`${MINUS}${a} ${MINUS} ${b} =`, `${MINUS}${a} ${MINUS} ${b} =`, sgn(-(a + b)), [sgn(a + b), sgn(a - b)]);
+    return mk(`${a} ${MINUS} (${MINUS}${b}) =`, `${a} ${MINUS} (${MINUS}${b}) =`, sgn(a + b), [sgn(a - b), sgn(-(a + b))]);
+  },
+  () => { // add unit fractions
+    const D = [2, 3, 4, 6], a = pick(D); let b; do { b = pick(D); } while (b === a);
+    const n = a + b, d = a * b, g = gcd(n, d);
+    return { gr: `1/${a} + 1/${b} =`, en: `1/${a} + 1/${b} =`, correct: `${n / g}/${d / g}`, options: shuffleArray([`${n / g}/${d / g}`, `2/${a + b}`, `1/${a * b}`]) };
+  },
+  () => { // order of operations
+    const a = getRandomInt(2, 9), b = getRandomInt(2, 5), c = getRandomInt(2, 4);
+    return mk(`${a} + ${b} × ${c}² =`, `${a} + ${b} × ${c}² =`, a + b * c * c, [(a + b) * c * c, a + b * c * 2]);
+  },
+  () => { // unit conversion
+    const k = pick([0.5, 1.5, 2.5, 3.5, 4.5, 0.2, 7.5]);
+    return { gr: `${k} km = ? m`, en: `${k} km = ? m`, correct: String(k * 1000), options: shuffleArray([String(k * 1000), String(k * 100), String(k * 10000)]) };
+  },
+  () => { // proportion
+    const p = getRandomInt(2, 6), n1 = getRandomInt(3, 4), n2 = getRandomInt(6, 9);
+    return mk(`${n1} τετράδια κοστίζουν ${n1 * p}€. Πόσο κοστίζουν ${n2};`, `${n1} notebooks cost €${n1 * p}. How much for ${n2}?`, n2 * p, [n2 * p + p, n2 * p - p]);
+  },
+  () => { // circle area
+    const r = getRandomInt(3, 9);
+    return { gr: `Κύκλος ακτίνας ${r}. Εμβαδόν;`, en: `Circle of radius ${r}. Area?`, correct: `${r * r}π`, options: shuffleArray([`${r * r}π`, `${2 * r}π`, `${r}π`]) };
+  }
+);
+
+// ---------- HARD ----------
+questionTypes.hard.push(
+  () => { // quadratic roots
+    const p = getRandomInt(1, 6); let q; do { q = getRandomInt(1, 7); } while (q === p);
+    const lo = Math.min(p, q), hi = Math.max(p, q), S = lo + hi, P = lo * hi;
+    const and = L('και', 'and');
+    return { gr: `x² ${MINUS} ${S}x + ${P} = 0 → x =`, en: `x² ${MINUS} ${S}x + ${P} = 0 → x =`, correct: `${lo} ${and} ${hi}`,
+      options: shuffleArray([`${lo} ${and} ${hi}`, `${MINUS}${lo} ${and} ${MINUS}${hi}`, `${S} ${and} ${P}`]) };
+  },
+  () => { // slope
+    let m; do { m = getRandomInt(-4, 5); } while (m === 0);
+    const x1 = getRandomInt(0, 4), dx = getRandomInt(1, 4), y1 = getRandomInt(0, 6), y2 = y1 + m * dx, x2 = x1 + dx;
+    return mk(`Κλίση της ευθείας Α(${x1}, ${y1}) – Β(${x2}, ${y2})`, `Slope of the line A(${x1}, ${y1}) – B(${x2}, ${y2})`, sgn(m), [sgn(m + 1), sgn(-m)]);
+  },
+  () => { // distance
+    const T = [[3, 4, 5], [5, 12, 13], [6, 8, 10], [8, 15, 17], [9, 12, 15]], [a, b, d] = pick(T);
+    const x = getRandomInt(0, 5), y = getRandomInt(0, 5);
+    return mk(`Απόσταση μεταξύ Α(${x}, ${y}) και Β(${x + a}, ${y + b})`, `Distance between A(${x}, ${y}) and B(${x + a}, ${y + b})`, d, [a + b, d + 1]);
+  },
+  () => { // permutations / handshakes
+    if (getRandomInt(0, 1)) {
+      const n = getRandomInt(3, 6), f = [1, 1, 2, 6, 24, 120, 720][n];
+      return mk(`Με πόσους τρόπους κάθονται ${n} άτομα σε σειρά;`, `In how many ways can ${n} people sit in a row?`, f, [f + n, f - n]);
+    }
+    const n = getRandomInt(5, 10), c = n * (n - 1) / 2;
+    return mk(`${n} άτομα δίνουν χειραψία ανά δύο. Πόσες χειραψίες;`, `${n} people shake hands in pairs. How many handshakes?`, c, [n * (n - 1), n * n]);
+  },
+  () => { // probability
+    const P = [
+      ['Ζάρι: P(άρτιος αριθμός)', 'Die: P(even number)', '1/2', ['1/3', '1/6']],
+      ['Ζάρι: P(αριθμός > 4)', 'Die: P(number > 4)', '1/3', ['1/2', '1/6']],
+      ['Ζάρι: P(πρώτος αριθμός)', 'Die: P(prime number)', '1/2', ['1/3', '2/3']],
+      ['Ζάρι: P(πολλαπλάσιο του 3)', 'Die: P(multiple of 3)', '1/3', ['1/6', '1/2']],
+      ['2 νομίσματα: P(2 φορές κορώνα)', '2 coins: P(two heads)', '1/4', ['1/2', '1/3']],
+      ['Τράπουλα 52 φύλλων: P(άσσος)', '52-card deck: P(ace)', '1/13', ['1/4', '1/52']],
+      ['Κουτί: 3 κόκκινες, 2 μπλε. P(μπλε)', 'Box: 3 red, 2 blue. P(blue)', '2/5', ['3/5', '1/2']]
+    ], x = pick(P);
+    return { gr: x[0], en: x[1], correct: x[2], options: shuffleArray([x[2], ...x[3]]) };
+  },
+  () => { // polygon angles
+    const n = getRandomInt(5, 10), c = (n - 2) * 180;
+    return mk(`Άθροισμα γωνιών κυρτού ${n}-γώνου`, `Sum of the angles of a convex ${n}-gon`, c + '°', [((n - 1) * 180) + '°', ((n - 2) * 90) + '°']);
+  },
+  () => { // arithmetic progression
+    const a = getRandomInt(2, 9), d = getRandomInt(2, 6), n = getRandomInt(8, 12);
+    return mk(`Αριθμ. πρόοδος: ${a}, ${a + d}, ${a + 2 * d}, … ο ${n}ος όρος;`, `Arithmetic sequence: ${a}, ${a + d}, ${a + 2 * d}, … term #${n}?`, a + (n - 1) * d, [a + n * d, a + (n - 2) * d]);
+  },
+  () => { // geometric progression
+    const s = getRandomInt(1, 3), r = getRandomInt(2, 3), t = [s, s * r, s * r * r, s * r * r * r], c = s * Math.pow(r, 4);
+    return mk(`Γεωμ. πρόοδος: ${t.join(', ')}, ?`, `Geometric sequence: ${t.join(', ')}, ?`, c, [t[3] + (t[3] - t[2]), c + r]);
+  },
+  () => { // last digit
+    const C = { 2: [2, 4, 8, 6], 3: [3, 9, 7, 1], 7: [7, 9, 3, 1], 8: [8, 4, 2, 6] }, b = pick([2, 3, 7, 8]), e = getRandomInt(20, 99), c = C[b][(e - 1) % 4];
+    const wr = shuffleArray(C[b].filter(x => x !== c)).slice(0, 2);
+    return { gr: `Τελευταίο ψηφίο του ${b}^${e}`, en: `Last digit of ${b}^${e}`, correct: c, options: shuffleArray([c, ...wr]) };
+  },
+  () => { // up p% then down p%
+    const p = pick([10, 20, 30, 40, 50]), c = `${MINUS}${p * p / 100}%`;
+    return { gr: `Αύξηση ${p}% και μετά μείωση ${p}%. Συνολική μεταβολή;`, en: `A ${p}% rise followed by a ${p}% drop. Overall change?`, correct: c, options: shuffleArray([c, '0%', `+${p * p / 100}%`]) };
+  },
+  () => { // simplify surd
+    let a, b; do { a = getRandomInt(2, 6); b = pick([2, 3, 5, 6]); } while (a === b);
+    return { gr: `√${a * a * b} =`, en: `√${a * a * b} =`, correct: `${a}√${b}`, options: shuffleArray([`${a}√${b}`, `${a * a}√${b}`, `${a}√${b + 1}`]) };
+  },
+  () => { // median
+    const s = new Set(); while (s.size < 5) s.add(getRandomInt(1, 40));
+    const sorted = [...s].sort((x, y) => x - y), med = sorted[2], arr = shuffleArray(sorted);
+    return mk(`Διάμεσος των ${arr.join(', ')}`, `Median of ${arr.join(', ')}`, med, [sorted[3], sorted[1]]);
+  }
+);
+
+// ---------- CHASER (expert / impossible) ----------
+questionTypes.chaser.push(
+  () => { // derivatives
+    const D = [
+      ["(x³)′", "(x³)′", "3x²", "x²", "3x³"], ["(x²+3x)′", "(x²+3x)′", "2x+3", "x²+3", "2x+3x"],
+      ["(5x⁴)′", "(5x⁴)′", "20x³", "5x³", "4x³"], ["(eˣ)′", "(eˣ)′", "eˣ", "xeˣ⁻¹", "e"],
+      ["(ln x)′", "(ln x)′", "1/x", "x", "ln x"], ["(ημx)′", "(sin x)′", L("συνx", "cos x"), L("−συνx", "−cos x"), L("ημx", "sin x")],
+      ["(x⁵−2x)′", "(x⁵−2x)′", "5x⁴−2", "5x⁴", "x⁴−2"], ["(√x)′", "(√x)′", "1/(2√x)", "1/√x", "2√x"],
+      ["(συνx)′", "(cos x)′", L("−ημx", "−sin x"), L("ημx", "sin x"), L("−συνx", "−cos x")]
+    ], d = pick(D);
+    return { gr: `${d[0]} =`, en: `${d[1]} =`, correct: d[2], options: shuffleArray([d[2], d[3], d[4]]) };
+  },
+  () => { // limits
+    const Lm = [["x→1: (x²−1)/(x−1)", 2, [0, 1]], ["x→0: ημx / x", 1, [0, "∞"]], ["x→∞: 1/x", 0, [1, "∞"]], ["x→2: (x²−4)/(x−2)", 4, [0, 2]], ["x→3: (x²−9)/(x−3)", 6, [0, 3]], ["x→0: (eˣ−1)/x", 1, [0, "∞"]]];
+    const l = pick(Lm), enTxt = l[0].replace('ημx', 'sin x');
+    return { gr: `lim ${l[0]} =`, en: `lim ${enTxt} =`, correct: l[1], options: shuffleArray([l[1], ...l[2]]) };
+  },
+  () => { // determinant
+    const a = getRandomInt(1, 6), b = getRandomInt(1, 6), c = getRandomInt(1, 6), d = getRandomInt(1, 6), D = a * d - b * c;
+    return mk(`det [ ${a} ${b} ; ${c} ${d} ] =`, `det [ ${a} ${b} ; ${c} ${d} ] =`, sgn(D), [sgn(a * d + b * c), sgn(a * b - c * d)]);
+  },
+  () => { // logs
+    const sub = { 2: '₂', 3: '₃', 5: '₅', 10: '₁₀' }, b = pick([2, 3, 5, 10]), k = getRandomInt(2, b === 2 ? 8 : b === 3 ? 5 : 4), v = Math.pow(b, k);
+    return mk(`log${sub[b]} ${v} =`, `log${sub[b]} ${v} =`, k, [k + 1, k - 1]);
+  },
+  () => { // binomial
+    const n = getRandomInt(6, 10), k = getRandomInt(2, 3);
+    const C = (nn, kk) => { let r = 1; for (let i = 1; i <= kk; i++) r = r * (nn - kk + i) / i; return Math.round(r); };
+    const c = C(n, k), perm = c * (k === 2 ? 2 : 6);
+    return mk(`C(${n}, ${k}) =`, `C(${n}, ${k}) =`, c, [perm, c + n]);
+  },
+  () => { // modular power
+    const a = getRandomInt(2, 9), e = getRandomInt(10, 30), m = pick([5, 7, 9, 11]);
+    let r = 1; for (let i = 0; i < e; i++) r = (r * a) % m;
+    return mk(`${a}^${e} mod ${m} =`, `${a}^${e} mod ${m} =`, r, [(r + 1) % m, (r + 2) % m]);
+  },
+  () => { // modulus of complex
+    const T = [[3, 4, 5], [5, 12, 13], [8, 15, 17], [6, 8, 10]], [a, b, c] = pick(T);
+    return mk(`|${a} + ${b}i| =`, `|${a} + ${b}i| =`, c, [a + b, c + 1]);
+  },
+  () => { // Vieta
+    const r1 = getRandomInt(1, 9), r2 = getRandomInt(1, 9), S = r1 + r2, P = r1 * r2, ask = getRandomInt(0, 1);
+    const eq = `x² ${MINUS} ${S}x + ${P} = 0`;
+    return ask
+      ? mk(`${eq}: γινόμενο ριζών;`, `${eq}: product of roots?`, P, [S, P + 1, -P])
+      : mk(`${eq}: άθροισμα ριζών;`, `${eq}: sum of roots?`, S, [P, S + 1, -S]);
+  },
+  () => { // discriminant
+    let b; do { b = getRandomInt(-6, 6); } while (b === 0);
+    const c = getRandomInt(1, 8), D = b * b - 4 * c;
+    return mk(`Διακρίνουσα της x² ${b < 0 ? MINUS : '+'} ${Math.abs(b)}x + ${c}`, `Discriminant of x² ${b < 0 ? MINUS : '+'} ${Math.abs(b)}x + ${c}`, sgn(D), [sgn(b * b + 4 * c), sgn(b * b - 2 * c)]);
+  },
+  () => { // geometric series
+    const S = [["1 + 1/2 + 1/4 + 1/8 + …", "2", ["∞", "1"]], ["1/2 + 1/4 + 1/8 + …", "1", ["2", "∞"]], ["1/3 + 1/9 + 1/27 + …", "1/2", ["1", "2/3"]], ["2 + 1 + 1/2 + 1/4 + …", "4", ["3", "∞"]]], s = pick(S);
+    return { gr: `Σειρά: ${s[0]} =`, en: `Series: ${s[0]} =`, correct: s[1], options: shuffleArray([s[1], ...s[2]]) };
+  },
+  () => { // diagonals
+    const n = getRandomInt(6, 12), c = n * (n - 3) / 2;
+    return mk(`Πόσες διαγώνιους έχει ένα ${n}-γωνο;`, `How many diagonals has a ${n}-gon?`, c, [n * (n - 1) / 2, n * (n - 3)]);
+  },
+  () => { // special trig values
+    const T = [["ημ90°", "sin90°", "1"], ["συν180°", "cos180°", "-1"], ["ημ²30° + συν²30°", "sin²30° + cos²30°", "1"], ["εφ45°", "tan45°", "1"], ["ημ150°", "sin150°", "1/2"], ["συν120°", "cos120°", "-1/2"], ["ημ(−30°)", "sin(−30°)", "-1/2"], ["συν0°", "cos0°", "1"], ["ημ0° + συν90°", "sin0° + cos90°", "0"]];
+    const t = pick(T), pool = ["0", "1", "-1", "1/2", "-1/2", "√3/2"], wr = shuffleArray(pool.filter(x => x !== t[2])).slice(0, 2);
+    return { gr: `${t[0]} =`, en: `${t[1]} =`, correct: t[2], options: shuffleArray([t[2], ...wr]) };
+  },
+  () => { // count multiples
+    const m = pick([7, 9, 11, 13]), N = pick([100, 200, 300]), c = Math.floor(N / m);
+    return mk(`Πόσα πολλαπλάσια του ${m} υπάρχουν από 1 έως ${N};`, `How many multiples of ${m} are there from 1 to ${N}?`, c, [c + 1, c - 1]);
+  },
+  () => { // symmetric identity
+    if (getRandomInt(0, 1)) {
+      const S = getRandomInt(6, 12), P = getRandomInt(5, 20), c = S * S - 2 * P;
+      return mk(`a + b = ${S}, ab = ${P} → a² + b² =`, `a + b = ${S}, ab = ${P} → a² + b² =`, c, [S * S - P, S * S + 2 * P]);
+    }
+    const s = getRandomInt(3, 6), c = s * s - 2;
+    return mk(`x + 1/x = ${s} → x² + 1/x² =`, `x + 1/x = ${s} → x² + 1/x² =`, c, [s * s, c - 1]);
+  }
+);
+
+// ================================================
+// Question assembly
+// ================================================
+function buildQuestion(raw){
+  let opts = Array.isArray(raw.options) ? raw.options.map(String) : [String(raw.correct), '0', '1'];
+  const correct = String(raw.correct);
+  // make sure the correct answer is present exactly once and every option is unique
+  const seen = new Set(); const out = [];
+  opts.forEach(o => { if (!seen.has(o)) { seen.add(o); out.push(o); } });
+  if (!seen.has(correct)) out.splice(getRandomInt(0, out.length), 0, correct);
+  const numeric = out.every(o => /^[−-]?\d+(\.\d+)?$/.test(o));
+  let guard = 0;
+  while (out.length < 3 && guard++ < 20) {
+    let cand;
+    if (numeric) { const n = parseFloat(correct.replace('−', '-')) + (getRandomInt(1, 4) * (getRandomInt(0, 1) ? 1 : -1)); cand = n < 0 ? '−' + Math.abs(n) : String(n); }
+    else cand = String(getRandomInt(2, 99));
+    if (!seen.has(cand)) { seen.add(cand); out.splice(getRandomInt(0, out.length), 0, cand); }
+  }
+  while (out.length > 3) { const i = out.findIndex(o => o !== correct); out.splice(i, 1); }
+  return { gr: raw.gr, en: raw.en, o: out, a: out.indexOf(correct) };
+}
+function generateQuestions(pool, count){
+  const gens = questionTypes[pool], res = []; let last = -1;
+  for (let i = 0; i < count; i++) {
+    let gi, tries = 0;
+    do { gi = getRandomInt(0, gens.length - 1); tries++; } while (gi === last && tries < 6 && gens.length > 1);
+    last = gi;
+    res.push(buildQuestion(gens[gi]()));
+  }
+  return res;
+}
+
+// ================================================
+// Static question banks
+// ================================================
+const Q = (gr, en, o, a) => ({ gr, en, o, a });
+const QUESTION_SETS = {
+  easy: [
+    Q("4 + 7 =","4 + 7 =",["9","13","11"],2), Q("8 × 5 =","8 × 5 =",["40","35","45"],0),
+    Q("Πόσα λεπτά σε 2 ώρες;","Minutes in 2 hours?",["100","140","120"],2), Q("15 - 6 =","15 - 6 =",["9","7","8"],0),
+    Q("Τετραγωνική ρίζα 64","√64 =",["7","8","6"],1), Q("25 + 38 =","25 + 38 =",["61","63","65"],1),
+    Q("9 × 9 =","9 × 9 =",["72","90","81"],2), Q("100 ÷ 4 =","100 ÷ 4 =",["25","20","30"],0),
+    Q("Ισόπλευρο τρίγωνο: κάθε γωνία;","Equilateral triangle: each angle?",["60°","90°","45°"],0),
+    Q("½ του 48","Half of 48",["24","20","22"],0), Q("7² =","7² =",["42","56","49"],2),
+    Q("3 × 12 + 9 =","3 × 12 + 9 =",["45","42","48"],0), Q("80 – 37 =","80 – 37 =",["45","43","41"],1),
+    Q("√100 =","√100 =",["11","9","10"],2), Q("6 × 7 – 8 =","6 × 7 – 8 =",["36","34","32"],1),
+    Q("Πόσες πλευρές έχει ένα τετράγωνο;","How many sides does a square have?",["3","4","5"],1),
+    Q("Ποιος αριθμός είναι άρτιος;","Which number is even?",["17","23","18"],2),
+    Q("2 + 2 × 2 =","2 + 2 × 2 =",["6","8","4"],0), Q("1/2 + 1/2 =","1/2 + 1/2 =",["1","1/4","2"],0),
+    Q("Το διπλάσιο του 35","Double of 35",["60","70","75"],1), Q("10 × 10 =","10 × 10 =",["100","1000","110"],0),
+    Q("Άθροισμα γωνιών τριγώνου;","Sum of the angles of a triangle?",["90°","180°","360°"],1),
+    Q("Ο μικρότερος πρώτος αριθμός","The smallest prime number",["1","2","3"],1),
+    Q("√49 =","√49 =",["6","7","9"],1), Q("1000 ÷ 10 =","1000 ÷ 10 =",["10","1000","100"],2),
+    Q("Πόσα εκατοστά έχει ένα μέτρο;","Centimetres in a metre?",["10","100","1000"],1),
+    Q("3 × 3 × 3 =","3 × 3 × 3 =",["9","27","18"],1), Q("20% του 50","20% of 50",["5","10","25"],1),
+    Q("Ένα μολύβι κοστίζει 3€. Πόσο κοστίζουν 4;","A pencil costs €3. How much are 4?",["7€","12€","10€"],1)
+  ],
+  medium: [
+    Q("12 × 8 =","12 × 8 =",["88","104","96"],2), Q("144 ÷ 12 =","144 ÷ 12 =",["12","10","14"],0),
+    Q("5² + 3² =","5² + 3² =",["32","34","36"],1), Q("20% του 150","20% of 150",["35","30","25"],1),
+    Q("√81 + 7 =","√81 + 7 =",["14","16","15"],1), Q("(8 + 4) × 5 =","(8 + 4) × 5 =",["60","50","70"],0),
+    Q("72 ÷ 8 + 15 =","72 ÷ 8 + 15 =",["26","24","22"],1), Q("3³ =","3³ =",["21","27","24"],1),
+    Q("ΜΚΔ(12,18)","GCD(12,18)",["4","8","6"],2), Q("15 × 6 ÷ 3 =","15 × 6 ÷ 3 =",["30","25","35"],0),
+    Q("√144 =","√144 =",["10","14","12"],2), Q("25 × 4 =","25 × 4 =",["100","90","110"],0),
+    Q("10³ ÷ 10 =","10³ ÷ 10 =",["110","100","90"],1), Q("(20 - 8) × 3 =","(20 - 8) × 3 =",["42","36","30"],1),
+    Q("6² - 4² =","6² - 4² =",["20","16","24"],0),
+    Q("Εμβαδόν ορθογωνίου 8 × 5","Area of an 8 × 5 rectangle",["26","40","13"],1),
+    Q("3x = 24 → x =","3x = 24 → x =",["6","8","9"],1),
+    Q("Άθροισμα γωνιών τετραπλεύρου;","Sum of the angles of a quadrilateral?",["180°","270°","360°"],2),
+    Q("ΕΚΠ(4,6)","LCM(4,6)",["12","24","10"],0), Q("2⁶ =","2⁶ =",["32","64","128"],1),
+    Q("−8 + 15 =","−8 + 15 =",["−7","7","23"],1), Q("Μέσος όρος: 6, 8, 10","Average of 6, 8, 10",["7","9","8"],2),
+    Q("25% του 240","25% of 240",["60","50","80"],0), Q("√196 =","√196 =",["13","14","16"],1),
+    Q("0.25 + 0.75 =","0.25 + 0.75 =",["1","0.1","1.25"],0),
+    Q("Πόσοι διαιρέτες έχει το 12;","How many divisors does 12 have?",["6","5","8"],0),
+    Q("Ο πρώτος αριθμός μεταξύ 20 και 24","The prime between 20 and 24",["21","22","23"],2),
+    Q("(−3)² =","(−3)² =",["−9","9","6"],1), Q("1/2 + 1/4 =","1/2 + 1/4 =",["2/6","3/4","1/6"],1)
+  ],
+  hard: [
+    Q("ΕΚΠ(6,8,12)","LCM(6,8,12)",["72","24","48"],1), Q("15% του 200","15% of 200",["35","30","25"],1),
+    Q("2⁵ =","2⁵ =",["24","40","32"],2), Q("√(144 + 256) =","√(144 + 256) =",["20","18","22"],0),
+    Q("48 ÷ (3×4) + 5²","48 ÷ (3×4) + 5²",["45","29","37"],1), Q("x² = 196 → x =","x² = 196 → x =",["±16","14","±14"],2),
+    Q("3³ × 4 =","3³ × 4 =",["96","120","108"],2), Q("Πόσοι πρώτοι ≤ 20;","Primes ≤ 20?",["9","8","7"],1),
+    Q("25 × 3.6","25 × 3.6",["100","90","80"],1), Q("√625 =","√625 =",["20","30","25"],2),
+    Q("(7+8)×(9-4)","(7+8)×(9-4)",["75","65","85"],0), Q("2⁴ + 3⁴ =","2⁴ + 3⁴ =",["97","107","117"],0),
+    Q("1+2+3+...+100 =","1+2+3+...+100 =",["5050","5000","5500"],0), Q("0.999... =","0.999... =",["1","0.999","≈1"],0),
+    Q("Άθροισμα γωνιών εξαγώνου;","Sum of the angles of a hexagon?",["540°","720°","900°"],1),
+    Q("log₁₀ 1000 =","log₁₀ 1000 =",["2","3","10"],1), Q("C(5,2) =","C(5,2) =",["10","20","25"],0),
+    Q("4! =","4! =",["12","24","16"],1), Q("x² − 9 = 0 → x =","x² − 9 = 0 → x =",["3","±3","9"],1),
+    Q("(a+b)² =","(a+b)² =",["a²+b²","a²+2ab+b²","a²+ab+b²"],1), Q("2⁻³ =","2⁻³ =",["−8","1/8","−6"],1),
+    Q("√2 · √8 =","√2 · √8 =",["4","√10","16"],0),
+    Q("Πόσα δευτερόλεπτα έχει μία ημέρα;","How many seconds in a day?",["3.600","86.400","1.440"],1),
+    Q("Κύκλος ακτίνας 5. Εμβαδόν;","Circle of radius 5. Area?",["10π","25π","5π"],1),
+    Q("Πόσες διαγώνιους έχει ένα εξάγωνο;","How many diagonals has a hexagon?",["6","9","12"],1),
+    Q("0! =","0! =",["0","1",L("δεν ορίζεται","undefined")],1),
+    Q("x + y = 7, xy = 12 → x² + y² =","x + y = 7, xy = 12 → x² + y² =",["25","37","19"],0),
+    Q("1 ÷ 0.5 =","1 ÷ 0.5 =",["0.5","2","5"],1)
+  ],
+  chaser: [
+    Q("Πόσοι πρώτοι ≤ 50;","Primes ≤ 50?",["14","15","13"],1), Q("96 ÷ (4×3) + 11²","96 ÷ (4×3) + 11²",["121","129","113"],1),
+    Q("√(625 – 225) =","√(625 – 225) =",["18","22","20"],2), Q("3⁵ ÷ 9 + 7 =","3⁵ ÷ 9 + 7 =",["34","37","40"],0),
+    Q("Διαιρέτες του 60;","Divisors of 60?",["14","12","10"],1), Q("√(1296) =","√(1296) =",["38","36","34"],1),
+    Q("(13² – 5²) ÷ 8","(13² – 5²) ÷ 8",["18","20","22"],0),
+    // fixed: 241 is ALSO prime with digit sum 7 — replaced by 133 = 7×19
+    Q("Πρώτος > 100 με άθροισμα ψηφίων 7;","Prime > 100 with digit sum 7?",["151","160","133"],0),
+    Q("2²⁰²⁶ ÷ 2²⁰²⁵ + 2 =","2²⁰²⁶ ÷ 2²⁰²⁵ + 2 =",["4","2026","2"],0),
+    Q("lim ημx / x, x→0","lim sin x / x, x→0",["0","1","∞"],1), Q("ln(e⁵) =","ln(e⁵) =",["5","e","1/5"],0),
+    Q("|3 + 4i| =","|3 + 4i| =",["7","5","25"],1), Q("∫₀¹ 2x dx =","∫₀¹ 2x dx =",["1","2","1/2"],0),
+    Q("Πόσα υποσύνολα έχει σύνολο με 4 στοιχεία;","How many subsets has a 4-element set?",["8","16","12"],1),
+    Q("Άθροισμα των 10 πρώτων περιττών","Sum of the first 10 odd numbers",["55","100","90"],1),
+    Q("C(10,3) =","C(10,3) =",["120","720","90"],0),
+    Q("Ψηφίο μονάδων του 3²⁰²⁰","Last digit of 3²⁰²⁰",["1","3","9"],0), Q("i²⁰²⁶ =","i²⁰²⁶ =",["1","−1","i"],1),
+    Q("log₂ 1024 =","log₂ 1024 =",["8","10","12"],1), Q("f(x) = x³ − 3x → f′(1) =","f(x) = x³ − 3x → f′(1) =",["0","−2","1"],0),
+    Q("Πόσοι τέλειοι τετράγωνοι ≤ 200;","How many perfect squares ≤ 200?",["13","14","15"],1),
+    Q("2⁰ + 2¹ + 2² + 2³ + 2⁴ =","2⁰ + 2¹ + 2² + 2³ + 2⁴ =",["30","31","32"],1),
+    Q("0.111… =","0.111… =",["1/10","1/9","1/11"],1),
+    Q("Δύο ζάρια: P(διπλό 6)","Two dice: P(double six)",["1/12","1/36","1/6"],1)
+  ]
+};
+
+// ================================================
+// Achievements
+// ================================================
+const ACH = {
+  firstWin:   { icon:"🏆", gr:"Πρώτη Νίκη",        en:"First Victory" },
+  perfectRun: { icon:"💯", gr:"Άψογο Παιχνίδι",    en:"Perfect Run" },
+  speedDemon: { icon:"⚡", gr:"Ταχύτητα Φωτός",    en:"Speed Demon" },
+  comboMaster:{ icon:"🔥", gr:"Κυρίαρχος Combo",   en:"Combo Master" },
+  mathGenius: { icon:"🧠", gr:"Μαθηματική Ιδιοφυΐα", en:"Math Genius" },
+  persistent: { icon:"💪", gr:"Επίμονος",           en:"Persistent" },
+  bossSlayer: { icon:"👑", gr:"Νικητής Boss",       en:"Boss Slayer" },
+  survivor:   { icon:"♾️", gr:"Επιζών (25+ στην Επιβίωση)", en:"Survivor (25+ in Survival)" },
+  dailyHero:  { icon:"📅", gr:"Ήρωας της Ημέρας",   en:"Daily Hero" },
+  streak3:    { icon:"🗓️", gr:"3 ημέρες στη σειρά", en:"3-day streak" },
+  hundred:    { icon:"🎯", gr:"100 σωστές απαντήσεις", en:"100 correct answers" }
+};
+const loadAch = () => safeGetJSON('mc_achievements', {});
+function unlock(key){
+  const a = loadAch();
+  if (a[key]) return false;
+  a[key] = true; safeSetJSON('mc_achievements', a); return true;
+}
+function achLabel(k){ return ACH[k][lang]; }
+function displayAchievements(){
+  const a = loadAch(), box = $('achievements'); box.innerHTML = '';
+  Object.keys(ACH).forEach(k => {
+    const b = document.createElement('span');
+    b.className = 'badge' + (a[k] ? ' unlocked' : '');
+    b.textContent = ACH[k].icon; b.title = achLabel(k); b.setAttribute('aria-label', achLabel(k) + (a[k] ? '' : ' (locked)'));
+    box.appendChild(b);
+  });
+}
+
+// ================================================
+// Game config
+// ================================================
+const LEVEL_CONFIG = {
+  beginner:   { pool:'easy',   baseTime:15,  comboRate:0,     floor:1.0,  ico:'⚪', color:'#7D8AA8' },
+  easy:       { pool:'easy',   baseTime:12,  comboRate:0.02,  floor:0.7,  ico:'🟢', color:'#00A97A' },
+  normal:     { pool:'medium', baseTime:10,  comboRate:0.025, floor:0.65, ico:'🔵', color:'#0B87AC' },
+  hard:       { pool:'hard',   baseTime:8,   comboRate:0.03,  floor:0.6,  ico:'🟡', color:'#B57A00' },
+  expert:     { pool:'chaser', baseTime:6,   comboRate:0.035, floor:0.55, ico:'🔴', color:'#D4501A' },
+  impossible: { pool:'chaser', baseTime:4.5, comboRate:0.04,  floor:0.5,  ico:'💀', color:'#C4165E' },
+  daily:      { pool:'medium', baseTime:10,  comboRate:0.02,  floor:0.7,  ico:'📅', color:'#B57A00' }
+};
+const TIERS = ['beginner','easy','normal','hard','expert','impossible'];
+const POOL_ORDER = ['easy','medium','hard','chaser'];
+const DECK_SIZE = 20;
+
+let level = 'easy', currentQuestion = 0, score = 0, combo = 0, maxCombo = 0;
+let questionAnswers = [], speedSamples = [], sessionTopicStats = {}, newAch = [];
+let ACTIVE_QUESTIONS = [], survivalMode = false, isBossActive = false, dailyDateStr = null;
+let answered = false, paused = false, bossCorrect = false, gameOver = false;
+let fiftyUsed = false, timeUsed = false, lastResult = null;
+// timer
+let qEnd = 0, qDur = 1, tickId = null, pausedLeft = 0, lastFrac = 1;
+
+function comboTimeFactor(){ const c = LEVEL_CONFIG[level]; return c ? Math.max(c.floor, 1 - combo * c.comboRate) : 1; }
+function basePoolIndex(l){ return POOL_ORDER.indexOf(LEVEL_CONFIG[l].pool); }
+function adaptiveEnabled(l){ return l !== 'beginner' && l !== 'daily'; }
+function adaptivePool(){
+  if (!adaptiveEnabled(level)) return LEVEL_CONFIG[level].pool;
+  const base = basePoolIndex(level), drift = Math.min(POOL_ORDER.length - 1 - base, Math.floor(combo / 4));
+  return POOL_ORDER[base + drift];
+}
+const isBossIdx = i => i > 0 && (i + 1) % 10 === 0;
+
+// ================================================
+// Screens
+// ================================================
+function showScreen(id){
+  ['landing-page','level-select','game','result'].forEach(s => $(s).classList.toggle('hidden', s !== id));
+  $('langs').classList.toggle('hidden', id === 'game');
+  $('pauseOv').classList.add('hidden');
+  if (id === 'landing-page') { renderStreak(); displayAchievements(); }
+  if (id === 'level-select') { renderLevels(); updateLeaderboard(); }
+}
+function showLanding(){ stopTimer(); showScreen('landing-page'); playSound('click'); }
+function showLevelSelect(){ showScreen('level-select'); playSound('click'); }
+
+function bestKey(l, surv){ return `mathchaser_best_${l}${surv ? '_survival' : ''}`; }
+function renderLevels(){
+  const surv = $('survivalToggle').checked, grid = $('levelGrid'); grid.innerHTML = '';
+  TIERS.forEach(t => {
+    const c = LEVEL_CONFIG[t], best = parseInt(safeGet(bestKey(t, surv))) || 0;
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'lvl'; b.style.background = c.color;
+    b.innerHTML = `<span class="n">${c.ico} ${STR[lang][t]}</span><span class="m">⏱ ${c.baseTime}${STR[lang].sec}${c.comboRate ? ' ↘' : ''}</span><span class="b">🏅 ${best}</span>`;
+    b.onclick = () => startGame(t);
+    grid.appendChild(b);
+  });
+}
+function renderStreak(){
+  const s = safeGetJSON('mc_streak', { last: '', count: 0 }), box = $('streakBox'); box.innerHTML = '';
+  const today = localDate(0), yest = localDate(-1);
+  const alive = s.last === today || s.last === yest;
+  if (alive && s.count > 0) box.innerHTML = `<div class="streak">${tr('streakDays', s.count)}</div>`;
+  const dd = safeGetJSON('mc_daily_done', null);
+  if (dd && dd.date === new Date().toISOString().slice(0, 10)) box.innerHTML += `<div style="margin-top:.5rem;font-size:.82rem;font-weight:700;color:var(--success)">${tr('dailyDone')} · ${dd.score}</div>`;
+}
+function localDate(offset){
+  const d = new Date(); d.setDate(d.getDate() + offset);
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+function touchStreak(){
+  const s = safeGetJSON('mc_streak', { last: '', count: 0 }), today = localDate(0);
+  if (s.last === today) return s.count;
+  s.count = (s.last === localDate(-1)) ? s.count + 1 : 1;
+  s.last = today; safeSetJSON('mc_streak', s); return s.count;
+}
+
+// ================================================
+// i18n application
+// ================================================
+function updateTexts(){
+  const t = STR[lang];
+  ROOT.querySelectorAll('[data-i]').forEach(el => { const v = t[el.getAttribute('data-i')]; if (typeof v === 'string') el.textContent = v; });
+  $('boss-banner-text').textContent = t.boss;
+  $('adaptive-badge-text').textContent = t.adaptive;
+  $('share-text').textContent = t.share;
+  const todayLabel = new Date().toLocaleDateString(lang === 'gr' ? 'el-GR' : 'en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+  $('daily-btn-text').textContent = `${t.daily} (${todayLabel})`;
+  $('lang-gr').classList.toggle('on', lang === 'gr'); $('lang-en').classList.toggle('on', lang === 'en');
+  document.documentElement.lang = lang === 'gr' ? 'el' : 'en';
+  if (!$('statsPanel').classList.contains('hidden')) renderStatsPanel();
+  if (!$('level-select').classList.contains('hidden')) renderLevels();
+  if (!$('landing-page').classList.contains('hidden')) { renderStreak(); displayAchievements(); }
+  if (_globalView) renderGlobalLeaderboard(); else updateLeaderboard();
+  updateScoreDisplay();
+}
+
+// ================================================
+// Statistics
+// ================================================
+function toggleStats(){
+  const p = $('statsPanel'), hidden = p.classList.contains('hidden');
+  if (hidden) renderStatsPanel();
+  p.classList.toggle('hidden'); playSound('click');
+}
+function renderStatsPanel(){
+  const totals = safeGetJSON('mc_totals', { correct: 0, wrong: 0 }), topics = safeGetJSON('mc_topic_stats', {});
+  const n = totals.correct + totals.wrong, acc = n ? Math.round(totals.correct / n * 100) : 0, games = parseInt(safeGet('mc_games_played')) || 0;
+  const rows = Object.entries(topics).map(([k, s]) => { const tt = s.correct + s.wrong; return { k, tt, acc: tt ? Math.round(s.correct / tt * 100) : 0 }; })
+    .filter(r => r.tt > 0).sort((a, b) => a.acc - b.acc);
+  let h = `<div class="stat-big"><b>${acc}%</b><small>${tr('overall')} · ${games} ${tr('games')}</small></div>`;
+  if (!rows.length) h += `<p style="text-align:center;opacity:.7">${tr('playMore')}</p>`;
+  rows.forEach(r => {
+    const col = r.acc >= 75 ? 'var(--success)' : r.acc >= 50 ? 'var(--gold)' : 'var(--danger)';
+    h += `<div class="topic-row"><span class="nm">${topicName(r.k)}</span><span class="bar"><i style="width:${r.acc}%;background:${col}"></i></span><span class="pc" style="color:${col}">${r.acc}%</span></div>`;
+  });
+  $('statsBody').innerHTML = h;
+}
+function classifyTopic(q){
+  const x = (q.en || '') + ' ' + (q.gr || '');
+  if (/\[Complex|\[Μιγαδικοί|\|\d+ \+ \d+i\||\bi[²³⁴]/.test(x)) return 'Complex Numbers';
+  if (/∫|′|\blim\b/.test(x)) return 'Calculus';
+  if (/log|ln\(|ln /i.test(x)) return 'Logarithms';
+  if (/sin\d|cos\d|tan\d|ημ\d|συν\d|εφ\d|sin²|ημ²|sin\(|ημ\(/i.test(x)) return 'Trigonometry';
+  if (/C\(\d|τρόπους|ways|χειραψ|handshake|διαγών|diagonal|υποσύνολ|subset|!/.test(x)) return 'Combinatorics';
+  if (/Πιθανότητα|Probability|P\(|Μέσος όρος|Average|Διάμεσος|Median/.test(x)) return 'Statistics & Probability';
+  if (/πρόοδος|sequence|Σειρά|Series|1\+2\+3|Άθροισμα των 10/i.test(x)) return 'Sequences';
+  if (/GCD|LCM|ΕΚΠ|ΜΚΔ|prime|πρώτ|mod |διαιρέτ|divisor|πολλαπλάσι|multiple|ψηφίο|last digit|άρτι|even/i.test(x)) return 'Number Theory';
+  if (/Quadrant|Τεταρτημόριο|πR|Εμβαδόν|Area|Περίμετρος|Perimeter|γωνί|angle|πλευρ|sides|Κλίση|Slope|Απόσταση μεταξύ|Distance between|ακτίνας|radius|τρίγων|triangle/i.test(x)) return 'Geometry';
+  if (/%/.test(x)) return 'Percentages';
+  if (/x[²³\^]|\(x[+\-]|\dx\b|\bx =|ρίζ(ες|ων)|roots|Διακρίνουσα|Discriminant|det \[|x \+ 1\/x|a \+ b/.test(x)) return 'Algebra';
+  if (/\d\/\d/.test(x)) return 'Fractions';
+  if (/[²³]|√|\^|\d⁻/.test(x)) return 'Powers & Roots';
+  return 'Arithmetic';
+}
+function recordTopicStat(q, ok){
+  const topic = classifyTopic(q);
+  (sessionTopicStats[topic] = sessionTopicStats[topic] || { correct: 0, wrong: 0 })[ok ? 'correct' : 'wrong']++;
+  const life = safeGetJSON('mc_topic_stats', {});
+  (life[topic] = life[topic] || { correct: 0, wrong: 0 })[ok ? 'correct' : 'wrong']++;
+  safeSetJSON('mc_topic_stats', life);
+  const tot = safeGetJSON('mc_totals', { correct: 0, wrong: 0 }); tot[ok ? 'correct' : 'wrong']++; safeSetJSON('mc_totals', tot);
+}
+
+// ================================================
+// Starting a run
+// ================================================
+function resetRun(){
+  currentQuestion = 0; score = 0; combo = 0; maxCombo = 0;
+  questionAnswers = []; newAch = []; speedSamples = []; sessionTopicStats = {};
+  fiftyUsed = false; timeUsed = false; bossCorrect = false; gameOver = false; answered = false; paused = false;
+  safeSet('mc_games_played', (parseInt(safeGet('mc_games_played')) || 0) + 1);
+  $('combo-counter').style.visibility = 'hidden';
+  $('track').classList.remove('caught', 'danger');
+  $('life5050').disabled = false; $('lifeTime').disabled = false;
+}
+function enterGame(){
+  showScreen('game');
+  $('lvChip').textContent = (LEVEL_CONFIG[level].ico) + ' ' + (level === 'daily' ? tr('daily') : STR[lang][level]) + (survivalMode ? ' ♾' : '');
+  updateScoreDisplay();
+}
+function buildDeck(pool){
+  const mixed = shuffleArray([...QUESTION_SETS[pool], ...generateQuestions(pool, 14)]);
+  return mixed.slice(0, DECK_SIZE);
+}
+function startDailyChallenge(){
+  dailyDateStr = new Date().toISOString().slice(0, 10);
+  rng = seededRNG(hashStringToSeed('mathchaser-daily-v2-' + dailyDateStr));
+  level = 'daily'; survivalMode = false; resetRun();
+  ACTIVE_QUESTIONS = buildDeck(LEVEL_CONFIG.daily.pool);
+  rng = Math.random;
+  createProgressPills(); enterGame(); nextQuestion();
+}
+function startGame(sel){
+  level = sel; survivalMode = $('survivalToggle').checked; resetRun();
+  const pool = LEVEL_CONFIG[level].pool;
+  if (survivalMode) { ACTIVE_QUESTIONS = generateQuestions(pool, 30); $('progress-pills').innerHTML = ''; }
+  else { ACTIVE_QUESTIONS = buildDeck(pool); createProgressPills(); }
+  enterGame(); nextQuestion();
+}
+function playAgain(){ playSound('click'); if (level === 'daily') startDailyChallenge(); else startGame(level); }
+
+function createProgressPills(){
+  const box = $('progress-pills'); box.innerHTML = '';
+  ACTIVE_QUESTIONS.forEach((_, i) => { const p = document.createElement('div'); p.className = 'pill' + (isBossIdx(i) && level !== 'daily' ? ' boss' : ''); p.id = 'pill-' + i; box.appendChild(p); });
+}
+function updateProgressPills(i, ok){
+  const p = $('pill-' + i); if (p) { p.classList.remove('current'); p.classList.add(ok ? 'correct' : 'wrong'); }
+}
+
+// ================================================
+// Question flow
+// ================================================
+function nextQuestion(){
+  if (currentQuestion >= ACTIVE_QUESTIONS.length) {
+    if (survivalMode) ACTIVE_QUESTIONS = ACTIVE_QUESTIONS.concat(generateQuestions(LEVEL_CONFIG[level].pool, 20));
+    else { endGame(true); return; }
+  }
+  answered = false;
+  if (!survivalMode) $('pill-' + currentQuestion)?.classList.add('current');
+  $('answer-reveal')?.remove();
+
+  let q = ACTIVE_QUESTIONS[currentQuestion];
+  const ap = adaptivePool(), boosted = adaptiveEnabled(level) && ap !== LEVEL_CONFIG[level].pool;
+  $('adaptiveBadge').classList.toggle('hidden', !boosted);
+  if (boosted) q = generateQuestions(ap, 1)[0];
+  isBossActive = level !== 'daily' && isBossIdx(currentQuestion);
+  if (isBossActive) q = generateQuestions(POOL_ORDER[Math.min(POOL_ORDER.length - 1, basePoolIndex(level) + 1)], 1)[0];
+  $('bossBanner').classList.toggle('hidden', !isBossActive);
+  ACTIVE_QUESTIONS[currentQuestion] = q;
+
+  const txt = lang === 'gr' ? q.gr : q.en, qEl = $('question');
+  qEl.innerHTML = fmt(txt);
+  qEl.className = 'question' + (txt.length > 58 ? ' xl' : txt.length > 26 ? ' long' : '');
+
+  const box = $('options'); box.innerHTML = '';
+  q.o.forEach((v, i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'option';
+    b.innerHTML = `<kbd>${i + 1}</kbd>`; b.insertAdjacentHTML('beforeend', fmt(v));
+    b.onclick = () => checkAnswer(i, b); box.appendChild(b);
+  });
+  const ch = $('chaserx'); ch.classList.remove('snap');
+  startTimer();
+}
+
+function fmt(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/(\d|\))\^(\d+)/g,'$1<sup>$2</sup>'); }
+function stopTimer(){ if (tickId) { clearInterval(tickId); tickId = null; } }
+function startTimer(){
+  stopTimer();
+  qDur = LEVEL_CONFIG[level].baseTime * comboTimeFactor() * 1000;
+  qEnd = performance.now() + qDur;
+  $('bar').parentElement.classList.remove('warning', 'danger');
+  tickId = setInterval(tick, 50); tick();
+}
+function tick(){
+  const left = Math.max(0, qEnd - performance.now()), frac = left / qDur; lastFrac = frac;
+  $('bar').style.width = (frac * 100) + '%';
+  $('timerBar').setAttribute('aria-valuenow', Math.round(frac * 100));
+  $('timeText').textContent = (left / 1000).toFixed(1) + (lang === 'gr' ? ' δλ' : ' s');
+  const tb = $('timerBar');
+  tb.classList.toggle('warning', frac < 0.3 && frac >= 0.15); tb.classList.toggle('danger', frac < 0.15);
+  $('chaserx').style.left = (2 + (1 - frac) * 58) + '%';
+  $('track').classList.toggle('danger', frac < 0.3);
+  if (left <= 0) { stopTimer(); timeUp(); }
+}
+function pauseGame(on){
+  if (gameOver || $('game').classList.contains('hidden')) return;
+  if (on && !paused && !answered) { paused = true; pausedLeft = Math.max(0, qEnd - performance.now()); stopTimer(); $('pauseOv').classList.remove('hidden'); }
+  else if (!on && paused) { paused = false; qEnd = performance.now() + pausedLeft; $('pauseOv').classList.add('hidden'); tickId = setInterval(tick, 50); }
+}
+document.addEventListener('visibilitychange', () => { if (document.hidden) pauseGame(true); });
+document.addEventListener('keydown', e => {
+  if ($('game').classList.contains('hidden') || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.key === 'p' || e.key === 'P' || e.key === 'Escape') { e.preventDefault(); pauseGame(!paused); return; }
+  if (paused || answered) return;
+  const n = parseInt(e.key);
+  if (n >= 1 && n <= 3) { const b = $('options').children[n - 1]; if (b && !b.disabled) { e.preventDefault(); b.click(); } }
+});
+
+function useFifty(){
+  if (fiftyUsed || answered || paused || gameOver) return;
+  const q = ACTIVE_QUESTIONS[currentQuestion], btns = [...$('options').children];
+  const wrong = btns.map((b, i) => i).filter(i => i !== q.a && !btns[i].classList.contains('gone'));
+  if (!wrong.length) return;
+  const i = wrong[getRandomInt(0, wrong.length - 1)];
+  btns[i].classList.add('gone'); btns[i].disabled = true;
+  fiftyUsed = true; $('life5050').disabled = true; playSound('click');
+}
+function useTime(){
+  if (timeUsed || answered || paused || gameOver) return;
+  qEnd += 3000; qDur += 3000; timeUsed = true; $('lifeTime').disabled = true; playSound('click');
+}
+
+function revealCorrect(q){
+  const btns = $('options').children;
+  if (btns[q.a]) btns[q.a].classList.add('correct');
+  [...btns].forEach(b => b.disabled = true);
+}
+function checkAnswer(idx, btn){
+  if (answered || paused || gameOver) return;
+  answered = true; stopTimer();
+  const q = ACTIVE_QUESTIONS[currentQuestion], ok = idx === q.a;
+  questionAnswers.push(ok); recordTopicStat(q, ok);
+  if (ok) {
+    btn.classList.add('correct'); playSound('correct');
+    const boss = isBossActive; score += boss ? 2 : 1; if (boss) bossCorrect = true;
+    combo++; maxCombo = Math.max(maxCombo, combo); speedSamples.push(lastFrac);
+    const r = btn.getBoundingClientRect(), a = $('mc-card').getBoundingClientRect();
+    createParticles(r.left + r.width / 2 - a.left, r.top + r.height / 2 - a.top, '#00A97A');
+    if (combo >= 3) { playSound('combo'); showComboText(); }
+    const cc = $('combo-counter'); if (combo >= 2) { cc.style.visibility = 'visible'; cc.classList.remove('pop'); void cc.offsetWidth; cc.classList.add('pop'); }
+    updateScoreDisplay(); updateProgressPills(currentQuestion, true);
+    [...$('options').children].forEach(b => b.disabled = true);
+    const ch = $('chaserx'); ch.classList.add('snap'); ch.style.left = '2%';
+    const rn = $('runner'); rn.classList.remove('bounce'); void rn.offsetWidth; rn.classList.add('bounce');
+    setTimeout(() => { if (gameOver) return; currentQuestion++; nextQuestion(); }, 420);
+  } else {
+    btn.classList.add('wrong'); playSound('wrong'); combo = 0;
+    if (navigator.vibrate) try { navigator.vibrate(120); } catch (e) {}
+    updateProgressPills(currentQuestion, false); revealCorrect(q); showReveal(q);
+    $('track').classList.add('caught');
+    setTimeout(() => endGame(false), 1900);
+  }
+}
+function timeUp(){
+  if (answered || gameOver) return;
+  answered = true;
+  const q = ACTIVE_QUESTIONS[currentQuestion];
+  questionAnswers.push(false); recordTopicStat(q, false); combo = 0;
+  playSound('wrong'); updateProgressPills(currentQuestion, false); revealCorrect(q); showReveal(q, true);
+  $('track').classList.add('caught');
+  setTimeout(() => endGame(false), 1900);
+}
+function showReveal(q, timed){
+  const d = document.createElement('div'); d.id = 'answer-reveal'; d.className = 'reveal';
+  d.textContent = (timed ? tr('timeup') + ' ' : '') + tr('correctWas', q.o[q.a], lang === 'gr' ? q.gr : q.en);
+  $('options').insertAdjacentElement('afterend', d);
+}
+function showComboText(){
+  const c = document.createElement('div'); c.className = 'combo-display'; c.textContent = `${combo}x COMBO!`;
+  $('mc-card').appendChild(c); setTimeout(() => c.remove(), 700);
+}
+function updateScoreDisplay(){
+  $('score').textContent = `${STR[lang].score}: ${score}`;
+  $('combo-counter').textContent = `🔥 ${combo}`;
+}
+
+// ================================================
+// End of run
+// ================================================
+function endGame(won){
+  if (gameOver) return;
+  gameOver = true; stopTimer();
+  const n = questionAnswers.length, okN = questionAnswers.filter(Boolean).length, acc = n ? Math.round(okN / n * 100) : 0;
+  const streak = touchStreak();
+  showScreen('result');
+  $('resultMsg').textContent = won ? tr('escaped') : tr('caught');
+  const ratio = survivalMode ? Math.min(1, score / 30) : okN / DECK_SIZE;
+  const stars = won ? 3 : ratio >= 0.6 ? 2 : ratio >= 0.25 ? 1 : 0;
+  $('stars').innerHTML = [0, 1, 2].map(i => `<s class="${i < stars ? 'on' : ''}" style="animation-delay:${i * 0.18}s">★</s>`).join('');
+  $('rScore').textContent = score; $('rCombo').textContent = maxCombo; $('rAcc').textContent = acc + '%';
+
+  if (level === 'daily') safeSetJSON('mc_daily_done', { date: dailyDateStr, score });
+  checkAchievements(won, streak);
+  const isRecord = saveAndShowBestScore();
+  $('recBox').innerHTML = isRecord && score > 0 ? `<span class="newrec">${tr('newRecord')}</span>` : '';
+  updateLeaderboard(); showSessionTip();
+  lastResult = { won, score, combo: maxCombo, acc, lvl: level === 'daily' ? tr('daily') : STR[lang][level], surv: survivalMode };
+  $('share-text').textContent = tr('share');
+  playSound(won ? 'win' : 'lose'); if (won) confetti();
+  try { ROOT.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (e) {}
+}
+function showSessionTip(){
+  const tip = $('sessionTip'), ent = Object.entries(sessionTopicStats);
+  if (!ent.length) { tip.textContent = ''; return; }
+  let worst = null; ent.forEach(([t, s]) => { if (s.wrong > 0 && (!worst || s.wrong > worst[1].wrong)) worst = [t, s]; });
+  tip.textContent = worst ? tr('mistakes', worst[1].wrong, topicName(worst[0])) : tr('cleanRun');
+}
+function checkAchievements(won, streak){
+  newAch = []; const add = k => { if (unlock(k)) newAch.push(k); };
+  if (won) add('firstWin');
+  if (questionAnswers.length > 0 && questionAnswers.every(Boolean)) add('perfectRun');
+  if (maxCombo >= 5) add('comboMaster');
+  if ((level === 'expert' || level === 'impossible') && won) add('mathGenius');
+  const avg = speedSamples.length ? speedSamples.reduce((s, v) => s + v, 0) / speedSamples.length : 0;
+  if (won && avg >= 0.6) add('speedDemon');
+  if ((parseInt(safeGet('mc_games_played')) || 0) >= 5) add('persistent');
+  if (bossCorrect) add('bossSlayer');
+  if (survivalMode && score >= 25) add('survivor');
+  if (level === 'daily' && won) add('dailyHero');
+  if (streak >= 3) add('streak3');
+  const tot = safeGetJSON('mc_totals', { correct: 0, wrong: 0 }); if (tot.correct >= 100) add('hundred');
+  const box = $('newAchievements'), list = $('result-achievements'); list.innerHTML = '';
+  box.classList.toggle('hidden', !newAch.length);
+  newAch.forEach(k => {
+    const b = document.createElement('span'); b.className = 'badge unlocked'; b.textContent = ACH[k].icon; b.title = achLabel(k);
+    list.appendChild(b);
+    const cap = document.createElement('div'); cap.style.cssText = 'width:100%;font-size:.78rem;font-weight:600;opacity:.85'; cap.textContent = achLabel(k);
+    list.appendChild(cap);
+  });
+  if (newAch.length) playSound('combo');
+}
+function saveAndShowBestScore(){
+  const key = level === 'daily' ? `mathchaser_best_daily_${dailyDateStr}` : bestKey(level, survivalMode);
+  let best = parseInt(safeGet(key)) || 0, rec = false;
+  if (score > best) { best = score; rec = true; safeSet(key, best); saveToLeaderboard(score); }
+  submitToGlobalLeaderboard(score, level, survivalMode, level === 'daily', dailyDateStr);
+  $('bestScore').textContent = `${tr('best')}: ${best}`;
+  return rec;
+}
+function saveToLeaderboard(s){
+  const suffix = level === 'daily' ? `_daily_${dailyDateStr}` : (survivalMode ? '_survival' : '');
+  const k = `mc_leaderboard_${level}${suffix}`, lb = safeGetJSON(k, []);
+  lb.push({ score: s, date: new Date().toISOString(), combo: maxCombo });
+  lb.sort((a, b) => b.score - a.score); lb.splice(10); safeSetJSON(k, lb);
+}
+function updateLeaderboard(){
+  const box = $('leaderboard-preview'); if (_globalView) return; box.innerHTML = '';
+  TIERS.forEach(l => {
+    const lb = safeGetJSON(`mc_leaderboard_${l}`, []), lbs = safeGetJSON(`mc_leaderboard_${l}_survival`, []);
+    [[lb, ''], [lbs, ' ♾']].forEach(([arr, tag]) => {
+      if (!arr.length) return;
+      const e = document.createElement('div'); e.className = 'lb-entry';
+      e.innerHTML = `<span>${LEVEL_CONFIG[l].ico} ${STR[lang][l]}${tag}</span><b>${arr[0].score} ${tr('pts')} <small style="font-weight:500;opacity:.6">· 🔥${arr[0].combo || 0}</small></b>`;
+      box.appendChild(e);
+    });
+  });
+  if (!box.children.length) box.innerHTML = `<p class="lb-empty">${tr('noScores')}</p>`;
+}
+
+// ================================================
+// Share
+// ================================================
+async function shareResult(){
+  if (!lastResult) return;
+  const text = tr('shareText', lastResult), btn = $('share-text');
+  try {
+    if (navigator.share) { await navigator.share({ title: 'Math Chaser PRO', text, url: SITE_URL }); return; }
+  } catch (e) { if (e && e.name === 'AbortError') return; }
+  try { await navigator.clipboard.writeText(text); btn.textContent = tr('copied'); }
+  catch (e) {
+    const ta = document.createElement('textarea'); ta.value = text; ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); btn.textContent = tr('copied'); } catch (e2) {} ta.remove();
+  }
+  setTimeout(() => { btn.textContent = tr('share'); }, 2000);
+}
+
+// ================================================
+// Optional shared leaderboard (only when the host runtime offers it)
+// ================================================
+let _dbNS = null, _userNS = null, _myUid = null, _globalView = false;
+(async function initShared(){
+  try {
+    if (window.claude && window.claude.use) {
+      _dbNS = await window.claude.use('db'); _userNS = await window.claude.use('user');
+      if (_userNS) _myUid = await _userNS.id();
+      if (_dbNS) $('globalLbToggle').classList.remove('hidden');
+    }
+  } catch (e) { _dbNS = null; }
+})();
+async function submitToGlobalLeaderboard(finalScore, lvl, surv, isDaily, dKey){
+  if (!_dbNS) return;
+  try {
+    const uid = _myUid || 'anon'; let name = tr('player');
+    try { if (_userNS && _userNS.profiles) { const ps = await _userNS.profiles([uid]); if (ps && ps[uid] && ps[uid].name) name = ps[uid].name; } } catch (e) {}
+    if (isDaily) { await _dbNS.doc('mc_lb_daily/' + dKey + '_' + uid).set({ date: dKey, name, score: finalScore, updatedAt: Date.now() }); return; }
+    const ref = _dbNS.doc((surv ? 'mc_lb_survival' : 'mc_lb_alltime') + '/' + uid + (surv ? '' : '_' + lvl));
+    let best = 0; try { const s = await ref.get(); best = (s && s.data ? s.data().score : s && s.score) || 0; } catch (e) {}
+    if (finalScore > best) await ref.set({ name, level: lvl, score: finalScore, updatedAt: Date.now() });
+  } catch (e) {}
+}
+async function toggleGlobalLeaderboard(){
+  _globalView = !_globalView;
+  $('globalLbToggle').classList.toggle('active', _globalView); $('localLbToggle').classList.toggle('active', !_globalView);
+  if (_globalView) await renderGlobalLeaderboard(); else updateLeaderboard();
+}
+async function renderGlobalLeaderboard(){
+  const box = $('leaderboard-preview'); box.innerHTML = `<p class="lb-empty">${tr('loading')}</p>`;
+  if (!_dbNS) { box.innerHTML = `<p class="lb-empty">${tr('unavailable')}</p>`; return; }
+  try {
+    let q = _dbNS.collection('mc_lb_alltime'); if (q.orderBy) q = q.orderBy('score', 'desc'); if (q.limit) q = q.limit(10);
+    const res = await q.get(), docs = (res && res.docs) ? res.docs.map(d => d.data ? d.data() : d) : (Array.isArray(res) ? res : []);
+    if (!docs.length) { box.innerHTML = `<p class="lb-empty">${tr('noGlobal')}</p>`; return; }
+    box.innerHTML = '';
+    docs.forEach((d, i) => { const e = document.createElement('div'); e.className = 'lb-entry'; const n = document.createElement('span'); n.textContent = `#${i + 1} ${d.name || tr('player')}`; const s = document.createElement('b'); s.textContent = `${d.score || 0} ${tr('pts')}`; e.append(n, s); box.appendChild(e); });
+  } catch (e) { box.innerHTML = `<p class="lb-empty">${tr('failed')}</p>`; }
+}
+
+// expose handlers used by inline onclick attributes
+Object.assign(window, { setLang, toggleSound, toggleTheme, showLevelSelect, showLanding, startGame, startDailyChallenge, toggleStats, renderLevels,
+  pauseGame, useFifty, useTime, playAgain, shareResult, toggleGlobalLeaderboard });
+
+// ================================================
+// Init
+// ================================================
+applyTheme(); applySound(); updateTexts(); displayAchievements(); renderStreak();
+window.__mc = { questionTypes, QUESTION_SETS, buildQuestion, classifyTopic, setLangInternal: l => { lang = l; }, state: () => ({ q: ACTIVE_QUESTIONS[currentQuestion], cur: currentQuestion, score, combo, paused, over: gameOver }) };
+})();
+</script>
